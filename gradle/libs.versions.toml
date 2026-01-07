@@ -1,16 +1,17 @@
 [versions]
-kotlin = "2.0.0"
-dokka = "2.1.0"
-coroutines = "1.9.0"
-serialization = "1.7.0"
-kmp-datetime = "0.6.0"
-ktor = "2.3.12"
 android-library = "8.2.2"
-jvm-toolchain = "21"
+bignum = "0.3.10"
+coroutines = "1.9.0"
+dokka = "2.1.0"
+jvm-toolchain = "17"
+kmp-datetime = "0.6.0"
+kotlin = "2.0.0"
+kover = "0.9.4"
+ktor = "2.3.12"
+robolectric = "4.16"
+serialization = "1.7.0"
 slf4j = "2.0.9"
 spotless = "8.1.0"
-robolectric = "4.16"
-kover = "0.9.4"
 
 [libraries]
 # KMP Common
@@ -18,6 +19,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kmp-datetime" }
+bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
+bignum-serialization = { module = "com.ionspin.kotlin:bignum-serialization-kotlinx", version.ref = "bignum"}
 
 # Ktor (Web & Networking)
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
@@ -45,3 +48,10 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+
+[bundles]
+
+bignum = [
+    "bignum",
+    "bignum-serialization"
+]

@@ -11,6 +11,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.bundles.bignum)
         }
 
         jvmMain.dependencies {
@@ -23,6 +24,6 @@ kotlin {
     }
 }
 
-dependencies {
-    add("androidUnitTestImplementation", libs.robolectric)
-}
+//dependencies {
+//    add("androidUnitTestImplementation", libs.robolectric)
+//}

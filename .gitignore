@@ -1,0 +1,36 @@
+.gradle
+**/build/**
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# Claude
+.claude
+openspec
+AGENTS.md
+CLAUDE.md
+
+### IntelliJ IDEA ###
+.idea
+.kotlin
+*.iws
+*.iml
+*.ipr
+/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/.env
+
+.DS_Store

@@ -1,0 +1,176 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish-linux:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - target: jvm
+            test: jvmTest
+            task: publishJvmPublicationToGitHubPackagesRepository
+          - target: linuxX64
+            test: linuxX64Test
+            task: publishLinuxX64PublicationToGitHubPackagesRepository
+          - target: android
+            test: testDebugUnitTest
+            task: publishAndroidReleasePublicationToGitHubPackagesRepository
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        if: matrix.target == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: false
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Test ${{ matrix.target }}
+        run: ./gradlew ${{ matrix.test }} --no-daemon
+
+      - name: Publish ${{ matrix.target }}
+        run: ./gradlew "-Pversion=${{ steps.version.outputs.VERSION }}" ${{ matrix.task }} --no-daemon
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+  publish-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - target: mingwX64
+            test: mingwX64Test
+            task: publishMingwX64PublicationToGitHubPackagesRepository
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: false
+
+      - name: Extract version from tag
+        id: version
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Test ${{ matrix.target }}
+        run: ./gradlew ${{ matrix.test }} --no-daemon
+
+      - name: Publish ${{ matrix.target }}
+        run: ./gradlew "-Pversion=${{ steps.version.outputs.VERSION }}" ${{ matrix.task }} --no-daemon
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+  publish-apple:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - target: iosArm64
+            test: linkDebugTestIosArm64
+            task: publishIosArm64PublicationToGitHubPackagesRepository
+          - target: iosSimulatorArm64
+            test: iosSimulatorArm64Test
+            task: publishIosSimulatorArm64PublicationToGitHubPackagesRepository
+          - target: iosX64
+            test: iosX64Test
+            task: publishIosX64PublicationToGitHubPackagesRepository
+          - target: macosArm64
+            test: macosArm64Test
+            task: publishMacosArm64PublicationToGitHubPackagesRepository
+          - target: macosX64
+            test: macosX64Test
+            task: publishMacosX64PublicationToGitHubPackagesRepository
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: false
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Test ${{ matrix.target }}
+        run: ./gradlew ${{ matrix.test }} --no-daemon
+
+      - name: Publish ${{ matrix.target }}
+        run: ./gradlew "-Pversion=${{ steps.version.outputs.VERSION }}" ${{ matrix.task }} --no-daemon
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+  create-release:
+    needs: [publish-linux, publish-windows, publish-apple]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ steps.version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

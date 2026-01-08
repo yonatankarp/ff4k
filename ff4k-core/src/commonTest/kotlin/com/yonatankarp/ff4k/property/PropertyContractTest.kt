@@ -3,7 +3,10 @@ package com.yonatankarp.ff4k.property
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 abstract class PropertyContractTest<V, P : Property<V>> {
 
@@ -18,7 +21,7 @@ abstract class PropertyContractTest<V, P : Property<V>> {
         value: V,
         description: String? = null,
         fixedValues: Set<V> = emptySet(),
-        readOnly: Boolean = false
+        readOnly: Boolean = false,
     ): P
 
     protected abstract fun sampleName(): String
@@ -69,7 +72,7 @@ abstract class PropertyContractTest<V, P : Property<V>> {
         val original = create(
             name = sampleName(),
             value = sampleValue(),
-            description = "Some description"
+            description = "Some description",
         )
 
         // When

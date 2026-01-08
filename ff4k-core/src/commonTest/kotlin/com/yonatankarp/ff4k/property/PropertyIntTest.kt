@@ -14,18 +14,17 @@ class PropertyIntTest : PropertyContractTest<Int, PropertyInt>() {
         value: Int,
         description: String?,
         fixedValues: Set<Int>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyInt = PropertyInt(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "maxRetries"
     override fun sampleValue(): Int = 3
     override fun otherValueNotInFixedValues(): Int = 5
-    override fun fixedValuesIncludingSample(sample: Int): Set<Int> =
-        setOf(1, 2, 3, sample)
+    override fun fixedValuesIncludingSample(sample: Int): Set<Int> = setOf(1, 2, 3, sample)
 }

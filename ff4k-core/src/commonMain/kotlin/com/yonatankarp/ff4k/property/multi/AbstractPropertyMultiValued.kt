@@ -74,4 +74,24 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
     override fun clear() {
         value.clear()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AbstractPropertyMultiValued<*, *>) return false
+
+        return name == other.name &&
+            value == other.value &&
+            description == other.description &&
+            fixedValues == other.fixedValues &&
+            readOnly == other.readOnly
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + value.hashCode()
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + fixedValues.hashCode()
+        result = 31 * result + readOnly.hashCode()
+        return result
+    }
 }

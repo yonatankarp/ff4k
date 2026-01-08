@@ -2,6 +2,7 @@ package com.yonatankarp.ff4k.property.multi
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class AbstractPropertyListTest {
@@ -168,8 +169,91 @@ class AbstractPropertyListTest {
         assertTrue(property.listIterator(0).hasNext())
     }
 
+    @Test
+    fun `list properties are equal and have same hashCode when all fields match`() {
+        // Given
+        val propertyName = "list"
+        val value = mutableListOf("a", "b")
+        val description = "desc"
+        val fixedValues = mutableSetOf(mutableListOf("x"))
+        val readOnly = true
+
+        val first = StringListProperty(propertyName, value.toMutableList(), description, fixedValues, readOnly)
+        val second = StringListProperty(propertyName, value.toMutableList(), description, fixedValues, readOnly)
+
+        // When
+        val equals = first == second
+        val hashEquals = first.hashCode() == second.hashCode()
+
+        // Then
+        assertEquals(true, equals)
+        assertEquals(true, hashEquals)
+    }
+
+    @Test
+    fun `list properties are not equal when any field differs`() {
+        // Given
+        val base = StringListProperty(
+            name = "list",
+            value = mutableListOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf(mutableListOf("x")),
+            readOnly = true,
+        )
+
+        val differentName = StringListProperty(
+            name = "other",
+            value = mutableListOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf(mutableListOf("x")),
+            readOnly = true,
+        )
+
+        val differentValue = StringListProperty(
+            name = "list",
+            value = mutableListOf("a", "c"),
+            description = "desc",
+            fixedValues = mutableSetOf(mutableListOf("x")),
+            readOnly = true,
+        )
+
+        val differentDescription = StringListProperty(
+            name = "list",
+            value = mutableListOf("a", "b"),
+            description = "different",
+            fixedValues = mutableSetOf(mutableListOf("x")),
+            readOnly = true,
+        )
+
+        val differentFixedValues = StringListProperty(
+            name = "list",
+            value = mutableListOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf(mutableListOf("y")),
+            readOnly = true,
+        )
+
+        val differentReadOnly = StringListProperty(
+            name = "list",
+            value = mutableListOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf(mutableListOf("x")),
+            readOnly = false,
+        )
+
+        // When / Then
+        assertNotEquals(base, differentName)
+        assertNotEquals(base, differentValue)
+        assertNotEquals(base, differentDescription)
+        assertNotEquals(base, differentFixedValues)
+        assertNotEquals(base, differentReadOnly)
+    }
+
     private class StringListProperty(
         name: String,
         value: MutableList<String> = mutableListOf(),
-    ) : AbstractPropertyList<String>(name, value)
+        description: String? = null,
+        fixedValues: MutableSet<MutableList<String>> = mutableSetOf(),
+        readOnly: Boolean = false,
+    ) : AbstractPropertyList<String>(name, value, description, fixedValues, readOnly)
 }

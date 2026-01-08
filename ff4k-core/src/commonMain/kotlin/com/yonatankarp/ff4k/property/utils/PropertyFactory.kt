@@ -43,9 +43,8 @@ inline fun <reified T> property(
     value: T,
     description: String? = null,
     fixedValues: Set<T> = emptySet(),
-    readOnly: Boolean = false
-): Property<T> =
-    propertyOf(name, value, description, fixedValues, readOnly, T::class)
+    readOnly: Boolean = false,
+): Property<T> = propertyOf(name, value, description, fixedValues, readOnly, T::class)
 
 /**
  * Internal implementation backing the public inline [property] factory.
@@ -89,26 +88,24 @@ internal fun <T> propertyOf(
     description: String?,
     fixedValues: Set<T>,
     readOnly: Boolean,
-    kclass: kotlin.reflect.KClass<*>
-): Property<T> {
-    return when (kclass) {
-        String::class -> string(name, value as String, description, fixedValues as Set<String>, readOnly)
-        Int::class -> int(name, value as Int, description, fixedValues as Set<Int>, readOnly)
-        Boolean::class -> boolean(name, value as Boolean, description, fixedValues as Set<Boolean>, readOnly)
-        Long::class -> long(name, value as Long, description, fixedValues as Set<Long>, readOnly)
-        Float::class -> float(name, value as Float, description, fixedValues as Set<Float>, readOnly)
-        Double::class -> double(name, value as Double, description, fixedValues as Set<Double>, readOnly)
-        Short::class -> short(name, value as Short, description, fixedValues as Set<Short>, readOnly)
-        Byte::class -> byte(name, value as Byte, description, fixedValues as Set<Byte>, readOnly)
-        LocalDate::class -> localDate(name, value as LocalDate, description, fixedValues as Set<LocalDate>, readOnly)
-        LocalDateTime::class -> localDateTime(name, value as LocalDateTime, description, fixedValues as Set<LocalDateTime>, readOnly)
-        Instant::class -> instant(name, value as Instant, description, fixedValues as Set<Instant>, readOnly)
-        PropertyLogLevel.LogLevel::class -> logLevel(name, value as PropertyLogLevel.LogLevel, description, fixedValues as Set<PropertyLogLevel.LogLevel>, readOnly)
-        BigInteger::class -> bigInteger(name, value as BigInteger, description, fixedValues as Set<BigInteger>, readOnly)
-        BigDecimal::class -> bigDecimal(name, value as BigDecimal, description, fixedValues as Set<BigDecimal>, readOnly)
-        else -> throw IllegalArgumentException("Unsupported property type: $kclass")
-    } as Property<T>
-}
+    kclass: kotlin.reflect.KClass<*>,
+): Property<T> = when (kclass) {
+    String::class -> string(name, value as String, description, fixedValues as Set<String>, readOnly)
+    Int::class -> int(name, value as Int, description, fixedValues as Set<Int>, readOnly)
+    Boolean::class -> boolean(name, value as Boolean, description, fixedValues as Set<Boolean>, readOnly)
+    Long::class -> long(name, value as Long, description, fixedValues as Set<Long>, readOnly)
+    Float::class -> float(name, value as Float, description, fixedValues as Set<Float>, readOnly)
+    Double::class -> double(name, value as Double, description, fixedValues as Set<Double>, readOnly)
+    Short::class -> short(name, value as Short, description, fixedValues as Set<Short>, readOnly)
+    Byte::class -> byte(name, value as Byte, description, fixedValues as Set<Byte>, readOnly)
+    LocalDate::class -> localDate(name, value as LocalDate, description, fixedValues as Set<LocalDate>, readOnly)
+    LocalDateTime::class -> localDateTime(name, value as LocalDateTime, description, fixedValues as Set<LocalDateTime>, readOnly)
+    Instant::class -> instant(name, value as Instant, description, fixedValues as Set<Instant>, readOnly)
+    PropertyLogLevel.LogLevel::class -> logLevel(name, value as PropertyLogLevel.LogLevel, description, fixedValues as Set<PropertyLogLevel.LogLevel>, readOnly)
+    BigInteger::class -> bigInteger(name, value as BigInteger, description, fixedValues as Set<BigInteger>, readOnly)
+    BigDecimal::class -> bigDecimal(name, value as BigDecimal, description, fixedValues as Set<BigDecimal>, readOnly)
+    else -> throw IllegalArgumentException("Unsupported property type: $kclass")
+} as Property<T>
 
 /**
  * Create a PropertyString configured with the given name and value.

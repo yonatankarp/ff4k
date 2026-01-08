@@ -1,7 +1,5 @@
 package com.yonatankarp.ff4k.property
 
-import kotlin.test.assertTrue
-
 /**
  * Tests for PropertyFloat class.
  *
@@ -16,19 +14,18 @@ class PropertyFloatTest : PropertyContractTest<Float, PropertyFloat>() {
         value: Float,
         description: String?,
         fixedValues: Set<Float>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyFloat = PropertyFloat(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "temperature"
     override fun sampleValue(): Float = 98.6f
     override fun otherValueNotInFixedValues(): Float = 95.0f
 
-    override fun fixedValuesIncludingSample(sample: Float): Set<Float> =
-        setOf(98.6f, 100.4f, 102.2f, sample)
+    override fun fixedValuesIncludingSample(sample: Float): Set<Float> = setOf(98.6f, 100.4f, 102.2f, sample)
 }

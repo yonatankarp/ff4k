@@ -8,8 +8,7 @@ import kotlin.test.assertTrue
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyLogLevelTest :
-    PropertyContractTest<LogLevel, PropertyLogLevel>() {
+class PropertyLogLevelTest : PropertyContractTest<LogLevel, PropertyLogLevel>() {
 
     override val serializer = PropertyLogLevel.serializer()
 
@@ -18,35 +17,33 @@ class PropertyLogLevelTest :
         value: LogLevel,
         description: String?,
         fixedValues: Set<LogLevel>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyLogLevel = PropertyLogLevel(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "log.level"
     override fun sampleValue(): LogLevel = LogLevel.INFO
 
-    override fun otherValueNotInFixedValues(): LogLevel =
-        LogLevel.FATAL
+    override fun otherValueNotInFixedValues(): LogLevel = LogLevel.FATAL
 
-    override fun fixedValuesIncludingSample(sample: LogLevel): Set<LogLevel> =
-        setOf(
-            LogLevel.TRACE,
-            LogLevel.DEBUG,
-            LogLevel.INFO,
-            LogLevel.WARN,
-            LogLevel.ERROR,
-            sample,
-        )
+    override fun fixedValuesIncludingSample(sample: LogLevel): Set<LogLevel> = setOf(
+        LogLevel.TRACE,
+        LogLevel.DEBUG,
+        LogLevel.INFO,
+        LogLevel.WARN,
+        LogLevel.ERROR,
+        sample,
+    )
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: LogLevel) {
         assertTrue(
             jsonString.contains(""""value":"${expectedValue.name}""""),
-            "JSON missing log level value: $jsonString"
+            "JSON missing log level value: $jsonString",
         )
     }
 }

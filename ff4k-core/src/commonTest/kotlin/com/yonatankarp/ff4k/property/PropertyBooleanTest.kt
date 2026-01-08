@@ -2,7 +2,6 @@ package com.yonatankarp.ff4k.property
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyBoolean class.
@@ -18,21 +17,20 @@ class PropertyBooleanTest : PropertyContractTest<Boolean, PropertyBoolean>() {
         value: Boolean,
         description: String?,
         fixedValues: Set<Boolean>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyBoolean = PropertyBoolean(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "enableCache"
     override fun sampleValue(): Boolean = true
     override fun otherValueNotInFixedValues(): Boolean = false
 
-    override fun fixedValuesIncludingSample(sample: Boolean): Set<Boolean> =
-        setOf(true, sample)
+    override fun fixedValuesIncludingSample(sample: Boolean): Set<Boolean> = setOf(true, sample)
 
     @Test
     fun `stores false value`() {

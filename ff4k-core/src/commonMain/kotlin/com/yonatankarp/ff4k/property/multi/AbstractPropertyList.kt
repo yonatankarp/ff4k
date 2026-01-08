@@ -10,7 +10,10 @@ package com.yonatankarp.ff4k.property.multi
 abstract class AbstractPropertyList<T>(
     name: String,
     value: MutableList<T>,
-) : AbstractPropertyMultiValued<T, MutableList<T>>(name, value),
+    description: String? = null,
+    fixedValues: MutableSet<MutableList<T>> = mutableSetOf(),
+    readOnly: Boolean = false,
+) : AbstractPropertyMultiValued<T, MutableList<T>>(name, value, description, fixedValues, readOnly),
     MutableList<T> {
 
     /**

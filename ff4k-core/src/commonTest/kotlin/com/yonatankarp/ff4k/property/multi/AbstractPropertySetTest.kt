@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.property.multi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -23,7 +24,6 @@ class AbstractPropertySetTest {
         assertEquals(emptySet(), fixedValues)
         assertFalse(readOnly)
     }
-
 
     @Test
     fun `add inserts element and increases size`() {
@@ -188,6 +188,86 @@ class AbstractPropertySetTest {
         assertTrue(property.isEmpty())
         assertEquals(0, property.size)
         assertEquals(emptySet(), property.value)
+    }
+
+    @Test
+    fun `set properties are equal and have same hashCode when all fields match`() {
+        // Given
+        val propertyName = "set"
+        val value = mutableSetOf("a", "b")
+        val description = "desc"
+        val fixedValues = mutableSetOf("x")
+        val readOnly = true
+
+        val first = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
+        val second = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
+
+        // When
+        val equals = first == second
+        val hashEquals = first.hashCode() == second.hashCode()
+
+        // Then
+        assertEquals(true, equals)
+        assertEquals(true, hashEquals)
+    }
+
+    @Test
+    fun `set properties are not equal when any field differs`() {
+        // Given
+        val base = StringSetProperty(
+            name = "set",
+            value = mutableSetOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf("x"),
+            readOnly = true,
+        )
+
+        val differentName = StringSetProperty(
+            name = "other",
+            value = mutableSetOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf("x"),
+            readOnly = true,
+        )
+
+        val differentValue = StringSetProperty(
+            name = "set",
+            value = mutableSetOf("a", "c"),
+            description = "desc",
+            fixedValues = mutableSetOf("x"),
+            readOnly = true,
+        )
+
+        val differentDescription = StringSetProperty(
+            name = "set",
+            value = mutableSetOf("a", "b"),
+            description = "different",
+            fixedValues = mutableSetOf("x"),
+            readOnly = true,
+        )
+
+        val differentFixedValues = StringSetProperty(
+            name = "set",
+            value = mutableSetOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf("y"),
+            readOnly = true,
+        )
+
+        val differentReadOnly = StringSetProperty(
+            name = "set",
+            value = mutableSetOf("a", "b"),
+            description = "desc",
+            fixedValues = mutableSetOf("x"),
+            readOnly = false,
+        )
+
+        // When / Then
+        assertNotEquals(base, differentName)
+        assertNotEquals(base, differentValue)
+        assertNotEquals(base, differentDescription)
+        assertNotEquals(base, differentFixedValues)
+        assertNotEquals(base, differentReadOnly)
     }
 
     private class StringSetProperty(

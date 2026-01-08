@@ -14,19 +14,18 @@ class PropertyDoubleTest : PropertyContractTest<Double, PropertyDouble>() {
         value: Double,
         description: String?,
         fixedValues: Set<Double>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyDouble = PropertyDouble(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "rate"
     override fun sampleValue(): Double = 0.05
     override fun otherValueNotInFixedValues(): Double = 0.15
 
-    override fun fixedValuesIncludingSample(sample: Double): Set<Double> =
-        setOf(0.01, 0.05, 0.1, sample)
+    override fun fixedValuesIncludingSample(sample: Double): Set<Double> = setOf(0.01, 0.05, 0.1, sample)
 }

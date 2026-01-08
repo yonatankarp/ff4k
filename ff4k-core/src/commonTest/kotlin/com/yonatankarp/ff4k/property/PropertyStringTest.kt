@@ -16,20 +16,19 @@ class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
         value: String,
         description: String?,
         fixedValues: Set<String>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyString = PropertyString(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "apiKey"
     override fun sampleValue(): String = "secret123"
     override fun otherValueNotInFixedValues(): String = "invalid"
-    override fun fixedValuesIncludingSample(sample: String): Set<String> =
-        setOf("dev", "staging", "prod", sample)
+    override fun fixedValuesIncludingSample(sample: String): Set<String> = setOf("dev", "staging", "prod", sample)
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: String) {
         assertTrue(""""value":"$expectedValue"""" in jsonString, "JSON missing value: $jsonString")

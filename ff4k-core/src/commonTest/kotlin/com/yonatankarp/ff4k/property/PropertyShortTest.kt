@@ -1,7 +1,4 @@
-// File: src/commonTest/kotlin/com/yonatankarp/ff4k/property/PropertyShortContractTest.kt
 package com.yonatankarp.ff4k.property
-
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyShort class.
@@ -17,13 +14,13 @@ class PropertyShortTest : PropertyContractTest<Short, PropertyShort>() {
         value: Short,
         description: String?,
         fixedValues: Set<Short>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyShort = PropertyShort(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "port"

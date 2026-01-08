@@ -24,13 +24,13 @@ class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteg
         value: BigInteger,
         description: String?,
         fixedValues: Set<BigInteger>,
-        readOnly: Boolean
+        readOnly: Boolean,
     ): PropertyBigInteger = PropertyBigInteger(
         name = name,
         value = value,
         description = description,
         fixedValues = fixedValues,
-        readOnly = readOnly
+        readOnly = readOnly,
     )
 
     override fun sampleName(): String = "largeNumber"
@@ -38,17 +38,17 @@ class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteg
 
     override fun otherValueNotInFixedValues(): BigInteger = "5000".toBigInteger()
 
-    override fun fixedValuesIncludingSample(sample: BigInteger): Set<BigInteger> =
-        setOf(
-            100.toBigInteger(),
-            1_000.toBigInteger(),
-            10_000.toBigInteger(),
-            sample)
+    override fun fixedValuesIncludingSample(sample: BigInteger): Set<BigInteger> = setOf(
+        100.toBigInteger(),
+        1_000.toBigInteger(),
+        10_000.toBigInteger(),
+        sample,
+    )
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: BigInteger) {
         assertTrue(
             jsonString.contains(""""value":"$expectedValue""""),
-            "JSON missing BigInteger value: $jsonString"
+            "JSON missing BigInteger value: $jsonString",
         )
     }
 }

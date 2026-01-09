@@ -3,6 +3,8 @@ package com.yonatankarp.ff4k.property
 /**
  * Abstraction of Property.
  *
+ * @param T The type of the property value.
+ *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 interface Property<T> {

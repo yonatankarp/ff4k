@@ -28,13 +28,14 @@ import kotlinx.datetime.LocalDateTime
  *   val pInt      = property("count", 5)
  *   val pString   = property("name", "hello")
  *   val pClass    = property("klass", String::class)
- *   val pDateTime = property("now", LocalDateTime.now())
+ *   val pLogLevel = property("logLevel", LogLevel.Error)
  *
  * @param name        Unique identifier for the property.
  * @param value       The initial value.
  * @param description Optional human‑readable description.
  * @param fixedValues Optional set of values that the property may assume.
  * @param readOnly    If true the property cannot be changed after creation.
+ * @param T           The type of the property value.
  *
  * @return A Property subclass that matches the type of `value`.
  */
@@ -303,9 +304,9 @@ internal fun short(
  * Creates a PropertyBigInteger with the supplied metadata and value.
  *
  * @param name The property identifier.
- * @param value The decimal string representation of the BigInteger value.
+ * @param value The BigInteger value of the property.
  * @param description Optional human-readable description of the property.
- * @param fixedValues Optional set of allowed decimal string values for the property.
+ * @param fixedValues Optional set of allowed BigInteger values for the property.
  * @param readOnly `true` if the property must not be modified, `false` otherwise.
  * @return A PropertyBigInteger populated with the provided name, value, description, fixed values, and readOnly flag.
  */
@@ -324,12 +325,12 @@ internal fun bigInteger(
 )
 
 /**
- * Create a PropertyBigDecimal with the provided name, string decimal value, and optional metadata.
+ * Create a PropertyBigDecimal with the provided name, value, and optional metadata.
  *
  * @param name The property's identifier.
- * @param value The decimal value encoded as a string.
+ * @param value The BigDecimal value of the property.
  * @param description Optional human-readable description.
- * @param fixedValues Optional set of allowed decimal values (each encoded as a string).
+ * @param fixedValues Optional set of allowed BigDecimal values.
  * @param readOnly When true, the property cannot be modified.
  * @return A PropertyBigDecimal initialized with the supplied values.
  */

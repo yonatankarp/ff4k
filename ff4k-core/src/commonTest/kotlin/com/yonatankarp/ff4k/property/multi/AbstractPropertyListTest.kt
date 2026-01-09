@@ -175,7 +175,7 @@ class AbstractPropertyListTest {
         val propertyName = "list"
         val value = mutableListOf("a", "b")
         val description = "desc"
-        val fixedValues = mutableSetOf(mutableListOf("x"))
+        val fixedValues = mutableSetOf(mutableListOf("a", "b"))
         val readOnly = true
 
         val first = StringListProperty(propertyName, value.toMutableList(), description, fixedValues, readOnly)
@@ -197,7 +197,7 @@ class AbstractPropertyListTest {
             name = "list",
             value = mutableListOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf(mutableListOf("x")),
+            fixedValues = mutableSetOf(mutableListOf("a", "b")),
             readOnly = true,
         )
 
@@ -205,7 +205,7 @@ class AbstractPropertyListTest {
             name = "other",
             value = mutableListOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf(mutableListOf("x")),
+            fixedValues = mutableSetOf(mutableListOf("a", "b")),
             readOnly = true,
         )
 
@@ -213,7 +213,7 @@ class AbstractPropertyListTest {
             name = "list",
             value = mutableListOf("a", "c"),
             description = "desc",
-            fixedValues = mutableSetOf(mutableListOf("x")),
+            fixedValues = mutableSetOf(mutableListOf("a", "c")),
             readOnly = true,
         )
 
@@ -221,7 +221,7 @@ class AbstractPropertyListTest {
             name = "list",
             value = mutableListOf("a", "b"),
             description = "different",
-            fixedValues = mutableSetOf(mutableListOf("x")),
+            fixedValues = mutableSetOf(mutableListOf("a", "b")),
             readOnly = true,
         )
 
@@ -229,7 +229,7 @@ class AbstractPropertyListTest {
             name = "list",
             value = mutableListOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf(mutableListOf("y")),
+            fixedValues = mutableSetOf(mutableListOf("a", "b"), mutableListOf("a", "c")),
             readOnly = true,
         )
 
@@ -237,7 +237,7 @@ class AbstractPropertyListTest {
             name = "list",
             value = mutableListOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf(mutableListOf("x")),
+            fixedValues = mutableSetOf(mutableListOf("a", "b")),
             readOnly = false,
         )
 

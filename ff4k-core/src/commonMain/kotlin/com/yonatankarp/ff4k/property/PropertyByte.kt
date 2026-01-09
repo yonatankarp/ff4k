@@ -22,4 +22,10 @@ data class PropertyByte(
     override val description: String? = null,
     override val fixedValues: Set<Byte> = emptySet(),
     override val readOnly: Boolean = false,
-) : Property<Byte>
+) : Property<Byte> {
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+}

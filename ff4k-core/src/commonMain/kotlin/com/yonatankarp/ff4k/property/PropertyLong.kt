@@ -22,4 +22,10 @@ data class PropertyLong(
     override val description: String? = null,
     override val fixedValues: Set<Long> = emptySet(),
     override val readOnly: Boolean = false,
-) : Property<Long>
+) : Property<Long> {
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+}

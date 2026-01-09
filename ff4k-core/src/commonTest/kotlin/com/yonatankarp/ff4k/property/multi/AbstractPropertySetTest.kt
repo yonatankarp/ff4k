@@ -196,7 +196,7 @@ class AbstractPropertySetTest {
         val propertyName = "set"
         val value = mutableSetOf("a", "b")
         val description = "desc"
-        val fixedValues = mutableSetOf("x")
+        val fixedValues = mutableSetOf(mutableSetOf("a", "b"))
         val readOnly = true
 
         val first = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
@@ -218,7 +218,7 @@ class AbstractPropertySetTest {
             name = "set",
             value = mutableSetOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf("x"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
             readOnly = true,
         )
 
@@ -226,7 +226,7 @@ class AbstractPropertySetTest {
             name = "other",
             value = mutableSetOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf("x"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
             readOnly = true,
         )
 
@@ -234,7 +234,7 @@ class AbstractPropertySetTest {
             name = "set",
             value = mutableSetOf("a", "c"),
             description = "desc",
-            fixedValues = mutableSetOf("x"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
             readOnly = true,
         )
 
@@ -242,7 +242,7 @@ class AbstractPropertySetTest {
             name = "set",
             value = mutableSetOf("a", "b"),
             description = "different",
-            fixedValues = mutableSetOf("x"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
             readOnly = true,
         )
 
@@ -250,7 +250,7 @@ class AbstractPropertySetTest {
             name = "set",
             value = mutableSetOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf("y"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b")),
             readOnly = true,
         )
 
@@ -258,7 +258,7 @@ class AbstractPropertySetTest {
             name = "set",
             value = mutableSetOf("a", "b"),
             description = "desc",
-            fixedValues = mutableSetOf("x"),
+            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
             readOnly = false,
         )
 
@@ -274,7 +274,7 @@ class AbstractPropertySetTest {
         name: String,
         value: MutableSet<String> = mutableSetOf(),
         description: String? = null,
-        fixedValues: MutableSet<String> = mutableSetOf(),
+        fixedValues: MutableSet<MutableSet<String>> = mutableSetOf(),
         readOnly: Boolean = false,
     ) : AbstractPropertySet<String, MutableSet<String>>(
         name = name,

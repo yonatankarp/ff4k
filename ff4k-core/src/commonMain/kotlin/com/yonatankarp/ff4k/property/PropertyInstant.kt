@@ -23,4 +23,10 @@ data class PropertyInstant(
     override val description: String? = null,
     override val fixedValues: Set<Instant> = emptySet(),
     override val readOnly: Boolean = false,
-) : Property<Instant>
+) : Property<Instant> {
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+}

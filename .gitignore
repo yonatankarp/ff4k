@@ -34,3 +34,4 @@ CLAUDE.md
 /.env
 
 .DS_Store
+.aider*

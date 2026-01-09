@@ -22,4 +22,10 @@ data class PropertyBoolean(
     override val description: String? = null,
     override val fixedValues: Set<Boolean> = emptySet(),
     override val readOnly: Boolean = false,
-) : Property<Boolean>
+) : Property<Boolean> {
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+}

@@ -31,4 +31,10 @@ data class PropertyLogLevel(
         ERROR,
         FATAL,
     }
+
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
 }

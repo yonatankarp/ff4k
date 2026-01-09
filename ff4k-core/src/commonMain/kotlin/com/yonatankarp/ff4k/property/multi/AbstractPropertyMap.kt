@@ -22,6 +22,12 @@ abstract class AbstractPropertyMap<T, M : MutableMap<String, out T>>(
 ) : Property<M>,
     MutableMap<String, T> {
 
+    init {
+        require(fixedValues.isEmpty() || fixedValues.any { it == value }) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+
     /** {@inheritDoc} */
     override val size: Int
         get() = value.size

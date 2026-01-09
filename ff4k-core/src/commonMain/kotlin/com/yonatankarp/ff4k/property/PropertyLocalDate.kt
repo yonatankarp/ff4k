@@ -23,4 +23,10 @@ data class PropertyLocalDate(
     override val description: String? = null,
     override val fixedValues: Set<LocalDate> = emptySet(),
     override val readOnly: Boolean = false,
-) : Property<LocalDate>
+) : Property<LocalDate> {
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+}

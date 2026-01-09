@@ -1,7 +1,5 @@
 package com.yonatankarp.ff4k.property
 
-import kotlinx.serialization.Serializable
-
 /**
  * Abstraction of Property.
  *
@@ -39,11 +37,4 @@ interface Property<T> {
      */
     val hasFixedValues: Boolean
         get() = fixedValues.isNotEmpty()
-
-    /**
-     * Validates that the current value is in the fixed values set.
-     * Returns true if no fixed values are defined or if the value is valid.
-     */
-    val isValid: Boolean
-        get() = fixedValues.isEmpty() || fixedValues.contains(value)
 }

@@ -5,6 +5,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -29,12 +30,24 @@ abstract class PropertyContractTest<V, P : Property<V>> {
     protected abstract fun otherValueNotInFixedValues(): V
     protected abstract fun fixedValuesIncludingSample(sample: V): Set<V>
 
-    protected open fun assertJsonHasName(jsonString: String, expectedName: String) {
-        assertTrue(""""name":"$expectedName"""" in jsonString, "JSON missing name: $jsonString")
+    protected open fun assertJsonHasName(
+        jsonString: String,
+        expectedName: String,
+    ) {
+        assertTrue(
+            """"name":"$expectedName"""" in jsonString,
+            "JSON missing name: $jsonString",
+        )
     }
 
-    protected open fun assertJsonHasValue(jsonString: String, expectedValue: V) {
-        assertTrue(""""value":$expectedValue""" in jsonString, "JSON missing value: $jsonString")
+    protected open fun assertJsonHasValue(
+        jsonString: String,
+        expectedValue: V,
+    ) {
+        assertTrue(
+            """"value":$expectedValue""" in jsonString,
+            "JSON missing value: $jsonString",
+        )
     }
 
     @Test
@@ -111,43 +124,59 @@ abstract class PropertyContractTest<V, P : Property<V>> {
     }
 
     @Test
-    fun `isValid returns true when no fixed values`() {
+    fun `should create property without errors when no fixed values provided`() {
         // Given
         val name = sampleName()
         val value = sampleValue()
 
-        // When
+        // When / Then
         val property = create(name = name, value = value)
 
         // Then
-        assertTrue(property.isValid)
+        assertEquals(name, property.name)
+        assertEquals(value, property.value)
     }
 
     @Test
-    fun `isValid returns true when value in fixed values`() {
+    fun `should create property without errors when value within fixed values`() {
         // Given
         val name = sampleName()
         val value = sampleValue()
-        val fixed = fixedValuesIncludingSample(value)
+        val fixedValues = fixedValuesIncludingSample(value)
 
-        // When
-        val property = create(name = name, value = value, fixedValues = fixed)
+        // When / Then
+        val property = create(name = name, value = value, fixedValues = fixedValues)
 
         // Then
-        assertTrue(property.isValid)
+        assertEquals(name, property.name)
+        assertEquals(value, property.value)
     }
 
     @Test
-    fun `isValid returns false when value not in fixed values`() {
+    fun `should create property without errors when fixed values is empty`() {
         // Given
         val name = sampleName()
-        val valueNotInFixed = otherValueNotInFixedValues()
-        val fixed = fixedValuesIncludingSample(sampleValue())
+        val value = sampleValue()
+        val fixedValues = emptySet<V>()
 
-        // When
-        val property = create(name = name, value = valueNotInFixed, fixedValues = fixed)
+        // When / Then
+        val property = create(name = name, value = value, fixedValues = fixedValues)
 
         // Then
-        assertFalse(property.isValid)
+        assertEquals(name, property.name)
+        assertEquals(value, property.value)
+    }
+
+    @Test
+    fun `should throw exception when value is not within fixed values`() {
+        // Given
+        val name = sampleName()
+        val value = otherValueNotInFixedValues()
+        val fixed = fixedValuesIncludingSample(sampleValue())
+
+        // When / Then
+        assertFailsWith<IllegalArgumentException> {
+            create(name = name, value = value, fixedValues = fixed)
+        }
     }
 }

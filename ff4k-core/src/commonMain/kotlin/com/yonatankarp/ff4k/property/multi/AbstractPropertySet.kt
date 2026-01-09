@@ -12,7 +12,7 @@ abstract class AbstractPropertySet<T, S : MutableSet<T>>(
     name: String,
     value: S,
     description: String? = null,
-    fixedValues: MutableSet<T> = mutableSetOf<T>(),
+    fixedValues: MutableSet<S> = mutableSetOf<S>(),
     readOnly: Boolean = false,
-) : AbstractPropertyMultiValued<T, S>(name, value, description, fixedValues as Set<S>, readOnly),
+) : AbstractPropertyMultiValued<T, S>(name, value, description, fixedValues, readOnly),
     MutableSet<T>

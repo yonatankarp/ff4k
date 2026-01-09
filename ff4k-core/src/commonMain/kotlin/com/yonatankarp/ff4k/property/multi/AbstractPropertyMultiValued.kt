@@ -19,6 +19,12 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
 ) : Property<C>,
     MutableCollection<T> {
 
+    init {
+        require(fixedValues.isEmpty() || value in fixedValues) {
+            "Invalid value '$value' for property '$name'. Must be one of: $fixedValues"
+        }
+    }
+
     /** {@inheritDoc} */
     override val size: Int get() = value.size
 

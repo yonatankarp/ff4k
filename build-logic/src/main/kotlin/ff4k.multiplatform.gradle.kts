@@ -47,7 +47,7 @@ kotlin {
 
 android {
     namespace = "org.ff4k.${project.name.replace("-", ".")}"
-    compileSdk = 36
+    compileSdk = 34
     defaultConfig {
         minSdk = 24
     }

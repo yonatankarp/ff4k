@@ -77,21 +77,36 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AbstractPropertyMultiValued<*, *>) return false
 
-        return name == other.name &&
-            value == other.value &&
-            description == other.description &&
-            fixedValues == other.fixedValues &&
-            readOnly == other.readOnly
+        // Delegate to appropriate equality check based on type
+        // This ensures compatibility with standard Kotlin collections on all platforms
+        return when {
+            other is AbstractPropertyMultiValued<*, *> -> equalsProperty(other)
+            value is List<*> && other is List<*> -> value == other
+            value is Set<*> && other is Set<*> -> value == other
+            else -> false
+        }
     }
 
+    private fun equalsProperty(other: AbstractPropertyMultiValued<*, *>): Boolean = name == other.name &&
+        value == other.value &&
+        description == other.description &&
+        fixedValues == other.fixedValues &&
+        readOnly == other.readOnly
+
     override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + value.hashCode()
-        result = 31 * result + (description?.hashCode() ?: 0)
-        result = 31 * result + fixedValues.hashCode()
-        result = 31 * result + readOnly.hashCode()
-        return result
+        // Use collection hashCode for List/Set types to maintain equals/hashCode contract
+        return when (value) {
+            is List<*> -> value.hashCode()
+            is Set<*> -> value.hashCode()
+            else -> {
+                var result = name.hashCode()
+                result = 31 * result + value.hashCode()
+                result = 31 * result + (description?.hashCode() ?: 0)
+                result = 31 * result + fixedValues.hashCode()
+                result = 31 * result + readOnly.hashCode()
+                result
+            }
+        }
     }
 }

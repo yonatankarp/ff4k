@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: kover-data-linux-${{ matrix.target }}
-          path: '**/build/kover/binaries/'
+          path: '**/build/kover/bin-reports/'
           retention-days: 1
 
   build-windows:
@@ -104,7 +104,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: kover-data-windows-${{ matrix.target }}
-          path: '**/build/kover/binaries/'
+          path: '**/build/kover/bin-reports/'
           retention-days: 1
 
   build-apple:
@@ -144,7 +144,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: kover-data-apple-${{ matrix.target }}
-          path: '**/build/kover/binaries/'
+          path: '**/build/kover/bin-reports/'
           retention-days: 1
 
   sonarcloud:

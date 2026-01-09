@@ -1,9 +1,9 @@
 package com.yonatankarp.ff4k.property
 
-import kotlinx.serialization.Serializable
-
 /**
  * Abstraction of Property.
+ *
+ * @param T The type of the property value.
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */

@@ -3,7 +3,13 @@ package com.yonatankarp.ff4k.property.multi
 /**
  * SuperClass for property as lists.
  *
- * @param <T> current type
+ * @param name Unique identifier for the property.
+ * @param value Initial list of values for the property.
+ * @param description Optional human-readable description.
+ * @param fixedValues Set of allowed values for the property.
+ * @param readOnly If true, the property cannot be modified.
+ *
+ * @param T current type
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
@@ -27,38 +33,28 @@ abstract class AbstractPropertyList<T>(
         values.toMutableList(),
     )
 
-    /** {@inheritDoc} */
     override fun addAll(index: Int, elements: Collection<T>): Boolean = value.addAll(index, elements)
 
-    /** {@inheritDoc} */
     override operator fun get(index: Int): T = value[index]
 
-    /** {@inheritDoc} */
     override operator fun set(index: Int, element: T): T {
         value[index] = element
         return element
     }
 
-    /** {@inheritDoc} */
     override fun add(index: Int, element: T) {
         value.add(index, element)
     }
 
-    /** {@inheritDoc} */
     override fun removeAt(index: Int): T = value.removeAt(index)
 
-    /** {@inheritDoc}  */
     override fun indexOf(element: T): Int = value.indexOf(element)
 
-    /** {@inheritDoc} */
     override fun lastIndexOf(element: T): Int = value.lastIndexOf(element)
 
-    /** {@inheritDoc} */
     override fun listIterator(): MutableListIterator<T> = value.listIterator()
 
-    /** {@inheritDoc} */
     override fun listIterator(index: Int): MutableListIterator<T> = value.listIterator(index)
 
-    /** {@inheritDoc}  */
     override fun subList(fromIndex: Int, toIndex: Int): MutableList<T> = value.subList(fromIndex, toIndex)
 }

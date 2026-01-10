@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.property
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.toBigDecimal
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
+import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 import kotlinx.serialization.json.Json
 import kotlin.test.assertTrue
 

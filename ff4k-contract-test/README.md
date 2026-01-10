@@ -34,6 +34,47 @@ implementation is correct and compatible with the FF4K ecosystem.
 Tests for implementations of the `Property<V>` interface. See the [source code](src/commonMain/kotlin/com/yonatankarp/ff4k/test/contract/property/PropertyContractTest.kt)
 for the complete test contract.
 
+**Example usage:**
+```kotlin
+class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
+    override val serializer = PropertyString.serializer()
+
+    override fun create(
+        name: String,
+        value: String,
+        description: String?,
+        fixedValues: Set<String>,
+        readOnly: Boolean
+    ) = PropertyString(name, value, description, fixedValues, readOnly)
+
+    override fun sampleName() = "myProperty"
+    override fun sampleValue() = "hello"
+    override fun otherValueNotInFixedValues() = "world"
+    override fun fixedValuesIncludingSample(sample: String) = setOf(sample, "other")
+}
+```
+
+### FeatureStoreContractTest
+
+Tests for implementations of the `FeatureStore` interface. This comprehensive test suite verifies all feature store operations including CRUD, group management, permissions, and edge cases. See the [source code](src/commonMain/kotlin/com/yonatankarp/ff4k/test/contract/store/FeatureStoreContractTest.kt)
+for the complete test contract.
+
+**Example usage:**
+```kotlin
+class InMemoryFeatureStoreTest : FeatureStoreContractTest() {
+    override suspend fun createStore(): FeatureStore = InMemoryFeatureStore()
+}
+```
+
+The contract test includes comprehensive coverage for:
+- Basic CRUD operations (create, read, update, delete)
+- Feature enable/disable operations
+- Group management (add to group, remove from group, enable/disable groups)
+- Permission operations (grant/revoke roles)
+- Operator overloading (`in`, `+=`, `-=`, `[]`)
+- Extension functions (toggle, createOrUpdate, updateFeature, etc.)
+- Edge cases and exception handling
+
 _More contract tests will be added as the library grows._
 
 ## Usage

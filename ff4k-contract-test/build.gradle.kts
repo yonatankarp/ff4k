@@ -11,6 +11,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":ff4k-core"))
             api(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.coroutines.test)
             api(libs.bundles.bignum)
             api(libs.kotlin.test)
         }

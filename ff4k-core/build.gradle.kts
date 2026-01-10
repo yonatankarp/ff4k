@@ -5,7 +5,7 @@ plugins {
     id("ff4k.documentation")
     alias(libs.plugins.kotlin.serialization)
 }
-//
+
 kotlin {
     sourceSets {
         commonMain.dependencies {
@@ -24,6 +24,6 @@ kotlin {
     }
 }
 
-// dependencies {
-//    add("androidUnitTestImplementation", libs.robolectric)
-// }
+dependencies {
+    add("androidUnitTestImplementation", libs.robolectric)
+}

@@ -13,6 +13,7 @@ plugins.withId("org.jetbrains.kotlin.multiplatform") {
         jvm {
             withSourcesJar()
         }
+
         linuxX64 {
             withSourcesJar()
         }

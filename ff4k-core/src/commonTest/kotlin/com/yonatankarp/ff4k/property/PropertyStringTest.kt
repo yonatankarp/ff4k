@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.property
 
+import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 import kotlin.test.assertTrue
 
 /**

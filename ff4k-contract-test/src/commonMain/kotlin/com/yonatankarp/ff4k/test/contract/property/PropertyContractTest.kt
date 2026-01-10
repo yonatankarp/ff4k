@@ -1,6 +1,7 @@
-package com.yonatankarp.ff4k.property
+package com.yonatankarp.ff4k.test.contract.property
 
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
+import com.yonatankarp.ff4k.property.Property
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlin.test.Test

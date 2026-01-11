@@ -1,4 +1,4 @@
-package com.yonatankarp.ff4k.property.dsl
+package com.yonatankarp.ff4k.dsl
 
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.integer.BigInteger
@@ -41,7 +41,10 @@ class PropertyBuilderTest {
         val property = stringProperty("database.url") {
             value = "jdbc:postgresql://localhost/mydb"
             description = "Database connection URL"
-            fixedValues = setOf("jdbc:postgresql://localhost/mydb", "jdbc:mysql://localhost/mydb")
+            fixedValues = setOf(
+                "jdbc:postgresql://localhost/mydb",
+                "jdbc:mysql://localhost/mydb",
+            )
             readOnly = true
         }
 

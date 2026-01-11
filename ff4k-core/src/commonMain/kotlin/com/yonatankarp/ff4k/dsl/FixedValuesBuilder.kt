@@ -1,4 +1,4 @@
-package com.yonatankarp.ff4k.property.dsl
+package com.yonatankarp.ff4k.dsl
 
 /**
  * DSL builder for creating a set of fixed values.

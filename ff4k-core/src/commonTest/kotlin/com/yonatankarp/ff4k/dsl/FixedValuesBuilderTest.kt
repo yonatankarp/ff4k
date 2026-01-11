@@ -1,4 +1,4 @@
-package com.yonatankarp.ff4k.property.dsl
+package com.yonatankarp.ff4k.dsl
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

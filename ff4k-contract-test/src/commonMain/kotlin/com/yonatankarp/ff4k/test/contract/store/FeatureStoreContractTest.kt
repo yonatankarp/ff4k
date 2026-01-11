@@ -549,9 +549,8 @@ abstract class FeatureStoreContractTest {
 
         // Then
         val feature = store[FEATURE_NAME]
-        // TODO: This test assumes Feature will have permissions field in the future
-        // For now, we just verify the operation doesn't throw
         assertNotNull(feature)
+        assertTrue(ROLE in feature.permissions)
     }
 
     @Test
@@ -577,9 +576,8 @@ abstract class FeatureStoreContractTest {
 
         // Then
         val feature = store[FEATURE_NAME]
-        // TODO: This test assumes Feature will have permissions field in the future
-        // For now, we just verify the operation doesn't throw
         assertNotNull(feature)
+        assertFalse(ROLE in feature.permissions)
     }
 
     @Test

@@ -12,6 +12,7 @@ robolectric = "4.16"
 serialization = "1.7.0"
 slf4j = "2.0.9"
 spotless = "8.1.0"
+sonarqube = "7.2.2.6593"
 
 [libraries]
 # KMP Common
@@ -49,6 +50,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 
 [bundles]
 

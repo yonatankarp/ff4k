@@ -178,6 +178,7 @@ jobs:
         run: ./gradlew koverXmlReport --no-daemon
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v7
+        run: ./gradlew sonar --no-daemon
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

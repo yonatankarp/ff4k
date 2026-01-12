@@ -25,7 +25,6 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
         }
     }
 
-    /** {@inheritDoc} */
     override val size: Int get() = value.size
 
     /**
@@ -35,7 +34,6 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
      */
     override fun add(element: T): Boolean = value.add(element)
 
-    /** {@inheritDoc} */
     override fun addAll(elements: Collection<T>): Boolean = value.addAll(elements)
 
     /**
@@ -47,19 +45,14 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
         addAll(values.toList())
     }
 
-    /** {@inheritDoc} */
     override fun isEmpty(): Boolean = value.isEmpty()
 
-    /** {@inheritDoc} */
     override fun contains(element: T): Boolean = element in value
 
-    /** {@inheritDoc} */
     override fun containsAll(elements: Collection<T>): Boolean = value.containsAll(elements)
 
-    /** {@inheritDoc} */
     override fun remove(element: T): Boolean = value.remove(element)
 
-    /** {@inheritDoc} */
     override fun removeAll(elements: Collection<T>): Boolean = value.removeAll(elements.toSet())
 
     operator fun minusAssign(element: T) {
@@ -70,13 +63,10 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
         add(element)
     }
 
-    /** {@inheritDoc} */
     override fun retainAll(elements: Collection<T>): Boolean = value.retainAll(elements.toSet())
 
-    /** {@inheritDoc} */
     override fun iterator(): MutableIterator<T> = value.iterator()
 
-    /** {@inheritDoc}  */
     override fun clear() {
         value.clear()
     }

@@ -28,51 +28,39 @@ abstract class AbstractPropertyMap<T, M : MutableMap<String, out T>>(
         }
     }
 
-    /** {@inheritDoc} */
     override val size: Int
         get() = value.size
 
-    /** {@inheritDoc} */
     override fun isEmpty(): Boolean = value.isEmpty()
 
-    /** {@inheritDoc} */
     override fun containsKey(key: String): Boolean = key in value
 
-    /** {@inheritDoc} */
     override fun containsValue(value: T): Boolean = value in this.value.values
 
-    /** {@inheritDoc} */
     override operator fun get(key: String): T? = value[key]
 
-    /** {@inheritDoc} */
     override fun remove(key: String): T? = value.remove(key)
 
     operator fun minusAssign(key: String) {
         remove(key)
     }
 
-    /** {@inheritDoc} */
     override fun clear() = value.clear()
 
-    /** {@inheritDoc} */
     override val keys: MutableSet<String>
         get() = value.keys
 
-    /** {@inheritDoc} */
     @Suppress("UNCHECKED_CAST")
     override val entries: Entries<T>
         get() = value.entries as Entries<T>
 
-    /** {@inheritDoc} */
     @Suppress("UNCHECKED_CAST")
     override val values: Values<T>
         get() = value.values as Values<T>
 
-    /** {@inheritDoc} */
     @Suppress("UNCHECKED_CAST")
     override fun put(key: String, value: T): T? = (this.value as MutableMap<String, T>).put(key, value)
 
-    /** {@inheritDoc} */
     @Suppress("UNCHECKED_CAST")
     override fun putAll(from: Map<out String, T>) {
         (value as MutableMap<String, T>).putAll(from)

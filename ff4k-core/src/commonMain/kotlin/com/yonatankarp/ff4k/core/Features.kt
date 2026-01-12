@@ -427,3 +427,36 @@ fun Feature.hasAllPermissions(vararg permissions: String): Boolean = permissions
  * @return a new [Feature] with no permissions
  */
 fun Feature.clearPermissions(): Feature = copy(permissions = emptySet())
+
+/**
+ * Returns a new [Feature] associated with the specified group.
+ *
+ * Updates the feature's group field to the specified group name.
+ * If the feature already belongs to another group, it will be moved to the new group.
+ * This maintains immutability by returning a new instance.
+ *
+ * Example:
+ * ```kotlin
+ * val groupedFeature = feature.addGroup("beta-users")
+ * ```
+ *
+ * @param groupName the name of the group to assign
+ * @return a new [Feature] associated with the group
+ */
+fun Feature.addGroup(groupName: String): Feature = copy(group = groupName)
+
+/**
+ * Returns a new [Feature] removed from its current group.
+ *
+ * Sets the feature's group field to null. If the feature was not in a group,
+ * this operation has no effect (other than returning a new equal instance).
+ * This maintains immutability by returning a new instance.
+ *
+ * Example:
+ * ```kotlin
+ * val unassignedFeature = feature.removeGroup()
+ * ```
+ *
+ * @return a new [Feature] with no group assignment
+ */
+fun Feature.removeGroup(): Feature = copy(group = null)

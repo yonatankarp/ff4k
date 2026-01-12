@@ -1,6 +1,5 @@
 package com.yonatankarp.ff4k.core
 
-import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
 import kotlin.test.Test
@@ -39,7 +38,8 @@ class FeatureTest {
         val description = "Test feature"
         val group = "test-group"
         val permissions = setOf("ADMIN", "USER")
-        val properties = mapOf("key" to PropertyString(name = "key", value = "value"))
+        val properties =
+            mapOf("key" to PropertyString(name = "key", value = "value"))
 
         // When
         val feature = Feature(
@@ -180,7 +180,10 @@ class FeatureTest {
         // Then
         assertEquals(1, updated.customProperties.size)
         assertEquals(newProperty, updated.customProperties[PROPERTY_NAME])
-        assertEquals(newValue, (updated.customProperties[PROPERTY_NAME] as PropertyInt).value)
+        assertEquals(
+            newValue,
+            (updated.customProperties[PROPERTY_NAME] as PropertyInt).value,
+        )
     }
 
     @Test
@@ -188,19 +191,26 @@ class FeatureTest {
         // Given
         val existingPropertyName = "region"
         val existingPropertyValue = "US"
-        val existingProperty = PropertyString(name = existingPropertyName, value = existingPropertyValue)
+        val existingProperty = PropertyString(
+            name = existingPropertyName,
+            value = existingPropertyValue,
+        )
         val feature = Feature(
             uid = FEATURE_UID,
             customProperties = mapOf(existingPropertyName to existingProperty),
         )
-        val newProperty = PropertyInt(name = PROPERTY_NAME, value = PROPERTY_VALUE)
+        val newProperty =
+            PropertyInt(name = PROPERTY_NAME, value = PROPERTY_VALUE)
 
         // When
         val updated = feature.addProperty(newProperty)
 
         // Then
         assertEquals(2, updated.customProperties.size)
-        assertEquals(existingProperty, updated.customProperties[existingPropertyName])
+        assertEquals(
+            existingProperty,
+            updated.customProperties[existingPropertyName],
+        )
         assertEquals(newProperty, updated.customProperties[PROPERTY_NAME])
     }
 
@@ -222,6 +232,7 @@ class FeatureTest {
         class TestStrategy : FlippingStrategy {
             override val initParams = emptyMap<String, String>()
         }
+
         val strategy = TestStrategy()
         val feature = Feature(uid = FEATURE_UID, flippingStrategy = strategy)
 
@@ -246,115 +257,19 @@ class FeatureTest {
 
         // Then
         assertEquals(property, retrieved)
-        assertEquals(PROPERTY_VALUE, retrieved.value)
+        assertEquals(PROPERTY_VALUE, retrieved?.value)
     }
 
     @Test
-    fun `getProperty should throw PropertyNotFoundException when property does not exist`() {
-        // Given
-        val feature = Feature(uid = FEATURE_UID)
-
-        // When / Then
-        assertFailsWith<PropertyNotFoundException> {
-            feature.getProperty<Int>("nonexistent")
-        }
-    }
-
-    @Test
-    fun `isDisabled should return true when feature is disabled`() {
-        // Given
-        val feature = Feature(uid = FEATURE_UID, isEnabled = false)
-
-        // When / Then
-        assertTrue(feature.isDisabled)
-    }
-
-    @Test
-    fun `isDisabled should return false when feature is enabled`() {
-        // Given
-        val feature = Feature(uid = FEATURE_UID, isEnabled = true)
-
-        // When / Then
-        assertFalse(feature.isDisabled)
-    }
-
-    @Test
-    fun `propertyNames should return empty set when no properties`() {
+    fun `getProperty should return null when it does not exist`() {
         // Given
         val feature = Feature(uid = FEATURE_UID)
 
         // When
-        val names = feature.propertyNames
+        val retrieved = feature.getProperty<Int>(PROPERTY_NAME)
 
         // Then
-        assertTrue(names.isEmpty())
-    }
-
-    @Test
-    fun `propertyNames should return all property names when properties exist`() {
-        // Given
-        val property1 = PropertyInt(name = "prop1", value = 1)
-        val property2 = PropertyString(name = "prop2", value = "value")
-        val feature = Feature(
-            uid = FEATURE_UID,
-            customProperties = mapOf(
-                "prop1" to property1,
-                "prop2" to property2,
-            ),
-        )
-
-        // When
-        val names = feature.propertyNames
-
-        // Then
-        assertEquals(2, names.size)
-        assertTrue("prop1" in names)
-        assertTrue("prop2" in names)
-    }
-
-    @Test
-    fun `hasPermissions should return false when no permissions`() {
-        // Given
-        val feature = Feature(uid = FEATURE_UID)
-
-        // When / Then
-        assertFalse(feature.hasPermissions)
-    }
-
-    @Test
-    fun `hasPermissions should return true when permissions exist`() {
-        // Given
-        val feature = Feature(
-            uid = FEATURE_UID,
-            permissions = setOf("ADMIN", "USER"),
-        )
-
-        // When / Then
-        assertTrue(feature.hasPermissions)
-    }
-
-    @Test
-    fun `hasFlippingStrategy should return false when no strategy`() {
-        // Given
-        val feature = Feature(uid = FEATURE_UID)
-
-        // When / Then
-        assertFalse(feature.hasFlippingStrategy)
-    }
-
-    @Test
-    fun `hasFlippingStrategy should return true when strategy exists`() {
-        // Given
-        class TestStrategy : FlippingStrategy {
-            override val initParams = emptyMap<String, String>()
-        }
-        val feature = Feature(
-            uid = FEATURE_UID,
-            flippingStrategy = TestStrategy(),
-        )
-
-        // When / Then
-        assertTrue(feature.hasFlippingStrategy)
+        assertNull(retrieved)
     }
 
     private companion object {

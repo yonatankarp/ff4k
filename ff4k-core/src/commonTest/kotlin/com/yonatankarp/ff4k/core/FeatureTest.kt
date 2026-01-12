@@ -2,6 +2,8 @@ package com.yonatankarp.ff4k.core
 
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
+import com.yonatankarp.ff4k.serialization.ff4kSerializersModule
+import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -15,6 +17,12 @@ import kotlin.test.assertTrue
  * @author Yonatan Karp-Rudin
  */
 class FeatureTest {
+
+    private val json = Json {
+        serializersModule = ff4kSerializersModule
+        prettyPrint = true
+        ignoreUnknownKeys = true
+    }
 
     @Test
     fun `should create feature with default values`() {
@@ -272,9 +280,78 @@ class FeatureTest {
         assertNull(retrieved)
     }
 
+    @Test
+    fun `should serialize feature with properties correctly`() {
+        // Given
+        val feature = Feature(
+            uid = FEATURE_UID,
+            isEnabled = true,
+            customProperties = mapOf(
+                PROPERTY_NAME to PropertyInt(name = PROPERTY_NAME, value = PROPERTY_VALUE),
+                REGION_PROPERTY_NAME to PropertyString(name = REGION_PROPERTY_NAME, value = REGION_PROPERTY_VALUE),
+            ),
+        )
+
+        // When
+        val jsonString = json.encodeToString(Feature.serializer(), feature)
+
+        // Then
+        assertTrue(""""type": "int"""" in jsonString)
+        assertTrue(""""type": "string"""" in jsonString)
+
+        val deserialized = json.decodeFromString<Feature>(jsonString)
+        assertEquals(feature, deserialized)
+    }
+
+    @Test
+    fun `should deserialize feature from json correctly`() {
+        // Given
+        // language=json
+        val jsonString = """
+            {
+                "uid": "$FEATURE_UID",
+                "isEnabled": true,
+                "customProperties": {
+                    "$PROPERTY_NAME": {
+                        "type": "int",
+                        "name": "$PROPERTY_NAME",
+                        "value": $PROPERTY_VALUE,
+                        "fixedValues": [],
+                        "readOnly": false
+                    },
+                    "$REGION_PROPERTY_NAME": {
+                        "type": "string",
+                        "name": "$REGION_PROPERTY_NAME",
+                        "value": "$REGION_PROPERTY_VALUE",
+                        "fixedValues": [],
+                        "readOnly": false
+                    }
+                }
+            }
+        """.trimIndent()
+
+        // When
+        val feature = json.decodeFromString<Feature>(jsonString)
+
+        // Then
+        assertEquals(FEATURE_UID, feature.uid)
+        assertTrue(feature.isEnabled)
+        assertEquals(2, feature.customProperties.size)
+
+        val maxRetries = feature.customProperties[PROPERTY_NAME]
+        assertTrue(maxRetries is PropertyInt)
+        assertEquals(PROPERTY_VALUE, maxRetries.value)
+
+        val region = feature.customProperties[REGION_PROPERTY_NAME]
+        assertTrue(region is PropertyString)
+        assertEquals(REGION_PROPERTY_VALUE, region.value)
+    }
+
     private companion object {
         private const val FEATURE_UID = "my-feature"
         private const val PROPERTY_NAME = "maxRetries"
         private const val PROPERTY_VALUE = 3
+        private const val REGION_PROPERTY_NAME = "region"
+        private const val REGION_PROPERTY_VALUE = "US"
     }
 }

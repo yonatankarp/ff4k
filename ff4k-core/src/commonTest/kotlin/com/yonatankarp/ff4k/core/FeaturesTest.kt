@@ -7,6 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /**
@@ -726,6 +727,60 @@ class FeaturesTest {
         assertTrue(updated.permissions.isEmpty())
     }
 
+    // ============================================================================
+    // Group Management Extensions Tests
+    // ============================================================================
+
+    @Test
+    fun `addGroup should return new feature with group assigned`() {
+        // Given
+        val feature = Feature(uid = FEATURE_UID)
+
+        // When
+        val updated = feature.addGroup(GROUP_NAME)
+
+        // Then
+        assertEquals(GROUP_NAME, updated.group)
+        assertNull(feature.group) // Original unchanged
+    }
+
+    @Test
+    fun `addGroup should overwrite existing group`() {
+        // Given
+        val feature = Feature(uid = FEATURE_UID, group = EXISTING_GROUP)
+
+        // When
+        val updated = feature.addGroup(GROUP_NAME)
+
+        // Then
+        assertEquals(GROUP_NAME, updated.group)
+    }
+
+    @Test
+    fun `removeGroup should return new feature with no group`() {
+        // Given
+        val feature = Feature(uid = FEATURE_UID, group = GROUP_NAME)
+
+        // When
+        val updated = feature.removeGroup()
+
+        // Then
+        assertNull(updated.group)
+        assertEquals(GROUP_NAME, feature.group) // Original unchanged
+    }
+
+    @Test
+    fun `removeGroup should work on feature with no group`() {
+        // Given
+        val feature = Feature(uid = FEATURE_UID)
+
+        // When
+        val updated = feature.removeGroup()
+
+        // Then
+        assertNull(updated.group)
+    }
+
     private companion object {
         private const val FEATURE_UID = "my-feature"
         private const val PROPERTY_NAME = "maxRetries"
@@ -755,5 +810,9 @@ class FeaturesTest {
         private val ADMIN_USER_PERMISSIONS = setOf(ADMIN_PERMISSION, USER_PERMISSION)
         private val ALL_PERMISSIONS = setOf(ADMIN_PERMISSION, USER_PERMISSION, GUEST_PERMISSION)
         private val ADMIN_ONLY_PERMISSION = setOf(ADMIN_PERMISSION)
+
+        // Group constants
+        private const val GROUP_NAME = "beta-users"
+        private const val EXISTING_GROUP = "alpha-users"
     }
 }

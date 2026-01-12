@@ -148,9 +148,11 @@ interface FeatureStore {
      * Remove a feature from its group.
      *
      * @param featureId Feature unique identifier
+     * @param groupName Group name
      * @throws FeatureNotFoundException if feature doesn't exist
+     * @throws com.yonatankarp.ff4k.exception.GroupNotFoundException if group doesn't exist or feature is not part of the group
      */
-    suspend fun removeFromGroup(featureId: String)
+    suspend fun removeFromGroup(featureId: String, groupName: String)
 
     /**
      * Read all features in a group.

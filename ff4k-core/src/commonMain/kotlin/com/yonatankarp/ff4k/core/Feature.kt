@@ -1,6 +1,5 @@
 package com.yonatankarp.ff4k.core
 
-import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.Property
 import kotlinx.serialization.Serializable
 
@@ -161,11 +160,9 @@ data class Feature(
      *
      * @param propertyId the name of the property to retrieve
      * @return the property with the specified name
-     * @throws PropertyNotFoundException if no property with the given name exists
      */
     @Suppress("UNCHECKED_CAST")
-    fun <T> getProperty(propertyId: String): Property<T> = customProperties[propertyId] as? Property<T>
-        ?: throw PropertyNotFoundException(propertyId)
+    fun <T> getProperty(propertyId: String): Property<T>? = customProperties[propertyId] as? Property<T>
 
     /**
      * The simple class name of the [flippingStrategy], or `null` if no strategy is set.
@@ -174,93 +171,3 @@ data class Feature(
      */
     val displayStrategyClassName: String? get() = if (flippingStrategy != null) flippingStrategy::class.simpleName else null
 }
-
-/**
- * Checks if this feature is disabled.
- *
- * This is a convenience extension property that returns the inverse of [Feature.isEnabled].
- * Useful for more readable conditional logic when checking for disabled features.
- *
- * Example:
- * ```kotlin
- * if (feature.isDisabled) {
- *     logger.info("Feature ${feature.uid} is currently disabled")
- * }
- * ```
- *
- * @return `true` if the feature is disabled (isEnabled = false), `false` otherwise
- */
-val Feature.isDisabled: Boolean
-    get() = isEnabled.not()
-
-/**
- * Returns the set of all custom property names attached to this feature.
- *
- * This extension property provides convenient access to the keys of [Feature.customProperties].
- * Useful for checking property existence or iterating over available properties.
- *
- * Example:
- * ```kotlin
- * // Check if property exists before retrieving
- * if ("maxRetries" in feature.propertyNames) {
- *     val retries = feature.getProperty<Int>("maxRetries")
- * }
- *
- * // List all properties
- * feature.propertyNames.forEach { name ->
- *     println("Property: $name")
- * }
- * ```
- *
- * @return set of property names, or empty set if no custom properties exist
- */
-val Feature.propertyNames: Set<String>
-    get() = customProperties.keys
-
-/**
- * Checks if this feature has any permission restrictions.
- *
- * This extension property returns `true` if the feature has at least one permission/role
- * requirement, indicating that access control is enforced. Returns `false` for features
- * with no permission restrictions (publicly accessible when enabled).
- *
- * Example:
- * ```kotlin
- * if (feature.hasPermissions) {
- *     // Check user permissions before granting access
- *     val userRoles = getUserRoles()
- *     if (feature.permissions.any { it in userRoles }) {
- *         enableFeature()
- *     }
- * }
- * ```
- *
- * @return `true` if [Feature.permissions] is not empty, `false` otherwise
- */
-val Feature.hasPermissions: Boolean
-    get() = permissions.isNotEmpty()
-
-/**
- * Checks if this feature has a flipping strategy configured.
- *
- * This extension property returns `true` if a [FlippingStrategy] is attached to this feature,
- * indicating that advanced activation logic (A/B testing, gradual rollout, etc.) is in use.
- *
- * Example:
- * ```kotlin
- * if (feature.hasFlippingStrategy) {
- *     // Evaluate strategy with context
- *     val context = FlippingExecutionContext()
- *     context["userId"] = currentUserId
- *     val shouldActivate = feature.flippingStrategy?.evaluate(
- *         feature.uid,
- *         featureStore,
- *         context
- *     ) ?: false
- * }
- * ```
- *
- * @return `true` if [Feature.flippingStrategy] is not null, `false` otherwise
- */
-val Feature.hasFlippingStrategy: Boolean
-    get() = flippingStrategy != null

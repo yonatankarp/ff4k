@@ -1,30 +1,52 @@
 package com.yonatankarp.ff4k.core
 
+import kotlin.coroutines.CoroutineContext
+
 /**
  * A type-safe execution context for feature flipping strategies.
  *
  * This context holds key-value pairs that can be used during [FlippingStrategy] evaluation.
  * Values are stored with runtime type checking, ensuring type safety when retrieving values.
  *
+ * Implements [CoroutineContext.Element] to enable automatic propagation through suspend
+ * function calls without ThreadLocal. Use [withFlippingContext] to set the context for
+ * a coroutine scope, and [currentFlippingContext] to retrieve it.
+ *
  * Example usage:
  * ```
- * val context = FlippingExecutionContext()
- * context["userId"] = 123
- * context["userName"] = "Alice"
- *
+ * // Creating and using context directly
+ * val context = FlippingExecutionContext("userId" to 123, "userName" to "Alice")
  * val id: Int? = context["userId"]           // Returns 123
  * val name: String? = context["userName"]    // Returns "Alice"
- * val required: String = context.get("userName", required = true)  // Throws if missing
- * val wrong: String? = context["userId"]     // Throws IllegalStateException (type mismatch)
  *
- * if ("userId" in context) { /* ... */ }
+ * // Using with coroutines (implicit context propagation)
+ * withFlippingContext(FlippingExecutionContext("userId" to "user-123")) {
+ *     ff4k.check("my-feature") // context automatically available
+ * }
+ *
+ * // Immutable modification (creates new instance)
+ * val newContext = context.withParameter("region", "EU")
  * ```
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 data class FlippingExecutionContext(
     @PublishedApi internal val values: MutableMap<String, Any?> = mutableMapOf(),
-) {
+) : CoroutineContext.Element {
+    /**
+     * Key for retrieving [FlippingExecutionContext] from a [CoroutineContext].
+     */
+    companion object Key : CoroutineContext.Key<FlippingExecutionContext>
+
+    override val key: CoroutineContext.Key<*> get() = Key
+
+    /**
+     * Creates a context with initial key-value pairs.
+     *
+     * @param pairs Initial parameters to populate the context
+     */
+    constructor(vararg pairs: Pair<String, Any?>) : this(mutableMapOf(*pairs))
+
     /**
      * Retrieves a value from the context with runtime type checking.
      *

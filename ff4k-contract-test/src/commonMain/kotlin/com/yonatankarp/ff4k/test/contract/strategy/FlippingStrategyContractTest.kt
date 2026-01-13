@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.yonatankarp.ff4k.test.contract.strategy
 
 import com.yonatankarp.ff4k.core.FeatureStore

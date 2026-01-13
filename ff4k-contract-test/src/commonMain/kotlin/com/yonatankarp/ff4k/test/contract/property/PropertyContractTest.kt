@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.yonatankarp.ff4k.test.contract.property
 
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule

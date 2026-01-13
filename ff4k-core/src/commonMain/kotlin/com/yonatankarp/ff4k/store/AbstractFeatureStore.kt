@@ -6,6 +6,7 @@ import com.yonatankarp.ff4k.core.addGroup
 import com.yonatankarp.ff4k.core.grantPermissions
 import com.yonatankarp.ff4k.core.removeGroup
 import com.yonatankarp.ff4k.core.revokePermissions
+import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
 import com.yonatankarp.ff4k.exception.FeatureNotFoundException
 import com.yonatankarp.ff4k.exception.GroupNotFoundException
 
@@ -88,4 +89,36 @@ abstract class AbstractFeatureStore : FeatureStore {
         .mapNotNull { it.group }
         .filter { it.isNotBlank() }
         .toSet()
+
+    override suspend fun createOrUpdate(feature: Feature) {
+        if (feature.uid in this) {
+            update(feature)
+        } else {
+            this += feature
+        }
+    }
+
+    override suspend fun toggle(featureId: String) = updateFeature(featureId) { it.toggle() }
+
+    override suspend fun getOrThrow(featureId: String): Feature = get(featureId) ?: throw FeatureNotFoundException(featureId)
+
+    /**
+     * Validates that a feature exists in the store.
+     */
+    protected suspend fun requireFeatureExist(featureId: String) {
+        require(featureId.isNotBlank()) { "featureId cannot be empty" }
+        if (featureId !in this) {
+            throw FeatureNotFoundException(featureId)
+        }
+    }
+
+    /**
+     * Validates that a feature does not exist in the store.
+     */
+    protected suspend fun requireFeatureNotExist(featureId: String) {
+        require(featureId.isNotBlank()) { "featureId cannot be empty" }
+        if (featureId in this) {
+            throw FeatureAlreadyExistsException(featureId)
+        }
+    }
 }

@@ -20,7 +20,7 @@ package com.yonatankarp.ff4k.exception
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
-sealed class PropertyException(message: String, cause: Throwable? = null) : FF4kException(message, cause)
+sealed class PropertyStoreException(message: String, cause: Throwable? = null) : FF4kException(message, cause)
 
 /**
  * Thrown when attempting to retrieve a property that does not exist on a feature.
@@ -54,4 +54,40 @@ sealed class PropertyException(message: String, cause: Throwable? = null) : FF4k
  * @see com.yonatankarp.ff4k.core.Feature.getProperty
  * @see com.yonatankarp.ff4k.core.Feature.customProperties
  */
-class PropertyNotFoundException(propertyId: String) : PropertyException("Property not found: $propertyId")
+class PropertyNotFoundException(propertyId: String) : PropertyStoreException("Property not found: $propertyId")
+
+/**
+ * Thrown when attempting to add a property that already exists in the store.
+ *
+ * This exception is thrown by property store operations when trying to create or add
+ * a property with a name that is already present in the store. This prevents accidental
+ * overwrites and maintains data integrity.
+ *
+ * To avoid this exception, either:
+ * - Check if the property exists before adding it
+ * - Use an update operation instead of create/add
+ * - Remove the existing property first, then add the new one
+ *
+ * Example:
+ * ```kotlin
+ * val store = InMemoryPropertyStore()
+ *
+ * // Safe approach - check existence first
+ * if ("timeout" !in store) {
+ *     store += intProperty("timeout") { value = 30 }
+ * }
+ *
+ * // Or handle the exception
+ * try {
+ *     store += intProperty("timeout") { value = 30 }
+ * } catch (e: PropertyAlreadyExistsException) {
+ *     store.updateProperty(intProperty("timeout") { value = 30 })
+ * }
+ * ```
+ *
+ * @param propertyName The name of the property that already exists
+ *
+ * @see com.yonatankarp.ff4k.core.PropertyStore.plusAssign
+ * @see com.yonatankarp.ff4k.core.PropertyStore.updateProperty
+ */
+class PropertyAlreadyExistsException(propertyName: String) : PropertyStoreException("Property already exists: $propertyName")

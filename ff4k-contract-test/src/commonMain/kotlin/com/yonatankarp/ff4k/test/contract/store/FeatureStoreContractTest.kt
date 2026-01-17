@@ -4,7 +4,7 @@ package com.yonatankarp.ff4k.test.contract.store
 
 import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.core.FeatureStore
-import com.yonatankarp.ff4k.dsl.feature
+import com.yonatankarp.ff4k.dsl.feature.feature
 import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
 import com.yonatankarp.ff4k.exception.FeatureNotFoundException
 import com.yonatankarp.ff4k.exception.GroupNotFoundException

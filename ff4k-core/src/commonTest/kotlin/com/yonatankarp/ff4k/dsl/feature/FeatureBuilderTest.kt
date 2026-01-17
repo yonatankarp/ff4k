@@ -1,5 +1,8 @@
-package com.yonatankarp.ff4k.dsl
+package com.yonatankarp.ff4k.dsl.feature
+
 import com.yonatankarp.ff4k.core.FlippingStrategy
+import com.yonatankarp.ff4k.property.PropertyInt
+import com.yonatankarp.ff4k.property.PropertyString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -55,10 +58,10 @@ class FeatureBuilderTest {
     }
 
     @Test
-    fun `enable sets isEnabled to true`() {
+    fun `isEnabled property sets enabled state`() {
         // When
         val feature = feature(FEATURE_UID) {
-            enable()
+            isEnabled = true
         }
 
         // Then
@@ -66,22 +69,10 @@ class FeatureBuilderTest {
     }
 
     @Test
-    fun `disable sets isEnabled to false`() {
+    fun `group property sets group name`() {
         // When
         val feature = feature(FEATURE_UID) {
-            isEnabled = true
-            disable()
-        }
-
-        // Then
-        assertFalse(feature.isEnabled)
-    }
-
-    @Test
-    fun `inGroup sets group name`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            inGroup(FEATURE_GROUP)
+            group = FEATURE_GROUP
         }
 
         // Then
@@ -89,13 +80,13 @@ class FeatureBuilderTest {
     }
 
     @Test
-    fun `strategy sets flipping strategy`() {
+    fun `flippingStrategy property sets strategy`() {
         // Given
         val strategy = TestStrategy()
 
         // When
         val feature = feature(FEATURE_UID) {
-            strategy(strategy)
+            flippingStrategy = strategy
         }
 
         // Then
@@ -171,9 +162,8 @@ class FeatureBuilderTest {
     @Test
     fun `property adds existing property`() {
         // Given
-        val prop = intProperty(PROPERTY_MAX_RETRIES) {
-            value = MAX_RETRIES_VALUE
-        }
+        val prop =
+            PropertyInt(name = PROPERTY_MAX_RETRIES, value = MAX_RETRIES_VALUE)
 
         // When
         val feature = feature(FEATURE_UID) {
@@ -221,9 +211,18 @@ class FeatureBuilderTest {
 
         // Then
         assertEquals(3, feature.customProperties.size)
-        assertEquals(MAX_REQUESTS_VALUE, feature.customProperties[PROPERTY_MAX_REQUESTS]?.value)
-        assertEquals(TIMEOUT_VALUE, feature.customProperties[PROPERTY_TIMEOUT_SECONDS]?.value)
-        assertEquals(API_KEY_VALUE, feature.customProperties[PROPERTY_API_KEY]?.value)
+        assertEquals(
+            MAX_REQUESTS_VALUE,
+            feature.customProperties[PROPERTY_MAX_REQUESTS]?.value,
+        )
+        assertEquals(
+            TIMEOUT_VALUE,
+            feature.customProperties[PROPERTY_TIMEOUT_SECONDS]?.value,
+        )
+        assertEquals(
+            API_KEY_VALUE,
+            feature.customProperties[PROPERTY_API_KEY]?.value,
+        )
     }
 
     @Test
@@ -270,11 +269,20 @@ class FeatureBuilderTest {
 
         // Then
         assertEquals(5, feature.customProperties.size)
-        assertEquals(STRING_VALUE, feature.customProperties["string-prop"]?.value)
+        assertEquals(
+            STRING_VALUE,
+            feature.customProperties["string-prop"]?.value,
+        )
         assertEquals(INT_VALUE, feature.customProperties["int-prop"]?.value)
         assertEquals(LONG_VALUE, feature.customProperties["long-prop"]?.value)
-        assertEquals(DOUBLE_VALUE, feature.customProperties["double-prop"]?.value)
-        assertEquals(BOOLEAN_VALUE, feature.customProperties["boolean-prop"]?.value)
+        assertEquals(
+            DOUBLE_VALUE,
+            feature.customProperties["double-prop"]?.value,
+        )
+        assertEquals(
+            BOOLEAN_VALUE,
+            feature.customProperties["boolean-prop"]?.value,
+        )
     }
 
     @Test
@@ -315,18 +323,6 @@ class FeatureBuilderTest {
     }
 
     @Test
-    fun `validation fails when property value not set`() {
-        // When / Then
-        assertFailsWith<IllegalStateException> {
-            feature(FEATURE_UID) {
-                property(PROPERTY_CONFIG) {
-                    description = "Configuration"
-                }
-            }
-        }
-    }
-
-    @Test
     fun `validation fails when property value not in fixedValues`() {
         // Given
         val invalidValue = "INVALID"
@@ -350,16 +346,17 @@ class FeatureBuilderTest {
     fun `complex nested scenario with all features`() {
         // Given
         val strategy = TestStrategy()
-        val existingProp = stringProperty(PROPERTY_EXTERNAL_CONFIG) {
-            value = EXTERNAL_CONFIG_VALUE
-        }
+        val existingProp = PropertyString(
+            name = PROPERTY_EXTERNAL_CONFIG,
+            value = EXTERNAL_CONFIG_VALUE,
+        )
 
         // When
         val feature = feature(FEATURE_UID) {
-            enable()
+            isEnabled = true
             description = FEATURE_DESCRIPTION
-            inGroup(FEATURE_GROUP)
-            strategy(strategy)
+            group = FEATURE_GROUP
+            flippingStrategy = strategy
 
             permissions {
                 +PERMISSION_ADMIN
@@ -402,11 +399,26 @@ class FeatureBuilderTest {
         assertEquals(5, feature.customProperties.size)
 
         // Verify properties
-        assertEquals(existingProp, feature.customProperties[PROPERTY_EXTERNAL_CONFIG])
-        assertEquals(MAX_RETRIES_VALUE, feature.customProperties[PROPERTY_MAX_RETRIES]?.value)
-        assertEquals(API_ENDPOINT_VALUE, feature.customProperties[PROPERTY_API_ENDPOINT]?.value)
-        assertEquals(TIMEOUT_MS_VALUE, feature.customProperties[PROPERTY_TIMEOUT_MS]?.value)
-        assertEquals(FEATURE_ENABLED_VALUE, feature.customProperties[PROPERTY_FEATURE_ENABLED]?.value)
+        assertEquals(
+            existingProp,
+            feature.customProperties[PROPERTY_EXTERNAL_CONFIG],
+        )
+        assertEquals(
+            MAX_RETRIES_VALUE,
+            feature.customProperties[PROPERTY_MAX_RETRIES]?.value,
+        )
+        assertEquals(
+            API_ENDPOINT_VALUE,
+            feature.customProperties[PROPERTY_API_ENDPOINT]?.value,
+        )
+        assertEquals(
+            TIMEOUT_MS_VALUE,
+            feature.customProperties[PROPERTY_TIMEOUT_MS]?.value,
+        )
+        assertEquals(
+            FEATURE_ENABLED_VALUE,
+            feature.customProperties[PROPERTY_FEATURE_ENABLED]?.value,
+        )
 
         // Verify property details
         val retriesProp = feature.customProperties[PROPERTY_MAX_RETRIES]

@@ -1,5 +1,6 @@
-package com.yonatankarp.ff4k.dsl
+package com.yonatankarp.ff4k.dsl.property
 
+import com.yonatankarp.ff4k.dsl.internal.property
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -100,7 +101,7 @@ class FixedValuesBuilderTest {
     @Test
     fun `can be reused in DSL context`() {
         // When
-        val property = stringProperty("test") {
+        val property = property(name = "test") {
             value = "a"
             fixedValues {
                 +"a"

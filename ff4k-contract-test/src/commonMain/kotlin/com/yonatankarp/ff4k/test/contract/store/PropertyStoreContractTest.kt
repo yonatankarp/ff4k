@@ -8,10 +8,10 @@ import com.yonatankarp.ff4k.core.createOrUpdateProperty
 import com.yonatankarp.ff4k.core.getPropertyOrThrow
 import com.yonatankarp.ff4k.core.getPropertyValue
 import com.yonatankarp.ff4k.core.getPropertyValueOrDefault
-import com.yonatankarp.ff4k.dsl.intProperty
-import com.yonatankarp.ff4k.dsl.stringProperty
 import com.yonatankarp.ff4k.exception.PropertyAlreadyExistsException
 import com.yonatankarp.ff4k.exception.PropertyNotFoundException
+import com.yonatankarp.ff4k.property.PropertyInt
+import com.yonatankarp.ff4k.property.PropertyString
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
@@ -53,7 +53,7 @@ abstract class PropertyStoreContractTest {
     fun `should create a new property`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // When
         store += property
@@ -69,7 +69,7 @@ abstract class PropertyStoreContractTest {
     fun `should throw exception when creating duplicate property`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
         store += property
 
         // When / Then
@@ -84,9 +84,9 @@ abstract class PropertyStoreContractTest {
         val store = createStore()
 
         // When
-        store += intProperty("prop1") { value = 1 }
-        store += intProperty("prop2") { value = 2 }
-        store += intProperty("prop3") { value = 3 }
+        store += PropertyInt(name = "prop1", value = 1)
+        store += PropertyInt(name = "prop2", value = 2)
+        store += PropertyInt(name = "prop3", value = 3)
 
         // Then
         assertEquals(3, store.getAll().size)
@@ -99,7 +99,7 @@ abstract class PropertyStoreContractTest {
     fun `should read property by name`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = 42 }
+        val property = PropertyInt(name = PROPERTY_NAME, value = 42)
         store += property
 
         // When
@@ -127,9 +127,9 @@ abstract class PropertyStoreContractTest {
     fun `should read all properties`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty("prop1") { value = 1 }
-        store += intProperty("prop2") { value = 2 }
-        store += stringProperty("prop3") { value = "test" }
+        store += PropertyInt(name = "prop1", value = 1)
+        store += PropertyInt(name = "prop2", value = 2)
+        store += PropertyString(name = "prop3", value = "test")
 
         // When
         val allProperties = store.getAll()
@@ -157,8 +157,8 @@ abstract class PropertyStoreContractTest {
     fun `should get property or default when property exists`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 42 }
-        val defaultProperty = intProperty(PROPERTY_NAME) { value = 99 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 42)
+        val defaultProperty = PropertyInt(name = PROPERTY_NAME, value = 99)
 
         // When
         val result = store.getOrDefault(PROPERTY_NAME, defaultProperty)
@@ -171,7 +171,7 @@ abstract class PropertyStoreContractTest {
     fun `should get default when property does not exist`() = runTest {
         // Given
         val store = createStore()
-        val defaultProperty = intProperty(PROPERTY_NAME) { value = 99 }
+        val defaultProperty = PropertyInt(name = PROPERTY_NAME, value = 99)
 
         // When
         val result = store.getOrDefault(PROPERTY_NAME, defaultProperty)
@@ -184,11 +184,11 @@ abstract class PropertyStoreContractTest {
     fun `should update existing property`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = 10 }
+        val property = PropertyInt(name = PROPERTY_NAME, value = 10)
         store += property
 
         // When
-        val updated = intProperty(PROPERTY_NAME) { value = 20 }
+        val updated = PropertyInt(name = PROPERTY_NAME, value = 20)
         store.updateProperty(updated)
 
         // Then
@@ -201,14 +201,15 @@ abstract class PropertyStoreContractTest {
     fun `should update property using transform function`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 10 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 10)
 
         // When
         store.updateProperty<Int>(PROPERTY_NAME) { property ->
-            intProperty(property.name) {
-                value = property.value * 2
-                description = property.description
-            }
+            PropertyInt(
+                name = PROPERTY_NAME,
+                value = property.value * 2,
+                description = property.description,
+            )
         }
 
         // Then
@@ -232,7 +233,7 @@ abstract class PropertyStoreContractTest {
     fun `should delete property`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
         store += property
 
         // When
@@ -257,7 +258,7 @@ abstract class PropertyStoreContractTest {
     fun `should check if property exists using contains operator`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
         store += property
 
         // Then
@@ -269,9 +270,9 @@ abstract class PropertyStoreContractTest {
     fun `should list property names`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty("prop1") { value = 1 }
-        store += intProperty("prop2") { value = 2 }
-        store += intProperty("prop3") { value = 3 }
+        store += PropertyInt(name = "prop1", value = 1)
+        store += PropertyInt(name = "prop2", value = 2)
+        store += PropertyInt(name = "prop3", value = 3)
 
         // When
         val names = store.listPropertyIds()
@@ -299,9 +300,9 @@ abstract class PropertyStoreContractTest {
     fun `should clear all properties`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty("prop1") { value = 1 }
-        store += intProperty("prop2") { value = 2 }
-        store += intProperty("prop3") { value = 3 }
+        store += PropertyInt(name = "prop1", value = 1)
+        store += PropertyInt(name = "prop2", value = 2)
+        store += PropertyInt(name = "prop3", value = 3)
 
         // When
         store.clear()
@@ -320,7 +321,7 @@ abstract class PropertyStoreContractTest {
         assertTrue(store.isEmpty())
 
         // When
-        store += intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // Then
         assertFalse(store.isEmpty())
@@ -339,7 +340,7 @@ abstract class PropertyStoreContractTest {
     fun `isEmpty property should return false for non-empty store`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // Then
         assertFalse(store.isEmpty())
@@ -361,9 +362,9 @@ abstract class PropertyStoreContractTest {
     fun `should count properties in store`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty("prop1") { value = 1 }
-        store += intProperty("prop2") { value = 2 }
-        store += intProperty("prop3") { value = 3 }
+        store += PropertyInt(name = "prop1", value = 1)
+        store += PropertyInt(name = "prop2", value = 2)
+        store += PropertyInt(name = "prop3", value = 3)
 
         // When
         val result = store.count()
@@ -376,7 +377,7 @@ abstract class PropertyStoreContractTest {
     fun `should create or update property - create path`() = runTest {
         // Given
         val store = createStore()
-        val property = intProperty(PROPERTY_NAME) { value = 42 }
+        val property = PropertyInt(name = PROPERTY_NAME, value = 42)
 
         // When
         store.createOrUpdateProperty(property)
@@ -391,10 +392,10 @@ abstract class PropertyStoreContractTest {
     fun `should create or update property - update path`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 10 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 10)
 
         // When
-        val updated = intProperty(PROPERTY_NAME) { value = 42 }
+        val updated = PropertyInt(name = PROPERTY_NAME, value = 42)
         store.createOrUpdateProperty(updated)
 
         // Then
@@ -407,7 +408,7 @@ abstract class PropertyStoreContractTest {
     fun `should get property or throw exception`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = DEFAULT_VALUE }
+        store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // When
         val property = store.getPropertyOrThrow<Int>(PROPERTY_NAME)
@@ -432,7 +433,7 @@ abstract class PropertyStoreContractTest {
     fun `should get property value directly`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 42 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 42)
 
         // When
         val value = store.getPropertyValue<Int>(PROPERTY_NAME)
@@ -457,7 +458,7 @@ abstract class PropertyStoreContractTest {
     fun `should get property value or default`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 42 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 42)
 
         // When
         val value = store.getPropertyValueOrDefault(PROPERTY_NAME, 99)
@@ -482,15 +483,16 @@ abstract class PropertyStoreContractTest {
     fun `concurrent property updates via atomic method should be atomic`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 0 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 0)
 
         // When
         val jobs = (1..100).map {
             launch {
                 store.updateProperty<Int>(PROPERTY_NAME) { property ->
-                    intProperty(property.name) {
-                        value = property.value + 1
-                    }
+                    PropertyInt(
+                        name = PROPERTY_NAME,
+                        value = property.value + 1,
+                    )
                 }
             }
         }
@@ -510,7 +512,12 @@ abstract class PropertyStoreContractTest {
         // When
         val jobs = (1..100).map { i ->
             launch {
-                store.createOrUpdateProperty(intProperty(PROPERTY_NAME) { value = i })
+                store.createOrUpdateProperty(
+                    PropertyInt(
+                        name = PROPERTY_NAME,
+                        value = i,
+                    ),
+                )
             }
         }
         jobs.joinAll()
@@ -526,7 +533,7 @@ abstract class PropertyStoreContractTest {
         // Given
         val store = createStore()
         (1..10).forEach { i ->
-            store += intProperty("prop-$i") { value = i }
+            store += PropertyInt(name = "prop-$i", value = i)
         }
 
         // When
@@ -549,15 +556,13 @@ abstract class PropertyStoreContractTest {
     fun `concurrent set operations should handle updates correctly`() = runTest {
         // Given
         val store = createStore()
-        store += intProperty(PROPERTY_NAME) { value = 0 }
+        store += PropertyInt(name = PROPERTY_NAME, value = 0)
 
         // When
         val jobs = (1..50).map { i ->
             launch {
                 store.updateProperty(PROPERTY_NAME) { property ->
-                    intProperty(property.name) {
-                        value = i
-                    }
+                    PropertyInt(name = property.name, value = i)
                 }
             }
         }

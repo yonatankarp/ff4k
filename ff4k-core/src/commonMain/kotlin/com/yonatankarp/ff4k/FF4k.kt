@@ -220,8 +220,23 @@ class FF4k(
      *     Feature Management   *
      *==========================*/
 
+    /**
+     * Retrieves all features from the store.
+     *
+     * @return A map of feature IDs to their [Feature] objects
+     */
     suspend fun features(): Map<String, Feature> = featureStore().getAll()
 
+    /**
+     * Retrieves a specific feature by its identifier.
+     *
+     * If [autoCreate] is enabled and the feature doesn't exist, a disabled feature
+     * will be created automatically. Otherwise, throws [FeatureNotFoundException].
+     *
+     * @param featureId The unique identifier of the feature
+     * @return The [Feature] object
+     * @throws FeatureNotFoundException if the feature doesn't exist and [autoCreate] is false
+     */
     suspend fun feature(featureId: String): Feature = featureStore().getOrAutoCreate(
         featureId = featureId,
         autoCreate = autoCreate,
@@ -229,8 +244,24 @@ class FF4k(
         createDefault = { Feature(featureId, isEnabled = false) },
     ) { getOrThrow(featureId) }
 
+    /**
+     * Retrieves all features belonging to a specific group.
+     *
+     * @param groupName The name of the group to query
+     * @return A map of feature IDs to their [Feature] objects within the group
+     */
     suspend fun featuresByGroup(groupName: String): Map<String, Feature> = featureStore().getGroup(groupName)
 
+    /**
+     * Enables a feature flag.
+     *
+     * If [autoCreate] is enabled and the feature doesn't exist, it will be created
+     * in an enabled state. Otherwise, throws [FeatureNotFoundException].
+     *
+     * @param featureId The unique identifier of the feature to enable
+     * @return This [FF4k] instance for method chaining
+     * @throws FeatureNotFoundException if the feature doesn't exist and [autoCreate] is false
+     */
     suspend fun enable(featureId: String) = apply {
         featureStore().getOrAutoCreate(
             featureId = featureId,
@@ -243,6 +274,16 @@ class FF4k(
         }
     }
 
+    /**
+     * Disables a feature flag.
+     *
+     * If [autoCreate] is enabled and the feature doesn't exist, it will be created
+     * in a disabled state. Otherwise, throws [FeatureNotFoundException].
+     *
+     * @param featureId The unique identifier of the feature to disable
+     * @return This [FF4k] instance for method chaining
+     * @throws FeatureNotFoundException if the feature doesn't exist and [autoCreate] is false
+     */
     suspend fun disable(featureId: String) = apply {
         featureStore().getOrAutoCreate(
             featureId = featureId,
@@ -255,49 +296,140 @@ class FF4k(
         }
     }
 
+    /**
+     * Checks whether a feature exists in the store.
+     *
+     * @param featureId The unique identifier of the feature
+     * @return `true` if the feature exists, `false` otherwise
+     */
     suspend fun hasFeature(featureId: String): Boolean = featureId in featureStore()
+
+    /**
+     * Checks whether a group with the given name exists in the store.
+     *
+     * @param groupName The name of the group to check
+     * @return `true` if any feature belongs to this group, `false` otherwise
+     */
     suspend fun containGroup(groupName: String): Boolean = featureStore().containsGroup(groupName)
 
     /*==========================*
      *    Property Management   *
      *==========================*/
 
+    /**
+     * Retrieves all properties from the store.
+     *
+     * @return A map of property names to their [Property] objects
+     */
     suspend fun properties(): Map<String, Property<*>> = propertyStore().getAll()
 
+    /**
+     * Retrieves a specific property by its identifier.
+     *
+     * @param T The expected type of the property value
+     * @param propertyId The unique identifier of the property
+     * @return The [Property] object, or `null` if not found
+     */
     suspend fun <T> property(propertyId: String): Property<T>? = propertyStore()[propertyId]
 
+    /**
+     * Retrieves a property value as a string representation.
+     *
+     * @param T The type of the property value
+     * @param propertyId The unique identifier of the property
+     * @return The string representation of the property value, or `null` if not found
+     */
     suspend fun <T> propertyAsString(propertyId: String): String? = propertyStore().get<T>(propertyId)?.value?.toString()
 
+    /**
+     * Checks whether a property exists in the store.
+     *
+     * @param propertyId The unique identifier of the property
+     * @return `true` if the property exists, `false` otherwise
+     */
     suspend fun hasProperty(propertyId: String): Boolean = propertyId in propertyStore()
 
     /*==========================*
      *          Builder         *
      *==========================*/
 
+    /**
+     * Adds a feature to the store.
+     *
+     * If a feature with the same ID already exists, it will be replaced.
+     *
+     * @param feature The [Feature] to add
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun addFeature(feature: Feature) = apply {
         featureStore() += feature
     }
 
+    /**
+     * Creates and adds a new feature to the store.
+     *
+     * This is a convenience overload for creating simple features without
+     * strategies or group assignments.
+     *
+     * @param featureId The unique identifier for the feature
+     * @param isEnabled Whether the feature should be enabled (defaults to `false`)
+     * @param description Optional description of the feature
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun addFeature(featureId: String, isEnabled: Boolean = false, description: String? = null) = apply {
         addFeature(Feature(featureId, isEnabled, description))
     }
 
+    /**
+     * Removes a feature from the store.
+     *
+     * @param feature The [Feature] to remove
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun deleteFeature(feature: Feature) = apply {
         featureStore() -= feature.uid
     }
 
+    /**
+     * Adds a property to the store.
+     *
+     * If a property with the same name already exists, it will be replaced.
+     *
+     * @param T The type of the property value
+     * @param property The [Property] to add
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun <T> addProperty(property: Property<T>) = apply {
         propertyStore() += property
     }
 
+    /**
+     * Removes a property from the store.
+     *
+     * @param T The type of the property value
+     * @param property The [Property] to remove
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun <T> deleteProperty(property: Property<T>) = apply {
         propertyStore() -= property.name
     }
 
+    /**
+     * Enables all features belonging to a specific group.
+     *
+     * @param groupName The name of the group whose features should be enabled
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun enableGroup(groupName: String) = apply {
         featureStore().enableGroup(groupName)
     }
 
+    /**
+     * Disables all features belonging to a specific group.
+     *
+     * @param groupName The name of the group whose features should be disabled
+     * @return This [FF4k] instance for method chaining
+     */
     suspend fun disableGroup(groupName: String) = apply {
         featureStore().disableGroup(groupName)
     }

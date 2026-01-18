@@ -36,6 +36,30 @@ kotlin {
     applyDefaultHierarchyTemplate()
 
     sourceSets {
+        val jvmSharedMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        val jvmSharedTest by creating {
+            dependsOn(commonTest.get())
+        }
+
+        jvmMain {
+            dependsOn(jvmSharedMain)
+        }
+
+        androidMain {
+            dependsOn(jvmSharedMain)
+        }
+
+        jvmTest {
+            dependsOn(jvmSharedTest)
+        }
+
+        named("androidUnitTest") {
+            dependsOn(jvmSharedTest)
+        }
+
         commonMain.dependencies {
             implementation(libs.findLibrary("kotlinx-coroutines-core").get())
         }
@@ -43,6 +67,16 @@ kotlin {
             implementation(libs.findLibrary("kotlin-test").get())
         }
     }
+}
+
+// Add JVM stdlib visibility for jvmShared source sets (IDE support)
+dependencies {
+    "jvmSharedMainCompileOnly"(kotlin("stdlib"))
+    "jvmSharedMainCompileOnly"(libs.findLibrary("kotlinx-coroutines-core").get())
+    "jvmSharedTestCompileOnly"(kotlin("stdlib"))
+    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-core").get())
+    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-test").get())
+    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlin-test").get())
 }
 
 android {

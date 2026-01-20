@@ -20,7 +20,7 @@ import platform.posix.fwrite
 import platform.posix.getenv
 
 @OptIn(ExperimentalForeignApi::class)
-actual suspend fun readFileContent(filePath: String): String {
+internal actual suspend fun readFileContent(filePath: String): String {
     validatePath(filePath)
     val expandedPath = expandPath(filePath)
     return useFile(expandedPath, "rb") { file ->
@@ -29,7 +29,7 @@ actual suspend fun readFileContent(filePath: String): String {
 }
 
 @OptIn(ExperimentalForeignApi::class)
-actual suspend fun writeFileContent(filePath: String, content: String) {
+internal actual suspend fun writeFileContent(filePath: String, content: String) {
     validatePath(filePath)
     val expandedPath = expandPath(filePath)
     useFile(expandedPath, "wb") { file ->
@@ -38,7 +38,7 @@ actual suspend fun writeFileContent(filePath: String, content: String) {
 }
 
 @OptIn(ExperimentalForeignApi::class)
-actual suspend fun loadResourceContent(resourcePath: String): String {
+internal actual suspend fun loadResourceContent(resourcePath: String): String {
     validatePath(resourcePath)
     val possiblePaths = resolveResourcePaths(resourcePath)
 

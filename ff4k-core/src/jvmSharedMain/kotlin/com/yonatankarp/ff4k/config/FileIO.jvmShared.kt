@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
-actual suspend fun readFileContent(filePath: String): String = withContext(Dispatchers.IO) {
+internal actual suspend fun readFileContent(filePath: String): String = withContext(Dispatchers.IO) {
     validatePath(filePath)
     val expandedPath = expandPath(filePath)
     try {
@@ -19,7 +19,7 @@ actual suspend fun readFileContent(filePath: String): String = withContext(Dispa
     }
 }
 
-actual suspend fun writeFileContent(filePath: String, content: String) {
+internal actual suspend fun writeFileContent(filePath: String, content: String) {
     withContext(Dispatchers.IO) {
         validatePath(filePath)
         val expandedPath = expandPath(filePath)
@@ -35,7 +35,7 @@ actual suspend fun writeFileContent(filePath: String, content: String) {
     }
 }
 
-actual suspend fun loadResourceContent(resourcePath: String): String = withContext(Dispatchers.IO) {
+internal actual suspend fun loadResourceContent(resourcePath: String): String = withContext(Dispatchers.IO) {
     validatePath(resourcePath)
     val classLoader = Thread.currentThread().contextClassLoader ?: ClassLoader.getSystemClassLoader()
     try {

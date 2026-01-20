@@ -16,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
  * This implementation supports nesting different mutexes (e.g. locking A then B) because `withContext`
  * restores the previous context value upon completion.
  */
-suspend fun <T> Mutex.withReentrantLock(block: suspend () -> T): T {
+internal suspend fun <T> Mutex.withReentrantLock(block: suspend () -> T): T {
     val key = ReentrantMutexContextElement.Key
     val element = currentCoroutineContext()[key]
 

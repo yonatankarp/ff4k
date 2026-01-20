@@ -11,7 +11,7 @@ package com.yonatankarp.ff4k.config
  *         if the path contains directory traversal sequences (`..`),
  *         or if the path starts with `~` and the home directory cannot be determined.
  */
-expect suspend fun readFileContent(filePath: String): String
+internal expect suspend fun readFileContent(filePath: String): String
 
 /**
  * Writes content to a file, creating it if it doesn't exist or overwriting if it does.
@@ -24,7 +24,7 @@ expect suspend fun readFileContent(filePath: String): String
  *         if the path contains directory traversal sequences (`..`),
  *         or if the path starts with `~` and the home directory cannot be determined.
  */
-expect suspend fun writeFileContent(filePath: String, content: String)
+internal expect suspend fun writeFileContent(filePath: String, content: String)
 
 /**
  * Loads the content of a resource file as a UTF-8 string.
@@ -41,4 +41,4 @@ expect suspend fun writeFileContent(filePath: String, content: String)
  * @throws IllegalArgumentException if the resource cannot be found,
  *         or if the path contains directory traversal sequences (`..`).
  */
-expect suspend fun loadResourceContent(resourcePath: String): String
+internal expect suspend fun loadResourceContent(resourcePath: String): String

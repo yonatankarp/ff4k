@@ -210,12 +210,12 @@ private fun validatePath(path: String) {
 @OptIn(ExperimentalForeignApi::class)
 private fun expandPath(path: String): String {
     if (!path.startsWith("~")) return path
-    if (path.length > 1 && path[1] != '/') {
-        throw IllegalArgumentException(
-            "Unsupported tilde expansion in path '$path': only '~' and '~/...' patterns are supported. " +
-                "The '~username' syntax is not supported.",
-        )
+
+    require(path.length <= 1 || path[1] == '/') {
+        "Unsupported tilde expansion in path '$path': only '~' and '~/...' patterns are supported. " +
+            "The '~username' syntax is not supported."
     }
+
     val home = getenv("HOME")?.toKString()
         ?: getenv("USERPROFILE")?.toKString()
         ?: throw IllegalArgumentException(

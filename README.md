@@ -30,7 +30,95 @@ FF4K is a Kotlin Multiplatform (KMP) implementation of the popular [FF4J](https:
 
 ## Usage
 
-[//]: # (TODO: Fill usage once enough is implemented)
+### 1. Initialization & Configuration
+
+Use the `ff4k` DSL to configure the library. This allows you to define features and properties in a structured, type-safe way.
+
+```kotlin
+import com.yonatankarp.ff4k.dsl.core.ff4k
+
+val ff4k = ff4k {
+    // Define features
+    features {
+        feature("dark-mode") {
+            isEnabled = true
+            description = "Enable dark mode theme"
+            group = "ui-experiments"
+        }
+
+        feature("beta-dashboard") {
+            isEnabled = false
+            permissions("ADMIN", "BETA_USER")
+        }
+    }
+
+    // Define properties
+    properties {
+        property("max-retries") {
+            value = 3
+            description = "Maximum API retry attempts"
+            readOnly = true
+        }
+
+        property("api-url") {
+            value = "https://api.example.com"
+        }
+    }
+}
+```
+
+### 2. Custom Stores & Auto-Create
+
+You can configure storage backends and behavior via the `ff4k` function arguments.
+
+```kotlin
+val ff4k = ff4k(
+    autoCreate = true, // Auto-create missing features as disabled
+    featureStore = InMemoryFeatureStore(), // Default
+    propertyStore = InMemoryPropertyStore() // Default
+) {
+    // ... configuration block
+}
+```
+
+### 3. Checking Feature Flags
+
+Use the idiomatic `ifEnabled` and `ifEnabledOrElse` functions for cleaner conditional logic.
+
+```kotlin
+// Execute a block if the feature is enabled
+ff4k.ifEnabled("dark-mode") {
+    enableDarkMode()
+}
+
+// Execute one block if enabled, another if disabled
+ff4k.ifEnabledOrElse("dark-mode",
+    enabled = { enableDarkMode() },
+    disabled = { enableLightMode() }
+)
+```
+
+### 4. Retrieving Properties
+
+Access properties safely with type conversion.
+
+```kotlin
+// Retrieve property object and access its value
+val retries: Int? = ff4k.property<Int>("max-retries")?.value
+val apiUrl: String? = ff4k.property<String>("api-url")?.value
+```
+
+### 5. Managing Groups
+
+Enable or disable entire groups of features.
+
+```kotlin
+// Enable all features in the 'ui-experiments' group
+ff4k.enableGroup("ui-experiments")
+
+// Disable all features in the 'ui-experiments' group
+ff4k.disableGroup("ui-experiments")
+```
 
 ## License
 

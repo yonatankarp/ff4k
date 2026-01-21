@@ -1,0 +1,92 @@
+# Properties
+
+Properties in FF4K allow you to manage configuration values alongside your feature flags. Unlike feature flags which are boolean, properties can hold values of various types.
+
+## Built-in Property Types
+
+FF4K comes with support for common data types out of the box:
+
+- `PropertyString`
+- `PropertyInt`
+- `PropertyLong`
+- `PropertyDouble`
+- `PropertyFloat`
+- `PropertyBoolean`
+- `PropertyByte`
+- `PropertyShort`
+- `PropertyBigInteger`
+- `PropertyBigDecimal`
+- `PropertyLocalDate`
+- `PropertyLocalDateTime`
+- `PropertyInstant`
+- `PropertyLogLevel`
+
+## Usage
+
+### Defining Properties in DSL
+
+You can define properties within the `properties` block of the `ff4k` DSL.
+
+```kotlin
+ff4k {
+    properties {
+        property("app-title") {
+            value = "My Awesome App"
+        }
+        
+        property("max-connections") {
+            value = 10
+            description = "Maximum number of concurrent connections"
+        }
+    }
+}
+```
+
+### Retrieving Properties
+
+To retrieve a property, use the `property` method. You should specify the expected type.
+
+```kotlin
+// Get the property object
+val titleProp: Property<String>? = ff4k.property<String>("app-title")
+println("Title: ${titleProp?.value}")
+
+// Get value directly (safe)
+val maxConns: Int? = ff4k.property<Int>("max-connections")?.value
+```
+
+## Creating Custom Properties
+
+If the built-in types don't meet your needs, you can create custom property types by implementing the `Property<T>` interface or extending `AbstractProperty<T>`.
+
+### 1. Implement the Interface
+
+You need to implement `Property<T>`. It's recommended to make your implementation a data class and include serialization support.
+
+```kotlin
+import com.yonatankarp.ff4k.property.Property
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class PropertyColor(
+    override val name: String,
+    override val value: String, // Storing hex code as string
+    override val description: String? = null,
+    override val fixedValues: Set<String> = emptySet(),
+    override val readOnly: Boolean = false
+) : Property<String>
+```
+
+### 2. Using Custom Properties
+
+You can manually add custom properties to the store if you are not using the DSL builder for them, or extend the DSL if you want seamless integration.
+
+To use them with the `ff4k` instance:
+
+```kotlin
+val myColor = PropertyColor("bg-color", "#FFFFFF")
+// Assuming you have access to the underlying store or use a custom mechanism to register it
+// ff4k.getPropertyStore().createProperty(myColor)
+```
+
+*Note: The DSL currently simplifies the creation of built-in types. Custom types can be instantiated and added to your `PropertyStore` directly.*

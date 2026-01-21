@@ -1,0 +1,52 @@
+site_name: FF4K
+site_description: Feature Flipping for Kotlin Multiplatform
+site_url: https://yonatankarp.github.io/ff4k/
+repo_url: https://github.com/yonatankarp/ff4k
+repo_name: yonatankarp/ff4k
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Properties: properties.md
+  - Testing: testing.md
+  - Extending: extending.md
+  - API Reference: api/index.html
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - toc:
+      permalink: true
+
+plugins:
+  - search

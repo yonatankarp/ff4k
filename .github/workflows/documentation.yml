@@ -1,0 +1,41 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install MkDocs Material
+        run: pip install mkdocs-material
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Generate KDoc
+        run: ./gradlew dokkaHtmlMultiModule
+
+      - name: Copy KDoc to docs
+        run: |
+          mkdir -p docs/api
+          cp -r build/dokka/htmlMultiModule/* docs/api/
+
+      - name: Build and Deploy MkDocs
+        run: mkdocs gh-deploy --force

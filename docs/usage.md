@@ -9,8 +9,10 @@ The entry point for FF4K is the `ff4k` DSL function. It allows you to configure 
 ```kotlin
 import com.yonatankarp.ff4k.dsl.core.ff4k
 
-val ff4k = ff4k {
-    // Configuration block
+suspend fun main() {
+    val ff4k = ff4k {
+        // Configuration block
+    }
 }
 ```
 
@@ -19,12 +21,14 @@ val ff4k = ff4k {
 The `ff4k` function accepts several optional arguments to customize behavior:
 
 ```kotlin
-val ff4k = ff4k(
-    autoCreate = true,                // Automatically create missing features (default: false)
-    featureStore = InMemoryFeatureStore(), // Custom feature store (default: InMemory)
-    propertyStore = InMemoryPropertyStore() // Custom property store (default: InMemory)
-) {
-    // ...
+suspend fun main() {
+    val ff4k = ff4k(
+        autoCreate = true,                // Automatically create missing features (default: false)
+        featureStore = InMemoryFeatureStore(), // Custom feature store (default: InMemory)
+        propertyStore = InMemoryPropertyStore() // Custom property store (default: InMemory)
+    ) {
+        // ...
+    }
 }
 ```
 
@@ -37,17 +41,19 @@ val ff4k = ff4k(
 Features are boolean flags that can be toggled on or off. You can define them within the `features` block.
 
 ```kotlin
-ff4k {
-    features {
-        // Minimal definition
-        feature("simple-feature")
+suspend fun main() {
+    val ff4k = ff4k {
+        features {
+            // Minimal definition
+            feature("simple-feature")
 
-        // Detailed definition
-        feature("advanced-feature") {
-            isEnabled = true
-            description = "Controls the new dashboard layout"
-            group = "ui-beta"
-            permissions("ADMIN", "BETA_TESTER")
+            // Detailed definition
+            feature("advanced-feature") {
+                isEnabled = true
+                description = "Controls the new dashboard layout"
+                group = "ui-beta"
+                permissions("ADMIN", "BETA_TESTER")
+            }
         }
     }
 }
@@ -66,19 +72,21 @@ ff4k {
 Properties are key-value pairs that can store configuration data. They are strongly typed.
 
 ```kotlin
-ff4k {
-    properties {
-        // String property
-        property("api-url") {
-            value = "https://api.example.com"
-        }
+suspend fun main() {
+    val ff4k = ff4k {
+        properties {
+            // String property
+            property("api-url") {
+                value = "https://api.example.com"
+            }
 
-        // Integer property with constraints
-        property("max-retries") {
-            value = 3
-            description = "Max API retries"
-            fixedValues(1, 3, 5) // Value must be one of these
-            readOnly = true // Prevent runtime modification
+            // Integer property with constraints
+            property("max-retries") {
+                value = 3
+                description = "Max API retries"
+                fixedValues(1, 3, 5) // Value must be one of these
+                readOnly = true // Prevent runtime modification
+            }
         }
     }
 }

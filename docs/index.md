@@ -25,18 +25,20 @@ dependencies {
 ```kotlin
 import com.yonatankarp.ff4k.dsl.core.ff4k
 
-val ff4k = ff4k {
-    features {
-        feature("dark-mode") {
-            isEnabled = true
-            description = "Enable dark mode theme"
+suspend fun main() {
+    val ff4k = ff4k {
+        features {
+            feature("dark-mode") {
+                isEnabled = true
+                description = "Enable dark mode theme"
+            }
         }
     }
-}
 
-// Check feature status
-if (ff4k.check("dark-mode")) {
-    // ...
+    // Check feature status
+    ff4k.ifEnabled("dark-mode") {
+        // ...
+    }
 }
 ```
 

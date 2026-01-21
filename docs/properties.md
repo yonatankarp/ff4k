@@ -28,15 +28,17 @@ FF4K comes with support for common data types out of the box:
 You can define properties within the `properties` block of the `ff4k` DSL.
 
 ```kotlin
-ff4k {
-    properties {
-        property("app-title") {
-            value = "My Awesome App"
-        }
-        
-        property("max-connections") {
-            value = 10
-            description = "Maximum number of concurrent connections"
+suspend fun main() {
+    val ff4k = ff4k {
+        properties {
+            property("app-title") {
+                value = "My Awesome App"
+            }
+
+            property("max-connections") {
+                value = 10
+                description = "Maximum number of concurrent connections"
+            }
         }
     }
 }
@@ -79,14 +81,30 @@ data class PropertyColor(
 
 ### 2. Using Custom Properties
 
-You can manually add custom properties to the store if you are not using the DSL builder for them, or extend the DSL if you want seamless integration.
-
-To use them with the `ff4k` instance:
+You can manually add custom properties to the store. Here is a complete example of how to register and use a custom property type:
 
 ```kotlin
-val myColor = PropertyColor("bg-color", "#FFFFFF")
-// Assuming you have access to the underlying store or use a custom mechanism to register it
-// ff4k.getPropertyStore().createProperty(myColor)
-```
+suspend fun main() {
+    // 1. Initialize your property store
+    val myPropertyStore = InMemoryPropertyStore()
 
-*Note: The DSL currently simplifies the creation of built-in types. Custom types can be instantiated and added to your `PropertyStore` directly.*
+    // 2. Initialize FF4K with your store
+    val ff4k = ff4k(propertyStore = myPropertyStore) {
+        // ... other configuration ...
+    }
+
+    // 3. Create your custom property
+    val brandColor = PropertyColor(
+        name = "brand-color",
+        value = "#FF5722",
+        description = "Primary brand color"
+    )
+
+    // 4. Add it to the store manually
+    myPropertyStore += brandColor
+
+    // 5. Retrieve and use it
+    val storedColor = ff4k.property<String>("brand-color")
+    println("Brand Color: ${storedColor?.value}") // Output: #FF5722
+}
+```

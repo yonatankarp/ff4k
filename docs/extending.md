@@ -12,6 +12,8 @@ To create a custom feature store, implement the `FeatureStore` interface. For co
 
 ```kotlin
 import com.yonatankarp.ff4k.core.Feature
+import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
+import com.yonatankarp.ff4k.exception.FeatureNotFoundException
 import com.yonatankarp.ff4k.store.AbstractFeatureStore
 
 class MyCustomFeatureStore : AbstractFeatureStore() {
@@ -67,11 +69,11 @@ import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.property.Property
 
 class MyCustomPropertyStore : PropertyStore {
-    // Implement methods: get, put, delete, etc.
+   // Implement interface...
 }
 ```
 
-## verifying Your Implementation
+## Verifying Your Implementation
 
 It is critical to ensure your custom store behaves correctly. FF4K provides a [Contract Test Suite](testing.md) that you can use to automatically verify your implementation against the expected behavior.
 
@@ -80,10 +82,12 @@ It is critical to ensure your custom store behaves correctly. FF4K provides a [C
 Once implemented, pass your custom store to the `ff4k` configuration function.
 
 ```kotlin
-val ff4k = ff4k(
-    featureStore = MyCustomFeatureStore(),
-    propertyStore = MyCustomPropertyStore()
-) {
-    // ...
+suspend fun main() {
+    val ff4k = ff4k(
+        featureStore = MyCustomFeatureStore(),
+        propertyStore = MyCustomPropertyStore()
+    ) {
+        // ...
+    }
 }
 ```

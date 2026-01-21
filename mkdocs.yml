@@ -34,7 +34,7 @@ nav:
   - Properties: properties.md
   - Testing: testing.md
   - Extending: extending.md
-  - API Reference: api/index.html
+  - API Reference: https://yonatankarp.github.io/ff4k/api/
 
 markdown_extensions:
   - pymdownx.highlight:

@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.store
 
+import com.yonatankarp.ff4k.config.FF4kConfiguration
 import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.exception.PropertyAlreadyExistsException
 import com.yonatankarp.ff4k.exception.PropertyNotFoundException
@@ -31,6 +32,8 @@ import kotlinx.coroutines.sync.Mutex
 class InMemoryPropertyStore(
     initialProperties: Map<String, Property<*>> = emptyMap(),
 ) : PropertyStore {
+
+    constructor(config: FF4kConfiguration) : this(config.properties)
 
     private val properties: MutableMap<String, Property<*>> = initialProperties.toMutableMap()
     private val mutex: Mutex = Mutex()

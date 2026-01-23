@@ -1,0 +1,90 @@
+{
+  "settings" : { },
+  "features": { },
+  "properties" : {
+    "retryLimit" : {
+      "type" : "int",
+      "name" : "retryLimit",
+      "value" : 5,
+      "description" : "Maximum number of retries"
+    },
+    "welcomeMessage" : {
+      "type" : "string",
+      "name" : "welcomeMessage",
+      "value" : "Hello, user!",
+      "description" : "Greeting message for users"
+    },
+    "piValue" : {
+      "type" : "double",
+      "name" : "piValue",
+      "value" : 3.14159,
+      "description" : "Pi constant value"
+    },
+    "sessionTimeout" : {
+      "type" : "float",
+      "name" : "sessionTimeout",
+      "value" : 30.0,
+      "description" : "Session timeout in minutes"
+    },
+    "maxUsers" : {
+      "type" : "long",
+      "name" : "maxUsers",
+      "value" : 1000,
+      "description" : "Maximum concurrent users allowed"
+    },
+    "isBetaEnabled" : {
+      "type" : "boolean",
+      "name" : "isBetaEnabled",
+      "value" : true,
+      "description" : "Flag to enable beta features"
+    },
+    "defaultPriority" : {
+      "type" : "short",
+      "name" : "defaultPriority",
+      "value" : 1,
+      "description" : "Default task priority"
+    },
+    "defaultByteValue" : {
+      "type" : "byte",
+      "name" : "defaultByteValue",
+      "value" : 31,
+      "description" : "Default byte configuration"
+    },
+    "bigOrderNumber" : {
+      "type" : "bigInteger",
+      "name" : "bigOrderNumber",
+      "value" : "1234567890123456789",
+      "description" : "Large order identifier"
+    },
+    "taxRate" : {
+      "type" : "bigDecimal",
+      "name" : "taxRate",
+      "value" : "1.9E-1",
+      "description" : "Tax rate as BigDecimal"
+    },
+    "launchDate" : {
+      "type" : "localDate",
+      "name" : "launchDate",
+      "value" : "2026-01-23",
+      "description" : "Official launch date"
+    },
+    "lastLogin" : {
+      "type" : "localDateTime",
+      "name" : "lastLogin",
+      "value" : "2026-01-23T21:00",
+      "description" : "User last login timestamp"
+    },
+    "eventTimestamp" : {
+      "type" : "instant",
+      "name" : "eventTimestamp",
+      "value" : "2026-01-23T21:00:00Z",
+      "description" : "Event occurrence timestamp"
+    },
+    "logLevel" : {
+      "type" : "logLevel",
+      "name" : "logLevel",
+      "value" : "INFO",
+      "description" : "Logging level for the system"
+    }
+  }
+}

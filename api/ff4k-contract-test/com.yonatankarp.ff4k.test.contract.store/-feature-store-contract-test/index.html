@@ -1,0 +1,1080 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FeatureStoreContractTest</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    ff4k
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.1.0-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-contract-test/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ff4k-contract-test/commonMain" data-filter=":ff4k-contract-test/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ff4k
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-contract-test::com.yonatankarp.ff4k.test.contract.store/FeatureStoreContractTest///PointingToDeclaration//-1943998686">
+  <div class="breadcrumbs"><a href="../../index.html">ff4k-contract-test</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.test.contract.store</a><span class="delimiter">/</span><span class="current">FeatureStoreContractTest</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Feature</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">FeatureStoreContractTest</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-contract-test/src/commonMain/kotlin/com/yonatankarp/ff4k/test/contract/store/FeatureStoreContractTest.kt#L38">source</a>)</span></span></div><p class="paragraph">Abstract contract test for <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature-store/index.html">FeatureStore</a> implementations.</p><p class="paragraph">This abstract class defines a comprehensive test suite that all FeatureStore implementations must pass. It tests all CRUD operations, group management, permission handling, and edge cases.</p><p class="paragraph">To use this contract test, extend this class and implement the <a href="../../../ff4k-contract-test/com.yonatankarp.ff4k.test.contract.store/-feature-store-contract-test/create-store.html">createStore</a> method:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class InMemoryFeatureStoreTest : FeatureStoreContractTest() {<br>    override suspend fun createStore(): FeatureStore = InMemoryFeatureStore()<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Yonatan Karp-Rudin (@yonatankarp)</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="2084308292%2FConstructors%2F-1943998686" anchor-label="FeatureStoreContractTest" id="2084308292%2FConstructors%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-feature-store-contract-test.html"><span>Feature</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2084308292%2FConstructors%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1657522930%2FClasslikes%2F-1943998686" anchor-label="Companion" id="-1657522930%2FClasslikes%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1657522930%2FClasslikes%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-2032813695%2FFunctions%2F-1943998686" anchor-label="concurrent addToGroup and enable should not lose changes" id="-2032813695%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent add-to-group and enable should not lose changes.html"><span><span>concurrent</span></span> <span>add</span><wbr><span>To</span><wbr><span><span>Group</span></span> <span><span>and</span></span> <span><span>enable</span></span> <span><span>should</span></span> <span><span>not</span></span> <span><span>lose</span></span> <span><span>changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2032813695%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent add-to-group and enable should not lose changes.html"><span class="token function">concurrent addToGroup and enable should not lose changes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1568793163%2FFunctions%2F-1943998686" anchor-label="concurrent disable and grant permissions should not lose changes" id="1568793163%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent disable and grant permissions should not lose changes.html"><span><span>concurrent</span></span> <span><span>disable</span></span> <span><span>and</span></span> <span><span>grant</span></span> <span><span>permissions</span></span> <span><span>should</span></span> <span><span>not</span></span> <span><span>lose</span></span> <span><span>changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1568793163%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent disable and grant permissions should not lose changes.html"><span class="token function">concurrent disable and grant permissions should not lose changes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-238077198%2FFunctions%2F-1943998686" anchor-label="concurrent enable and grant permissions should not lose changes" id="-238077198%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent enable and grant permissions should not lose changes.html"><span><span>concurrent</span></span> <span><span>enable</span></span> <span><span>and</span></span> <span><span>grant</span></span> <span><span>permissions</span></span> <span><span>should</span></span> <span><span>not</span></span> <span><span>lose</span></span> <span><span>changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-238077198%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent enable and grant permissions should not lose changes.html"><span class="token function">concurrent enable and grant permissions should not lose changes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="155386688%2FFunctions%2F-1943998686" anchor-label="concurrent grant permissions and enable should not lose changes" id="155386688%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent grant permissions and enable should not lose changes.html"><span><span>concurrent</span></span> <span><span>grant</span></span> <span><span>permissions</span></span> <span><span>and</span></span> <span><span>enable</span></span> <span><span>should</span></span> <span><span>not</span></span> <span><span>lose</span></span> <span><span>changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="155386688%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent grant permissions and enable should not lose changes.html"><span class="token function">concurrent grant permissions and enable should not lose changes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="550136551%2FFunctions%2F-1943998686" anchor-label="disableGroup should handle concurrent feature deletions gracefully" id="550136551%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="disable-group should handle concurrent feature deletions gracefully.html"><span>disable</span><wbr><span><span>Group</span></span> <span><span>should</span></span> <span><span>handle</span></span> <span><span>concurrent</span></span> <span><span>feature</span></span> <span><span>deletions</span></span> <span><span>gracefully</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="550136551%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="disable-group should handle concurrent feature deletions gracefully.html"><span class="token function">disableGroup should handle concurrent feature deletions gracefully</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1326427350%2FFunctions%2F-1943998686" anchor-label="enableGroup should handle concurrent feature deletions gracefully" id="1326427350%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-group should handle concurrent feature deletions gracefully.html"><span>enable</span><wbr><span><span>Group</span></span> <span><span>should</span></span> <span><span>handle</span></span> <span><span>concurrent</span></span> <span><span>feature</span></span> <span><span>deletions</span></span> <span><span>gracefully</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1326427350%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="enable-group should handle concurrent feature deletions gracefully.html"><span class="token function">enableGroup should handle concurrent feature deletions gracefully</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1629980087%2FFunctions%2F-1943998686" anchor-label="enableGroup should not enable features that left the group concurrently" id="1629980087%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-group should not enable features that left the group concurrently.html"><span>enable</span><wbr><span><span>Group</span></span> <span><span>should</span></span> <span><span>not</span></span> <span><span>enable</span></span> <span><span>features</span></span> <span><span>that</span></span> <span><span>left</span></span> <span><span>the</span></span> <span><span>group</span></span> <span><span>concurrently</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1629980087%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="enable-group should not enable features that left the group concurrently.html"><span class="token function">enableGroup should not enable features that left the group concurrently</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="959148759%2FFunctions%2F-1943998686" anchor-label="should add feature to group" id="959148759%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should add feature to group.html"><span><span>should</span></span> <span><span>add</span></span> <span><span>feature</span></span> <span><span>to</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="959148759%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should add feature to group.html"><span class="token function">should add feature to group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-513533262%2FFunctions%2F-1943998686" anchor-label="should allow adding feature to same group multiple times without error" id="-513533262%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should allow adding feature to same group multiple times without error.html"><span><span>should</span></span> <span><span>allow</span></span> <span><span>adding</span></span> <span><span>feature</span></span> <span><span>to</span></span> <span><span>same</span></span> <span><span>group</span></span> <span><span>multiple</span></span> <span><span>times</span></span> <span><span>without</span></span> <span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-513533262%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should allow adding feature to same group multiple times without error.html"><span class="token function">should allow adding feature to same group multiple times without error</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="417620981%2FFunctions%2F-1943998686" anchor-label="should allow disabling an already disabled feature without error" id="417620981%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should allow disabling an already disabled feature without error.html"><span><span>should</span></span> <span><span>allow</span></span> <span><span>disabling</span></span> <span><span>an</span></span> <span><span>already</span></span> <span><span>disabled</span></span> <span><span>feature</span></span> <span><span>without</span></span> <span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="417620981%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should allow disabling an already disabled feature without error.html"><span class="token function">should allow disabling an already disabled feature without error</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-88712469%2FFunctions%2F-1943998686" anchor-label="should allow enabling an already enabled feature without error" id="-88712469%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should allow enabling an already enabled feature without error.html"><span><span>should</span></span> <span><span>allow</span></span> <span><span>enabling</span></span> <span><span>an</span></span> <span><span>already</span></span> <span><span>enabled</span></span> <span><span>feature</span></span> <span><span>without</span></span> <span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-88712469%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should allow enabling an already enabled feature without error.html"><span class="token function">should allow enabling an already enabled feature without error</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-733530905%2FFunctions%2F-1943998686" anchor-label="should allow granting same role multiple times without error" id="-733530905%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should allow granting same role multiple times without error.html"><span><span>should</span></span> <span><span>allow</span></span> <span><span>granting</span></span> <span><span>same</span></span> <span><span>role</span></span> <span><span>multiple</span></span> <span><span>times</span></span> <span><span>without</span></span> <span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-733530905%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should allow granting same role multiple times without error.html"><span class="token function">should allow granting same role multiple times without error</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-499517522%2FFunctions%2F-1943998686" anchor-label="should allow revoking non-existent role without error" id="-499517522%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should allow revoking non-existent role without error.html"><span><span>should</span></span> <span><span>allow</span></span> <span><span>revoking</span></span> <span><span>non-existent</span></span> <span><span>role</span></span> <span><span>without</span></span> <span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-499517522%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should allow revoking non-existent role without error.html"><span class="token function">should allow revoking non-existent role without error</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="952915494%2FFunctions%2F-1943998686" anchor-label="should check if feature exists using contains operator" id="952915494%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should check if feature exists using contains operator.html"><span><span>should</span></span> <span><span>check</span></span> <span><span>if</span></span> <span><span>feature</span></span> <span><span>exists</span></span> <span><span>using</span></span> <span><span>contains</span></span> <span><span>operator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="952915494%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should check if feature exists using contains operator.html"><span class="token function">should check if feature exists using contains operator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-13185448%2FFunctions%2F-1943998686" anchor-label="should check if group exists" id="-13185448%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should check if group exists.html"><span><span>should</span></span> <span><span>check</span></span> <span><span>if</span></span> <span><span>group</span></span> <span><span>exists</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-13185448%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should check if group exists.html"><span class="token function">should check if group exists</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1104790433%2FFunctions%2F-1943998686" anchor-label="should check if store is empty" id="-1104790433%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should check if store is empty.html"><span><span>should</span></span> <span><span>check</span></span> <span><span>if</span></span> <span><span>store</span></span> <span><span>is</span></span> <span><span>empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104790433%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should check if store is empty.html"><span class="token function">should check if store is empty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1656049813%2FFunctions%2F-1943998686" anchor-label="should clean up empty group after removing last feature" id="1656049813%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should clean up empty group after removing last feature.html"><span><span>should</span></span> <span><span>clean</span></span> <span><span>up</span></span> <span><span>empty</span></span> <span><span>group</span></span> <span><span>after</span></span> <span><span>removing</span></span> <span><span>last</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1656049813%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should clean up empty group after removing last feature.html"><span class="token function">should clean up empty group after removing last feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2059272317%2FFunctions%2F-1943998686" anchor-label="should clean up group when deleting last feature in group" id="-2059272317%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should clean up group when deleting last feature in group.html"><span><span>should</span></span> <span><span>clean</span></span> <span><span>up</span></span> <span><span>group</span></span> <span><span>when</span></span> <span><span>deleting</span></span> <span><span>last</span></span> <span><span>feature</span></span> <span><span>in</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2059272317%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should clean up group when deleting last feature in group.html"><span class="token function">should clean up group when deleting last feature in group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1158330603%2FFunctions%2F-1943998686" anchor-label="should clear all features" id="1158330603%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should clear all features.html"><span><span>should</span></span> <span><span>clear</span></span> <span><span>all</span></span> <span><span>features</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1158330603%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should clear all features.html"><span class="token function">should clear all features</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1435777217%2FFunctions%2F-1943998686" anchor-label="should clear groups along with features" id="-1435777217%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should clear groups along with features.html"><span><span>should</span></span> <span><span>clear</span></span> <span><span>groups</span></span> <span><span>along</span></span> <span><span>with</span></span> <span><span>features</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1435777217%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should clear groups along with features.html"><span class="token function">should clear groups along with features</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1641416216%2FFunctions%2F-1943998686" anchor-label="should count features in store" id="-1641416216%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should count features in store.html"><span><span>should</span></span> <span><span>count</span></span> <span><span>features</span></span> <span><span>in</span></span> <span><span>store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1641416216%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should count features in store.html"><span class="token function">should count features in store</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2067290599%2FFunctions%2F-1943998686" anchor-label="should create a new feature" id="2067290599%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create a new feature.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>a</span></span> <span><span>new</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2067290599%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create a new feature.html"><span class="token function">should create a new feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="223392908%2FFunctions%2F-1943998686" anchor-label="should create or update feature - create path" id="223392908%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create or update feature - create path.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>or</span></span> <span><span>update</span></span> <span><span>feature</span></span> <span><span>-</span></span> <span><span>create</span></span> <span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="223392908%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create or update feature - create path.html"><span class="token function">should create or update feature - create path</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="787572633%2FFunctions%2F-1943998686" anchor-label="should create or update feature - update path" id="787572633%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create or update feature - update path.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>or</span></span> <span><span>update</span></span> <span><span>feature</span></span> <span><span>-</span></span> <span><span>update</span></span> <span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787572633%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create or update feature - update path.html"><span class="token function">should create or update feature - update path</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="69347577%2FFunctions%2F-1943998686" anchor-label="should delete feature" id="69347577%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should delete feature.html"><span><span>should</span></span> <span><span>delete</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="69347577%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should delete feature.html"><span class="token function">should delete feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="953279311%2FFunctions%2F-1943998686" anchor-label="should disable all features in a group" id="953279311%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should disable all features in a group.html"><span><span>should</span></span> <span><span>disable</span></span> <span><span>all</span></span> <span><span>features</span></span> <span><span>in</span></span> <span><span>a</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="953279311%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should disable all features in a group.html"><span class="token function">should disable all features in a group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="51832830%2FFunctions%2F-1943998686" anchor-label="should disable an enabled feature" id="51832830%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should disable an enabled feature.html"><span><span>should</span></span> <span><span>disable</span></span> <span><span>an</span></span> <span><span>enabled</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="51832830%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should disable an enabled feature.html"><span class="token function">should disable an enabled feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-575796526%2FFunctions%2F-1943998686" anchor-label="should enable a disabled feature" id="-575796526%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should enable a disabled feature.html"><span><span>should</span></span> <span><span>enable</span></span> <span><span>a</span></span> <span><span>disabled</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-575796526%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should enable a disabled feature.html"><span class="token function">should enable a disabled feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561534382%2FFunctions%2F-1943998686" anchor-label="should enable all features in a group" id="561534382%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should enable all features in a group.html"><span><span>should</span></span> <span><span>enable</span></span> <span><span>all</span></span> <span><span>features</span></span> <span><span>in</span></span> <span><span>a</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561534382%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should enable all features in a group.html"><span class="token function">should enable all features in a group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="317510177%2FFunctions%2F-1943998686" anchor-label="should get all features in a group" id="317510177%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get all features in a group.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>all</span></span> <span><span>features</span></span> <span><span>in</span></span> <span><span>a</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="317510177%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get all features in a group.html"><span class="token function">should get all features in a group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-433576350%2FFunctions%2F-1943998686" anchor-label="should get all group names" id="-433576350%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get all group names.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>all</span></span> <span><span>group</span></span> <span><span>names</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-433576350%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get all group names.html"><span class="token function">should get all group names</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1202081010%2FFunctions%2F-1943998686" anchor-label="should get feature or throw exception" id="-1202081010%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get feature or throw exception.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>feature</span></span> <span><span>or</span></span> <span><span>throw</span></span> <span><span>exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1202081010%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get feature or throw exception.html"><span class="token function">should get feature or throw exception</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="727920681%2FFunctions%2F-1943998686" anchor-label="should grant role to feature" id="727920681%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should grant role to feature.html"><span><span>should</span></span> <span><span>grant</span></span> <span><span>role</span></span> <span><span>to</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727920681%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should grant role to feature.html"><span class="token function">should grant role to feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="133762692%2FFunctions%2F-1943998686" anchor-label="should move feature from one group to another" id="133762692%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should move feature from one group to another.html"><span><span>should</span></span> <span><span>move</span></span> <span><span>feature</span></span> <span><span>from</span></span> <span><span>one</span></span> <span><span>group</span></span> <span><span>to</span></span> <span><span>another</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="133762692%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should move feature from one group to another.html"><span class="token function">should move feature from one group to another</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1847088230%2FFunctions%2F-1943998686" anchor-label="should read all features" id="-1847088230%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should read all features.html"><span><span>should</span></span> <span><span>read</span></span> <span><span>all</span></span> <span><span>features</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1847088230%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should read all features.html"><span class="token function">should read all features</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908593162%2FFunctions%2F-1943998686" anchor-label="should read feature by id" id="908593162%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should read feature by id.html"><span><span>should</span></span> <span><span>read</span></span> <span><span>feature</span></span> <span><span>by</span></span> <span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908593162%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should read feature by id.html"><span class="token function">should read feature by id</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-603414575%2FFunctions%2F-1943998686" anchor-label="should remove feature from group" id="-603414575%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should remove feature from group.html"><span><span>should</span></span> <span><span>remove</span></span> <span><span>feature</span></span> <span><span>from</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-603414575%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should remove feature from group.html"><span class="token function">should remove feature from group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1850608753%2FFunctions%2F-1943998686" anchor-label="should return count 0 when store is empty" id="-1850608753%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return count 0 when store is empty.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>count</span></span> <span><span>0</span></span> <span><span>when</span></span> <span><span>store</span></span> <span><span>is</span></span> <span><span>empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1850608753%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return count 0 when store is empty.html"><span class="token function">should return count 0 when store is empty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-219159729%2FFunctions%2F-1943998686" anchor-label="should return empty map for non-existent group" id="-219159729%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return empty map for non-existent group.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>empty</span></span> <span><span>map</span></span> <span><span>for</span></span> <span><span>non-existent</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-219159729%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return empty map for non-existent group.html"><span class="token function">should return empty map for non-existent group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1348375596%2FFunctions%2F-1943998686" anchor-label="should return empty map when no features exist" id="1348375596%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return empty map when no features exist.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>empty</span></span> <span><span>map</span></span> <span><span>when</span></span> <span><span>no</span></span> <span><span>features</span></span> <span><span>exist</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1348375596%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return empty map when no features exist.html"><span class="token function">should return empty map when no features exist</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="267476219%2FFunctions%2F-1943998686" anchor-label="should return empty set when no groups exist" id="267476219%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return empty set when no groups exist.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>empty</span></span> <span><span>set</span></span> <span><span>when</span></span> <span><span>no</span></span> <span><span>groups</span></span> <span><span>exist</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="267476219%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return empty set when no groups exist.html"><span class="token function">should return empty set when no groups exist</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-296474715%2FFunctions%2F-1943998686" anchor-label="should return null when reading non-existent feature" id="-296474715%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return null when reading non-existent feature.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>null</span></span> <span><span>when</span></span> <span><span>reading</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-296474715%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return null when reading non-existent feature.html"><span class="token function">should return null when reading non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-451334070%2FFunctions%2F-1943998686" anchor-label="should revoke role from feature" id="-451334070%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should revoke role from feature.html"><span><span>should</span></span> <span><span>revoke</span></span> <span><span>role</span></span> <span><span>from</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-451334070%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should revoke role from feature.html"><span class="token function">should revoke role from feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-540031020%2FFunctions%2F-1943998686" anchor-label="should throw exception when adding non-existent feature to group" id="-540031020%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when adding non-existent feature to group.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>adding</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span> <span><span>to</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-540031020%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when adding non-existent feature to group.html"><span class="token function">should throw exception when adding non-existent feature to group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2032774667%2FFunctions%2F-1943998686" anchor-label="should throw exception when creating duplicate feature" id="2032774667%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when creating duplicate feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>creating</span></span> <span><span>duplicate</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2032774667%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when creating duplicate feature.html"><span class="token function">should throw exception when creating duplicate feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1816874707%2FFunctions%2F-1943998686" anchor-label="should throw exception when deleting non-existent feature" id="1816874707%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when deleting non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>deleting</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816874707%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when deleting non-existent feature.html"><span class="token function">should throw exception when deleting non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1975408736%2FFunctions%2F-1943998686" anchor-label="should throw exception when disabling non-existent feature" id="-1975408736%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when disabling non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>disabling</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1975408736%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when disabling non-existent feature.html"><span class="token function">should throw exception when disabling non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="758767275%2FFunctions%2F-1943998686" anchor-label="should throw exception when enabling non-existent feature" id="758767275%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when enabling non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>enabling</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="758767275%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when enabling non-existent feature.html"><span class="token function">should throw exception when enabling non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-489875240%2FFunctions%2F-1943998686" anchor-label="should throw exception when getting non-existent feature with getOrThrow" id="-489875240%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when getting non-existent feature with get-or-throw.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>getting</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span> <span><span>with</span></span> <span>get</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489875240%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when getting non-existent feature with get-or-throw.html"><span class="token function">should throw exception when getting non-existent feature with getOrThrow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-635965578%2FFunctions%2F-1943998686" anchor-label="should throw exception when granting role to non-existent feature" id="-635965578%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when granting role to non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>granting</span></span> <span><span>role</span></span> <span><span>to</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-635965578%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when granting role to non-existent feature.html"><span class="token function">should throw exception when granting role to non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1891489910%2FFunctions%2F-1943998686" anchor-label="should throw exception when removing group the feature is not in" id="1891489910%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when removing group the feature is not in.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>removing</span></span> <span><span>group</span></span> <span><span>the</span></span> <span><span>feature</span></span> <span><span>is</span></span> <span><span>not</span></span> <span><span>in</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1891489910%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when removing group the feature is not in.html"><span class="token function">should throw exception when removing group the feature is not in</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="587894245%2FFunctions%2F-1943998686" anchor-label="should throw exception when removing non-existent feature from group" id="587894245%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when removing non-existent feature from group.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>removing</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span> <span><span>from</span></span> <span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="587894245%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when removing non-existent feature from group.html"><span class="token function">should throw exception when removing non-existent feature from group</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="895680994%2FFunctions%2F-1943998686" anchor-label="should throw exception when revoking role from non-existent feature" id="895680994%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when revoking role from non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>revoking</span></span> <span><span>role</span></span> <span><span>from</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="895680994%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when revoking role from non-existent feature.html"><span class="token function">should throw exception when revoking role from non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1495519620%2FFunctions%2F-1943998686" anchor-label="should throw exception when toggling non-existent feature" id="-1495519620%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when toggling non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>toggling</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1495519620%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when toggling non-existent feature.html"><span class="token function">should throw exception when toggling non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1146069120%2FFunctions%2F-1943998686" anchor-label="should throw exception when transform changes feature uid" id="1146069120%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when transform changes feature uid.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>transform</span></span> <span><span>changes</span></span> <span><span>feature</span></span> <span><span>uid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1146069120%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when transform changes feature uid.html"><span class="token function">should throw exception when transform changes feature uid</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1129116175%2FFunctions%2F-1943998686" anchor-label="should throw exception when updating non-existent feature" id="-1129116175%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when updating non-existent feature.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>updating</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1129116175%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when updating non-existent feature.html"><span class="token function">should throw exception when updating non-existent feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-663679337%2FFunctions%2F-1943998686" anchor-label="should throw exception when updating non-existent feature with transform" id="-663679337%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when updating non-existent feature with transform.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>updating</span></span> <span><span>non-existent</span></span> <span><span>feature</span></span> <span><span>with</span></span> <span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-663679337%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when updating non-existent feature with transform.html"><span class="token function">should throw exception when updating non-existent feature with transform</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="985585728%2FFunctions%2F-1943998686" anchor-label="should toggle feature from disabled to enabled" id="985585728%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should toggle feature from disabled to enabled.html"><span><span>should</span></span> <span><span>toggle</span></span> <span><span>feature</span></span> <span><span>from</span></span> <span><span>disabled</span></span> <span><span>to</span></span> <span><span>enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="985585728%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should toggle feature from disabled to enabled.html"><span class="token function">should toggle feature from disabled to enabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="167954718%2FFunctions%2F-1943998686" anchor-label="should toggle feature from enabled to disabled" id="167954718%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should toggle feature from enabled to disabled.html"><span><span>should</span></span> <span><span>toggle</span></span> <span><span>feature</span></span> <span><span>from</span></span> <span><span>enabled</span></span> <span><span>to</span></span> <span><span>disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="167954718%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should toggle feature from enabled to disabled.html"><span class="token function">should toggle feature from enabled to disabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="756678632%2FFunctions%2F-1943998686" anchor-label="should update existing feature" id="756678632%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should update existing feature.html"><span><span>should</span></span> <span><span>update</span></span> <span><span>existing</span></span> <span><span>feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="756678632%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should update existing feature.html"><span class="token function">should update existing feature</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1968954025%2FFunctions%2F-1943998686" anchor-label="should update feature using transform function" id="-1968954025%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should update feature using transform function.html"><span><span>should</span></span> <span><span>update</span></span> <span><span>feature</span></span> <span><span>using</span></span> <span><span>transform</span></span> <span><span>function</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1968954025%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should update feature using transform function.html"><span class="token function">should update feature using transform function</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

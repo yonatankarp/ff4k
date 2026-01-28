@@ -1,0 +1,690 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PropertyStoreContractTest</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    ff4k
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.1.0-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-contract-test/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ff4k-contract-test/commonMain" data-filter=":ff4k-contract-test/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ff4k
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-contract-test::com.yonatankarp.ff4k.test.contract.store/PropertyStoreContractTest///PointingToDeclaration//-1943998686">
+  <div class="breadcrumbs"><a href="../../index.html">ff4k-contract-test</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.test.contract.store</a><span class="delimiter">/</span><span class="current">PropertyStoreContractTest</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Property</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">PropertyStoreContractTest</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-contract-test/src/commonMain/kotlin/com/yonatankarp/ff4k/test/contract/store/PropertyStoreContractTest.kt#L42">source</a>)</span></span></div><p class="paragraph">Abstract contract test for <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-property-store/index.html">PropertyStore</a> implementations.</p><p class="paragraph">This abstract class defines a comprehensive test suite that all PropertyStore implementations must pass. It tests all CRUD operations, operators, extension functions, and edge cases.</p><p class="paragraph">To use this contract test, extend this class and implement the <a href="../../../ff4k-contract-test/com.yonatankarp.ff4k.test.contract.store/-property-store-contract-test/create-store.html">createStore</a> method:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class InMemoryPropertyStoreTest : PropertyStoreContractTest() {<br>    override suspend fun createStore(): PropertyStore = InMemoryPropertyStore()<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Yonatan Karp-Rudin (@yonatankarp)</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="697568194%2FConstructors%2F-1943998686" anchor-label="PropertyStoreContractTest" id="697568194%2FConstructors%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-property-store-contract-test.html"><span>Property</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="697568194%2FConstructors%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="182900697%2FClasslikes%2F-1943998686" anchor-label="Companion" id="182900697%2FClasslikes%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="182900697%2FClasslikes%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1738636677%2FFunctions%2F-1943998686" anchor-label="concurrent createOrUpdateProperty calls should handle race conditions" id="-1738636677%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent create-or-update-property calls should handle race conditions.html"><span><span>concurrent</span></span> <span>create</span><wbr><span>Or</span><wbr><span>Update</span><wbr><span><span>Property</span></span> <span><span>calls</span></span> <span><span>should</span></span> <span><span>handle</span></span> <span><span>race</span></span> <span><span>conditions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1738636677%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent create-or-update-property calls should handle race conditions.html"><span class="token function">concurrent createOrUpdateProperty calls should handle race conditions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="724697013%2FFunctions%2F-1943998686" anchor-label="concurrent property deletions should handle missing properties gracefully" id="724697013%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent property deletions should handle missing properties gracefully.html"><span><span>concurrent</span></span> <span><span>property</span></span> <span><span>deletions</span></span> <span><span>should</span></span> <span><span>handle</span></span> <span><span>missing</span></span> <span><span>properties</span></span> <span><span>gracefully</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="724697013%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent property deletions should handle missing properties gracefully.html"><span class="token function">concurrent property deletions should handle missing properties gracefully</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1666430631%2FFunctions%2F-1943998686" anchor-label="concurrent property updates via atomic method should be atomic" id="-1666430631%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent property updates via atomic method should be atomic.html"><span><span>concurrent</span></span> <span><span>property</span></span> <span><span>updates</span></span> <span><span>via</span></span> <span><span>atomic</span></span> <span><span>method</span></span> <span><span>should</span></span> <span><span>be</span></span> <span><span>atomic</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1666430631%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent property updates via atomic method should be atomic.html"><span class="token function">concurrent property updates via atomic method should be atomic</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1795991703%2FFunctions%2F-1943998686" anchor-label="concurrent set operations should handle updates correctly" id="-1795991703%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concurrent set operations should handle updates correctly.html"><span><span>concurrent</span></span> <span><span>set</span></span> <span><span>operations</span></span> <span><span>should</span></span> <span><span>handle</span></span> <span><span>updates</span></span> <span><span>correctly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1795991703%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="concurrent set operations should handle updates correctly.html"><span class="token function">concurrent set operations should handle updates correctly</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-379287521%2FFunctions%2F-1943998686" anchor-label="isEmpty property should return false for non-empty store" id="-379287521%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty property should return false for non-empty store.html"><span>is</span><wbr><span><span>Empty</span></span> <span><span>property</span></span> <span><span>should</span></span> <span><span>return</span></span> <span><span>false</span></span> <span><span>for</span></span> <span><span>non-empty</span></span> <span><span>store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-379287521%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-empty property should return false for non-empty store.html"><span class="token function">isEmpty property should return false for non-empty store</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-310445988%2FFunctions%2F-1943998686" anchor-label="isEmpty property should return true for empty store" id="-310445988%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty property should return true for empty store.html"><span>is</span><wbr><span><span>Empty</span></span> <span><span>property</span></span> <span><span>should</span></span> <span><span>return</span></span> <span><span>true</span></span> <span><span>for</span></span> <span><span>empty</span></span> <span><span>store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-310445988%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-empty property should return true for empty store.html"><span class="token function">isEmpty property should return true for empty store</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2135471200%2FFunctions%2F-1943998686" anchor-label="should check if property exists using contains operator" id="2135471200%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should check if property exists using contains operator.html"><span><span>should</span></span> <span><span>check</span></span> <span><span>if</span></span> <span><span>property</span></span> <span><span>exists</span></span> <span><span>using</span></span> <span><span>contains</span></span> <span><span>operator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2135471200%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should check if property exists using contains operator.html"><span class="token function">should check if property exists using contains operator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1527567025%2FFunctions%2F-1943998686" anchor-label="should check if store is empty using extension function" id="1527567025%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should check if store is empty using extension function.html"><span><span>should</span></span> <span><span>check</span></span> <span><span>if</span></span> <span><span>store</span></span> <span><span>is</span></span> <span><span>empty</span></span> <span><span>using</span></span> <span><span>extension</span></span> <span><span>function</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1527567025%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should check if store is empty using extension function.html"><span class="token function">should check if store is empty using extension function</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1484197888%2FFunctions%2F-1943998686" anchor-label="should clear all properties" id="1484197888%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should clear all properties.html"><span><span>should</span></span> <span><span>clear</span></span> <span><span>all</span></span> <span><span>properties</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1484197888%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should clear all properties.html"><span class="token function">should clear all properties</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-134549197%2FFunctions%2F-1943998686" anchor-label="should count properties in store" id="-134549197%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should count properties in store.html"><span><span>should</span></span> <span><span>count</span></span> <span><span>properties</span></span> <span><span>in</span></span> <span><span>store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-134549197%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should count properties in store.html"><span class="token function">should count properties in store</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1443125635%2FFunctions%2F-1943998686" anchor-label="should create a new property" id="-1443125635%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create a new property.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>a</span></span> <span><span>new</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1443125635%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create a new property.html"><span class="token function">should create a new property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1376671021%2FFunctions%2F-1943998686" anchor-label="should create multiple properties with different names" id="1376671021%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create multiple properties with different names.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>multiple</span></span> <span><span>properties</span></span> <span><span>with</span></span> <span><span>different</span></span> <span><span>names</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376671021%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create multiple properties with different names.html"><span class="token function">should create multiple properties with different names</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-768437684%2FFunctions%2F-1943998686" anchor-label="should create or update property - create path" id="-768437684%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create or update property - create path.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>or</span></span> <span><span>update</span></span> <span><span>property</span></span> <span><span>-</span></span> <span><span>create</span></span> <span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-768437684%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create or update property - create path.html"><span class="token function">should create or update property - create path</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-204257959%2FFunctions%2F-1943998686" anchor-label="should create or update property - update path" id="-204257959%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should create or update property - update path.html"><span><span>should</span></span> <span><span>create</span></span> <span><span>or</span></span> <span><span>update</span></span> <span><span>property</span></span> <span><span>-</span></span> <span><span>update</span></span> <span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-204257959%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should create or update property - update path.html"><span class="token function">should create or update property - update path</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-29090453%2FFunctions%2F-1943998686" anchor-label="should delete property" id="-29090453%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should delete property.html"><span><span>should</span></span> <span><span>delete</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-29090453%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should delete property.html"><span class="token function">should delete property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1095532684%2FFunctions%2F-1943998686" anchor-label="should get default when property does not exist" id="-1095532684%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get default when property does not exist.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>default</span></span> <span><span>when</span></span> <span><span>property</span></span> <span><span>does</span></span> <span><span>not</span></span> <span><span>exist</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1095532684%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get default when property does not exist.html"><span class="token function">should get default when property does not exist</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2133932585%2FFunctions%2F-1943998686" anchor-label="should get property or default when property exists" id="2133932585%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get property or default when property exists.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>property</span></span> <span><span>or</span></span> <span><span>default</span></span> <span><span>when</span></span> <span><span>property</span></span> <span><span>exists</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2133932585%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get property or default when property exists.html"><span class="token function">should get property or default when property exists</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="173549372%2FFunctions%2F-1943998686" anchor-label="should get property or throw exception" id="173549372%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get property or throw exception.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>property</span></span> <span><span>or</span></span> <span><span>throw</span></span> <span><span>exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="173549372%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get property or throw exception.html"><span class="token function">should get property or throw exception</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="438934959%2FFunctions%2F-1943998686" anchor-label="should get property value directly" id="438934959%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get property value directly.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>property</span></span> <span><span>value</span></span> <span><span>directly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="438934959%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get property value directly.html"><span class="token function">should get property value directly</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1559196255%2FFunctions%2F-1943998686" anchor-label="should get property value or default" id="-1559196255%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should get property value or default.html"><span><span>should</span></span> <span><span>get</span></span> <span><span>property</span></span> <span><span>value</span></span> <span><span>or</span></span> <span><span>default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1559196255%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should get property value or default.html"><span class="token function">should get property value or default</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1121810102%2FFunctions%2F-1943998686" anchor-label="should list property names" id="1121810102%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should list property names.html"><span><span>should</span></span> <span><span>list</span></span> <span><span>property</span></span> <span><span>names</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1121810102%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should list property names.html"><span class="token function">should list property names</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1913411961%2FFunctions%2F-1943998686" anchor-label="should read all properties" id="1913411961%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should read all properties.html"><span><span>should</span></span> <span><span>read</span></span> <span><span>all</span></span> <span><span>properties</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1913411961%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should read all properties.html"><span class="token function">should read all properties</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="88549762%2FFunctions%2F-1943998686" anchor-label="should read property by name" id="88549762%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should read property by name.html"><span><span>should</span></span> <span><span>read</span></span> <span><span>property</span></span> <span><span>by</span></span> <span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88549762%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should read property by name.html"><span class="token function">should read property by name</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="107915866%2FFunctions%2F-1943998686" anchor-label="should return count 0 when store is empty" id="107915866%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return count 0 when store is empty.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>count</span></span> <span><span>0</span></span> <span><span>when</span></span> <span><span>store</span></span> <span><span>is</span></span> <span><span>empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107915866%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return count 0 when store is empty.html"><span class="token function">should return count 0 when store is empty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-473801717%2FFunctions%2F-1943998686" anchor-label="should return default when getting value of non-existent property" id="-473801717%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return default when getting value of non-existent property.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>default</span></span> <span><span>when</span></span> <span><span>getting</span></span> <span><span>value</span></span> <span><span>of</span></span> <span><span>non-existent</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-473801717%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return default when getting value of non-existent property.html"><span class="token function">should return default when getting value of non-existent property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1118414475%2FFunctions%2F-1943998686" anchor-label="should return empty map when no properties exist" id="1118414475%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return empty map when no properties exist.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>empty</span></span> <span><span>map</span></span> <span><span>when</span></span> <span><span>no</span></span> <span><span>properties</span></span> <span><span>exist</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1118414475%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return empty map when no properties exist.html"><span class="token function">should return empty map when no properties exist</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="208384019%2FFunctions%2F-1943998686" anchor-label="should return empty set when no properties exist for listPropertyNames" id="208384019%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return empty set when no properties exist for list-property-names.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>empty</span></span> <span><span>set</span></span> <span><span>when</span></span> <span><span>no</span></span> <span><span>properties</span></span> <span><span>exist</span></span> <span><span>for</span></span> <span>list</span><wbr><span>Property</span><wbr><span><span>Names</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="208384019%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return empty set when no properties exist for list-property-names.html"><span class="token function">should return empty set when no properties exist for listPropertyNames</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="427377109%2FFunctions%2F-1943998686" anchor-label="should return null when getting value of non-existent property" id="427377109%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return null when getting value of non-existent property.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>null</span></span> <span><span>when</span></span> <span><span>getting</span></span> <span><span>value</span></span> <span><span>of</span></span> <span><span>non-existent</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="427377109%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return null when getting value of non-existent property.html"><span class="token function">should return null when getting value of non-existent property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2054139019%2FFunctions%2F-1943998686" anchor-label="should return null when reading non-existent property" id="-2054139019%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should return null when reading non-existent property.html"><span><span>should</span></span> <span><span>return</span></span> <span><span>null</span></span> <span><span>when</span></span> <span><span>reading</span></span> <span><span>non-existent</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2054139019%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should return null when reading non-existent property.html"><span class="token function">should return null when reading non-existent property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1939000561%2FFunctions%2F-1943998686" anchor-label="should throw exception when creating duplicate property" id="-1939000561%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when creating duplicate property.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>creating</span></span> <span><span>duplicate</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1939000561%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when creating duplicate property.html"><span class="token function">should throw exception when creating duplicate property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193950639%2FFunctions%2F-1943998686" anchor-label="should throw exception when deleting non-existent property" id="-193950639%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when deleting non-existent property.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>deleting</span></span> <span><span>non-existent</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193950639%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when deleting non-existent property.html"><span class="token function">should throw exception when deleting non-existent property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-416562263%2FFunctions%2F-1943998686" anchor-label="should throw exception when getting non-existent property with getPropertyOrThrow" id="-416562263%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when getting non-existent property with get-property-or-throw.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>getting</span></span> <span><span>non-existent</span></span> <span><span>property</span></span> <span><span>with</span></span> <span>get</span><wbr><span>Property</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-416562263%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when getting non-existent property with get-property-or-throw.html"><span class="token function">should throw exception when getting non-existent property with getPropertyOrThrow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1007892651%2FFunctions%2F-1943998686" anchor-label="should throw exception when updating non-existent property with transform" id="-1007892651%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should throw exception when updating non-existent property with transform.html"><span><span>should</span></span> <span><span>throw</span></span> <span><span>exception</span></span> <span><span>when</span></span> <span><span>updating</span></span> <span><span>non-existent</span></span> <span><span>property</span></span> <span><span>with</span></span> <span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1007892651%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should throw exception when updating non-existent property with transform.html"><span class="token function">should throw exception when updating non-existent property with transform</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="281365970%2FFunctions%2F-1943998686" anchor-label="should update existing property" id="281365970%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should update existing property.html"><span><span>should</span></span> <span><span>update</span></span> <span><span>existing</span></span> <span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281365970%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should update existing property.html"><span class="token function">should update existing property</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-667023959%2FFunctions%2F-1943998686" anchor-label="should update property using transform function" id="-667023959%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="should update property using transform function.html"><span><span>should</span></span> <span><span>update</span></span> <span><span>property</span></span> <span><span>using</span></span> <span><span>transform</span></span> <span><span>function</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-667023959%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="should update property using transform function.html"><span class="token function">should update property using transform function</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.test/TestResult///PointingToDeclaration/">TestResult</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

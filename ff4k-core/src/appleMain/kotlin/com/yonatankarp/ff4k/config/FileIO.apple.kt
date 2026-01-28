@@ -5,9 +5,13 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.refTo
 import kotlinx.cinterop.set
 import kotlinx.cinterop.toKString
+import platform.Foundation.NSBundle
+import platform.Foundation.NSString
+import platform.Foundation.NSUTF8StringEncoding
+import platform.Foundation.stringWithContentsOfFile
+import platform.Foundation.writeToFile
 import platform.posix.FILE
 import platform.posix.SEEK_END
 import platform.posix.SEEK_SET
@@ -16,7 +20,6 @@ import platform.posix.fopen
 import platform.posix.fread
 import platform.posix.fseek
 import platform.posix.ftell
-import platform.posix.fwrite
 import platform.posix.getenv
 
 @OptIn(ExperimentalForeignApi::class)
@@ -32,67 +35,93 @@ internal actual suspend fun readFileContent(filePath: String): String {
 internal actual suspend fun writeFileContent(filePath: String, content: String) {
     validatePath(filePath)
     val expandedPath = expandPath(filePath)
-    useFile(expandedPath, "wb") { file ->
-        writeBytesToFile(file, content, expandedPath)
-    }
+
+    @Suppress("CAST_NEVER_SUCCEEDS")
+    val nsContent = content as NSString
+    val success = nsContent.writeToFile(expandedPath, atomically = true, encoding = NSUTF8StringEncoding, error = null)
+    require(success) { "Cannot write to file: $expandedPath" }
 }
 
 @OptIn(ExperimentalForeignApi::class)
 internal actual suspend fun loadResourceContent(resourcePath: String): String {
     validatePath(resourcePath)
-    val possiblePaths = resolveResourcePaths(resourcePath)
 
-    return findAndReadResource(possiblePaths)
-        ?: throw IllegalArgumentException(
-            "Resource not found: $resourcePath (searched: ${possiblePaths.joinToString(", ")})",
-        )
-}
+    // Try environment variable path first (for macOS command-line tests)
+    val envPath = getenv("FF4K_RESOURCES_PATH")?.toKString()
+    if (envPath != null) {
+        val fullPath = joinPath(envPath, resourcePath)
+        val content = tryReadFile(fullPath)
+        if (content != null) return content
+    }
 
-/**
- * Resolves possible paths for a resource.
- *
- * @param resourcePath The relative path to the resource.
- * @return A list of potential absolute or relative paths to check.
- */
-@OptIn(ExperimentalForeignApi::class)
-private fun resolveResourcePaths(resourcePath: String): List<String> {
-    val resourceBasePath = getenv("FF4K_RESOURCES_PATH")?.toKString()
-    return buildList {
-        if (resourceBasePath != null) {
-            add(joinPath(resourceBasePath, resourcePath))
-        }
+    // Try NSBundle for bundled resources (iOS/macOS app bundles)
+    val bundleContent = tryLoadFromBundle(resourcePath)
+    if (bundleContent != null) return bundleContent
+
+    // Try direct path and resources/ prefix as fallback
+    val directContent = tryReadFile(resourcePath)
+    if (directContent != null) return directContent
+
+    val resourcesContent = tryReadFile(joinPath("resources", resourcePath))
+    if (resourcesContent != null) return resourcesContent
+
+    val searchedPaths = buildList {
+        if (envPath != null) add(joinPath(envPath, resourcePath))
+        add("NSBundle (resource: $resourcePath)")
         add(resourcePath)
         add(joinPath("resources", resourcePath))
     }
+    throw IllegalArgumentException(
+        "Resource not found: $resourcePath (searched: ${searchedPaths.joinToString(", ")})",
+    )
 }
 
 /**
- * Attempts to find and read a resource from a list of paths.
- *
- * @param paths The list of paths to check.
- * @return The content of the first found resource, or null if none found.
+ * Attempts to load a resource from the main bundle using NSBundle API.
+ * This works for resources bundled with iOS/macOS applications and test bundles.
  */
 @OptIn(ExperimentalForeignApi::class)
-private fun findAndReadResource(paths: List<String>): String? {
-    for (path in paths) {
-        val file = fopen(path, "rb") ?: continue
-        try {
-            return readFileToString(file)
-        } finally {
-            fclose(file)
-        }
+private fun tryLoadFromBundle(resourcePath: String): String? {
+    // Trim leading slashes to avoid empty subdirectory strings
+    val normalizedPath = resourcePath.trimStart('/')
+
+    // Split the resource path into name and extension
+    val lastSlash = normalizedPath.lastIndexOf('/')
+    val fileName = if (lastSlash > 0) normalizedPath.substring(lastSlash + 1) else normalizedPath
+    val subdirectory = if (lastSlash > 0) normalizedPath.substring(0, lastSlash) else null
+
+    val lastDot = fileName.lastIndexOf('.')
+    val name = if (lastDot >= 0) fileName.substring(0, lastDot) else fileName
+    val ext = if (lastDot >= 0) fileName.substring(lastDot + 1) else null
+
+    // Try to find the resource in the main bundle
+    val path = if (subdirectory != null) {
+        NSBundle.mainBundle.pathForResource(name, ofType = ext, inDirectory = subdirectory)
+    } else {
+        NSBundle.mainBundle.pathForResource(name, ofType = ext)
     }
-    return null
+
+    if (path == null) return null
+
+    @Suppress("CAST_NEVER_SUCCEEDS")
+    return NSString.stringWithContentsOfFile(path, encoding = NSUTF8StringEncoding, error = null)
+}
+
+/**
+ * Attempts to read a file from the filesystem, returning null if it doesn't exist.
+ */
+@OptIn(ExperimentalForeignApi::class)
+private fun tryReadFile(path: String): String? {
+    val file = fopen(path, "rb") ?: return null
+    return try {
+        readFileToString(file)
+    } finally {
+        fclose(file)
+    }
 }
 
 /**
  * Internal helper to safely use a file pointer.
- * Opens the file, executes the block, and ensures the file is closed.
- *
- * @param path The file path to open.
- * @param mode The mode string (e.g., "rb", "wb").
- * @param block The code block to execute with the file pointer.
- * @return The result of the block execution.
  */
 @OptIn(ExperimentalForeignApi::class)
 private inline fun <R> useFile(
@@ -109,32 +138,7 @@ private inline fun <R> useFile(
 }
 
 /**
- * Internal helper to write string content to a file.
- *
- * @param file The file pointer to write to.
- * @param content The string content to write.
- * @param path The path of the file (for error reporting).
- */
-@OptIn(ExperimentalForeignApi::class)
-private fun writeBytesToFile(
-    file: kotlinx.cinterop.CPointer<FILE>,
-    content: String,
-    path: String,
-) {
-    val bytes = content.encodeToByteArray()
-    if (bytes.isNotEmpty()) {
-        val bytesWritten = fwrite(bytes.refTo(0), 1u, bytes.size.toULong(), file)
-        require(bytesWritten == bytes.size.toULong()) {
-            "Cannot write complete content to file: $path (written $bytesWritten of ${bytes.size} bytes)"
-        }
-    }
-}
-
-/**
  * Internal helper to read file content into a string.
- *
- * @param file The file pointer to read from.
- * @return The file content as a string.
  */
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 private fun readFileToString(file: kotlinx.cinterop.CPointer<FILE>): String = memScoped {
@@ -145,15 +149,12 @@ private fun readFileToString(file: kotlinx.cinterop.CPointer<FILE>): String = me
 
 /**
  * Internal helper to determine file size.
- *
- * @param file The file pointer.
- * @return The size of the file in bytes.
  */
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 private fun determineFileSize(file: kotlinx.cinterop.CPointer<FILE>): Long {
     require(fseek(file, 0, SEEK_END) == 0) { "Failed to seek to end of file" }
 
-    val size = ftell(file).toLong()
+    val size = ftell(file)
     require(size >= 0L) { "Failed to determine file size" }
     require(fseek(file, 0, SEEK_SET) == 0) { "Failed to seek to beginning of file" }
 
@@ -162,11 +163,6 @@ private fun determineFileSize(file: kotlinx.cinterop.CPointer<FILE>): Long {
 
 /**
  * Internal helper to read and convert file content.
- *
- * @param file The file pointer.
- * @param size The expected size of the file to read. Must be <= Int.MAX_VALUE.
- * @return The file content as a string.
- * @throws IllegalArgumentException if the file is too large to read into memory.
  */
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 private fun kotlinx.cinterop.MemScope.readAndConvertToString(
@@ -191,9 +187,6 @@ private fun kotlinx.cinterop.MemScope.readAndConvertToString(
 
 /**
  * Validates that the path does not contain traversal sequences.
- *
- * @param path The path to validate.
- * @throws IllegalArgumentException if the path contains "..".
  */
 private fun validatePath(path: String) {
     val segments = path.replace("\\", "/").split("/")
@@ -202,10 +195,6 @@ private fun validatePath(path: String) {
 
 /**
  * Expands the tilde (`~`) in the path to the user's home directory.
- *
- * @param path The path to expand.
- * @return The expanded path, or the original path if no tilde is present.
- * @throws IllegalArgumentException if the path starts with `~` and the home directory cannot be determined.
  */
 @OptIn(ExperimentalForeignApi::class)
 private fun expandPath(path: String): String {
@@ -217,18 +206,32 @@ private fun expandPath(path: String): String {
     }
 
     val home = getenv("HOME")?.toKString()
-        ?: getenv("USERPROFILE")?.toKString()
         ?: throw IllegalArgumentException(
             "Cannot expand '~' in path '$path': home directory could not be determined. " +
-                "Set the HOME or USERPROFILE environment variable, or use an absolute path.",
+                "Set the HOME environment variable, or use an absolute path.",
         )
     return home + path.substring(1)
 }
 
 /**
  * Joins multiple path segments into a single path.
- *
- * @param paths The path segments to join.
- * @return The joined path string.
  */
-private fun joinPath(vararg paths: String): String = paths.joinToString(separator = "/") { it.trimEnd('/', '\\').trimStart('/', '\\') }
+private fun joinPath(vararg paths: String): String {
+    if (paths.isEmpty()) return ""
+    if (paths.size == 1) return normalizeSingleSegment(paths.first())
+    return joinMultipleSegments(paths.toList())
+}
+
+private fun normalizeSingleSegment(segment: String): String = when {
+    segment == "/" -> "/"
+    else -> segment.trimEnd('/', '\\')
+}
+
+private fun joinMultipleSegments(paths: List<String>): String {
+    val first = paths.first()
+    val prefix = if (first.startsWith("/")) "/" else ""
+    val normalizedFirst = first.trim('/', '\\')
+    val rest = paths.drop(1).map { it.trim('/', '\\') }
+    val segments = (listOf(normalizedFirst) + rest).filter { it.isNotEmpty() }
+    return prefix + segments.joinToString(separator = "/")
+}

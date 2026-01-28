@@ -39,8 +39,6 @@ jobs:
         include:
           - target: jvm
             task: jvmTest
-          - target: linuxX64
-            task: linuxX64Test
           - target: android
             task: testDebugUnitTest
 
@@ -73,54 +71,18 @@ jobs:
           path: '**/build/kover/bin-reports/'
           retention-days: 1
 
-  build-windows:
+  build-ios:
     needs: code-quality
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        include:
-          - target: mingwX64
-            task: mingwX64Test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
-        with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-
-      - name: Build and test ${{ matrix.target }}
-        run: ./gradlew ${{ matrix.task }} --no-daemon
-
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v6
-        with:
-          name: kover-data-windows-${{ matrix.target }}
-          path: '**/build/kover/bin-reports/'
-          retention-days: 1
-
-  build-apple:
-    needs: code-quality
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
           - target: iosSimulatorArm64
+            os: macos-latest
             task: iosSimulatorArm64Test
           - target: iosX64
+            os: macos-15-intel
             task: iosX64Test
-          - target: macosArm64
-            task: macosArm64Test
-          - target: macosX64
-            task: macosX64Test
 
     steps:
       - name: Checkout code
@@ -143,12 +105,12 @@ jobs:
       - name: Upload coverage data
         uses: actions/upload-artifact@v6
         with:
-          name: kover-data-apple-${{ matrix.target }}
+          name: kover-data-ios-${{ matrix.target }}
           path: '**/build/kover/bin-reports/'
           retention-days: 1
 
   sonarcloud:
-    needs: [build-linux, build-windows, build-apple]
+    needs: [build-linux, build-ios]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

@@ -1,5 +1,6 @@
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
@@ -89,6 +90,17 @@ android {
             isReturnDefaultValues = true
         }
     }
+    sourceSets {
+        named("test") {
+            resources.srcDir("src/commonTest/resources")
+        }
+    }
+}
+
+// Configure native test tasks to find test resources
+val resourcesDir = project.file("src/commonTest/resources")
+tasks.withType<KotlinNativeTest> {
+    environment("FF4K_RESOURCES_PATH", resourcesDir.absolutePath)
 }
 
 spotless {

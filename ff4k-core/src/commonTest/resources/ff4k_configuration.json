@@ -1,0 +1,19 @@
+{
+  "settings" : {
+    "autoCreate": true
+  },
+  "features" : {
+    "dark-mode" : {
+      "uid" : "dark-mode",
+      "isEnabled" : true,
+      "description" : "Whether or not the user is in dark-mode"
+    }
+  },
+  "properties" : {
+    "max-retries" : {
+      "type" : "int",
+      "name" : "max-retries",
+      "value" : 3
+    }
+  }
+}

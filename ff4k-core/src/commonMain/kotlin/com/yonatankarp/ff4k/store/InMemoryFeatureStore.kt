@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.store
 
+import com.yonatankarp.ff4k.config.FF4kConfiguration
 import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.utils.withReentrantLock
 import kotlinx.coroutines.sync.Mutex
@@ -24,6 +25,8 @@ import kotlinx.coroutines.sync.Mutex
 class InMemoryFeatureStore(
     initialFeatures: Map<String, Feature> = emptyMap(),
 ) : AbstractFeatureStore() {
+
+    constructor(config: FF4kConfiguration) : this(config.features)
 
     private val features: MutableMap<String, Feature> = initialFeatures.toMutableMap()
     private val mutex: Mutex = Mutex()

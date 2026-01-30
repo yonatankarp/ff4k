@@ -1,37 +1,36 @@
 package com.yonatankarp.ff4k.config
 
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
-import kotlinx.coroutines.test.runTest
 import platform.posix.getenv
 import platform.posix.getpid
 import platform.posix.remove
 import kotlin.random.Random
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
-class FileIOTestNative {
+class FileIOTestNative :
+    FunSpec({
 
-    @Test
-    fun `loadResourceContent should load existing resource`() = runTest {
-        // Given - create a temp file to act as a resource
-        val tempFile = createTempFilePath()
-        val expectedContent = "This is a test resource file for FileIO tests."
+        test("loadResourceContent should load existing resource") {
+            // Given - create a temp file to act as a resource
+            val tempFile = createTempFilePath()
+            val expectedContent = "This is a test resource file for FileIO tests."
 
-        try {
-            // Setup - write the resource file
-            writeFileContent(tempFile, expectedContent)
+            try {
+                // Setup - write the resource file
+                writeFileContent(tempFile, expectedContent)
 
-            // When - load it as a resource (native loads from filesystem)
-            val content = loadResourceContent(tempFile)
+                // When - load it as a resource (native loads from filesystem)
+                val content = loadResourceContent(tempFile)
 
-            // Then
-            assertEquals(expectedContent, content)
-        } finally {
-            deleteTempFile(tempFile)
+                // Then
+                content shouldBe expectedContent
+            } finally {
+                deleteTempFile(tempFile)
+            }
         }
-    }
-}
+    })
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createTempFilePath(): String {

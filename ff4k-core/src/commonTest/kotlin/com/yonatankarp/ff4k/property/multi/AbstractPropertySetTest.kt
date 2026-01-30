@@ -1,275 +1,261 @@
 package com.yonatankarp.ff4k.property.multi
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 
-class AbstractPropertySetTest {
+internal class AbstractPropertySetTest :
+    FunSpec({
 
-    @Test
-    fun `defaults are description null fixedValues empty and readOnly false`() {
-        // Given
-        val property = StringSetProperty(name = "set")
+        test("defaults are description null fixedValues empty and readOnly false") {
+            // Given
+            val property = StringSetProperty(name = "set")
 
-        // When
-        val description = property.description
-        val fixedValues = property.fixedValues
-        val readOnly = property.readOnly
+            // When
+            val description = property.description
+            val fixedValues = property.fixedValues
+            val readOnly = property.readOnly
 
-        // Then
-        assertNull(description)
-        assertEquals(emptySet(), fixedValues)
-        assertFalse(readOnly)
-    }
-
-    @Test
-    fun `add inserts element and increases size`() {
-        // Given
-        val property = StringSetProperty(name = "set")
-
-        // When
-        val changed = property.add("a")
-
-        // Then
-        assertTrue(changed)
-        assertEquals(1, property.size)
-        assertTrue(property.contains("a"))
-    }
-
-    @Test
-    fun `add does not add duplicates`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
-
-        // When
-        val firstAddChanged = property.add("a")
-        val sizeAfterAdd = property.size
-
-        // Then
-        assertFalse(firstAddChanged)
-        assertEquals(1, sizeAfterAdd)
-    }
-
-    @Test
-    fun `plusAssign adds element`() {
-        // Given
-        val property = StringSetProperty(name = "set")
-
-        // When
-        property += "a"
-
-        // Then
-        assertTrue(property.contains("a"))
-        assertEquals(1, property.size)
-    }
-
-    @Test
-    fun `remove removes existing element`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
-
-        // When
-        val changed = property.remove("a")
-
-        // Then
-        assertTrue(changed)
-        assertFalse(property.contains("a"))
-        assertEquals(setOf("b"), property.value)
-    }
-
-    @Test
-    fun `minusAssign removes element`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
-
-        // When
-        property -= "b"
-
-        // Then
-        assertFalse(property.contains("b"))
-        assertEquals(setOf("a"), property.value)
-    }
-
-    @Test
-    fun `addAll adds all new elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
-        val elements = listOf("b", "c")
-
-        // When
-        val changed = property.addAll(elements)
-
-        // Then
-        assertTrue(changed)
-        assertEquals(setOf("a", "b", "c"), property.value)
-    }
-
-    @Test
-    fun `addAll vararg adds all new elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
-
-        // When
-        property.addAll("b", "c")
-
-        // Then
-        assertEquals(setOf("a", "b", "c"), property.value)
-    }
-
-    @Test
-    fun `containsAll returns true when all elements present`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
-        val required = listOf("a", "c")
-
-        // When
-        val result = property.containsAll(required)
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `removeAll removes provided elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
-        val elementsToRemove = listOf("b", "c")
-
-        // When
-        val changed = property.removeAll(elementsToRemove)
-
-        // Then
-        assertTrue(changed)
-        assertEquals(setOf("a"), property.value)
-    }
-
-    @Test
-    fun `retainAll keeps only provided elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
-        val elementsToKeep = listOf("a", "c")
-
-        // When
-        val changed = property.retainAll(elementsToKeep)
-
-        // Then
-        assertTrue(changed)
-        assertEquals(setOf("a", "c"), property.value)
-    }
-
-    @Test
-    fun `iterator iterates over all elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
-
-        // When
-        val iterated = mutableSetOf<String>()
-        val iterator = property.iterator()
-        while (iterator.hasNext()) {
-            iterated.add(iterator.next())
+            // Then
+            description.shouldBeNull()
+            fixedValues.shouldBeEmpty()
+            readOnly.shouldBeFalse()
         }
 
-        // Then
-        assertEquals(setOf("a", "b", "c"), iterated)
-    }
+        test("add inserts element and increases size") {
+            // Given
+            val property = StringSetProperty(name = "set")
 
-    @Test
-    fun `clear removes all elements`() {
-        // Given
-        val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
+            // When
+            val changed = property.add("a")
 
-        // When
-        property.clear()
+            // Then
+            changed.shouldBeTrue()
+            property.size shouldBe 1
+            property.contains("a").shouldBeTrue()
+        }
 
-        // Then
-        assertTrue(property.isEmpty())
-        assertEquals(0, property.size)
-        assertEquals(emptySet(), property.value)
-    }
+        test("add does not add duplicates") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
 
-    @Test
-    fun `set properties are equal and have same hashCode when all fields match`() {
-        // Given
-        val propertyName = "set"
-        val value = mutableSetOf("a", "b")
-        val description = "desc"
-        val fixedValues = mutableSetOf(mutableSetOf("a", "b"))
-        val readOnly = true
+            // When
+            val firstAddChanged = property.add("a")
+            val sizeAfterAdd = property.size
 
-        val first = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
-        val second = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
+            // Then
+            firstAddChanged.shouldBeFalse()
+            sizeAfterAdd shouldBe 1
+        }
 
-        // When
-        val equals = first == second
-        val hashEquals = first.hashCode() == second.hashCode()
+        test("plusAssign adds element") {
+            // Given
+            val property = StringSetProperty(name = "set")
 
-        // Then
-        assertEquals(true, equals)
-        assertEquals(true, hashEquals)
-    }
+            // When
+            property += "a"
 
-    @Test
-    fun `set properties are not equal when any field differs`() {
-        // Given
-        val base = StringSetProperty(
-            name = "set",
-            value = mutableSetOf("a", "b"),
-            description = "desc",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
-            readOnly = true,
-        )
+            // Then
+            property.contains("a").shouldBeTrue()
+            property.size shouldBe 1
+        }
 
-        val differentName = StringSetProperty(
-            name = "other",
-            value = mutableSetOf("a", "b"),
-            description = "desc",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
-            readOnly = true,
-        )
+        test("remove removes existing element") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
 
-        val differentValue = StringSetProperty(
-            name = "set",
-            value = mutableSetOf("a", "c"),
-            description = "desc",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
-            readOnly = true,
-        )
+            // When
+            val changed = property.remove("a")
 
-        val differentDescription = StringSetProperty(
-            name = "set",
-            value = mutableSetOf("a", "b"),
-            description = "different",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
-            readOnly = true,
-        )
+            // Then
+            changed.shouldBeTrue()
+            property.contains("a").shouldBeFalse()
+            property.value shouldBe setOf("b")
+        }
 
-        val differentFixedValues = StringSetProperty(
-            name = "set",
-            value = mutableSetOf("a", "b"),
-            description = "desc",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b")),
-            readOnly = true,
-        )
+        test("minusAssign removes element") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
 
-        val differentReadOnly = StringSetProperty(
-            name = "set",
-            value = mutableSetOf("a", "b"),
-            description = "desc",
-            fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
-            readOnly = false,
-        )
+            // When
+            property -= "b"
 
-        // When / Then
-        assertNotEquals(base, differentName)
-        assertNotEquals(base, differentValue)
-        assertNotEquals(base, differentDescription)
-        assertNotEquals(base, differentFixedValues)
-        assertNotEquals(base, differentReadOnly)
-    }
+            // Then
+            property.contains("b").shouldBeFalse()
+            property.value shouldBe setOf("a")
+        }
 
+        test("addAll adds all new elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
+            val elements = listOf("b", "c")
+
+            // When
+            val changed = property.addAll(elements)
+
+            // Then
+            changed.shouldBeTrue()
+            property.value shouldBe setOf("a", "b", "c")
+        }
+
+        test("addAll vararg adds all new elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a"))
+
+            // When
+            property.addAll("b", "c")
+
+            // Then
+            property.value shouldBe setOf("a", "b", "c")
+        }
+
+        test("containsAll returns true when all elements present") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
+            val required = listOf("a", "c")
+
+            // When
+            val result = property.containsAll(required)
+
+            // Then
+            result.shouldBeTrue()
+        }
+
+        test("removeAll removes provided elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
+            val elementsToRemove = listOf("b", "c")
+
+            // When
+            val changed = property.removeAll(elementsToRemove)
+
+            // Then
+            changed.shouldBeTrue()
+            property.value shouldBe setOf("a")
+        }
+
+        test("retainAll keeps only provided elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
+            val elementsToKeep = listOf("a", "c")
+
+            // When
+            val changed = property.retainAll(elementsToKeep)
+
+            // Then
+            changed.shouldBeTrue()
+            property.value shouldBe setOf("a", "c")
+        }
+
+        test("iterator iterates over all elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b", "c"))
+
+            // When
+            val iterated = mutableSetOf<String>()
+            val iterator = property.iterator()
+            while (iterator.hasNext()) {
+                iterated.add(iterator.next())
+            }
+
+            // Then
+            iterated shouldBe setOf("a", "b", "c")
+        }
+
+        test("clear removes all elements") {
+            // Given
+            val property = StringSetProperty(name = "set", value = mutableSetOf("a", "b"))
+
+            // When
+            property.clear()
+
+            // Then
+            property.isEmpty().shouldBeTrue()
+            property.size shouldBe 0
+            property.value.shouldBeEmpty()
+        }
+
+        test("set properties are equal and have same hashCode when all fields match") {
+            // Given
+            val propertyName = "set"
+            val value = mutableSetOf("a", "b")
+            val description = "desc"
+            val fixedValues = mutableSetOf(mutableSetOf("a", "b"))
+            val readOnly = true
+
+            val first = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
+            val second = StringSetProperty(propertyName, value.toMutableSet(), description, fixedValues, readOnly)
+
+            // When
+            val equals = first == second
+            val hashEquals = first.hashCode() == second.hashCode()
+
+            // Then
+            equals shouldBe true
+            hashEquals shouldBe true
+        }
+
+        test("set properties are not equal when any field differs") {
+            // Given
+            val base = StringSetProperty(
+                name = "set",
+                value = mutableSetOf("a", "b"),
+                description = "desc",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
+                readOnly = true,
+            )
+
+            val differentName = StringSetProperty(
+                name = "other",
+                value = mutableSetOf("a", "b"),
+                description = "desc",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
+                readOnly = true,
+            )
+
+            val differentValue = StringSetProperty(
+                name = "set",
+                value = mutableSetOf("a", "c"),
+                description = "desc",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
+                readOnly = true,
+            )
+
+            val differentDescription = StringSetProperty(
+                name = "set",
+                value = mutableSetOf("a", "b"),
+                description = "different",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
+                readOnly = true,
+            )
+
+            val differentFixedValues = StringSetProperty(
+                name = "set",
+                value = mutableSetOf("a", "b"),
+                description = "desc",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b")),
+                readOnly = true,
+            )
+
+            val differentReadOnly = StringSetProperty(
+                name = "set",
+                value = mutableSetOf("a", "b"),
+                description = "desc",
+                fixedValues = mutableSetOf(mutableSetOf("a", "b"), mutableSetOf("a", "c")),
+                readOnly = false,
+            )
+
+            // When / Then
+            (base == differentName).shouldBeFalse()
+            (base == differentValue).shouldBeFalse()
+            (base == differentDescription).shouldBeFalse()
+            (base == differentFixedValues).shouldBeFalse()
+            (base == differentReadOnly).shouldBeFalse()
+        }
+    }) {
     private class StringSetProperty(
         name: String,
         value: MutableSet<String> = mutableSetOf(),

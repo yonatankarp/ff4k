@@ -7,7 +7,7 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyLongTest : PropertyContractTest<Long, PropertyLong>() {
+internal class PropertyLongTest : PropertyContractTest<Long, PropertyLong>() {
 
     override val serializer = PropertyLong.serializer()
 

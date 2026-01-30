@@ -7,7 +7,7 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyByteTest : PropertyContractTest<Byte, PropertyByte>() {
+internal class PropertyByteTest : PropertyContractTest<Byte, PropertyByte>() {
 
     override val serializer = PropertyByte.serializer()
 

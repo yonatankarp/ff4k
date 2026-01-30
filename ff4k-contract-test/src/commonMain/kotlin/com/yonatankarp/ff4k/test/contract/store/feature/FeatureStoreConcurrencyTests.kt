@@ -3,134 +3,139 @@
 package com.yonatankarp.ff4k.test.contract.store.feature
 
 import com.yonatankarp.ff4k.core.Feature
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.ANOTHER_GROUP_NAME
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.FEATURE_NAME
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.GROUP_NAME
+import com.yonatankarp.ff4k.core.FeatureStore
+import com.yonatankarp.ff4k.core.count
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.ANOTHER_GROUP_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.FEATURE_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.GROUP_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.createFeature
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
-internal interface FeatureStoreConcurrencyTests : FeatureStoreTestSupport {
-
-    @Test
-    fun `concurrent enable and grant permissions should not lose changes`() = runTest {
+internal fun FunSpec.featureStoreConcurrencyTests(createStore: suspend () -> FeatureStore) {
+    test("concurrent enable and grant permissions should not lose changes") {
         // Given
         val store = createStore()
         store += createFeature()
 
         // When
-        val enableJobs = (1..50).map {
-            launch {
-                store.enable(FEATURE_NAME)
+        coroutineScope {
+            val enableJobs = (1..50).map {
+                launch {
+                    store.enable(FEATURE_NAME)
+                }
             }
-        }
 
-        val grantJobs = (1..50).map { i ->
-            launch {
-                store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+            val grantJobs = (1..50).map { i ->
+                launch {
+                    store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+                }
             }
-        }
 
-        (enableJobs + grantJobs).joinAll()
+            (enableJobs + grantJobs).joinAll()
+        }
 
         // Then
         val feature = store[FEATURE_NAME]
-        assertNotNull(feature)
-        assertTrue(feature.isEnabled)
-        assertEquals(50, feature.permissions.size)
+        feature.shouldNotBeNull()
+        feature.isEnabled.shouldBeTrue()
+        feature.permissions.size shouldBe 50
     }
 
-    @Test
-    fun `concurrent disable and grant permissions should not lose changes`() = runTest {
+    test("concurrent disable and grant permissions should not lose changes") {
         // Given
         val store = createStore()
         store += createFeature(isEnabled = true)
 
         // When
-        val disableJobs = (1..50).map {
-            launch {
-                store.disable(FEATURE_NAME)
+        coroutineScope {
+            val disableJobs = (1..50).map {
+                launch {
+                    store.disable(FEATURE_NAME)
+                }
             }
-        }
 
-        val grantJobs = (1..50).map { i ->
-            launch {
-                store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+            val grantJobs = (1..50).map { i ->
+                launch {
+                    store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+                }
             }
-        }
 
-        (disableJobs + grantJobs).joinAll()
+            (disableJobs + grantJobs).joinAll()
+        }
 
         // Then
         val feature = store[FEATURE_NAME]
-        assertNotNull(feature)
-        assertFalse(feature.isEnabled)
-        assertEquals(50, feature.permissions.size)
+        feature.shouldNotBeNull()
+        feature.isEnabled.shouldBeFalse()
+        feature.permissions.size shouldBe 50
     }
 
-    @Test
-    fun `concurrent grant permissions and enable should not lose changes`() = runTest {
+    test("concurrent grant permissions and enable should not lose changes") {
         // Given
         val store = createStore()
         store += createFeature()
 
         // When
-        val grantJobs = (1..50).map { i ->
-            launch {
-                store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+        coroutineScope {
+            val grantJobs = (1..50).map { i ->
+                launch {
+                    store.grantRoleToFeature(FEATURE_NAME, "role-$i")
+                }
             }
-        }
 
-        val enableJobs = (1..50).map {
-            launch {
-                store.enable(FEATURE_NAME)
+            val enableJobs = (1..50).map {
+                launch {
+                    store.enable(FEATURE_NAME)
+                }
             }
-        }
 
-        (grantJobs + enableJobs).joinAll()
+            (grantJobs + enableJobs).joinAll()
+        }
 
         // Then
         val feature = store[FEATURE_NAME]
-        assertNotNull(feature)
-        assertTrue(feature.isEnabled)
-        assertEquals(50, feature.permissions.size)
+        feature.shouldNotBeNull()
+        feature.isEnabled.shouldBeTrue()
+        feature.permissions.size shouldBe 50
     }
 
-    @Test
-    fun `concurrent addToGroup and enable should not lose changes`() = runTest {
+    test("concurrent addToGroup and enable should not lose changes") {
         // Given
         val store = createStore()
         store += createFeature()
 
         // When
-        val addGroupJobs = (1..50).map {
-            launch {
-                store.addToGroup(FEATURE_NAME, GROUP_NAME)
+        coroutineScope {
+            val addGroupJobs = (1..50).map {
+                launch {
+                    store.addToGroup(FEATURE_NAME, GROUP_NAME)
+                }
             }
-        }
 
-        val enableJobs = (1..50).map {
-            launch {
-                store.enable(FEATURE_NAME)
+            val enableJobs = (1..50).map {
+                launch {
+                    store.enable(FEATURE_NAME)
+                }
             }
-        }
 
-        (addGroupJobs + enableJobs).joinAll()
+            (addGroupJobs + enableJobs).joinAll()
+        }
 
         // Then
         val feature = store[FEATURE_NAME]
-        assertNotNull(feature)
-        assertTrue(feature.isEnabled)
-        assertEquals(GROUP_NAME, feature.group)
+        feature.shouldNotBeNull()
+        feature.isEnabled.shouldBeTrue()
+        feature.group shouldBe GROUP_NAME
     }
 
-    @Test
-    fun `enableGroup should handle concurrent feature deletions gracefully`() = runTest {
+    test("enableGroup should handle concurrent feature deletions gracefully") {
         // Given
         val store = createStore()
         (1..10).forEach { i ->
@@ -138,61 +143,63 @@ internal interface FeatureStoreConcurrencyTests : FeatureStoreTestSupport {
         }
 
         // When
-        val enableJob = launch {
-            store.enableGroup(GROUP_NAME)
-        }
-
-        val deleteJobs = (1..5).map { i ->
-            launch {
-                store -= "feature-$i"
-            }
-        }
-
-        (listOf(enableJob) + deleteJobs).joinAll()
-
-        // Then
-        (6..10).forEach { i ->
-            val feature = store["feature-$i"]
-            assertNotNull(feature, "feature-$i should still exist")
-            assertTrue(feature.isEnabled, "feature-$i should be enabled")
-        }
-        assertEquals(5, store.count())
-    }
-
-    @Test
-    fun `enableGroup should not enable features that left the group concurrently`() = runTest {
-        // Given
-        val store = createStore()
-        (1..10).forEach { i ->
-            store += Feature("feature-$i", isEnabled = false, group = GROUP_NAME)
-        }
-
-        // When
-        val enableJob = launch {
-            repeat(5) {
+        coroutineScope {
+            val enableJob = launch {
                 store.enableGroup(GROUP_NAME)
             }
-        }
 
-        val moveJobs = (1..5).map { i ->
-            launch {
-                store.addToGroup("feature-$i", ANOTHER_GROUP_NAME)
+            val deleteJobs = (1..5).map { i ->
+                launch {
+                    store -= "feature-$i"
+                }
             }
-        }
 
-        (listOf(enableJob) + moveJobs).joinAll()
+            (listOf(enableJob) + deleteJobs).joinAll()
+        }
 
         // Then
         (6..10).forEach { i ->
             val feature = store["feature-$i"]
-            assertNotNull(feature)
-            assertEquals(GROUP_NAME, feature.group)
-            assertTrue(feature.isEnabled)
+            feature.shouldNotBeNull()
+            feature.isEnabled.shouldBeTrue()
+        }
+        store.count() shouldBe 5
+    }
+
+    test("enableGroup should not enable features that left the group concurrently") {
+        // Given
+        val store = createStore()
+        (1..10).forEach { i ->
+            store += Feature("feature-$i", isEnabled = false, group = GROUP_NAME)
+        }
+
+        // When
+        coroutineScope {
+            val enableJob = launch {
+                repeat(5) {
+                    store.enableGroup(GROUP_NAME)
+                }
+            }
+
+            val moveJobs = (1..5).map { i ->
+                launch {
+                    store.addToGroup("feature-$i", ANOTHER_GROUP_NAME)
+                }
+            }
+
+            (listOf(enableJob) + moveJobs).joinAll()
+        }
+
+        // Then
+        (6..10).forEach { i ->
+            val feature = store["feature-$i"]
+            feature.shouldNotBeNull()
+            feature.group shouldBe GROUP_NAME
+            feature.isEnabled.shouldBeTrue()
         }
     }
 
-    @Test
-    fun `disableGroup should handle concurrent feature deletions gracefully`() = runTest {
+    test("disableGroup should handle concurrent feature deletions gracefully") {
         // Given
         val store = createStore()
         (1..10).forEach { i ->
@@ -200,24 +207,26 @@ internal interface FeatureStoreConcurrencyTests : FeatureStoreTestSupport {
         }
 
         // When
-        val disableJob = launch {
-            store.disableGroup(GROUP_NAME)
-        }
-
-        val deleteJobs = (1..5).map { i ->
-            launch {
-                store -= "feature-$i"
+        coroutineScope {
+            val disableJob = launch {
+                store.disableGroup(GROUP_NAME)
             }
-        }
 
-        (listOf(disableJob) + deleteJobs).joinAll()
+            val deleteJobs = (1..5).map { i ->
+                launch {
+                    store -= "feature-$i"
+                }
+            }
+
+            (listOf(disableJob) + deleteJobs).joinAll()
+        }
 
         // Then
         (6..10).forEach { i ->
             val feature = store["feature-$i"]
-            assertNotNull(feature, "feature-$i should still exist")
-            assertFalse(feature.isEnabled, "feature-$i should be disabled")
+            feature.shouldNotBeNull()
+            feature.isEnabled.shouldBeFalse()
         }
-        assertEquals(5, store.count())
+        store.count() shouldBe 5
     }
 }

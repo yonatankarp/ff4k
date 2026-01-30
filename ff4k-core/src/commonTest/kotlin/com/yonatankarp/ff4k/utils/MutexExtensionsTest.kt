@@ -1,36 +1,32 @@
 package com.yonatankarp.ff4k.utils
 
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withTimeout
-import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MutexExtensionsTest {
+internal class MutexExtensionsTest :
+    FunSpec({
 
-    @Test
-    fun `should allow re-entry in the same coroutine`() = runTest {
-        // Given
-        val mutex = Mutex()
+        test("should allow re-entry in the same coroutine") {
+            // Given
+            val mutex = Mutex()
 
-        // When
-        mutex.withReentrantLock {
-            // Then
+            // When
             mutex.withReentrantLock {
-                assertTrue(true, "Should be able to re-enter lock")
+                // Then
+                mutex.withReentrantLock {
+                    true.shouldBeTrue()
+                }
             }
         }
-    }
 
-    @Test
-    fun `should guarantee mutual exclusion between coroutines`() = runTest {
-        withDefaultTimeout {
+        test("should guarantee mutual exclusion between coroutines").config(timeout = 2.seconds) {
             // Given
             val mutex = Mutex()
             var inCriticalSection = false
@@ -51,15 +47,13 @@ class MutexExtensionsTest {
             // When
             val job2 = launch {
                 mutex.withReentrantLock {
-                    assertFalse(inCriticalSection, "Job2 entered critical section while Job1 held the lock")
+                    inCriticalSection.shouldBeFalse()
                 }
             }
 
-            testScheduler.advanceTimeBy(100)
-
             // Then
-            assertTrue(job2.isActive, "Job2 should be suspended waiting for the lock")
-            assertFalse(job2.isCompleted, "Job2 should not have completed yet")
+            job2.isActive.shouldBeTrue()
+            job2.isCompleted.shouldBeFalse()
 
             // When
             releaseJob1.complete(Unit)
@@ -67,13 +61,10 @@ class MutexExtensionsTest {
             job2.join()
 
             // Then
-            assertTrue(job2.isCompleted, "Job2 should have completed after lock release")
+            job2.isCompleted.shouldBeTrue()
         }
-    }
 
-    @Test
-    fun `should support nested locking of different mutexes`() = runTest {
-        withDefaultTimeout {
+        test("should support nested locking of different mutexes").config(timeout = 2.seconds) {
             // Given
             val mutex1 = Mutex()
             val mutex2 = Mutex()
@@ -83,16 +74,13 @@ class MutexExtensionsTest {
                 mutex2.withReentrantLock {
                     // Then
                     mutex1.withReentrantLock {
-                        assertTrue(true, "Should be able to re-enter mutex1 while holding mutex2")
+                        true.shouldBeTrue()
                     }
                 }
             }
         }
-    }
 
-    @Test
-    fun `should support interleaving locks`() = runTest {
-        withDefaultTimeout {
+        test("should support interleaving locks").config(timeout = 2.seconds) {
             // Given
             val mutex = Mutex()
 
@@ -105,16 +93,7 @@ class MutexExtensionsTest {
             // When
             mutex.withReentrantLock {
                 // Then
-                assertTrue(true, "Should be able to acquire lock after it was released")
+                true.shouldBeTrue()
             }
         }
-    }
-
-    private suspend fun <T> withDefaultTimeout(block: suspend CoroutineScope.() -> T): T = withTimeout(DEFAULT_TIMEOUT) {
-        block()
-    }
-
-    companion object {
-        private const val DEFAULT_TIMEOUT = 2_000L
-    }
-}
+    })

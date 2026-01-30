@@ -4,15 +4,15 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.toBigInteger
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
+import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.json.Json
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyBigInteger class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteger>() {
+internal class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteger>() {
 
     override val json: Json = Json {
         serializersModule = humanReadableSerializerModule
@@ -47,9 +47,6 @@ class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteg
     )
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: BigInteger) {
-        assertTrue(
-            jsonString.contains(""""value":"$expectedValue""""),
-            "JSON missing BigInteger value: $jsonString",
-        )
+        jsonString shouldContain """"value":"$expectedValue""""
     }
 }

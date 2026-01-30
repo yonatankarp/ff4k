@@ -2,14 +2,14 @@ package com.yonatankarp.ff4k.property
 
 import com.yonatankarp.ff4k.property.PropertyLogLevel.LogLevel
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
-import kotlin.test.assertTrue
+import io.kotest.matchers.string.shouldContain
 
 /**
  * Tests for PropertyLogLevel class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyLogLevelTest : PropertyContractTest<LogLevel, PropertyLogLevel>() {
+internal class PropertyLogLevelTest : PropertyContractTest<LogLevel, PropertyLogLevel>() {
 
     override val serializer = PropertyLogLevel.serializer()
 
@@ -42,9 +42,6 @@ class PropertyLogLevelTest : PropertyContractTest<LogLevel, PropertyLogLevel>() 
     )
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: LogLevel) {
-        assertTrue(
-            jsonString.contains(""""value":"${expectedValue.name}""""),
-            "JSON missing log level value: $jsonString",
-        )
+        jsonString shouldContain """"value":"${expectedValue.name}""""
     }
 }

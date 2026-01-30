@@ -1,501 +1,144 @@
 package com.yonatankarp.ff4k
 
+import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.dsl.core.ff4k
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
-import kotlin.test.fail
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.datatest.withData
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FF4k conditional execution and batch check extension functions.
  *
  * @author Yonatan Karp-Rudin
  */
-class FF4kExtensionsTest {
+internal class FF4kExtensionsTest :
+    FunSpec({
 
-    @Test
-    fun `ifEnabled executes block when feature is enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
+        context("ifEnabled") {
+            withData(
+                nameFn = { it.description },
+                ifEnabledData,
+            ) { (description, featuresBlock, context, expected) ->
+                // Given
+                val ff4k = ff4k {
+                    features(featuresBlock)
                 }
-            }
-        }
 
-        // When
-        val result = ff4k.ifEnabled(FEATURE_TEST) { VALUE_EXECUTED }
-
-        // Then
-        assertEquals(VALUE_EXECUTED, result)
-    }
-
-    @Test
-    fun `ifEnabled returns null when feature is disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = false
+                // When
+                val result = if (context != null) {
+                    ff4k.ifEnabled(FEATURE_TEST, context) { VALUE_EXECUTED }
+                } else {
+                    ff4k.ifEnabled(FEATURE_TEST) { VALUE_EXECUTED }
                 }
+
+                // Then
+                result shouldBe expected
             }
         }
 
-        // When
-        val result = ff4k.ifEnabled(FEATURE_TEST) {
-            fail("Block should not execute when feature is disabled")
-        }
-
-        // Then
-        assertNull(result)
-    }
-
-    @Test
-    fun `ifEnabled executes block when strategy matches context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+        context("ifEnabledOrElse") {
+            withData(
+                nameFn = { it.description },
+                ifEnabledOrElseData,
+            ) { (description, featuresBlock, context, expected) ->
+                // Given
+                val ff4k = ff4k {
+                    features(featuresBlock)
                 }
-            }
-        }
 
-        // When
-        val result = ff4k.ifEnabled(
-            FEATURE_TEST,
-            FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
-        ) { VALUE_EXECUTED }
-
-        // Then
-        assertEquals(VALUE_EXECUTED, result)
-    }
-
-    @Test
-    fun `ifEnabled returns null when strategy does not match context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                // When
+                val result = if (context != null) {
+                    ff4k.ifEnabledOrElse(
+                        FEATURE_TEST,
+                        context,
+                        enabled = { VALUE_ENABLED },
+                        disabled = { VALUE_DISABLED },
+                    )
+                } else {
+                    ff4k.ifEnabledOrElse(
+                        FEATURE_TEST,
+                        enabled = { VALUE_ENABLED },
+                        disabled = { VALUE_DISABLED },
+                    )
                 }
+
+                // Then
+                result shouldBe expected
             }
         }
 
-        // When
-        val result = ff4k.ifEnabled(
-            FEATURE_TEST,
-            FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
-        ) {
-            fail("Block should not execute when strategy does not match")
-        }
-
-        // Then
-        assertNull(result)
-    }
-
-    @Test
-    fun `ifEnabledOrElse executes enabled block when feature is enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
+        context("whenEnabled") {
+            withData(
+                nameFn = { it.description },
+                whenEnabledData,
+            ) { (description, featuresBlock, context, expected) ->
+                // Given
+                val ff4k = ff4k {
+                    features(featuresBlock)
                 }
-            }
-        }
+                var executed = false
 
-        // When
-        val result = ff4k.ifEnabledOrElse(
-            FEATURE_TEST,
-            enabled = { VALUE_ENABLED },
-            disabled = { fail("Disabled block should not execute when feature is enabled") },
-        )
-
-        // Then
-        assertEquals(VALUE_ENABLED, result)
-    }
-
-    @Test
-    fun `ifEnabledOrElse executes disabled block when feature is disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = false
+                // When
+                if (context != null) {
+                    ff4k.whenEnabled(FEATURE_TEST, context) { executed = true }
+                } else {
+                    ff4k.whenEnabled(FEATURE_TEST) { executed = true }
                 }
+
+                // Then
+                executed shouldBe expected
             }
         }
 
-        // When
-        val result = ff4k.ifEnabledOrElse(
-            FEATURE_TEST,
-            enabled = { fail("Enabled block should not execute when feature is disabled") },
-            disabled = { VALUE_DISABLED },
-        )
-
-        // Then
-        assertEquals(VALUE_DISABLED, result)
-    }
-
-    @Test
-    fun `ifEnabledOrElse executes enabled block when strategy matches context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+        context("checkAll") {
+            withData(
+                nameFn = { it.description },
+                checkAllData,
+            ) { (_, featuresList, featureIdsToCheck, context, expected) ->
+                // Given
+                val ff4k = ff4k {
+                    features {
+                        features(featuresList)
+                    }
                 }
+
+                // When
+                val result = ff4k.checkAll(
+                    *featureIdsToCheck.toTypedArray(),
+                    executionContext = context,
+                )
+
+                // Then
+                result shouldBe expected
             }
         }
 
-        // When
-        val result = ff4k.ifEnabledOrElse(
-            FEATURE_TEST,
-            FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
-            enabled = { VALUE_ENABLED },
-            disabled = { fail("Disabled block should not execute when strategy matches") },
-        )
-
-        // Then
-        assertEquals(VALUE_ENABLED, result)
-    }
-
-    @Test
-    fun `ifEnabledOrElse executes disabled block when strategy does not match context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+        context("checkAny") {
+            withData(
+                nameFn = { it.description },
+                checkAnyData,
+            ) { (_, featuresList, featureIdsToCheck, context, expected) ->
+                // Given
+                val ff4k = ff4k {
+                    features {
+                        features(featuresList)
+                    }
                 }
+
+                // When
+                val result = ff4k.checkAny(
+                    *featureIdsToCheck.toTypedArray(),
+                    executionContext = context,
+                )
+
+                // Then
+                result shouldBe expected
             }
         }
-
-        // When
-        val result = ff4k.ifEnabledOrElse(
-            FEATURE_TEST,
-            FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
-            enabled = { fail("Enabled block should not execute when strategy does not match") },
-            disabled = { VALUE_DISABLED },
-        )
-
-        // Then
-        assertEquals(VALUE_DISABLED, result)
-    }
-
-    @Test
-    fun `whenEnabled executes block when feature is enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                }
-            }
-        }
-        var executed = false
-
-        // When
-        ff4k.whenEnabled(FEATURE_TEST) { executed = true }
-
-        // Then
-        assertTrue(executed)
-    }
-
-    @Test
-    fun `whenEnabled does not execute block when feature is disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = false
-                }
-            }
-        }
-
-        // When/Then
-        ff4k.whenEnabled(FEATURE_TEST) {
-            fail("Block should not execute when feature is disabled")
-        }
-    }
-
-    @Test
-    fun `whenEnabled executes block when strategy matches context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-            }
-        }
-        var executed = false
-
-        // When
-        ff4k.whenEnabled(FEATURE_TEST, FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID)) {
-            executed = true
-        }
-
-        // Then
-        assertTrue(executed)
-    }
-
-    @Test
-    fun `whenEnabled does not execute block when strategy does not match context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_TEST) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-            }
-        }
-
-        // When/Then
-        ff4k.whenEnabled(FEATURE_TEST, FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID)) {
-            fail("Block should not execute when strategy does not match")
-        }
-    }
-
-    @Test
-    fun `checkAll returns true when all features are enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = true }
-                feature(FEATURE_TWO) { isEnabled = true }
-                feature(FEATURE_THREE) { isEnabled = true }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAll(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE)
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAll returns false when any feature is disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = true }
-                feature(FEATURE_TWO) { isEnabled = false }
-                feature(FEATURE_THREE) { isEnabled = true }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAll(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE)
-
-        // Then
-        assertFalse(result)
-    }
-
-    @Test
-    fun `checkAll returns false when all features are disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = false }
-                feature(FEATURE_TWO) { isEnabled = false }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAll(FEATURE_ONE, FEATURE_TWO)
-
-        // Then
-        assertFalse(result)
-    }
-
-    @Test
-    fun `checkAll returns true for empty feature list`() = runTest {
-        // Given
-        val ff4k = ff4k { }
-
-        // When
-        val result = ff4k.checkAll()
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAll returns true when strategy matches context for all features`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-                feature(FEATURE_TWO) { isEnabled = true }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAll(
-            FEATURE_ONE,
-            FEATURE_TWO,
-            executionContext = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
-        )
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAll returns false when strategy does not match context`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-                feature(FEATURE_TWO) { isEnabled = true }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAll(
-            FEATURE_ONE,
-            FEATURE_TWO,
-            executionContext = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
-        )
-
-        // Then
-        assertFalse(result)
-    }
-
-    @Test
-    fun `checkAny returns true when all features are enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = true }
-                feature(FEATURE_TWO) { isEnabled = true }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAny(FEATURE_ONE, FEATURE_TWO)
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAny returns true when at least one feature is enabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = false }
-                feature(FEATURE_TWO) { isEnabled = true }
-                feature(FEATURE_THREE) { isEnabled = false }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAny(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE)
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAny returns false when all features are disabled`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) { isEnabled = false }
-                feature(FEATURE_TWO) { isEnabled = false }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAny(FEATURE_ONE, FEATURE_TWO)
-
-        // Then
-        assertFalse(result)
-    }
-
-    @Test
-    fun `checkAny returns false for empty feature list`() = runTest {
-        // Given
-        val ff4k = ff4k { }
-
-        // When
-        val result = ff4k.checkAny()
-
-        // Then
-        assertFalse(result)
-    }
-
-    @Test
-    fun `checkAny returns true when strategy matches context for at least one feature`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-                feature(FEATURE_TWO) { isEnabled = false }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAny(
-            FEATURE_ONE,
-            FEATURE_TWO,
-            executionContext = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
-        )
-
-        // Then
-        assertTrue(result)
-    }
-
-    @Test
-    fun `checkAny returns false when strategy does not match context for any feature`() = runTest {
-        // Given
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_ONE) {
-                    isEnabled = true
-                    flippingStrategy = UserIdStrategy(TARGET_USER_ID)
-                }
-                feature(FEATURE_TWO) { isEnabled = false }
-            }
-        }
-
-        // When
-        val result = ff4k.checkAny(
-            FEATURE_ONE,
-            FEATURE_TWO,
-            executionContext = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
-        )
-
-        // Then
-        assertFalse(result)
-    }
-
+    }) {
     companion object {
         // Feature IDs
         private const val FEATURE_TEST = "test-feature"
@@ -512,6 +155,242 @@ class FF4kExtensionsTest {
         private const val KEY_USER_ID = "userId"
         private const val TARGET_USER_ID = "user-123"
         private const val OTHER_USER_ID = "user-456"
+
+        private val ifEnabledData = listOf(
+            ExtensionCheckData(
+                description = "executes block when feature is enabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = true } },
+                expected = VALUE_EXECUTED,
+            ),
+            ExtensionCheckData(
+                description = "returns null when feature is disabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = false } },
+                expected = null,
+            ),
+            ExtensionCheckData(
+                description = "executes block when strategy matches context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                expected = VALUE_EXECUTED,
+            ),
+            ExtensionCheckData(
+                description = "returns null when strategy does not match context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                expected = null,
+            ),
+        )
+
+        private val ifEnabledOrElseData = listOf(
+            ExtensionCheckData(
+                description = "executes enabled block when feature is enabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = true } },
+                expected = VALUE_ENABLED,
+            ),
+            ExtensionCheckData(
+                description = "executes disabled block when feature is disabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = false } },
+                expected = VALUE_DISABLED,
+            ),
+            ExtensionCheckData(
+                description = "executes enabled block when strategy matches context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                expected = VALUE_ENABLED,
+            ),
+            ExtensionCheckData(
+                description = "executes disabled block when strategy does not match context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                expected = VALUE_DISABLED,
+            ),
+        )
+
+        private val whenEnabledData = listOf(
+            ExtensionCheckData(
+                description = "executes block when feature is enabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = true } },
+                expected = true,
+            ),
+            ExtensionCheckData(
+                description = "does not execute block when feature is disabled",
+                featuresBlock = { feature(FEATURE_TEST) { isEnabled = false } },
+                expected = false,
+            ),
+            ExtensionCheckData(
+                description = "executes block when strategy matches context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                expected = true,
+            ),
+            ExtensionCheckData(
+                description = "does not execute block when strategy does not match context",
+                featuresBlock = {
+                    feature(FEATURE_TEST) {
+                        isEnabled = true
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID)
+                    }
+                },
+                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                expected = false,
+            ),
+        )
+
+        private val checkAllData = listOf(
+            CheckData(
+                description = "returns true when all features are enabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = true),
+                    Feature(FEATURE_TWO, isEnabled = true),
+                    Feature(FEATURE_THREE, isEnabled = true),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns false when any feature is disabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = true),
+                    Feature(FEATURE_TWO, isEnabled = false),
+                    Feature(FEATURE_THREE, isEnabled = true),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE),
+                expected = false,
+            ),
+            CheckData(
+                description = "returns false when all features are disabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = false),
+                    Feature(FEATURE_TWO, isEnabled = false),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                expected = false,
+            ),
+            CheckData(
+                description = "returns true for empty feature list",
+                features = emptyList(),
+                featureIdsToCheck = emptyList(),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns true when strategy matches context for all features",
+                features = listOf(
+                    Feature(
+                        FEATURE_ONE,
+                        isEnabled = true,
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID),
+                    ),
+                    Feature(FEATURE_TWO, isEnabled = true),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns false when strategy does not match context",
+                features = listOf(
+                    Feature(
+                        FEATURE_ONE,
+                        isEnabled = true,
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID),
+                    ),
+                    Feature(FEATURE_TWO, isEnabled = true),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                expected = false,
+            ),
+        )
+
+        private val checkAnyData = listOf(
+            CheckData(
+                description = "returns true when all features are enabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = true),
+                    Feature(FEATURE_TWO, isEnabled = true),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns true when at least one feature is enabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = false),
+                    Feature(FEATURE_TWO, isEnabled = true),
+                    Feature(FEATURE_THREE, isEnabled = false),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO, FEATURE_THREE),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns false when all features are disabled",
+                features = listOf(
+                    Feature(FEATURE_ONE, isEnabled = false),
+                    Feature(FEATURE_TWO, isEnabled = false),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                expected = false,
+            ),
+            CheckData(
+                description = "returns false for empty feature list",
+                features = emptyList(),
+                featureIdsToCheck = emptyList(),
+                expected = false,
+            ),
+            CheckData(
+                description = "returns true when strategy matches context for at least one feature",
+                features = listOf(
+                    Feature(
+                        FEATURE_ONE,
+                        isEnabled = true,
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID),
+                    ),
+                    Feature(FEATURE_TWO, isEnabled = false),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                expected = true,
+            ),
+            CheckData(
+                description = "returns false when strategy does not match context for any feature",
+                features = listOf(
+                    Feature(
+                        FEATURE_ONE,
+                        isEnabled = true,
+                        flippingStrategy = UserIdStrategy(TARGET_USER_ID),
+                    ),
+                    Feature(FEATURE_TWO, isEnabled = false),
+                ),
+                featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
+                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                expected = false,
+            ),
+        )
     }
 
     /**
@@ -529,4 +408,19 @@ class FF4kExtensionsTest {
             return userId == allowedUserId
         }
     }
+
+    private data class CheckData(
+        val description: String,
+        val features: List<Feature>,
+        val featureIdsToCheck: List<String>,
+        val context: FlippingExecutionContext? = null,
+        val expected: Boolean,
+    )
+
+    private data class ExtensionCheckData<T>(
+        val description: String,
+        val featuresBlock: com.yonatankarp.ff4k.dsl.feature.FeaturesBuilder.() -> Unit,
+        val context: FlippingExecutionContext? = null,
+        val expected: T,
+    )
 }

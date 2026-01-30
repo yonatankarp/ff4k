@@ -1,195 +1,184 @@
 package com.yonatankarp.ff4k.property.multi
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 
-class AbstractPropertyMapTest {
+internal class AbstractPropertyMapTest :
+    FunSpec({
 
-    @Test
-    fun `defaults are description null fixedValues empty and readOnly false`() {
-        // Given
-        val property = StringMapProperty(name = "map")
+        test("defaults are description null fixedValues empty and readOnly false") {
+            // Given
+            val property = StringMapProperty(name = "map")
 
-        // When
-        val description = property.description
-        val fixedValues = property.fixedValues
-        val readOnly = property.readOnly
+            // When
+            val description = property.description
+            val fixedValues = property.fixedValues
+            val readOnly = property.readOnly
 
-        // Then
-        assertNull(description)
-        assertEquals(emptySet(), fixedValues)
-        assertFalse(readOnly)
-    }
+            // Then
+            description.shouldBeNull()
+            fixedValues.shouldBeEmpty()
+            readOnly.shouldBeFalse()
+        }
 
-    @Test
-    fun `put inserts entry and returns previous value`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v1"))
+        test("put inserts entry and returns previous value") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v1"))
 
-        // When
-        val previous = property.put("A", "v2")
-        val current = property["A"]
+            // When
+            val previous = property.put("A", "v2")
+            val current = property["A"]
 
-        // Then
-        assertEquals("v1", previous)
-        assertEquals("v2", current)
-        assertEquals(1, property.size)
-    }
+            // Then
+            previous shouldBe "v1"
+            current shouldBe "v2"
+            property.size shouldBe 1
+        }
 
-    @Test
-    fun `putAll inserts all entries`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
-        val additional = mapOf("B" to "w", "C" to "x")
+        test("putAll inserts all entries") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
+            val additional = mapOf("B" to "w", "C" to "x")
 
-        // When
-        property.putAll(additional)
+            // When
+            property.putAll(additional)
 
-        // Then
-        assertEquals(3, property.size)
-        assertEquals(setOf("A", "B", "C"), property.keys)
-        assertEquals("w", property["B"])
-        assertEquals("x", property["C"])
-    }
+            // Then
+            property.size shouldBe 3
+            property.keys shouldBe setOf("A", "B", "C")
+            property["B"] shouldBe "w"
+            property["C"] shouldBe "x"
+        }
 
-    @Test
-    fun `entries exposes backing map entries`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("entries exposes backing map entries") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        val entries = property.entries.associate { it.key to it.value }
+            // When
+            val entries = property.entries.associate { it.key to it.value }
 
-        // Then
-        assertEquals(mapOf("A" to "v", "B" to "w"), entries)
-    }
+            // Then
+            entries shouldBe mapOf("A" to "v", "B" to "w")
+        }
 
-    @Test
-    fun `values exposes backing map values`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("values exposes backing map values") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        val values = property.values.toSet()
+            // When
+            val values = property.values.toSet()
 
-        // Then
-        assertEquals(setOf("v", "w"), values)
-    }
+            // Then
+            values shouldBe setOf("v", "w")
+        }
 
-    @Test
-    fun `size reflects backing map size`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("size reflects backing map size") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        val size = property.size
+            // When
+            val size = property.size
 
-        // Then
-        assertEquals(2, size)
-    }
+            // Then
+            size shouldBe 2
+        }
 
-    @Test
-    fun `isEmpty reflects backing map`() {
-        // Given
-        val emptyProperty = StringMapProperty(name = "map", value = mutableMapOf())
-        val nonEmptyProperty = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
+        test("isEmpty reflects backing map") {
+            // Given
+            val emptyProperty = StringMapProperty(name = "map", value = mutableMapOf())
+            val nonEmptyProperty = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
 
-        // When
-        val empty = emptyProperty.isEmpty()
-        val nonEmpty = nonEmptyProperty.isEmpty()
+            // When
+            val empty = emptyProperty.isEmpty()
+            val nonEmpty = nonEmptyProperty.isEmpty()
 
-        // Then
-        assertTrue(empty)
-        assertFalse(nonEmpty)
-    }
+            // Then
+            empty.shouldBeTrue()
+            nonEmpty.shouldBeFalse()
+        }
 
-    @Test
-    fun `containsKey returns true when key exists`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
+        test("containsKey returns true when key exists") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
 
-        // When
-        val containsA = property.containsKey("A")
-        val containsB = property.containsKey("B")
+            // When
+            val containsA = property.containsKey("A")
+            val containsB = property.containsKey("B")
 
-        // Then
-        assertTrue(containsA)
-        assertFalse(containsB)
-    }
+            // Then
+            containsA.shouldBeTrue()
+            containsB.shouldBeFalse()
+        }
 
-    @Test
-    fun `containsValue returns true when value exists`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("containsValue returns true when value exists") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        val containsV = property.containsValue("v")
-        val containsMissing = property.containsValue("missing")
+            // When
+            val containsV = property.containsValue("v")
+            val containsMissing = property.containsValue("missing")
 
-        // Then
-        assertTrue(containsV)
-        assertFalse(containsMissing)
-    }
+            // Then
+            containsV.shouldBeTrue()
+            containsMissing.shouldBeFalse()
+        }
 
-    @Test
-    fun `get returns value for existing key and null for missing key`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
+        test("get returns value for existing key and null for missing key") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v"))
 
-        // When
-        val valueForA = property["A"]
-        val valueForMissing = property["missing"]
+            // When
+            val valueForA = property["A"]
+            val valueForMissing = property["missing"]
 
-        // Then
-        assertEquals("v", valueForA)
-        assertNull(valueForMissing)
-    }
+            // Then
+            valueForA shouldBe "v"
+            valueForMissing.shouldBeNull()
+        }
 
-    @Test
-    fun `remove removes entry and returns removed value`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("remove removes entry and returns removed value") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        val removed = property.remove("A")
+            // When
+            val removed = property.remove("A")
 
-        // Then
-        assertEquals("v", removed)
-        assertFalse(property.containsKey("A"))
-        assertEquals(1, property.size)
-    }
+            // Then
+            removed shouldBe "v"
+            property.containsKey("A").shouldBeFalse()
+            property.size shouldBe 1
+        }
 
-    @Test
-    fun `minusAssign removes entry by key`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("minusAssign removes entry by key") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        property -= "B"
+            // When
+            property -= "B"
 
-        // Then
-        assertFalse(property.containsKey("B"))
-        assertEquals(1, property.size)
-        assertEquals(setOf("A"), property.keys)
-    }
+            // Then
+            property.containsKey("B").shouldBeFalse()
+            property.size shouldBe 1
+            property.keys shouldBe setOf("A")
+        }
 
-    @Test
-    fun `clear removes all entries`() {
-        // Given
-        val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
+        test("clear removes all entries") {
+            // Given
+            val property = StringMapProperty(name = "map", value = mutableMapOf("A" to "v", "B" to "w"))
 
-        // When
-        property.clear()
+            // When
+            property.clear()
 
-        // Then
-        assertTrue(property.isEmpty())
-        assertEquals(0, property.size)
-        assertEquals(emptySet(), property.keys)
-    }
-
+            // Then
+            property.isEmpty().shouldBeTrue()
+            property.size shouldBe 0
+            property.keys.shouldBeEmpty()
+        }
+    }) {
     private class StringMapProperty(
         name: String,
         value: MutableMap<String, String> = mutableMapOf(),

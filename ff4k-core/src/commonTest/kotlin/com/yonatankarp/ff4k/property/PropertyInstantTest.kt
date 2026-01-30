@@ -1,15 +1,15 @@
 package com.yonatankarp.ff4k.property
 
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
+import io.kotest.matchers.string.shouldContain
 import kotlinx.datetime.Instant
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyInstant class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyInstantTest : PropertyContractTest<Instant, PropertyInstant>() {
+internal class PropertyInstantTest : PropertyContractTest<Instant, PropertyInstant>() {
 
     override val serializer = PropertyInstant.serializer()
 
@@ -43,9 +43,6 @@ class PropertyInstantTest : PropertyContractTest<Instant, PropertyInstant>() {
         jsonString: String,
         expectedValue: Instant,
     ) {
-        assertTrue(
-            jsonString.contains(""""value":"$expectedValue""""),
-            "JSON missing Instant value: $jsonString",
-        )
+        jsonString shouldContain """"value":"$expectedValue""""
     }
 }

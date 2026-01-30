@@ -7,7 +7,7 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyFloatTest : PropertyContractTest<Float, PropertyFloat>() {
+internal class PropertyFloatTest : PropertyContractTest<Float, PropertyFloat>() {
 
     override val serializer = PropertyFloat.serializer()
 

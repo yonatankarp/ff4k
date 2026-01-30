@@ -3,434 +3,385 @@ package com.yonatankarp.ff4k.dsl.feature
 import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FeatureBuilder DSL.
  *
  * @author Yonatan Karp-Rudin
  */
-class FeatureBuilderTest {
+internal class FeatureBuilderTest :
+    FunSpec({
 
-    @Test
-    fun `feature creates feature with minimal configuration`() {
-        // When
-        val feature = feature(FEATURE_UID) { }
+        test("feature creates feature with minimal configuration") {
+            // When
+            val feature = feature(FEATURE_UID) { }
 
-        // Then
-        assertEquals(FEATURE_UID, feature.uid)
-        assertFalse(feature.isEnabled)
-        assertNull(feature.description)
-        assertNull(feature.group)
-        assertTrue(feature.permissions.isEmpty())
-        assertNull(feature.flippingStrategy)
-        assertTrue(feature.customProperties.isEmpty())
-    }
-
-    @Test
-    fun `feature creates feature with all fields set`() {
-        // Given
-        val strategy = TestStrategy()
-
-        // When
-        val feature = feature(FEATURE_UID) {
-            isEnabled = true
-            description = FEATURE_DESCRIPTION
-            group = FEATURE_GROUP
-            permission(PERMISSION_ADMIN)
-            permission(PERMISSION_USER)
-            flippingStrategy = strategy
+            // Then
+            feature.uid shouldBe FEATURE_UID
+            feature.isEnabled.shouldBeFalse()
+            feature.description.shouldBeNull()
+            feature.group.shouldBeNull()
+            feature.permissions.shouldBeEmpty()
+            feature.flippingStrategy.shouldBeNull()
+            feature.customProperties.shouldBeEmpty()
         }
 
-        // Then
-        assertEquals(FEATURE_UID, feature.uid)
-        assertTrue(feature.isEnabled)
-        assertEquals(FEATURE_DESCRIPTION, feature.description)
-        assertEquals(FEATURE_GROUP, feature.group)
-        assertEquals(BASIC_PERMISSIONS, feature.permissions)
-        assertEquals(strategy, feature.flippingStrategy)
-    }
+        test("feature creates feature with all fields set") {
+            // Given
+            val strategy = TestStrategy()
 
-    @Test
-    fun `isEnabled property sets enabled state`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            isEnabled = true
-        }
-
-        // Then
-        assertTrue(feature.isEnabled)
-    }
-
-    @Test
-    fun `group property sets group name`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            group = FEATURE_GROUP
-        }
-
-        // Then
-        assertEquals(FEATURE_GROUP, feature.group)
-    }
-
-    @Test
-    fun `flippingStrategy property sets strategy`() {
-        // Given
-        val strategy = TestStrategy()
-
-        // When
-        val feature = feature(FEATURE_UID) {
-            flippingStrategy = strategy
-        }
-
-        // Then
-        assertEquals(strategy, feature.flippingStrategy)
-    }
-
-    @Test
-    fun `permission adds single permission`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            permission(PERMISSION_ADMIN)
-        }
-
-        // Then
-        assertEquals(setOf(PERMISSION_ADMIN), feature.permissions)
-    }
-
-    @Test
-    fun `permission adds multiple permissions`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            permission(PERMISSION_ADMIN)
-            permission(PERMISSION_USER)
-            permission(PERMISSION_MODERATOR)
-        }
-
-        // Then
-        assertEquals(THREE_PERMISSIONS, feature.permissions)
-    }
-
-    @Test
-    fun `permissions vararg adds multiple permissions`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            permissions(PERMISSION_ADMIN, PERMISSION_USER, PERMISSION_MODERATOR)
-        }
-
-        // Then
-        assertEquals(THREE_PERMISSIONS, feature.permissions)
-    }
-
-    @Test
-    fun `permissions DSL block adds multiple permissions`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            permissions {
-                +PERMISSION_ADMIN
-                +PERMISSION_USER
-                +PERMISSION_MODERATOR
+            // When
+            val feature = feature(FEATURE_UID) {
+                isEnabled = true
+                description = FEATURE_DESCRIPTION
+                group = FEATURE_GROUP
+                permission(PERMISSION_ADMIN)
+                permission(PERMISSION_USER)
+                flippingStrategy = strategy
             }
+
+            // Then
+            feature.uid shouldBe FEATURE_UID
+            feature.isEnabled.shouldBeTrue()
+            feature.description shouldBe FEATURE_DESCRIPTION
+            feature.group shouldBe FEATURE_GROUP
+            feature.permissions shouldBe BASIC_PERMISSIONS
+            feature.flippingStrategy shouldBe strategy
         }
 
-        // Then
-        assertEquals(THREE_PERMISSIONS, feature.permissions)
-    }
-
-    @Test
-    fun `permissions can be added using multiple methods`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            permission(PERMISSION_ADMIN)
-            permissions(PERMISSION_USER, PERMISSION_MODERATOR)
-            permissions {
-                +PERMISSION_OWNER
-                +PERMISSION_EDITOR
+        test("isEnabled property sets enabled state") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                isEnabled = true
             }
+
+            // Then
+            feature.isEnabled.shouldBeTrue()
         }
 
-        // Then
-        assertEquals(ALL_PERMISSIONS, feature.permissions)
-    }
+        test("group property sets group name") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                group = FEATURE_GROUP
+            }
 
-    @Test
-    fun `property adds existing property`() {
-        // Given
-        val prop =
-            PropertyInt(name = PROPERTY_MAX_RETRIES, value = MAX_RETRIES_VALUE)
-
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(prop)
+            // Then
+            feature.group shouldBe FEATURE_GROUP
         }
 
-        // Then
-        assertEquals(1, feature.customProperties.size)
-        assertEquals(prop, feature.customProperties[PROPERTY_MAX_RETRIES])
-    }
+        test("flippingStrategy property sets strategy") {
+            // Given
+            val strategy = TestStrategy()
 
-    @Test
-    fun `property creates inline property with type inference`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(PROPERTY_MAX_REQUESTS) {
-                value = MAX_REQUESTS_VALUE
-                description = MAX_REQUESTS_DESCRIPTION
+            // When
+            val feature = feature(FEATURE_UID) {
+                flippingStrategy = strategy
             }
+
+            // Then
+            feature.flippingStrategy shouldBe strategy
         }
 
-        // Then
-        assertEquals(1, feature.customProperties.size)
-        val prop = feature.customProperties[PROPERTY_MAX_REQUESTS]
-        assertNotNull(prop)
-        assertEquals(PROPERTY_MAX_REQUESTS, prop.name)
-        assertEquals(MAX_REQUESTS_VALUE, prop.value)
-        assertEquals(MAX_REQUESTS_DESCRIPTION, prop.description)
-    }
+        test("permission adds single permission") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                permission(PERMISSION_ADMIN)
+            }
 
-    @Test
-    fun `property creates multiple properties`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(PROPERTY_MAX_REQUESTS) {
-                value = MAX_REQUESTS_VALUE
-            }
-            property(PROPERTY_TIMEOUT_SECONDS) {
-                value = TIMEOUT_VALUE
-            }
-            property(PROPERTY_API_KEY) {
-                value = API_KEY_VALUE
-            }
+            // Then
+            feature.permissions shouldBe setOf(PERMISSION_ADMIN)
         }
 
-        // Then
-        assertEquals(3, feature.customProperties.size)
-        assertEquals(
-            MAX_REQUESTS_VALUE,
-            feature.customProperties[PROPERTY_MAX_REQUESTS]?.value,
-        )
-        assertEquals(
-            TIMEOUT_VALUE,
-            feature.customProperties[PROPERTY_TIMEOUT_SECONDS]?.value,
-        )
-        assertEquals(
-            API_KEY_VALUE,
-            feature.customProperties[PROPERTY_API_KEY]?.value,
-        )
-    }
-
-    @Test
-    fun `property replaces existing property with same name`() {
-        // Given
-        val oldValue = "old-value"
-        val newValue = "new-value"
-
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(PROPERTY_CONFIG) {
-                value = oldValue
+        test("permission adds multiple permissions") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                permission(PERMISSION_ADMIN)
+                permission(PERMISSION_USER)
+                permission(PERMISSION_MODERATOR)
             }
-            property(PROPERTY_CONFIG) {
-                value = newValue
-            }
+
+            // Then
+            feature.permissions shouldBe THREE_PERMISSIONS
         }
 
-        // Then
-        assertEquals(1, feature.customProperties.size)
-        assertEquals(newValue, feature.customProperties[PROPERTY_CONFIG]?.value)
-    }
+        test("permissions vararg adds multiple permissions") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                permissions(PERMISSION_ADMIN, PERMISSION_USER, PERMISSION_MODERATOR)
+            }
 
-    @Test
-    fun `property supports different types with type inference`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            property("string-prop") {
-                value = STRING_VALUE
-            }
-            property("int-prop") {
-                value = INT_VALUE
-            }
-            property("long-prop") {
-                value = LONG_VALUE
-            }
-            property("double-prop") {
-                value = DOUBLE_VALUE
-            }
-            property("boolean-prop") {
-                value = BOOLEAN_VALUE
-            }
+            // Then
+            feature.permissions shouldBe THREE_PERMISSIONS
         }
 
-        // Then
-        assertEquals(5, feature.customProperties.size)
-        assertEquals(
-            STRING_VALUE,
-            feature.customProperties["string-prop"]?.value,
-        )
-        assertEquals(INT_VALUE, feature.customProperties["int-prop"]?.value)
-        assertEquals(LONG_VALUE, feature.customProperties["long-prop"]?.value)
-        assertEquals(
-            DOUBLE_VALUE,
-            feature.customProperties["double-prop"]?.value,
-        )
-        assertEquals(
-            BOOLEAN_VALUE,
-            feature.customProperties["boolean-prop"]?.value,
-        )
-    }
-
-    @Test
-    fun `property with fixedValues works correctly`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(PROPERTY_LOG_LEVEL) {
-                value = LOG_LEVEL_INFO
-                fixedValues {
-                    +LOG_LEVEL_DEBUG
-                    +LOG_LEVEL_INFO
-                    +LOG_LEVEL_WARN
-                    +LOG_LEVEL_ERROR
+        test("permissions DSL block adds multiple permissions") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                permissions {
+                    +PERMISSION_ADMIN
+                    +PERMISSION_USER
+                    +PERMISSION_MODERATOR
                 }
             }
+
+            // Then
+            feature.permissions shouldBe THREE_PERMISSIONS
         }
 
-        // Then
-        val prop = feature.customProperties[PROPERTY_LOG_LEVEL]
-        assertNotNull(prop)
-        assertEquals(LOG_LEVELS, prop.fixedValues)
-    }
-
-    @Test
-    fun `property with readOnly works correctly`() {
-        // When
-        val feature = feature(FEATURE_UID) {
-            property(PROPERTY_CONFIG) {
-                value = CONFIG_VALUE
-                readOnly = true
+        test("permissions can be added using multiple methods") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                permission(PERMISSION_ADMIN)
+                permissions(PERMISSION_USER, PERMISSION_MODERATOR)
+                permissions {
+                    +PERMISSION_OWNER
+                    +PERMISSION_EDITOR
+                }
             }
+
+            // Then
+            feature.permissions shouldBe ALL_PERMISSIONS
         }
 
-        // Then
-        val prop = feature.customProperties[PROPERTY_CONFIG]
-        assertNotNull(prop)
-        assertTrue(prop.readOnly)
-    }
+        test("property adds existing property") {
+            // Given
+            val prop =
+                PropertyInt(name = PROPERTY_MAX_RETRIES, value = MAX_RETRIES_VALUE)
 
-    @Test
-    fun `validation fails when property value not in fixedValues`() {
-        // Given
-        val invalidValue = "INVALID"
+            // When
+            val feature = feature(FEATURE_UID) {
+                property(prop)
+            }
 
-        // When / Then
-        assertFailsWith<IllegalArgumentException> {
-            feature(FEATURE_UID) {
+            // Then
+            feature.customProperties.size shouldBe 1
+            feature.customProperties[PROPERTY_MAX_RETRIES] shouldBe prop
+        }
+
+        test("property creates inline property with type inference") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                property(PROPERTY_MAX_REQUESTS) {
+                    value = MAX_REQUESTS_VALUE
+                    description = MAX_REQUESTS_DESCRIPTION
+                }
+            }
+
+            // Then
+            feature.customProperties.size shouldBe 1
+            val prop = feature.customProperties[PROPERTY_MAX_REQUESTS]
+            prop.shouldNotBeNull()
+            prop.name shouldBe PROPERTY_MAX_REQUESTS
+            prop.value shouldBe MAX_REQUESTS_VALUE
+            prop.description shouldBe MAX_REQUESTS_DESCRIPTION
+        }
+
+        test("property creates multiple properties") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                property(PROPERTY_MAX_REQUESTS) {
+                    value = MAX_REQUESTS_VALUE
+                }
+                property(PROPERTY_TIMEOUT_SECONDS) {
+                    value = TIMEOUT_VALUE
+                }
+                property(PROPERTY_API_KEY) {
+                    value = API_KEY_VALUE
+                }
+            }
+
+            // Then
+            feature.customProperties.size shouldBe 3
+            feature.customProperties[PROPERTY_MAX_REQUESTS]?.value shouldBe MAX_REQUESTS_VALUE
+            feature.customProperties[PROPERTY_TIMEOUT_SECONDS]?.value shouldBe TIMEOUT_VALUE
+            feature.customProperties[PROPERTY_API_KEY]?.value shouldBe API_KEY_VALUE
+        }
+
+        test("property replaces existing property with same name") {
+            // Given
+            val oldValue = "old-value"
+            val newValue = "new-value"
+
+            // When
+            val feature = feature(FEATURE_UID) {
+                property(PROPERTY_CONFIG) {
+                    value = oldValue
+                }
+                property(PROPERTY_CONFIG) {
+                    value = newValue
+                }
+            }
+
+            // Then
+            feature.customProperties.size shouldBe 1
+            feature.customProperties[PROPERTY_CONFIG]?.value shouldBe newValue
+        }
+
+        test("property supports different types with type inference") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                property("string-prop") {
+                    value = STRING_VALUE
+                }
+                property("int-prop") {
+                    value = INT_VALUE
+                }
+                property("long-prop") {
+                    value = LONG_VALUE
+                }
+                property("double-prop") {
+                    value = DOUBLE_VALUE
+                }
+                property("boolean-prop") {
+                    value = BOOLEAN_VALUE
+                }
+            }
+
+            // Then
+            feature.customProperties.size shouldBe 5
+            feature.customProperties["string-prop"]?.value shouldBe STRING_VALUE
+            feature.customProperties["int-prop"]?.value shouldBe INT_VALUE
+            feature.customProperties["long-prop"]?.value shouldBe LONG_VALUE
+            feature.customProperties["double-prop"]?.value shouldBe DOUBLE_VALUE
+            feature.customProperties["boolean-prop"]?.value shouldBe BOOLEAN_VALUE
+        }
+
+        test("property with fixedValues works correctly") {
+            // When
+            val feature = feature(FEATURE_UID) {
                 property(PROPERTY_LOG_LEVEL) {
-                    value = invalidValue
+                    value = LOG_LEVEL_INFO
                     fixedValues {
+                        +LOG_LEVEL_DEBUG
                         +LOG_LEVEL_INFO
                         +LOG_LEVEL_WARN
                         +LOG_LEVEL_ERROR
                     }
                 }
             }
+
+            // Then
+            val prop = feature.customProperties[PROPERTY_LOG_LEVEL]
+            prop.shouldNotBeNull()
+            prop.fixedValues shouldBe LOG_LEVELS
         }
-    }
 
-    @Test
-    fun `complex nested scenario with all features`() {
-        // Given
-        val strategy = TestStrategy()
-        val existingProp = PropertyString(
-            name = PROPERTY_EXTERNAL_CONFIG,
-            value = EXTERNAL_CONFIG_VALUE,
-        )
-
-        // When
-        val feature = feature(FEATURE_UID) {
-            isEnabled = true
-            description = FEATURE_DESCRIPTION
-            group = FEATURE_GROUP
-            flippingStrategy = strategy
-
-            permissions {
-                +PERMISSION_ADMIN
-                +PERMISSION_SUPER_ADMIN
-            }
-            permission(PERMISSION_OWNER)
-
-            property(existingProp)
-
-            property(PROPERTY_MAX_RETRIES) {
-                value = MAX_RETRIES_VALUE
-                description = MAX_RETRIES_DESCRIPTION
-                fixedValues {
-                    RETRIES_FIXED_VALUES.forEach { add(it) }
+        test("property with readOnly works correctly") {
+            // When
+            val feature = feature(FEATURE_UID) {
+                property(PROPERTY_CONFIG) {
+                    value = CONFIG_VALUE
+                    readOnly = true
                 }
             }
 
-            property(PROPERTY_API_ENDPOINT) {
-                value = API_ENDPOINT_VALUE
-                description = API_ENDPOINT_DESCRIPTION
-                readOnly = true
-            }
+            // Then
+            val prop = feature.customProperties[PROPERTY_CONFIG]
+            prop.shouldNotBeNull()
+            prop.readOnly.shouldBeTrue()
+        }
 
-            property(PROPERTY_TIMEOUT_MS) {
-                value = TIMEOUT_MS_VALUE
-            }
+        test("validation fails when property value not in fixedValues") {
+            // Given
+            val invalidValue = "INVALID"
 
-            property(PROPERTY_FEATURE_ENABLED) {
-                value = FEATURE_ENABLED_VALUE
+            // When / Then
+            shouldThrow<IllegalArgumentException> {
+                feature(FEATURE_UID) {
+                    property(PROPERTY_LOG_LEVEL) {
+                        value = invalidValue
+                        fixedValues {
+                            +LOG_LEVEL_INFO
+                            +LOG_LEVEL_WARN
+                            +LOG_LEVEL_ERROR
+                        }
+                    }
+                }
             }
         }
 
-        // Then
-        assertEquals(FEATURE_UID, feature.uid)
-        assertTrue(feature.isEnabled)
-        assertEquals(FEATURE_DESCRIPTION, feature.description)
-        assertEquals(FEATURE_GROUP, feature.group)
-        assertEquals(ADMIN_PERMISSIONS, feature.permissions)
-        assertEquals(strategy, feature.flippingStrategy)
-        assertEquals(5, feature.customProperties.size)
+        test("complex nested scenario with all features") {
+            // Given
+            val strategy = TestStrategy()
+            val existingProp = PropertyString(
+                name = PROPERTY_EXTERNAL_CONFIG,
+                value = EXTERNAL_CONFIG_VALUE,
+            )
 
-        // Verify properties
-        assertEquals(
-            existingProp,
-            feature.customProperties[PROPERTY_EXTERNAL_CONFIG],
-        )
-        assertEquals(
-            MAX_RETRIES_VALUE,
-            feature.customProperties[PROPERTY_MAX_RETRIES]?.value,
-        )
-        assertEquals(
-            API_ENDPOINT_VALUE,
-            feature.customProperties[PROPERTY_API_ENDPOINT]?.value,
-        )
-        assertEquals(
-            TIMEOUT_MS_VALUE,
-            feature.customProperties[PROPERTY_TIMEOUT_MS]?.value,
-        )
-        assertEquals(
-            FEATURE_ENABLED_VALUE,
-            feature.customProperties[PROPERTY_FEATURE_ENABLED]?.value,
-        )
+            // When
+            val feature = feature(FEATURE_UID) {
+                isEnabled = true
+                description = FEATURE_DESCRIPTION
+                group = FEATURE_GROUP
+                flippingStrategy = strategy
 
-        // Verify property details
-        val retriesProp = feature.customProperties[PROPERTY_MAX_RETRIES]
-        assertNotNull(retriesProp)
-        assertEquals(MAX_RETRIES_DESCRIPTION, retriesProp.description)
-        assertEquals(RETRIES_FIXED_VALUES, retriesProp.fixedValues)
+                permissions {
+                    +PERMISSION_ADMIN
+                    +PERMISSION_SUPER_ADMIN
+                }
+                permission(PERMISSION_OWNER)
 
-        val apiProp = feature.customProperties[PROPERTY_API_ENDPOINT]
-        assertNotNull(apiProp)
-        assertTrue(apiProp.readOnly)
-    }
+                property(existingProp)
 
+                property(PROPERTY_MAX_RETRIES) {
+                    value = MAX_RETRIES_VALUE
+                    description = MAX_RETRIES_DESCRIPTION
+                    fixedValues {
+                        RETRIES_FIXED_VALUES.forEach { add(it) }
+                    }
+                }
+
+                property(PROPERTY_API_ENDPOINT) {
+                    value = API_ENDPOINT_VALUE
+                    description = API_ENDPOINT_DESCRIPTION
+                    readOnly = true
+                }
+
+                property(PROPERTY_TIMEOUT_MS) {
+                    value = TIMEOUT_MS_VALUE
+                }
+
+                property(PROPERTY_FEATURE_ENABLED) {
+                    value = FEATURE_ENABLED_VALUE
+                }
+            }
+
+            // Then
+            feature.uid shouldBe FEATURE_UID
+            feature.isEnabled.shouldBeTrue()
+            feature.description shouldBe FEATURE_DESCRIPTION
+            feature.group shouldBe FEATURE_GROUP
+            feature.permissions shouldBe ADMIN_PERMISSIONS
+            feature.flippingStrategy shouldBe strategy
+            feature.customProperties.size shouldBe 5
+
+            // Verify properties
+            feature.customProperties[PROPERTY_EXTERNAL_CONFIG] shouldBe existingProp
+            feature.customProperties[PROPERTY_MAX_RETRIES]?.value shouldBe MAX_RETRIES_VALUE
+            feature.customProperties[PROPERTY_API_ENDPOINT]?.value shouldBe API_ENDPOINT_VALUE
+            feature.customProperties[PROPERTY_TIMEOUT_MS]?.value shouldBe TIMEOUT_MS_VALUE
+            feature.customProperties[PROPERTY_FEATURE_ENABLED]?.value shouldBe FEATURE_ENABLED_VALUE
+
+            // Verify property details
+            val retriesProp = feature.customProperties[PROPERTY_MAX_RETRIES]
+            retriesProp.shouldNotBeNull()
+            retriesProp.description shouldBe MAX_RETRIES_DESCRIPTION
+            retriesProp.fixedValues shouldBe RETRIES_FIXED_VALUES
+
+            val apiProp = feature.customProperties[PROPERTY_API_ENDPOINT]
+            apiProp.shouldNotBeNull()
+            apiProp.readOnly.shouldBeTrue()
+        }
+    }) {
     private class TestStrategy : FlippingStrategy {
         override val initParams = emptyMap<String, String>()
     }

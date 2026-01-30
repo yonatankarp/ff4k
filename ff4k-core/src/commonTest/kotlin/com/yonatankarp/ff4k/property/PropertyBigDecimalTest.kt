@@ -4,15 +4,15 @@ import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.toBigDecimal
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
+import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.json.Json
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyBigDecimal class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyBigDecimalTest : PropertyContractTest<BigDecimal, PropertyBigDecimal>() {
+internal class PropertyBigDecimalTest : PropertyContractTest<BigDecimal, PropertyBigDecimal>() {
 
     override val json: Json = Json {
         serializersModule = humanReadableSerializerModule
@@ -50,9 +50,6 @@ class PropertyBigDecimalTest : PropertyContractTest<BigDecimal, PropertyBigDecim
         jsonString: String,
         expectedValue: BigDecimal,
     ) {
-        assertTrue(
-            jsonString.contains(""""value":"$expectedValue""""),
-            "JSON missing BigDecimal value: $jsonString",
-        )
+        jsonString shouldContain """"value":"$expectedValue""""
     }
 }

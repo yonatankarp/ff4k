@@ -6,7 +6,79 @@ on:
       - 'v*'
 
 jobs:
+  test-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: jvm
+            task: jvmTest
+          - target: android
+            task: testDebugUnitTest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        if: matrix.target == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: false
+
+      - name: Run ${{ matrix.target }} tests
+        run: ./gradlew ${{ matrix.task }} --parallel --no-daemon
+
+  test-ios:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: iosSimulatorArm64
+            os: macos-latest
+            task: iosSimulatorArm64Test
+          - target: iosX64
+            os: macos-15-intel
+            task: iosX64Test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Kotlin/Native compiler
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-${{ matrix.target }}-
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-read-only: false
+
+      - name: Run ${{ matrix.target }} tests
+        run: ./gradlew ${{ matrix.task }} --parallel --no-daemon
+
   publish:
+    needs: [test-linux, test-ios]
     runs-on: macos-latest
     permissions:
       contents: write
@@ -24,6 +96,13 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Cache Kotlin/Native compiler
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-publish-${{ hashFiles('**/*.gradle.kts', 'gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-publish-
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
@@ -33,11 +112,8 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      - name: Run all tests
-        run: ./gradlew check --no-daemon
-
       - name: Publish to Maven Central
-        run: ./gradlew publishAllPublicationsToMavenCentralRepository "-Pversion=${{ steps.version.outputs.VERSION }}" --no-daemon
+        run: ./gradlew publishAllPublicationsToMavenCentralRepository "-Pversion=${{ steps.version.outputs.VERSION }}" --parallel --no-daemon
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}

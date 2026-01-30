@@ -2,9 +2,9 @@ package com.yonatankarp.ff4k.dsl.feature
 
 import com.yonatankarp.ff4k.core.Feature
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 /**
@@ -37,7 +37,7 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 1
+            result.shouldHaveSize(1)
             result[0] shouldBe feature
         }
 
@@ -54,7 +54,7 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
+            result.shouldHaveSize(2)
             result[0] shouldBe feature1
             result[1] shouldBe feature2
         }
@@ -74,7 +74,7 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 3
+            result.shouldHaveSize(3)
             result shouldBe featureList
         }
 
@@ -91,10 +91,13 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 1
-            result[0].uid shouldBe FEATURE_DARK_MODE
-            result[0].isEnabled.shouldBeTrue()
-            result[0].description shouldBe DESCRIPTION_DARK_MODE
+            result shouldContainExactly listOf(
+                Feature(
+                    uid = FEATURE_DARK_MODE,
+                    isEnabled = true,
+                    description = DESCRIPTION_DARK_MODE,
+                ),
+            )
         }
 
         test("creates multiple features inline using DSL blocks") {
@@ -114,13 +117,18 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
-            result[0].uid shouldBe FEATURE_DARK_MODE
-            result[0].isEnabled.shouldBeTrue()
-            result[0].group shouldBe GROUP_UI
-            result[1].uid shouldBe FEATURE_BETA
-            result[1].isEnabled.shouldBeFalse()
-            result[1].group shouldBe GROUP_EXPERIMENTAL
+            result shouldContainExactly listOf(
+                Feature(
+                    uid = FEATURE_DARK_MODE,
+                    isEnabled = true,
+                    group = GROUP_UI,
+                ),
+                Feature(
+                    uid = FEATURE_BETA,
+                    isEnabled = false,
+                    group = GROUP_EXPERIMENTAL,
+                ),
+            )
         }
 
         test("combines pre-built features and DSL-defined features") {
@@ -137,9 +145,10 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
-            result[0].uid shouldBe FEATURE_LEGACY
-            result[1].uid shouldBe FEATURE_DARK_MODE
+            result shouldContainExactly listOf(
+                preBuiltFeature,
+                Feature(FEATURE_DARK_MODE, isEnabled = true),
+            )
         }
 
         test("combines collection and individual features") {
@@ -159,10 +168,11 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 3
-            result[0].uid shouldBe FEATURE_DARK_MODE
-            result[1].uid shouldBe FEATURE_BETA
-            result[2].uid shouldBe FEATURE_PREMIUM
+            result shouldContainExactly listOf(
+                Feature(FEATURE_DARK_MODE, isEnabled = true),
+                Feature(FEATURE_BETA, isEnabled = false),
+                Feature(FEATURE_PREMIUM, isEnabled = true),
+            )
         }
 
         test("preserves insertion order") {
@@ -177,9 +187,11 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result[0].uid shouldBe FEATURE_THIRD
-            result[1].uid shouldBe FEATURE_FIRST
-            result[2].uid shouldBe FEATURE_SECOND
+            result shouldContainExactly listOf(
+                Feature(FEATURE_THIRD, isEnabled = true),
+                Feature(FEATURE_FIRST, isEnabled = true),
+                Feature(FEATURE_SECOND, isEnabled = true),
+            )
         }
 
         test("allows duplicate features") {
@@ -194,7 +206,7 @@ internal class FeaturesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
+            result.shouldHaveSize(2)
         }
     }) {
     private companion object {

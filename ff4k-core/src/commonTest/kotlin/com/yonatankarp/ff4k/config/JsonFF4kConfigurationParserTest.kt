@@ -11,6 +11,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.json.Json
@@ -117,10 +118,12 @@ internal class JsonFF4kConfigurationParserTest :
 
                 // Then
                 config.settings.autoCreate.shouldBeTrue()
-                config.features.size shouldBe 1
-                config.features.values.first().uid shouldBe "dark-mode"
-                config.features.values.first().isEnabled.shouldBeTrue()
-                config.properties.size shouldBe 1
+                config.features.shouldHaveSize(1)
+                config.features.values.first().apply {
+                    uid shouldBe "dark-mode"
+                    isEnabled.shouldBeTrue()
+                }
+                config.properties.shouldHaveSize(1)
                 config.properties["max-retries"] shouldBe PropertyInt("max-retries", 3)
             }
         }

@@ -2,7 +2,6 @@ package com.yonatankarp.ff4k.config
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -168,7 +167,9 @@ internal class FileIOTest :
                 }
 
                 // Then
-                exception.message.shouldNotBeNull() shouldContain homeDir
+                exception.message.shouldNotBeNull().let {
+                    it shouldContain homeDir
+                }
             }
         }
 

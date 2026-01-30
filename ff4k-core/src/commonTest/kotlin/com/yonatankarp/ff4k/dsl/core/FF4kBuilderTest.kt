@@ -10,6 +10,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.maps.shouldContainKey
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 
@@ -238,7 +239,7 @@ internal class FF4kBuilderTest :
             darkModeFeature.group shouldBe GROUP_UI
             darkModeFeature.flippingStrategy shouldBe strategy
             darkModeFeature.permissions shouldBe setOf(PERMISSION_ADMIN, PERMISSION_USER)
-            darkModeFeature.customProperties[PROPERTY_THEME].shouldNotBeNull()
+            darkModeFeature.customProperties shouldContainKey PROPERTY_THEME
 
             ff4k.properties().size shouldBe 3
             ff4k.hasProperty(PROPERTY_PORT).shouldBeTrue()
@@ -246,9 +247,10 @@ internal class FF4kBuilderTest :
             ff4k.hasProperty(PROPERTY_API_URL).shouldBeTrue()
 
             val maxRetriesProperty = ff4k.property<Int>(PROPERTY_MAX_RETRIES)
-            maxRetriesProperty.shouldNotBeNull()
-            maxRetriesProperty.description shouldBe DESCRIPTION_MAX_RETRIES
-            maxRetriesProperty.readOnly.shouldBeTrue()
+            maxRetriesProperty.shouldNotBeNull().let {
+                it.description shouldBe DESCRIPTION_MAX_RETRIES
+                it.readOnly.shouldBeTrue()
+            }
         }
 
         test("ff4k features block can add pre-built features") {

@@ -27,8 +27,9 @@ internal class FF4kTest :
 
         test("check should return true for enabled feature") {
             // Given
-            val ff4k = FF4k()
-            ff4k.addFeature(Feature(FEATURE_DARK_MODE, isEnabled = true))
+            val ff4k = FF4k().apply {
+                addFeature(Feature(FEATURE_DARK_MODE, isEnabled = true))
+            }
 
             // When
             val result = ff4k.check(FEATURE_DARK_MODE)
@@ -39,8 +40,9 @@ internal class FF4kTest :
 
         test("check should return false for disabled feature") {
             // Given
-            val ff4k = FF4k()
-            ff4k.addFeature(Feature(FEATURE_DARK_MODE, isEnabled = false))
+            val ff4k = FF4k().apply {
+                addFeature(Feature(FEATURE_DARK_MODE, isEnabled = false))
+            }
 
             // When
             val result = ff4k.check(FEATURE_DARK_MODE)
@@ -73,9 +75,10 @@ internal class FF4kTest :
 
         test("features should return all features") {
             // Given
-            val ff4k = FF4k()
-            ff4k.addFeature(FEATURE_DARK_MODE, isEnabled = true)
-            ff4k.addFeature(FEATURE_BETA, isEnabled = false)
+            val ff4k = FF4k().apply {
+                addFeature(FEATURE_DARK_MODE, isEnabled = true)
+                addFeature(FEATURE_BETA, isEnabled = false)
+            }
 
             // When
             val features = ff4k.features()
@@ -88,8 +91,9 @@ internal class FF4kTest :
 
         test("feature should return feature by id") {
             // Given
-            val ff4k = FF4k()
-            ff4k.addFeature(Feature(FEATURE_DARK_MODE, isEnabled = true, description = DESCRIPTION_DARK_MODE))
+            val ff4k = FF4k().apply {
+                addFeature(Feature(FEATURE_DARK_MODE, isEnabled = true, description = DESCRIPTION_DARK_MODE))
+            }
 
             // When
             val feature = ff4k.feature(FEATURE_DARK_MODE)
@@ -195,15 +199,17 @@ internal class FF4kTest :
 
         test("property should return property by name") {
             // Given
-            val ff4k = FF4k()
-            ff4k.addProperty(PropertyString(PROPERTY_API_URL, VALUE_API_URL))
+            val ff4k = FF4k().apply {
+                addProperty(PropertyString(PROPERTY_API_URL, VALUE_API_URL))
+            }
 
             // When
             val property = ff4k.property<String>(PROPERTY_API_URL)
 
             // Then
-            property.shouldNotBeNull()
-            property.value shouldBe VALUE_API_URL
+            property.shouldNotBeNull().let {
+                it.value shouldBe VALUE_API_URL
+            }
         }
 
         test("property should return null for non-existing property") {
@@ -253,8 +259,9 @@ internal class FF4kTest :
                 propertyAsStringData,
             ) { (property, expectedValue) ->
                 // Given
-                val ff4k = FF4k()
-                ff4k.addProperty(property)
+                val ff4k = FF4k().apply {
+                    addProperty(property)
+                }
 
                 // When
                 val value = ff4k.propertyAsString<Any>(property.name)

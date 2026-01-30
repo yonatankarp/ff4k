@@ -28,9 +28,9 @@ internal class InMemoryPropertyStoreTest : PropertyStoreContractTest() {
             store.contains("prop-1").shouldBeTrue()
             store.contains("prop-2").shouldBeTrue()
             store.contains("prop-3").shouldBeTrue()
-            store.get<String>("prop-1").shouldNotBeNull().value shouldBe "value1"
-            store.get<Int>("prop-2").shouldNotBeNull().value shouldBe 42
-            store.get<Boolean>("prop-3").shouldNotBeNull().value shouldBe true
+            store.get<String>("prop-1").shouldNotBeNull().let { it.value shouldBe "value1" }
+            store.get<Int>("prop-2").shouldNotBeNull().let { it.value shouldBe 42 }
+            store.get<Boolean>("prop-3").shouldNotBeNull().let { it.value shouldBe true }
         }
 
         test("test store initialized with FF4kConfiguration contains properties") {
@@ -49,8 +49,8 @@ internal class InMemoryPropertyStoreTest : PropertyStoreContractTest() {
             store.getAll().size shouldBe 2
             store.contains("config-prop-1").shouldBeTrue()
             store.contains("config-prop-2").shouldBeTrue()
-            store.get<String>("config-prop-1").shouldNotBeNull().value shouldBe "configValue"
-            store.get<Int>("config-prop-2").shouldNotBeNull().value shouldBe 100
+            store.get<String>("config-prop-1").shouldNotBeNull().let { it.value shouldBe "configValue" }
+            store.get<Int>("config-prop-2").shouldNotBeNull().let { it.value shouldBe 100 }
         }
 
         test("test store initialized with empty configuration is empty") {

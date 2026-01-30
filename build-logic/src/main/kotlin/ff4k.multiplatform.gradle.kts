@@ -75,7 +75,7 @@ dependencies {
 }
 
 android {
-    namespace = "org.ff4k.${project.name.replace("-", ".")}"
+    namespace = "com.yonatankarp.${project.name.replace("-", ".")}"
     compileSdk = 34
     defaultConfig {
         minSdk = 24

@@ -39,6 +39,7 @@ The `FeatureStoreContractTest` will automatically run a comprehensive set of tes
 - group operations (enable/disable group, add/remove from group)
 - permissions
 - error handling (e.g., throwing correct exceptions for missing features)
+- concurrency handling
 
 ## Testing Properties
 

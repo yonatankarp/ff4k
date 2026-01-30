@@ -13,6 +13,7 @@ serialization = "1.7.0"
 slf4j = "2.0.9"
 spotless = "8.1.0"
 kotest = "5.9.1"
+maven-publish = "0.34.0"
 
 [libraries]
 # KMP Common
@@ -33,6 +34,7 @@ android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref
 spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 kover-gradle-plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+maven-publish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 
 # Testing
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
@@ -53,6 +55,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 
 [bundles]
 

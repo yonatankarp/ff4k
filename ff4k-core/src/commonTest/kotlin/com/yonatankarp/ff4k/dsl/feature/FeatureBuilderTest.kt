@@ -178,11 +178,11 @@ internal class FeatureBuilderTest :
 
             // Then
             feature.customProperties.size shouldBe 1
-            val prop = feature.customProperties[PROPERTY_MAX_REQUESTS]
-            prop.shouldNotBeNull()
-            prop.name shouldBe PROPERTY_MAX_REQUESTS
-            prop.value shouldBe MAX_REQUESTS_VALUE
-            prop.description shouldBe MAX_REQUESTS_DESCRIPTION
+            feature.customProperties[PROPERTY_MAX_REQUESTS].shouldNotBeNull {
+                name shouldBe PROPERTY_MAX_REQUESTS
+                value shouldBe MAX_REQUESTS_VALUE
+                description shouldBe MAX_REQUESTS_DESCRIPTION
+            }
         }
 
         test("property creates multiple properties") {
@@ -270,9 +270,9 @@ internal class FeatureBuilderTest :
             }
 
             // Then
-            val prop = feature.customProperties[PROPERTY_LOG_LEVEL]
-            prop.shouldNotBeNull()
-            prop.fixedValues shouldBe LOG_LEVELS
+            feature.customProperties[PROPERTY_LOG_LEVEL].shouldNotBeNull {
+                fixedValues shouldBe LOG_LEVELS
+            }
         }
 
         test("property with readOnly works correctly") {
@@ -285,9 +285,9 @@ internal class FeatureBuilderTest :
             }
 
             // Then
-            val prop = feature.customProperties[PROPERTY_CONFIG]
-            prop.shouldNotBeNull()
-            prop.readOnly.shouldBeTrue()
+            feature.customProperties[PROPERTY_CONFIG].shouldNotBeNull {
+                readOnly.shouldBeTrue()
+            }
         }
 
         test("validation fails when property value not in fixedValues") {
@@ -372,14 +372,14 @@ internal class FeatureBuilderTest :
             feature.customProperties[PROPERTY_FEATURE_ENABLED]?.value shouldBe FEATURE_ENABLED_VALUE
 
             // Verify property details
-            val retriesProp = feature.customProperties[PROPERTY_MAX_RETRIES]
-            retriesProp.shouldNotBeNull()
-            retriesProp.description shouldBe MAX_RETRIES_DESCRIPTION
-            retriesProp.fixedValues shouldBe RETRIES_FIXED_VALUES
+            feature.customProperties[PROPERTY_MAX_RETRIES].shouldNotBeNull {
+                description shouldBe MAX_RETRIES_DESCRIPTION
+                fixedValues shouldBe RETRIES_FIXED_VALUES
+            }
 
-            val apiProp = feature.customProperties[PROPERTY_API_ENDPOINT]
-            apiProp.shouldNotBeNull()
-            apiProp.readOnly.shouldBeTrue()
+            feature.customProperties[PROPERTY_API_ENDPOINT].shouldNotBeNull {
+                readOnly.shouldBeTrue()
+            }
         }
     }) {
     private class TestStrategy : FlippingStrategy {

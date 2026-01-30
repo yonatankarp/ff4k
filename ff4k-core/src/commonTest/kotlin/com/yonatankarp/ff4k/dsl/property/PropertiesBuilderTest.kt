@@ -1,10 +1,12 @@
 package com.yonatankarp.ff4k.dsl.property
 
 import com.yonatankarp.ff4k.property.PropertyInt
+import com.yonatankarp.ff4k.property.PropertyLong
 import com.yonatankarp.ff4k.property.PropertyString
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 /**
@@ -37,7 +39,7 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 1
+            result.shouldHaveSize(1)
             result[0] shouldBe property
         }
 
@@ -54,7 +56,7 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
+            result.shouldHaveSize(2)
             result[0] shouldBe property1
             result[1] shouldBe property2
         }
@@ -72,10 +74,13 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 1
-            result[0].name shouldBe PROPERTY_MAX_RETRIES
-            result[0].value shouldBe VALUE_MAX_RETRIES
-            result[0].description shouldBe DESCRIPTION_MAX_RETRIES
+            result shouldContainExactly listOf(
+                PropertyInt(
+                    name = PROPERTY_MAX_RETRIES,
+                    value = VALUE_MAX_RETRIES,
+                    description = DESCRIPTION_MAX_RETRIES,
+                ),
+            )
         }
 
         test("creates multiple properties inline using DSL blocks") {
@@ -96,10 +101,11 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 3
-            result[0].name shouldBe PROPERTY_MAX_RETRIES
-            result[1].name shouldBe PROPERTY_TIMEOUT_MS
-            result[2].name shouldBe PROPERTY_API_URL
+            result shouldContainExactly listOf(
+                PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES),
+                PropertyLong(PROPERTY_TIMEOUT_MS, VALUE_TIMEOUT_MS),
+                PropertyString(PROPERTY_API_URL, VALUE_API_URL),
+            )
         }
 
         test("combines pre-built and DSL-defined properties") {
@@ -116,9 +122,10 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
-            result[0].name shouldBe PROPERTY_ENV
-            result[1].name shouldBe PROPERTY_MAX_RETRIES
+            result shouldContainExactly listOf(
+                preBuiltProperty,
+                PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES),
+            )
         }
 
         test("preserves insertion order") {
@@ -133,9 +140,11 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result[0].name shouldBe PROPERTY_THIRD
-            result[1].name shouldBe PROPERTY_FIRST
-            result[2].name shouldBe PROPERTY_SECOND
+            result shouldContainExactly listOf(
+                PropertyString(PROPERTY_THIRD, VALUE_THIRD),
+                PropertyString(PROPERTY_FIRST, VALUE_FIRST),
+                PropertyString(PROPERTY_SECOND, VALUE_SECOND),
+            )
         }
 
         test("allows duplicate properties") {
@@ -150,7 +159,7 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 2
+            result.shouldHaveSize(2)
         }
 
         test("creates property with all options") {
@@ -173,13 +182,15 @@ internal class PropertiesBuilderTest :
             }.build()
 
             // Then
-            result.size shouldBe 1
-            val prop = result[0]
-            prop.name shouldBe PROPERTY_LOG_LEVEL
-            prop.value shouldBe VALUE_LOG_LEVEL
-            prop.description shouldBe DESCRIPTION_LOG_LEVEL
-            prop.readOnly.shouldBeTrue()
-            prop.fixedValues shouldBe LOG_LEVELS
+            result shouldContainExactly listOf(
+                PropertyString(
+                    name = PROPERTY_LOG_LEVEL,
+                    value = VALUE_LOG_LEVEL,
+                    description = DESCRIPTION_LOG_LEVEL,
+                    readOnly = true,
+                    fixedValues = LOG_LEVELS,
+                ),
+            )
         }
     }) {
     private companion object {

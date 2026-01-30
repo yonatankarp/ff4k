@@ -44,9 +44,10 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyString>()
-            result.name shouldBe PROPERTY_NAME
-            result.value shouldBe VALUE_STRING
+            result.shouldBeInstanceOf<PropertyString> {
+                it.name shouldBe PROPERTY_NAME
+                it.value shouldBe VALUE_STRING
+            }
         }
 
         test("builds Int property") {
@@ -56,8 +57,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyInt>()
-            result.value shouldBe VALUE_INT
+            result.shouldBeInstanceOf<PropertyInt> {
+                it.value shouldBe VALUE_INT
+            }
         }
 
         test("builds Long property") {
@@ -67,8 +69,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyLong>()
-            result.value shouldBe VALUE_LONG
+            result.shouldBeInstanceOf<PropertyLong> {
+                it.value shouldBe VALUE_LONG
+            }
         }
 
         test("builds Short property") {
@@ -78,8 +81,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyShort>()
-            result.value shouldBe VALUE_SHORT
+            result.shouldBeInstanceOf<PropertyShort> {
+                it.value shouldBe VALUE_SHORT
+            }
         }
 
         test("builds Byte property") {
@@ -89,8 +93,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyByte>()
-            result.value shouldBe VALUE_BYTE
+            result.shouldBeInstanceOf<PropertyByte> {
+                it.value shouldBe VALUE_BYTE
+            }
         }
 
         test("builds Float property") {
@@ -100,8 +105,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyFloat>()
-            result.value shouldBe VALUE_FLOAT
+            result.shouldBeInstanceOf<PropertyFloat> {
+                it.value shouldBe VALUE_FLOAT
+            }
         }
 
         test("builds Double property") {
@@ -111,8 +117,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyDouble>()
-            result.value shouldBe VALUE_DOUBLE
+            result.shouldBeInstanceOf<PropertyDouble> {
+                it.value shouldBe VALUE_DOUBLE
+            }
         }
 
         test("builds Boolean property") {
@@ -122,8 +129,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyBoolean>()
-            result.value shouldBe VALUE_BOOLEAN
+            result.shouldBeInstanceOf<PropertyBoolean> {
+                it.value shouldBe VALUE_BOOLEAN
+            }
         }
 
         test("builds BigDecimal property") {
@@ -133,8 +141,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyBigDecimal>()
-            result.value shouldBe VALUE_BIG_DECIMAL
+            result.shouldBeInstanceOf<PropertyBigDecimal> {
+                it.value shouldBe VALUE_BIG_DECIMAL
+            }
         }
 
         test("builds BigInteger property") {
@@ -144,8 +153,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyBigInteger>()
-            result.value shouldBe VALUE_BIG_INTEGER
+            result.shouldBeInstanceOf<PropertyBigInteger> {
+                it.value shouldBe VALUE_BIG_INTEGER
+            }
         }
 
         test("builds Instant property") {
@@ -155,8 +165,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyInstant>()
-            result.value shouldBe VALUE_INSTANT
+            result.shouldBeInstanceOf<PropertyInstant> {
+                it.value shouldBe VALUE_INSTANT
+            }
         }
 
         test("builds LocalDate property") {
@@ -166,8 +177,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyLocalDate>()
-            result.value shouldBe VALUE_LOCAL_DATE
+            result.shouldBeInstanceOf<PropertyLocalDate> {
+                it.value shouldBe VALUE_LOCAL_DATE
+            }
         }
 
         test("builds LocalDateTime property") {
@@ -177,8 +189,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyLocalDateTime>()
-            result.value shouldBe VALUE_LOCAL_DATE_TIME
+            result.shouldBeInstanceOf<PropertyLocalDateTime> {
+                it.value shouldBe VALUE_LOCAL_DATE_TIME
+            }
         }
 
         test("builds LogLevel property") {
@@ -188,8 +201,9 @@ internal class PropertyBuilderTest :
             }
 
             // Then
-            result.shouldBeInstanceOf<PropertyLogLevel>()
-            result.value shouldBe VALUE_LOG_LEVEL
+            result.shouldBeInstanceOf<PropertyLogLevel> {
+                it.value shouldBe VALUE_LOG_LEVEL
+            }
         }
 
         test("sets description") {

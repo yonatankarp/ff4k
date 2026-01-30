@@ -2,7 +2,6 @@ package com.yonatankarp.ff4k.store
 
 import com.yonatankarp.ff4k.config.FF4kConfiguration
 import com.yonatankarp.ff4k.core.Feature
-import com.yonatankarp.ff4k.core.count
 import com.yonatankarp.ff4k.test.contract.store.FeatureStoreContractTest
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue

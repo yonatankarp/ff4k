@@ -11,6 +11,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -220,8 +221,10 @@ internal class FeatureTest :
             val retrieved = feature.getProperty<Int>(PROPERTY_NAME)
 
             // Then
-            retrieved shouldBe property
-            retrieved?.value shouldBe PROPERTY_VALUE
+            retrieved.shouldNotBeNull().let {
+                it shouldBe property
+                it.value shouldBe PROPERTY_VALUE
+            }
         }
 
         test("getProperty should return null when it does not exist") {

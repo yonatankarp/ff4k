@@ -2,9 +2,9 @@ package com.yonatankarp.ff4k.dsl.feature
 
 import com.yonatankarp.ff4k.core.Feature
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 /**
@@ -32,9 +32,9 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result.size shouldBe 1
-            result[0].uid shouldBe FEATURE_DARK_MODE
-            result[0].isEnabled.shouldBeTrue()
+            result shouldContainExactly listOf(
+                Feature(FEATURE_DARK_MODE, isEnabled = true),
+            )
         }
 
         test("features creates multiple features using DSL blocks") {
@@ -55,18 +55,23 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result.size shouldBe 3
-            result[0].uid shouldBe FEATURE_DARK_MODE
-            result[0].isEnabled.shouldBeTrue()
-            result[0].description shouldBe DESCRIPTION_DARK_MODE
-
-            result[1].uid shouldBe FEATURE_BETA
-            result[1].isEnabled.shouldBeFalse()
-            result[1].group shouldBe GROUP_EXPERIMENTAL
-
-            result[2].uid shouldBe FEATURE_PREMIUM
-            result[2].isEnabled.shouldBeTrue()
-            result[2].permissions shouldBe setOf(PERMISSION_ADMIN)
+            result shouldContainExactly listOf(
+                Feature(
+                    uid = FEATURE_DARK_MODE,
+                    isEnabled = true,
+                    description = DESCRIPTION_DARK_MODE,
+                ),
+                Feature(
+                    uid = FEATURE_BETA,
+                    isEnabled = false,
+                    group = GROUP_EXPERIMENTAL,
+                ),
+                Feature(
+                    uid = FEATURE_PREMIUM,
+                    isEnabled = true,
+                    permissions = setOf(PERMISSION_ADMIN),
+                ),
+            )
         }
 
         test("features accepts pre-built features") {
@@ -79,7 +84,7 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result.size shouldBe 1
+            result.shouldHaveSize(1)
             result[0] shouldBe preBuiltFeature
         }
 
@@ -96,7 +101,7 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result.size shouldBe 2
+            result.shouldHaveSize(2)
             result shouldBe featureList
         }
 
@@ -115,7 +120,7 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result.size shouldBe 3
+            result.shouldHaveSize(3)
             result[0].uid shouldBe FEATURE_LEGACY
             result[1].uid shouldBe FEATURE_PREMIUM
             result[2].uid shouldBe FEATURE_DARK_MODE
@@ -130,9 +135,11 @@ internal class FeaturesDslTest :
             }
 
             // Then
-            result[0].uid shouldBe FEATURE_THIRD
-            result[1].uid shouldBe FEATURE_FIRST
-            result[2].uid shouldBe FEATURE_SECOND
+            result shouldContainExactly listOf(
+                Feature(FEATURE_THIRD, isEnabled = true),
+                Feature(FEATURE_FIRST, isEnabled = true),
+                Feature(FEATURE_SECOND, isEnabled = true),
+            )
         }
     }) {
     private companion object {

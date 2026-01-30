@@ -17,324 +17,302 @@ import com.yonatankarp.ff4k.property.PropertyLogLevel
 import com.yonatankarp.ff4k.property.PropertyLong
 import com.yonatankarp.ff4k.property.PropertyShort
 import com.yonatankarp.ff4k.property.PropertyString
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertIs
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyBuilder DSL.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyBuilderTest {
+internal class PropertyBuilderTest :
+    FunSpec({
 
-    @Test
-    fun `builds String property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
+        test("builds String property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+            }
+
+            // Then
+            result.shouldBeInstanceOf<PropertyString>()
+            result.name shouldBe PROPERTY_NAME
+            result.value shouldBe VALUE_STRING
         }
 
-        // Then
-        assertIs<PropertyString>(result)
-        assertEquals(PROPERTY_NAME, result.name)
-        assertEquals(VALUE_STRING, result.value)
-    }
+        test("builds Int property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_INT
+            }
 
-    @Test
-    fun `builds Int property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_INT
+            // Then
+            result.shouldBeInstanceOf<PropertyInt>()
+            result.value shouldBe VALUE_INT
         }
 
-        // Then
-        assertIs<PropertyInt>(result)
-        assertEquals(VALUE_INT, result.value)
-    }
+        test("builds Long property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_LONG
+            }
 
-    @Test
-    fun `builds Long property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_LONG
+            // Then
+            result.shouldBeInstanceOf<PropertyLong>()
+            result.value shouldBe VALUE_LONG
         }
 
-        // Then
-        assertIs<PropertyLong>(result)
-        assertEquals(VALUE_LONG, result.value)
-    }
+        test("builds Short property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_SHORT
+            }
 
-    @Test
-    fun `builds Short property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_SHORT
+            // Then
+            result.shouldBeInstanceOf<PropertyShort>()
+            result.value shouldBe VALUE_SHORT
         }
 
-        // Then
-        assertIs<PropertyShort>(result)
-        assertEquals(VALUE_SHORT, result.value)
-    }
+        test("builds Byte property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_BYTE
+            }
 
-    @Test
-    fun `builds Byte property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_BYTE
+            // Then
+            result.shouldBeInstanceOf<PropertyByte>()
+            result.value shouldBe VALUE_BYTE
         }
 
-        // Then
-        assertIs<PropertyByte>(result)
-        assertEquals(VALUE_BYTE, result.value)
-    }
+        test("builds Float property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_FLOAT
+            }
 
-    @Test
-    fun `builds Float property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_FLOAT
+            // Then
+            result.shouldBeInstanceOf<PropertyFloat>()
+            result.value shouldBe VALUE_FLOAT
         }
 
-        // Then
-        assertIs<PropertyFloat>(result)
-        assertEquals(VALUE_FLOAT, result.value)
-    }
+        test("builds Double property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_DOUBLE
+            }
 
-    @Test
-    fun `builds Double property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_DOUBLE
+            // Then
+            result.shouldBeInstanceOf<PropertyDouble>()
+            result.value shouldBe VALUE_DOUBLE
         }
 
-        // Then
-        assertIs<PropertyDouble>(result)
-        assertEquals(VALUE_DOUBLE, result.value)
-    }
+        test("builds Boolean property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_BOOLEAN
+            }
 
-    @Test
-    fun `builds Boolean property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_BOOLEAN
+            // Then
+            result.shouldBeInstanceOf<PropertyBoolean>()
+            result.value shouldBe VALUE_BOOLEAN
         }
 
-        // Then
-        assertIs<PropertyBoolean>(result)
-        assertEquals(VALUE_BOOLEAN, result.value)
-    }
+        test("builds BigDecimal property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_BIG_DECIMAL
+            }
 
-    @Test
-    fun `builds BigDecimal property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_BIG_DECIMAL
+            // Then
+            result.shouldBeInstanceOf<PropertyBigDecimal>()
+            result.value shouldBe VALUE_BIG_DECIMAL
         }
 
-        // Then
-        assertIs<PropertyBigDecimal>(result)
-        assertEquals(VALUE_BIG_DECIMAL, result.value)
-    }
+        test("builds BigInteger property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_BIG_INTEGER
+            }
 
-    @Test
-    fun `builds BigInteger property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_BIG_INTEGER
+            // Then
+            result.shouldBeInstanceOf<PropertyBigInteger>()
+            result.value shouldBe VALUE_BIG_INTEGER
         }
 
-        // Then
-        assertIs<PropertyBigInteger>(result)
-        assertEquals(VALUE_BIG_INTEGER, result.value)
-    }
+        test("builds Instant property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_INSTANT
+            }
 
-    @Test
-    fun `builds Instant property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_INSTANT
+            // Then
+            result.shouldBeInstanceOf<PropertyInstant>()
+            result.value shouldBe VALUE_INSTANT
         }
 
-        // Then
-        assertIs<PropertyInstant>(result)
-        assertEquals(VALUE_INSTANT, result.value)
-    }
+        test("builds LocalDate property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_LOCAL_DATE
+            }
 
-    @Test
-    fun `builds LocalDate property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_LOCAL_DATE
+            // Then
+            result.shouldBeInstanceOf<PropertyLocalDate>()
+            result.value shouldBe VALUE_LOCAL_DATE
         }
 
-        // Then
-        assertIs<PropertyLocalDate>(result)
-        assertEquals(VALUE_LOCAL_DATE, result.value)
-    }
+        test("builds LocalDateTime property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_LOCAL_DATE_TIME
+            }
 
-    @Test
-    fun `builds LocalDateTime property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_LOCAL_DATE_TIME
+            // Then
+            result.shouldBeInstanceOf<PropertyLocalDateTime>()
+            result.value shouldBe VALUE_LOCAL_DATE_TIME
         }
 
-        // Then
-        assertIs<PropertyLocalDateTime>(result)
-        assertEquals(VALUE_LOCAL_DATE_TIME, result.value)
-    }
+        test("builds LogLevel property") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_LOG_LEVEL
+            }
 
-    @Test
-    fun `builds LogLevel property`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_LOG_LEVEL
+            // Then
+            result.shouldBeInstanceOf<PropertyLogLevel>()
+            result.value shouldBe VALUE_LOG_LEVEL
         }
 
-        // Then
-        assertIs<PropertyLogLevel>(result)
-        assertEquals(VALUE_LOG_LEVEL, result.value)
-    }
+        test("sets description") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+                description = DESCRIPTION
+            }
 
-    @Test
-    fun `sets description`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
-            description = DESCRIPTION
+            // Then
+            result.description shouldBe DESCRIPTION
         }
 
-        // Then
-        assertEquals(DESCRIPTION, result.description)
-    }
+        test("description defaults to null") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+            }
 
-    @Test
-    fun `description defaults to null`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
+            // Then
+            result.description.shouldBeNull()
         }
 
-        // Then
-        assertNull(result.description)
-    }
+        test("sets readOnly flag") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+                readOnly = true
+            }
 
-    @Test
-    fun `sets readOnly flag`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
-            readOnly = true
+            // Then
+            result.readOnly.shouldBeTrue()
         }
 
-        // Then
-        assertTrue(result.readOnly)
-    }
+        test("readOnly defaults to false") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+            }
 
-    @Test
-    fun `readOnly defaults to false`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
+            // Then
+            result.readOnly.shouldBeFalse()
         }
 
-        // Then
-        assertFalse(result.readOnly)
-    }
+        test("sets fixedValues using DSL block") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = "option2"
+                fixedValues {
+                    +"option1"
+                    +"option2"
+                    +"option3"
+                }
+            }
 
-    @Test
-    fun `sets fixedValues using DSL block`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = "option2"
-            fixedValues {
-                +"option1"
-                +"option2"
-                +"option3"
+            // Then
+            result.fixedValues shouldBe setOf("option1", "option2", "option3")
+        }
+
+        test("sets fixedValues directly") {
+            // Given
+            val fixed = setOf("a", "b", "c")
+
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = "a"
+                fixedValues = fixed
+            }
+
+            // Then
+            result.fixedValues shouldBe fixed
+        }
+
+        test("fixedValues defaults to empty set") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = VALUE_STRING
+            }
+
+            // Then
+            result.fixedValues.shouldBeEmpty()
+        }
+
+        test("throws IllegalStateException when value not set") {
+            // When / Then
+            shouldThrow<IllegalStateException> {
+                property<String>(PROPERTY_NAME) { }
             }
         }
 
-        // Then
-        assertEquals(setOf("option1", "option2", "option3"), result.fixedValues)
-    }
+        test("throws IllegalArgumentException for unsupported type") {
+            // Given
+            data class UnsupportedType(val data: String)
 
-    @Test
-    fun `sets fixedValues directly`() {
-        // Given
-        val fixed = setOf("a", "b", "c")
-
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = "a"
-            fixedValues = fixed
-        }
-
-        // Then
-        assertEquals(fixed, result.fixedValues)
-    }
-
-    @Test
-    fun `fixedValues defaults to empty set`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = VALUE_STRING
-        }
-
-        // Then
-        assertTrue(result.fixedValues.isEmpty())
-    }
-
-    @Test
-    fun `throws IllegalStateException when value not set`() {
-        // When / Then
-        assertFailsWith<IllegalStateException> {
-            property<String>(PROPERTY_NAME) { }
-        }
-    }
-
-    @Test
-    fun `throws IllegalArgumentException for unsupported type`() {
-        // Given
-        data class UnsupportedType(val data: String)
-
-        // When / Then
-        assertFailsWith<IllegalArgumentException> {
-            property(PROPERTY_NAME) {
-                value = UnsupportedType("test")
-            }
-        }
-    }
-
-    @Test
-    fun `builds property with all options`() {
-        // When
-        val result = property(PROPERTY_NAME) {
-            value = 3
-            description = DESCRIPTION
-            readOnly = true
-            fixedValues {
-                add(1)
-                add(2)
-                add(3)
+            // When / Then
+            shouldThrow<IllegalArgumentException> {
+                property(PROPERTY_NAME) {
+                    value = UnsupportedType("test")
+                }
             }
         }
 
-        // Then
-        assertEquals(PROPERTY_NAME, result.name)
-        assertEquals(3, result.value)
-        assertEquals(DESCRIPTION, result.description)
-        assertTrue(result.readOnly)
-        assertEquals(setOf(1, 2, 3), result.fixedValues)
-    }
+        test("builds property with all options") {
+            // When
+            val result = property(PROPERTY_NAME) {
+                value = 3
+                description = DESCRIPTION
+                readOnly = true
+                fixedValues {
+                    add(1)
+                    add(2)
+                    add(3)
+                }
+            }
 
+            // Then
+            result.name shouldBe PROPERTY_NAME
+            result.value shouldBe 3
+            result.description shouldBe DESCRIPTION
+            result.readOnly.shouldBeTrue()
+            result.fixedValues shouldBe setOf(1, 2, 3)
+        }
+    }) {
     private companion object {
         private const val PROPERTY_NAME = "test-property"
         private const val DESCRIPTION = "Test property description"

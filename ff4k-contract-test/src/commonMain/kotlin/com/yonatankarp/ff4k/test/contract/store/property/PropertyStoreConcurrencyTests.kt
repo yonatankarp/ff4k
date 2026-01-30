@@ -2,72 +2,73 @@
 
 package com.yonatankarp.ff4k.test.contract.store.property
 
+import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.core.count
 import com.yonatankarp.ff4k.core.createOrUpdateProperty
 import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.PropertyInt
-import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreTestSupport.Companion.PROPERTY_NAME
+import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreFixture.PROPERTY_NAME
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.ranges.shouldBeIn
+import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
-internal interface PropertyStoreConcurrencyTests : PropertyStoreTestSupport {
-
-    @Test
-    fun `concurrent property updates via atomic method should be atomic`() = runTest {
+internal fun FunSpec.propertyStoreConcurrencyTests(createStore: suspend () -> PropertyStore) {
+    test("concurrent property updates via atomic method should be atomic") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 0)
 
         // When
-        val jobs = (1..100).map {
-            launch {
-                store.updateProperty<Int>(PROPERTY_NAME) { property ->
-                    PropertyInt(
-                        name = PROPERTY_NAME,
-                        value = property.value + 1,
-                    )
+        coroutineScope {
+            val jobs = (1..100).map {
+                launch {
+                    store.updateProperty<Int>(PROPERTY_NAME) { property ->
+                        PropertyInt(
+                            name = PROPERTY_NAME,
+                            value = property.value + 1,
+                        )
+                    }
                 }
             }
+            jobs.joinAll()
         }
-        jobs.joinAll()
 
         // Then
         val finalValue = store.get<Int>(PROPERTY_NAME)?.value
-        assertNotNull(finalValue)
-        assertEquals(100, finalValue)
+        finalValue.shouldNotBeNull()
+        finalValue shouldBe 100
     }
 
-    @Test
-    fun `concurrent createOrUpdateProperty calls should handle race conditions`() = runTest {
+    test("concurrent createOrUpdateProperty calls should handle race conditions") {
         // Given
         val store = createStore()
 
         // When
-        val jobs = (1..100).map { i ->
-            launch {
-                store.createOrUpdateProperty(
-                    PropertyInt(
-                        name = PROPERTY_NAME,
-                        value = i,
-                    ),
-                )
+        coroutineScope {
+            val jobs = (1..100).map { i ->
+                launch {
+                    store.createOrUpdateProperty(
+                        PropertyInt(
+                            name = PROPERTY_NAME,
+                            value = i,
+                        ),
+                    )
+                }
             }
+            jobs.joinAll()
         }
-        jobs.joinAll()
 
         // Then
         val property = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(property)
-        assertTrue(property.value in 1..100)
+        property.shouldNotBeNull()
+        property.value shouldBeIn 1..100
     }
 
-    @Test
-    fun `concurrent property deletions should handle missing properties gracefully`() = runTest {
+    test("concurrent property deletions should handle missing properties gracefully") {
         // Given
         val store = createStore()
         (1..10).forEach { i ->
@@ -75,40 +76,39 @@ internal interface PropertyStoreConcurrencyTests : PropertyStoreTestSupport {
         }
 
         // When
-        val jobs = (1..10).map { i ->
-            launch {
-                try {
+        coroutineScope {
+            val jobs = (1..10).map { i ->
+                launch {
                     store -= "prop-$i"
-                } catch (_: PropertyNotFoundException) {
-                    // Ignore - another coroutine might have deleted it
                 }
             }
+            jobs.joinAll()
         }
-        jobs.joinAll()
 
         // Then
-        assertEquals(0, store.count())
+        store.count() shouldBe 0
     }
 
-    @Test
-    fun `concurrent set operations should handle updates correctly`() = runTest {
+    test("concurrent set operations should handle updates correctly") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 0)
 
         // When
-        val jobs = (1..50).map { i ->
-            launch {
-                store.updateProperty(PROPERTY_NAME) { property ->
-                    PropertyInt(name = property.name, value = i)
+        coroutineScope {
+            val jobs = (1..50).map { i ->
+                launch {
+                    store.updateProperty(PROPERTY_NAME) { property ->
+                        PropertyInt(name = property.name, value = i)
+                    }
                 }
             }
+            jobs.joinAll()
         }
-        jobs.joinAll()
 
         // Then
         val finalValue = store.get<Int>(PROPERTY_NAME)?.value
-        assertNotNull(finalValue)
-        assertTrue(finalValue in 1..50)
+        finalValue.shouldNotBeNull()
+        finalValue shouldBeIn 1..50
     }
 }

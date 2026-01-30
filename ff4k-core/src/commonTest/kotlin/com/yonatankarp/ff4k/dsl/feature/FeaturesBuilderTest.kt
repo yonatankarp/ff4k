@@ -1,210 +1,202 @@
 package com.yonatankarp.ff4k.dsl.feature
 
 import com.yonatankarp.ff4k.core.Feature
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FeaturesBuilder DSL.
  *
  * @author Yonatan Karp-Rudin
  */
-class FeaturesBuilderTest {
+internal class FeaturesBuilderTest :
+    FunSpec({
 
-    @Test
-    fun `builds empty list when no features added`() {
-        // Given
-        val builder = FeaturesBuilder()
+        test("builds empty list when no features added") {
+            // Given
+            val builder = FeaturesBuilder()
 
-        // When
-        val result = builder.build()
+            // When
+            val result = builder.build()
 
-        // Then
-        assertTrue(result.isEmpty())
-    }
+            // Then
+            result.shouldBeEmpty()
+        }
 
-    @Test
-    fun `adds pre-built feature using feature method`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
+        test("adds pre-built feature using feature method") {
+            // Given
+            val builder = FeaturesBuilder()
+            val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
 
-        // When
-        val result = builder.apply {
-            feature(feature)
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(feature)
+            }.build()
 
-        // Then
-        assertEquals(1, result.size)
-        assertEquals(feature, result[0])
-    }
+            // Then
+            result.size shouldBe 1
+            result[0] shouldBe feature
+        }
 
-    @Test
-    fun `adds multiple pre-built features`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val feature1 = Feature(FEATURE_DARK_MODE, isEnabled = true)
-        val feature2 = Feature(FEATURE_BETA, isEnabled = false)
+        test("adds multiple pre-built features") {
+            // Given
+            val builder = FeaturesBuilder()
+            val feature1 = Feature(FEATURE_DARK_MODE, isEnabled = true)
+            val feature2 = Feature(FEATURE_BETA, isEnabled = false)
 
-        // When
-        val result = builder.apply {
-            feature(feature1)
-            feature(feature2)
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(feature1)
+                feature(feature2)
+            }.build()
 
-        // Then
-        assertEquals(2, result.size)
-        assertEquals(feature1, result[0])
-        assertEquals(feature2, result[1])
-    }
+            // Then
+            result.size shouldBe 2
+            result[0] shouldBe feature1
+            result[1] shouldBe feature2
+        }
 
-    @Test
-    fun `adds collection of features using features method`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val featureList = listOf(
-            Feature(FEATURE_DARK_MODE, isEnabled = true),
-            Feature(FEATURE_BETA, isEnabled = false),
-            Feature(FEATURE_PREMIUM, isEnabled = true),
-        )
+        test("adds collection of features using features method") {
+            // Given
+            val builder = FeaturesBuilder()
+            val featureList = listOf(
+                Feature(FEATURE_DARK_MODE, isEnabled = true),
+                Feature(FEATURE_BETA, isEnabled = false),
+                Feature(FEATURE_PREMIUM, isEnabled = true),
+            )
 
-        // When
-        val result = builder.apply {
-            features(featureList)
-        }.build()
+            // When
+            val result = builder.apply {
+                features(featureList)
+            }.build()
 
-        // Then
-        assertEquals(3, result.size)
-        assertEquals(featureList, result)
-    }
+            // Then
+            result.size shouldBe 3
+            result shouldBe featureList
+        }
 
-    @Test
-    fun `creates feature inline using DSL block`() {
-        // Given
-        val builder = FeaturesBuilder()
+        test("creates feature inline using DSL block") {
+            // Given
+            val builder = FeaturesBuilder()
 
-        // When
-        val result = builder.apply {
-            feature(FEATURE_DARK_MODE) {
-                isEnabled = true
-                description = DESCRIPTION_DARK_MODE
-            }
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(FEATURE_DARK_MODE) {
+                    isEnabled = true
+                    description = DESCRIPTION_DARK_MODE
+                }
+            }.build()
 
-        // Then
-        assertEquals(1, result.size)
-        assertEquals(FEATURE_DARK_MODE, result[0].uid)
-        assertTrue(result[0].isEnabled)
-        assertEquals(DESCRIPTION_DARK_MODE, result[0].description)
-    }
+            // Then
+            result.size shouldBe 1
+            result[0].uid shouldBe FEATURE_DARK_MODE
+            result[0].isEnabled.shouldBeTrue()
+            result[0].description shouldBe DESCRIPTION_DARK_MODE
+        }
 
-    @Test
-    fun `creates multiple features inline using DSL blocks`() {
-        // Given
-        val builder = FeaturesBuilder()
+        test("creates multiple features inline using DSL blocks") {
+            // Given
+            val builder = FeaturesBuilder()
 
-        // When
-        val result = builder.apply {
-            feature(FEATURE_DARK_MODE) {
-                isEnabled = true
-                group = GROUP_UI
-            }
-            feature(FEATURE_BETA) {
-                isEnabled = false
-                group = GROUP_EXPERIMENTAL
-            }
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(FEATURE_DARK_MODE) {
+                    isEnabled = true
+                    group = GROUP_UI
+                }
+                feature(FEATURE_BETA) {
+                    isEnabled = false
+                    group = GROUP_EXPERIMENTAL
+                }
+            }.build()
 
-        // Then
-        assertEquals(2, result.size)
-        assertEquals(FEATURE_DARK_MODE, result[0].uid)
-        assertTrue(result[0].isEnabled)
-        assertEquals(GROUP_UI, result[0].group)
-        assertEquals(FEATURE_BETA, result[1].uid)
-        assertFalse(result[1].isEnabled)
-        assertEquals(GROUP_EXPERIMENTAL, result[1].group)
-    }
+            // Then
+            result.size shouldBe 2
+            result[0].uid shouldBe FEATURE_DARK_MODE
+            result[0].isEnabled.shouldBeTrue()
+            result[0].group shouldBe GROUP_UI
+            result[1].uid shouldBe FEATURE_BETA
+            result[1].isEnabled.shouldBeFalse()
+            result[1].group shouldBe GROUP_EXPERIMENTAL
+        }
 
-    @Test
-    fun `combines pre-built features and DSL-defined features`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
+        test("combines pre-built features and DSL-defined features") {
+            // Given
+            val builder = FeaturesBuilder()
+            val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
 
-        // When
-        val result = builder.apply {
-            feature(preBuiltFeature)
-            feature(FEATURE_DARK_MODE) {
-                isEnabled = true
-            }
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(preBuiltFeature)
+                feature(FEATURE_DARK_MODE) {
+                    isEnabled = true
+                }
+            }.build()
 
-        // Then
-        assertEquals(2, result.size)
-        assertEquals(FEATURE_LEGACY, result[0].uid)
-        assertEquals(FEATURE_DARK_MODE, result[1].uid)
-    }
+            // Then
+            result.size shouldBe 2
+            result[0].uid shouldBe FEATURE_LEGACY
+            result[1].uid shouldBe FEATURE_DARK_MODE
+        }
 
-    @Test
-    fun `combines collection and individual features`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val featureList = listOf(
-            Feature(FEATURE_DARK_MODE, isEnabled = true),
-            Feature(FEATURE_BETA, isEnabled = false),
-        )
+        test("combines collection and individual features") {
+            // Given
+            val builder = FeaturesBuilder()
+            val featureList = listOf(
+                Feature(FEATURE_DARK_MODE, isEnabled = true),
+                Feature(FEATURE_BETA, isEnabled = false),
+            )
 
-        // When
-        val result = builder.apply {
-            features(featureList)
-            feature(FEATURE_PREMIUM) {
-                isEnabled = true
-            }
-        }.build()
+            // When
+            val result = builder.apply {
+                features(featureList)
+                feature(FEATURE_PREMIUM) {
+                    isEnabled = true
+                }
+            }.build()
 
-        // Then
-        assertEquals(3, result.size)
-        assertEquals(FEATURE_DARK_MODE, result[0].uid)
-        assertEquals(FEATURE_BETA, result[1].uid)
-        assertEquals(FEATURE_PREMIUM, result[2].uid)
-    }
+            // Then
+            result.size shouldBe 3
+            result[0].uid shouldBe FEATURE_DARK_MODE
+            result[1].uid shouldBe FEATURE_BETA
+            result[2].uid shouldBe FEATURE_PREMIUM
+        }
 
-    @Test
-    fun `preserves insertion order`() {
-        // Given
-        val builder = FeaturesBuilder()
+        test("preserves insertion order") {
+            // Given
+            val builder = FeaturesBuilder()
 
-        // When
-        val result = builder.apply {
-            feature(FEATURE_THIRD) { isEnabled = true }
-            feature(FEATURE_FIRST) { isEnabled = true }
-            feature(FEATURE_SECOND) { isEnabled = true }
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(FEATURE_THIRD) { isEnabled = true }
+                feature(FEATURE_FIRST) { isEnabled = true }
+                feature(FEATURE_SECOND) { isEnabled = true }
+            }.build()
 
-        // Then
-        assertEquals(FEATURE_THIRD, result[0].uid)
-        assertEquals(FEATURE_FIRST, result[1].uid)
-        assertEquals(FEATURE_SECOND, result[2].uid)
-    }
+            // Then
+            result[0].uid shouldBe FEATURE_THIRD
+            result[1].uid shouldBe FEATURE_FIRST
+            result[2].uid shouldBe FEATURE_SECOND
+        }
 
-    @Test
-    fun `allows duplicate features`() {
-        // Given
-        val builder = FeaturesBuilder()
-        val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
+        test("allows duplicate features") {
+            // Given
+            val builder = FeaturesBuilder()
+            val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
 
-        // When
-        val result = builder.apply {
-            feature(feature)
-            feature(feature)
-        }.build()
+            // When
+            val result = builder.apply {
+                feature(feature)
+                feature(feature)
+            }.build()
 
-        // Then
-        assertEquals(2, result.size)
-    }
-
+            // Then
+            result.size shouldBe 2
+        }
+    }) {
     private companion object {
         private const val FEATURE_DARK_MODE = "dark-mode"
         private const val FEATURE_BETA = "beta-program"

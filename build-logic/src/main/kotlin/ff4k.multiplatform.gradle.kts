@@ -59,7 +59,7 @@ kotlin {
             implementation(libs.findLibrary("kotlinx-coroutines-core").get())
         }
         commonTest.dependencies {
-            implementation(libs.findLibrary("kotlin-test").get())
+            implementation(libs.findBundle("kotest").get())
         }
     }
 }
@@ -71,7 +71,7 @@ dependencies {
     "jvmSharedTestCompileOnly"(kotlin("stdlib"))
     "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-core").get())
     "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-test").get())
-    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlin-test").get())
+    "jvmSharedTestImplementation"(libs.findLibrary("kotest-runner-junit5").get())
 }
 
 android {
@@ -101,6 +101,10 @@ android {
 val resourcesDir = project.file("src/commonTest/resources")
 tasks.withType<KotlinNativeTest> {
     environment("FF4K_RESOURCES_PATH", resourcesDir.absolutePath)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 spotless {

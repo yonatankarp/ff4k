@@ -1,265 +1,261 @@
 package com.yonatankarp.ff4k.config
 
-import kotlinx.coroutines.test.runTest
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import kotlin.random.Random
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
-class FileIOTest {
+internal class FileIOTest :
+    FunSpec({
 
-    private suspend fun <T> withTempFile(
-        path: String = createTempFilePath(),
-        block: suspend (String) -> T,
-    ): T = try {
-        block(path)
-    } finally {
-        runCatching {
-            deleteTempFile(path)
+        suspend fun <T> withTempFile(
+            path: String = createTempFilePath(),
+            block: suspend (String) -> T,
+        ): T = try {
+            block(path)
+        } finally {
+            runCatching {
+                deleteTempFile(path)
+            }
         }
-    }
 
-    @Test
-    fun `readFileContent should throw exception for non-existent file`() = runTest {
-        // Given
-        val nonExistentPath = "/this/path/does/not/exist/file.txt"
-
-        // When & Then
-        assertFailsWith<IllegalArgumentException> {
-            readFileContent(nonExistentPath)
-        }
-    }
-
-    @Test
-    fun `writeFileContent and readFileContent should round-trip content`() = runTest {
-        withTempFile { tempFile ->
+        test("readFileContent should throw exception for non-existent file") {
             // Given
-            val testContent = "Hello, FF4K!\nThis is a test file."
+            val nonExistentPath = "/this/path/does/not/exist/file.txt"
 
-            // When
-            writeFileContent(tempFile, testContent)
-            val readContent = readFileContent(tempFile)
-
-            // Then
-            assertEquals(testContent, readContent)
+            // When & Then
+            shouldThrow<IllegalArgumentException> {
+                readFileContent(nonExistentPath)
+            }
         }
-    }
 
-    @Test
-    fun `writeFileContent should overwrite existing file`() = runTest {
-        withTempFile { tempFile ->
-            // Given
-            val initialContent = "Initial content"
-            val updatedContent = "Updated content"
-            writeFileContent(tempFile, initialContent)
+        test("writeFileContent and readFileContent should round-trip content") {
+            withTempFile { tempFile ->
+                // Given
+                val testContent = "Hello, FF4K!\nThis is a test file."
 
-            // When
-            writeFileContent(tempFile, updatedContent)
-            val readContent = readFileContent(tempFile)
+                // When
+                writeFileContent(tempFile, testContent)
+                val readContent = readFileContent(tempFile)
 
-            // Then
-            assertEquals(updatedContent, readContent)
+                // Then
+                readContent shouldBe testContent
+            }
         }
-    }
 
-    @Test
-    fun `writeFileContent and readFileContent should handle empty content`() = runTest {
-        withTempFile { tempFile ->
-            // When
-            writeFileContent(tempFile, "")
-            val readContent = readFileContent(tempFile)
+        test("writeFileContent should overwrite existing file") {
+            withTempFile { tempFile ->
+                // Given
+                val initialContent = "Initial content"
+                val updatedContent = "Updated content"
+                writeFileContent(tempFile, initialContent)
 
-            // Then
-            assertEquals("", readContent)
+                // When
+                writeFileContent(tempFile, updatedContent)
+                val readContent = readFileContent(tempFile)
+
+                // Then
+                readContent shouldBe updatedContent
+            }
         }
-    }
 
-    @Test
-    fun `writeFileContent and readFileContent should handle unicode content`() = runTest {
-        withTempFile { tempFile ->
-            // Given
-            val unicodeContent = "Hello 世界! Привет мир! 🎉"
+        test("writeFileContent and readFileContent should handle empty content") {
+            withTempFile { tempFile ->
+                // When
+                writeFileContent(tempFile, "")
+                val readContent = readFileContent(tempFile)
 
-            // When
-            writeFileContent(tempFile, unicodeContent)
-            val readContent = readFileContent(tempFile)
-
-            // Then
-            assertEquals(unicodeContent, readContent)
+                // Then
+                readContent shouldBe ""
+            }
         }
-    }
 
-    @Test
-    fun `writeFileContent and readFileContent should handle multiline content`() = runTest {
-        withTempFile { tempFile ->
-            // Given
-            val multilineContent = """
+        test("writeFileContent and readFileContent should handle unicode content") {
+            withTempFile { tempFile ->
+                // Given
+                val unicodeContent = "Hello 世界! Привет мир! 🎉"
+
+                // When
+                writeFileContent(tempFile, unicodeContent)
+                val readContent = readFileContent(tempFile)
+
+                // Then
+                readContent shouldBe unicodeContent
+            }
+        }
+
+        test("writeFileContent and readFileContent should handle multiline content") {
+            withTempFile { tempFile ->
+                // Given
+                val multilineContent = """
                 Line 1
                 Line 2
                 Line 3
 
                 Line after empty line
-            """.trimIndent()
+                """.trimIndent()
 
-            // When
-            writeFileContent(tempFile, multilineContent)
-            val readContent = readFileContent(tempFile)
+                // When
+                writeFileContent(tempFile, multilineContent)
+                val readContent = readFileContent(tempFile)
 
-            // Then
-            assertEquals(multilineContent, readContent)
+                // Then
+                readContent shouldBe multilineContent
+            }
         }
-    }
 
-    @Test
-    fun `writeFileContent and readFileContent should handle large content`() = runTest {
-        withTempFile { tempFile ->
+        test("writeFileContent and readFileContent should handle large content") {
+            withTempFile { tempFile ->
+                // Given
+                val largeContent = "x".repeat(100_000)
+
+                // When
+                writeFileContent(tempFile, largeContent)
+                val readContent = readFileContent(tempFile)
+
+                // Then
+                readContent.length shouldBe largeContent.length
+                readContent shouldBe largeContent
+            }
+        }
+
+        test("loadResourceContent should throw exception for non-existent resource") {
             // Given
-            val largeContent = "x".repeat(100_000)
+            val nonExistentResource = "non/existent/resource.txt"
 
-            // When
-            writeFileContent(tempFile, largeContent)
-            val readContent = readFileContent(tempFile)
-
-            // Then
-            assertEquals(largeContent.length, readContent.length)
-            assertEquals(largeContent, readContent)
+            // When & Then
+            shouldThrow<IllegalArgumentException> {
+                loadResourceContent(nonExistentResource)
+            }
         }
-    }
 
-    @Test
-    fun `loadResourceContent should throw exception for non-existent resource`() = runTest {
-        // Given
-        val nonExistentResource = "non/existent/resource.txt"
-
-        // When & Then
-        assertFailsWith<IllegalArgumentException> {
-            loadResourceContent(nonExistentResource)
-        }
-    }
-
-    @Test
-    fun `writeFileContent and readFileContent should expand tilde to home directory`() = runTest {
-        // Given
-        val homeDir = getHomeDirectory()
-        if (homeDir.isEmpty()) return@runTest
-
-        val fileName = "ff4k_tilde_test_${Random.nextLong()}.txt"
-        val tildePath = "~/$fileName"
-        val expandedPath = "$homeDir/$fileName"
-
-        withTempFile(expandedPath) {
+        test("writeFileContent and readFileContent should expand tilde to home directory") {
             // Given
-            val testContent = "Tilde expansion test content"
+            val homeDir = getHomeDirectory()
+            if (homeDir.isNotEmpty()) {
+                val fileName = "ff4k_tilde_test_${Random.nextLong()}.txt"
+                val tildePath = "~/$fileName"
+                val expandedPath = "$homeDir/$fileName"
 
-            // When
-            writeFileContent(tildePath, testContent)
-            val readContent = readFileContent(expandedPath)
-            val readViaTilde = readFileContent(tildePath)
+                withTempFile(expandedPath) {
+                    // Given
+                    val testContent = "Tilde expansion test content"
 
-            // Then
-            assertEquals(testContent, readContent)
-            assertEquals(testContent, readViaTilde)
-        }
-    }
+                    // When
+                    writeFileContent(tildePath, testContent)
+                    val readContent = readFileContent(expandedPath)
+                    val readViaTilde = readFileContent(tildePath)
 
-    @Test
-    fun `readFileContent should throw exception for non-existent tilde path`() = runTest {
-        // Given
-        val homeDir = getHomeDirectory()
-        if (homeDir.isEmpty()) return@runTest
-
-        val nonExistentTildePath = "~/this_file_does_not_exist_ff4k_test.txt"
-
-        // When
-        val exception = assertFailsWith<IllegalArgumentException> {
-            readFileContent(nonExistentTildePath)
+                    // Then
+                    readContent shouldBe testContent
+                    readViaTilde shouldBe testContent
+                }
+            }
         }
 
-        // Then
-        assertEquals(true, exception.message?.contains(homeDir))
-    }
-
-    @Test
-    fun `writeFileContent should throw exception for invalid directory`() = runTest {
-        // Given
-        val invalidPath = "/this/directory/does/not/exist/file.txt"
-
-        // When & Then
-        assertFailsWith<IllegalArgumentException> {
-            writeFileContent(invalidPath, "content")
-        }
-    }
-
-    @Test
-    fun `readFileContent should reject path traversal attempts`() = runTest {
-        // Given
-        val traversalPaths = listOf(
-            "../etc/passwd",
-            "/tmp/../etc/passwd",
-            "foo/../../etc/passwd",
-            "..\\windows\\system32",
-        )
-
-        // When & Then
-        traversalPaths.forEach { path ->
-            assertFailsWith<IllegalArgumentException> { readFileContent(path) }
-        }
-    }
-
-    @Test
-    fun `writeFileContent should reject path traversal attempts`() = runTest {
-        // Given
-        val traversalPaths = listOf(
-            "../malicious.txt",
-            "/tmp/../../../malicious.txt",
-        )
-
-        // When & Then
-        traversalPaths.forEach { path ->
-            assertFailsWith<IllegalArgumentException> { writeFileContent(path, "content") }
-        }
-    }
-
-    @Test
-    fun `loadResourceContent should reject path traversal attempts`() = runTest {
-        // Given
-        val traversalPath = "../../../etc/passwd"
-
-        // When & Then
-        assertFailsWith<IllegalArgumentException> { loadResourceContent(traversalPath) }
-    }
-
-    @Test
-    fun `readFileContent and writeFileContent should allow paths with dots in filenames`() = runTest {
-        val dottedPath = createTempFilePath().replace(".txt", ".config.backup.txt")
-        withTempFile(dottedPath) { path ->
+        test("readFileContent should throw exception for non-existent tilde path") {
             // Given
-            val content = "dotted filename content"
+            val homeDir = getHomeDirectory()
+            if (homeDir.isNotEmpty()) {
+                val nonExistentTildePath = "~/this_file_does_not_exist_ff4k_test.txt"
 
-            // When
-            writeFileContent(path, content)
-            val readContent = readFileContent(path)
+                // When
+                val exception = shouldThrow<IllegalArgumentException> {
+                    readFileContent(nonExistentTildePath)
+                }
 
-            // Then
-            assertEquals(content, readContent)
+                // Then
+                exception.message.shouldNotBeNull() shouldContain homeDir
+            }
         }
-    }
 
-    @Test
-    fun `readFileContent and writeFileContent should allow single dot in path segments`() = runTest {
-        withTempFile { tempFile ->
+        test("writeFileContent should throw exception for invalid directory") {
             // Given
-            val content = "test content"
+            val invalidPath = "/this/directory/does/not/exist/file.txt"
 
-            // When
-            writeFileContent(tempFile, content)
-            val readContent = readFileContent(tempFile)
-
-            // Then
-            assertEquals(content, readContent)
+            // When & Then
+            shouldThrow<IllegalArgumentException> {
+                writeFileContent(invalidPath, "content")
+            }
         }
-    }
-}
+
+        test("readFileContent should reject path traversal attempts") {
+            // Given
+            val traversalPaths = listOf(
+                "../etc/passwd",
+                "/tmp/../etc/passwd",
+                "foo/../../etc/passwd",
+                "..\\windows\\system32",
+            )
+
+            // When & Then
+            traversalPaths.forEach { path ->
+                shouldThrow<IllegalArgumentException> { readFileContent(path) }
+            }
+        }
+
+        test("writeFileContent should reject path traversal attempts") {
+            // Given
+            val traversalPaths = listOf(
+                "../malicious.txt",
+                "/tmp/../../../malicious.txt",
+            )
+
+            // When & Then
+            traversalPaths.forEach { path ->
+                shouldThrow<IllegalArgumentException> { writeFileContent(path, "content") }
+            }
+        }
+
+        test("loadResourceContent should reject path traversal attempts") {
+            // Given
+            val traversalPath = "../../../etc/passwd"
+
+            // When & Then
+            shouldThrow<IllegalArgumentException> { loadResourceContent(traversalPath) }
+        }
+
+        test("readFileContent and writeFileContent should allow paths with dots in filenames") {
+            val dottedPath = createTempFilePath().replace(".txt", ".config.backup.txt")
+            withTempFile(dottedPath) { path ->
+                // Given
+                val content = "dotted filename content"
+
+                // When
+                writeFileContent(path, content)
+                val readContent = readFileContent(path)
+
+                // Then
+                readContent shouldBe content
+            }
+        }
+
+        test("readFileContent and writeFileContent should allow single dot in path segments") {
+            withTempFile { tempFile ->
+                // Given
+                val content = "test content"
+                val separator = if (tempFile.contains("/")) "/" else "\\"
+                val lastSeparatorIndex = tempFile.lastIndexOf(separator)
+                val pathWithDot = if (lastSeparatorIndex >= 0) {
+                    val parent = tempFile.substring(0, lastSeparatorIndex)
+                    val name = tempFile.substring(lastSeparatorIndex + 1)
+                    "$parent$separator.$separator$name"
+                } else {
+                    ".$separator$tempFile"
+                }
+
+                // When
+                writeFileContent(pathWithDot, content)
+                val readContent = readFileContent(pathWithDot)
+
+                // Then
+                readContent shouldBe content
+            }
+        }
+    })
 
 expect fun createTempFilePath(): String
 expect fun deleteTempFile(path: String)

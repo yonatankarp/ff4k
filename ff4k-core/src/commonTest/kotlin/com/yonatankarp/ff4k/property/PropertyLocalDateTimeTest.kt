@@ -1,15 +1,15 @@
 package com.yonatankarp.ff4k.property
 
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
+import io.kotest.matchers.string.shouldContain
 import kotlinx.datetime.LocalDateTime
-import kotlin.test.assertTrue
 
 /**
  * Tests for PropertyLocalDateTime class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyLocalDateTimeTest : PropertyContractTest<LocalDateTime, PropertyLocalDateTime>() {
+internal class PropertyLocalDateTimeTest : PropertyContractTest<LocalDateTime, PropertyLocalDateTime>() {
 
     override val serializer = PropertyLocalDateTime.serializer()
 
@@ -43,9 +43,6 @@ class PropertyLocalDateTimeTest : PropertyContractTest<LocalDateTime, PropertyLo
         jsonString: String,
         expectedValue: LocalDateTime,
     ) {
-        assertTrue(
-            jsonString.contains(""""value":"$expectedValue""""),
-            "JSON missing LocalDateTime value: $jsonString",
-        )
+        jsonString shouldContain """"value":"$expectedValue""""
     }
 }

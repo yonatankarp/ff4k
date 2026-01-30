@@ -2,22 +2,24 @@
 
 package com.yonatankarp.ff4k.test.contract.store.feature
 
+import com.yonatankarp.ff4k.core.FeatureStore
+import com.yonatankarp.ff4k.core.count
 import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
 import com.yonatankarp.ff4k.exception.FeatureNotFoundException
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.FEATURE_NAME
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.FEATURE_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.createFeature
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 
-internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
-
-    @Test
-    fun `should create a new feature`() = runTest {
+internal fun FunSpec.featureStoreCrudTests(createStore: suspend () -> FeatureStore) {
+    test("should create a new feature") {
         // Given
         val store = createStore()
         val feature = createFeature(isEnabled = true)
@@ -27,26 +29,24 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertEquals(FEATURE_NAME, retrieved.uid)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.uid shouldBe FEATURE_NAME
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should throw exception when creating duplicate feature`() = runTest {
+    test("should throw exception when creating duplicate feature") {
         // Given
         val store = createStore()
         val feature = createFeature()
         store += feature
 
         // When / Then
-        assertFailsWith<FeatureAlreadyExistsException> {
+        shouldThrow<FeatureAlreadyExistsException> {
             store += feature
         }
     }
 
-    @Test
-    fun `should read feature by id`() = runTest {
+    test("should read feature by id") {
         // Given
         val store = createStore()
         val feature = createFeature(isEnabled = true)
@@ -56,13 +56,12 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val retrieved = store[FEATURE_NAME]
 
         // Then
-        assertNotNull(retrieved)
-        assertEquals(FEATURE_NAME, retrieved.uid)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.uid shouldBe FEATURE_NAME
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should return null when reading non-existent feature`() = runTest {
+    test("should return null when reading non-existent feature") {
         // Given
         val store = createStore()
 
@@ -70,11 +69,10 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val retrieved = store["non-existent"]
 
         // Then
-        assertNull(retrieved)
+        retrieved.shouldBeNull()
     }
 
-    @Test
-    fun `should read all features`() = runTest {
+    test("should read all features") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1", isEnabled = true)
@@ -85,14 +83,13 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val allFeatures = store.getAll()
 
         // Then
-        assertEquals(3, allFeatures.size)
-        assertTrue("feature1" in allFeatures)
-        assertTrue("feature2" in allFeatures)
-        assertTrue("feature3" in allFeatures)
+        allFeatures.size shouldBe 3
+        allFeatures.keys shouldContain "feature1"
+        allFeatures.keys shouldContain "feature2"
+        allFeatures.keys shouldContain "feature3"
     }
 
-    @Test
-    fun `should return empty map when no features exist`() = runTest {
+    test("should return empty map when no features exist") {
         // Given
         val store = createStore()
 
@@ -100,11 +97,10 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val allFeatures = store.getAll()
 
         // Then
-        assertTrue(allFeatures.isEmpty())
+        allFeatures.shouldBeEmpty()
     }
 
-    @Test
-    fun `should update existing feature`() = runTest {
+    test("should update existing feature") {
         // Given
         val store = createStore()
         val feature = createFeature()
@@ -116,24 +112,22 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should throw exception when updating non-existent feature`() = runTest {
+    test("should throw exception when updating non-existent feature") {
         // Given
         val store = createStore()
         val feature = createFeature()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.update(feature)
         }
     }
 
-    @Test
-    fun `should delete feature`() = runTest {
+    test("should delete feature") {
         // Given
         val store = createStore()
         val feature = createFeature()
@@ -143,34 +137,31 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         store -= FEATURE_NAME
 
         // Then
-        assertNull(store[FEATURE_NAME])
+        store[FEATURE_NAME].shouldBeNull()
     }
 
-    @Test
-    fun `should throw exception when deleting non-existent feature`() = runTest {
+    test("should throw exception when deleting non-existent feature") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store -= FEATURE_NAME
         }
     }
 
-    @Test
-    fun `should check if feature exists using contains operator`() = runTest {
+    test("should check if feature exists using contains operator") {
         // Given
         val store = createStore()
         val feature = createFeature()
         store += feature
 
         // Then
-        assertTrue(FEATURE_NAME in store)
-        assertFalse("non-existent" in store)
+        (FEATURE_NAME in store).shouldBeTrue()
+        ("non-existent" in store).shouldBeFalse()
     }
 
-    @Test
-    fun `should enable a disabled feature`() = runTest {
+    test("should enable a disabled feature") {
         // Given
         val store = createStore()
         val feature = createFeature()
@@ -181,12 +172,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should disable an enabled feature`() = runTest {
+    test("should disable an enabled feature") {
         // Given
         val store = createStore()
         val feature = createFeature(isEnabled = true)
@@ -197,34 +187,31 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertFalse(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeFalse()
     }
 
-    @Test
-    fun `should throw exception when enabling non-existent feature`() = runTest {
+    test("should throw exception when enabling non-existent feature") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.enable(FEATURE_NAME)
         }
     }
 
-    @Test
-    fun `should throw exception when disabling non-existent feature`() = runTest {
+    test("should throw exception when disabling non-existent feature") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.disable(FEATURE_NAME)
         }
     }
 
-    @Test
-    fun `should allow enabling an already enabled feature without error`() = runTest {
+    test("should allow enabling an already enabled feature without error") {
         // Given
         val store = createStore()
         store += createFeature(isEnabled = true)
@@ -234,12 +221,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should allow disabling an already disabled feature without error`() = runTest {
+    test("should allow disabling an already disabled feature without error") {
         // Given
         val store = createStore()
         store += createFeature(isEnabled = false)
@@ -249,12 +235,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertFalse(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeFalse()
     }
 
-    @Test
-    fun `should clear all features`() = runTest {
+    test("should clear all features") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1")
@@ -265,27 +250,24 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         store.clear()
 
         // Then
-        val allFeatures = store.getAll()
-        assertTrue(allFeatures.isEmpty())
+        store.getAll().shouldBeEmpty()
     }
 
-    @Test
-    fun `should check if store is empty`() = runTest {
+    test("should check if store is empty") {
         // Given
         val store = createStore()
 
         // Then
-        assertTrue(store.isEmpty())
+        store.isEmpty().shouldBeTrue()
 
         // When
         store += createFeature()
 
         // Then
-        assertFalse(store.isEmpty())
+        store.isEmpty().shouldBeFalse()
     }
 
-    @Test
-    fun `should return count 0 when store is empty`() = runTest {
+    test("should return count 0 when store is empty") {
         // Given
         val store = createStore()
 
@@ -293,11 +275,10 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val result = store.count()
 
         // Then
-        assertEquals(0, result)
+        result shouldBe 0
     }
 
-    @Test
-    fun `should count features in store`() = runTest {
+    test("should count features in store") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1")
@@ -308,11 +289,10 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val result = store.count()
 
         // Then
-        assertEquals(3, result)
+        result shouldBe 3
     }
 
-    @Test
-    fun `should update feature using transform function`() = runTest {
+    test("should update feature using transform function") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -324,41 +304,38 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val updated = store[FEATURE_NAME]
-        assertNotNull(updated)
-        assertTrue(updated.isEnabled)
+        updated.shouldNotBeNull()
+        updated.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should throw exception when updating non-existent feature with transform`() = runTest {
+    test("should throw exception when updating non-existent feature with transform") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.updateFeature(FEATURE_NAME) { it }
         }
     }
 
-    @Test
-    fun `should throw exception when transform changes feature uid`() = runTest {
+    test("should throw exception when transform changes feature uid") {
         // Given
         val store = createStore()
         store += createFeature()
 
         // When / Then
-        assertFailsWith<IllegalStateException> {
+        shouldThrow<IllegalStateException> {
             store.updateFeature(FEATURE_NAME) { feature ->
                 feature.copy(uid = "different-id")
             }
         }
 
         // Verify
-        assertNotNull(store[FEATURE_NAME])
-        assertNull(store["different-id"])
+        store[FEATURE_NAME].shouldNotBeNull()
+        store["different-id"].shouldBeNull()
     }
 
-    @Test
-    fun `should create or update feature - create path`() = runTest {
+    test("should create or update feature - create path") {
         // Given
         val store = createStore()
         val feature = createFeature(isEnabled = true)
@@ -368,12 +345,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should create or update feature - update path`() = runTest {
+    test("should create or update feature - update path") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -384,12 +360,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val retrieved = store[FEATURE_NAME]
-        assertNotNull(retrieved)
-        assertTrue(retrieved.isEnabled)
+        retrieved.shouldNotBeNull()
+        retrieved.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should toggle feature from disabled to enabled`() = runTest {
+    test("should toggle feature from disabled to enabled") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -399,12 +374,11 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val toggled = store[FEATURE_NAME]
-        assertNotNull(toggled)
-        assertTrue(toggled.isEnabled)
+        toggled.shouldNotBeNull()
+        toggled.isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should toggle feature from enabled to disabled`() = runTest {
+    test("should toggle feature from enabled to disabled") {
         // Given
         val store = createStore()
         store += createFeature(isEnabled = true)
@@ -414,23 +388,21 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
 
         // Then
         val toggled = store[FEATURE_NAME]
-        assertNotNull(toggled)
-        assertFalse(toggled.isEnabled)
+        toggled.shouldNotBeNull()
+        toggled.isEnabled.shouldBeFalse()
     }
 
-    @Test
-    fun `should throw exception when toggling non-existent feature`() = runTest {
+    test("should throw exception when toggling non-existent feature") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.toggle(FEATURE_NAME)
         }
     }
 
-    @Test
-    fun `should get feature or throw exception`() = runTest {
+    test("should get feature or throw exception") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -439,17 +411,16 @@ internal interface FeatureStoreCrudTests : FeatureStoreTestSupport {
         val feature = store.getOrThrow(FEATURE_NAME)
 
         // Then
-        assertNotNull(feature)
-        assertEquals(FEATURE_NAME, feature.uid)
+        feature.shouldNotBeNull()
+        feature.uid shouldBe FEATURE_NAME
     }
 
-    @Test
-    fun `should throw exception when getting non-existent feature with getOrThrow`() = runTest {
+    test("should throw exception when getting non-existent feature with getOrThrow") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.getOrThrow(FEATURE_NAME)
         }
     }

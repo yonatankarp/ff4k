@@ -2,6 +2,7 @@
 
 package com.yonatankarp.ff4k.test.contract.store.property
 
+import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.core.count
 import com.yonatankarp.ff4k.core.createOrUpdateProperty
 import com.yonatankarp.ff4k.core.getPropertyOrThrow
@@ -11,21 +12,21 @@ import com.yonatankarp.ff4k.exception.PropertyAlreadyExistsException
 import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
-import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreTestSupport.Companion.DEFAULT_VALUE
-import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreTestSupport.Companion.PROPERTY_NAME
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreFixture.DEFAULT_VALUE
+import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreFixture.PROPERTY_NAME
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 
-internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
-
-    @Test
-    fun `should create a new property`() = runTest {
+internal fun FunSpec.propertyStoreCrudTests(createStore: suspend () -> PropertyStore) {
+    test("should create a new property") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
@@ -35,26 +36,24 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
 
         // Then
         val retrieved = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(retrieved)
-        assertEquals(PROPERTY_NAME, retrieved.name)
-        assertEquals(DEFAULT_VALUE, retrieved.value)
+        retrieved.shouldNotBeNull()
+        retrieved.name shouldBe PROPERTY_NAME
+        retrieved.value shouldBe DEFAULT_VALUE
     }
 
-    @Test
-    fun `should throw exception when creating duplicate property`() = runTest {
+    test("should throw exception when creating duplicate property") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
         store += property
 
         // When / Then
-        assertFailsWith<PropertyAlreadyExistsException> {
+        shouldThrow<PropertyAlreadyExistsException> {
             store += property
         }
     }
 
-    @Test
-    fun `should create multiple properties with different names`() = runTest {
+    test("should create multiple properties with different names") {
         // Given
         val store = createStore()
 
@@ -64,14 +63,13 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         store += PropertyInt(name = "prop3", value = 3)
 
         // Then
-        assertEquals(3, store.getAll().size)
-        assertEquals(1, store.get<Int>("prop1")?.value)
-        assertEquals(2, store.get<Int>("prop2")?.value)
-        assertEquals(3, store.get<Int>("prop3")?.value)
+        store.getAll().size shouldBe 3
+        store.get<Int>("prop1")?.value shouldBe 1
+        store.get<Int>("prop2")?.value shouldBe 2
+        store.get<Int>("prop3")?.value shouldBe 3
     }
 
-    @Test
-    fun `should read property by name`() = runTest {
+    test("should read property by name") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = 42)
@@ -81,13 +79,12 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val retrieved = store.get<Int>(PROPERTY_NAME)
 
         // Then
-        assertNotNull(retrieved)
-        assertEquals(PROPERTY_NAME, retrieved.name)
-        assertEquals(42, retrieved.value)
+        retrieved.shouldNotBeNull()
+        retrieved.name shouldBe PROPERTY_NAME
+        retrieved.value shouldBe 42
     }
 
-    @Test
-    fun `should return null when reading non-existent property`() = runTest {
+    test("should return null when reading non-existent property") {
         // Given
         val store = createStore()
 
@@ -95,11 +92,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val retrieved = store.get<Int>("non-existent")
 
         // Then
-        assertNull(retrieved)
+        retrieved.shouldBeNull()
     }
 
-    @Test
-    fun `should read all properties`() = runTest {
+    test("should read all properties") {
         // Given
         val store = createStore()
         store += PropertyInt(name = "prop1", value = 1)
@@ -110,14 +106,13 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val allProperties = store.getAll()
 
         // Then
-        assertEquals(3, allProperties.size)
-        assertTrue("prop1" in allProperties)
-        assertTrue("prop2" in allProperties)
-        assertTrue("prop3" in allProperties)
+        allProperties.size shouldBe 3
+        allProperties.keys shouldContain "prop1"
+        allProperties.keys shouldContain "prop2"
+        allProperties.keys shouldContain "prop3"
     }
 
-    @Test
-    fun `should return empty map when no properties exist`() = runTest {
+    test("should return empty map when no properties exist") {
         // Given
         val store = createStore()
 
@@ -125,11 +120,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val allProperties = store.getAll()
 
         // Then
-        assertTrue(allProperties.isEmpty())
+        allProperties.shouldBeEmpty()
     }
 
-    @Test
-    fun `should get property or default when property exists`() = runTest {
+    test("should get property or default when property exists") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 42)
@@ -139,11 +133,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val result = store.getOrDefault(PROPERTY_NAME, defaultProperty)
 
         // Then
-        assertEquals(42, result.value)
+        result.value shouldBe 42
     }
 
-    @Test
-    fun `should get default when property does not exist`() = runTest {
+    test("should get default when property does not exist") {
         // Given
         val store = createStore()
         val defaultProperty = PropertyInt(name = PROPERTY_NAME, value = 99)
@@ -152,11 +145,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val result = store.getOrDefault(PROPERTY_NAME, defaultProperty)
 
         // Then
-        assertEquals(99, result.value)
+        result.value shouldBe 99
     }
 
-    @Test
-    fun `should update existing property`() = runTest {
+    test("should update existing property") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = 10)
@@ -168,12 +160,11 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
 
         // Then
         val retrieved = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(retrieved)
-        assertEquals(20, retrieved.value)
+        retrieved.shouldNotBeNull()
+        retrieved.value shouldBe 20
     }
 
-    @Test
-    fun `should update property using transform function`() = runTest {
+    test("should update property using transform function") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 10)
@@ -189,23 +180,21 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
 
         // Then
         val updated = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(updated)
-        assertEquals(20, updated.value)
+        updated.shouldNotBeNull()
+        updated.value shouldBe 20
     }
 
-    @Test
-    fun `should throw exception when updating non-existent property with transform`() = runTest {
+    test("should throw exception when updating non-existent property with transform") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<PropertyNotFoundException> {
+        shouldThrow<PropertyNotFoundException> {
             store.updateProperty<Int>(PROPERTY_NAME) { it }
         }
     }
 
-    @Test
-    fun `should delete property`() = runTest {
+    test("should delete property") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
@@ -215,34 +204,31 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         store -= PROPERTY_NAME
 
         // Then
-        assertNull(store.get<Int>(PROPERTY_NAME))
+        store.get<Int>(PROPERTY_NAME).shouldBeNull()
     }
 
-    @Test
-    fun `should throw exception when deleting non-existent property`() = runTest {
+    test("should throw exception when deleting non-existent property") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<PropertyNotFoundException> {
+        shouldThrow<PropertyNotFoundException> {
             store -= PROPERTY_NAME
         }
     }
 
-    @Test
-    fun `should check if property exists using contains operator`() = runTest {
+    test("should check if property exists using contains operator") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
         store += property
 
         // Then
-        assertTrue(PROPERTY_NAME in store)
-        assertFalse("non-existent" in store)
+        (PROPERTY_NAME in store).shouldBeTrue()
+        ("non-existent" in store).shouldBeFalse()
     }
 
-    @Test
-    fun `should list property names`() = runTest {
+    test("should list property names") {
         // Given
         val store = createStore()
         store += PropertyInt(name = "prop1", value = 1)
@@ -253,14 +239,13 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val names = store.listPropertyIds()
 
         // Then
-        assertEquals(3, names.size)
-        assertTrue("prop1" in names)
-        assertTrue("prop2" in names)
-        assertTrue("prop3" in names)
+        names.size shouldBe 3
+        names shouldContain "prop1"
+        names shouldContain "prop2"
+        names shouldContain "prop3"
     }
 
-    @Test
-    fun `should return empty set when no properties exist for listPropertyNames`() = runTest {
+    test("should return empty set when no properties exist for listPropertyNames") {
         // Given
         val store = createStore()
 
@@ -268,11 +253,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val names = store.listPropertyIds()
 
         // Then
-        assertTrue(names.isEmpty())
+        names.shouldBeEmpty()
     }
 
-    @Test
-    fun `should clear all properties`() = runTest {
+    test("should clear all properties") {
         // Given
         val store = createStore()
         store += PropertyInt(name = "prop1", value = 1)
@@ -283,46 +267,41 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         store.clear()
 
         // Then
-        val allProperties = store.getAll()
-        assertTrue(allProperties.isEmpty())
+        store.getAll().shouldBeEmpty()
     }
 
-    @Test
-    fun `should check if store is empty using extension function`() = runTest {
+    test("should check if store is empty using extension function") {
         // Given
         val store = createStore()
 
         // Then
-        assertTrue(store.isEmpty())
+        store.isEmpty().shouldBeTrue()
 
         // When
         store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // Then
-        assertFalse(store.isEmpty())
+        store.isEmpty().shouldBeFalse()
     }
 
-    @Test
-    fun `isEmpty property should return true for empty store`() = runTest {
+    test("isEmpty property should return true for empty store") {
         // Given
         val store = createStore()
 
         // Then
-        assertTrue(store.isEmpty())
+        store.isEmpty().shouldBeTrue()
     }
 
-    @Test
-    fun `isEmpty property should return false for non-empty store`() = runTest {
+    test("isEmpty property should return false for non-empty store") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
 
         // Then
-        assertFalse(store.isEmpty())
+        store.isEmpty().shouldBeFalse()
     }
 
-    @Test
-    fun `should return count 0 when store is empty`() = runTest {
+    test("should return count 0 when store is empty") {
         // Given
         val store = createStore()
 
@@ -330,11 +309,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val result = store.count()
 
         // Then
-        assertEquals(0, result)
+        result shouldBe 0
     }
 
-    @Test
-    fun `should count properties in store`() = runTest {
+    test("should count properties in store") {
         // Given
         val store = createStore()
         store += PropertyInt(name = "prop1", value = 1)
@@ -345,11 +323,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val result = store.count()
 
         // Then
-        assertEquals(3, result)
+        result shouldBe 3
     }
 
-    @Test
-    fun `should create or update property - create path`() = runTest {
+    test("should create or update property - create path") {
         // Given
         val store = createStore()
         val property = PropertyInt(name = PROPERTY_NAME, value = 42)
@@ -359,12 +336,11 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
 
         // Then
         val retrieved = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(retrieved)
-        assertEquals(42, retrieved.value)
+        retrieved.shouldNotBeNull()
+        retrieved.value shouldBe 42
     }
 
-    @Test
-    fun `should create or update property - update path`() = runTest {
+    test("should create or update property - update path") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 10)
@@ -375,12 +351,11 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
 
         // Then
         val retrieved = store.get<Int>(PROPERTY_NAME)
-        assertNotNull(retrieved)
-        assertEquals(42, retrieved.value)
+        retrieved.shouldNotBeNull()
+        retrieved.value shouldBe 42
     }
 
-    @Test
-    fun `should get property or throw exception`() = runTest {
+    test("should get property or throw exception") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = DEFAULT_VALUE)
@@ -389,23 +364,21 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val property = store.getPropertyOrThrow<Int>(PROPERTY_NAME)
 
         // Then
-        assertNotNull(property)
-        assertEquals(PROPERTY_NAME, property.name)
+        property.shouldNotBeNull()
+        property.name shouldBe PROPERTY_NAME
     }
 
-    @Test
-    fun `should throw exception when getting non-existent property with getPropertyOrThrow`() = runTest {
+    test("should throw exception when getting non-existent property with getPropertyOrThrow") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<PropertyNotFoundException> {
+        shouldThrow<PropertyNotFoundException> {
             store.getPropertyOrThrow<Int>(PROPERTY_NAME)
         }
     }
 
-    @Test
-    fun `should get property value directly`() = runTest {
+    test("should get property value directly") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 42)
@@ -414,11 +387,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val value = store.getPropertyValue<Int>(PROPERTY_NAME)
 
         // Then
-        assertEquals(42, value)
+        value shouldBe 42
     }
 
-    @Test
-    fun `should return null when getting value of non-existent property`() = runTest {
+    test("should return null when getting value of non-existent property") {
         // Given
         val store = createStore()
 
@@ -426,11 +398,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val value = store.getPropertyValue<Int>(PROPERTY_NAME)
 
         // Then
-        assertNull(value)
+        value.shouldBeNull()
     }
 
-    @Test
-    fun `should get property value or default`() = runTest {
+    test("should get property value or default") {
         // Given
         val store = createStore()
         store += PropertyInt(name = PROPERTY_NAME, value = 42)
@@ -439,11 +410,10 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val value = store.getPropertyValueOrDefault(PROPERTY_NAME, 99)
 
         // Then
-        assertEquals(42, value)
+        value shouldBe 42
     }
 
-    @Test
-    fun `should return default when getting value of non-existent property`() = runTest {
+    test("should return default when getting value of non-existent property") {
         // Given
         val store = createStore()
 
@@ -451,6 +421,6 @@ internal interface PropertyStoreCrudTests : PropertyStoreTestSupport {
         val value = store.getPropertyValueOrDefault(PROPERTY_NAME, 99)
 
         // Then
-        assertEquals(99, value)
+        value shouldBe 99
     }
 }

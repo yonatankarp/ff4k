@@ -2,24 +2,29 @@
 
 package com.yonatankarp.ff4k.test.contract.store.feature
 
+import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.dsl.feature.feature
 import com.yonatankarp.ff4k.exception.FeatureNotFoundException
 import com.yonatankarp.ff4k.exception.GroupNotFoundException
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.ANOTHER_GROUP_NAME
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.FEATURE_NAME
-import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreTestSupport.Companion.GROUP_NAME
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.ANOTHER_GROUP_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.FEATURE_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.GROUP_NAME
+import com.yonatankarp.ff4k.test.contract.store.feature.FeatureStoreFixture.createFeature
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldNotContain
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.maps.shouldContainKey
+import io.kotest.matchers.maps.shouldNotContainKey
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 
-internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
-
-    @Test
-    fun `should enable all features in a group`() = runTest {
+internal fun FunSpec.featureStoreGroupTests(createStore: suspend () -> FeatureStore) {
+    test("should enable all features in a group") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1", isEnabled = false)
@@ -32,13 +37,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         store.enableGroup(GROUP_NAME)
 
         // Then
-        assertTrue(store["feature1"]!!.isEnabled)
-        assertTrue(store["feature2"]!!.isEnabled)
-        assertFalse(store["feature3"]!!.isEnabled)
+        store["feature1"].shouldNotBeNull().isEnabled.shouldBeTrue()
+        store["feature2"].shouldNotBeNull().isEnabled.shouldBeTrue()
+        store["feature3"].shouldNotBeNull().isEnabled.shouldBeFalse()
     }
 
-    @Test
-    fun `should disable all features in a group`() = runTest {
+    test("should disable all features in a group") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1", isEnabled = true)
@@ -51,14 +55,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         store.disableGroup(GROUP_NAME)
 
         // Then
-        assertNotNull(store["feature1"])
-        assertFalse(store["feature1"]!!.isEnabled)
-        assertFalse(store["feature2"]!!.isEnabled)
-        assertTrue(store["feature3"]!!.isEnabled)
+        store["feature1"].shouldNotBeNull().isEnabled.shouldBeFalse()
+        store["feature2"].shouldNotBeNull().isEnabled.shouldBeFalse()
+        store["feature3"].shouldNotBeNull().isEnabled.shouldBeTrue()
     }
 
-    @Test
-    fun `should add feature to group`() = runTest {
+    test("should add feature to group") {
         // Given
         val store = createStore()
         val feature = createFeature()
@@ -69,23 +71,21 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
 
         // Then
         val groupFeatures = store.getGroup(GROUP_NAME)
-        assertEquals(1, groupFeatures.size)
-        assertTrue(FEATURE_NAME in groupFeatures)
+        groupFeatures.size shouldBe 1
+        groupFeatures shouldContainKey FEATURE_NAME
     }
 
-    @Test
-    fun `should throw exception when adding non-existent feature to group`() = runTest {
+    test("should throw exception when adding non-existent feature to group") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.addToGroup(FEATURE_NAME, GROUP_NAME)
         }
     }
 
-    @Test
-    fun `should remove feature from group`() = runTest {
+    test("should remove feature from group") {
         // Given
         val store = createStore()
         store += createFeature(uid = FEATURE_NAME)
@@ -96,22 +96,20 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
 
         // Then
         val groupFeatures = store.getGroup(GROUP_NAME)
-        assertTrue(groupFeatures.isEmpty())
+        groupFeatures.shouldBeEmpty()
     }
 
-    @Test
-    fun `should throw exception when removing non-existent feature from group`() = runTest {
+    test("should throw exception when removing non-existent feature from group") {
         // Given
         val store = createStore()
 
         // When / Then
-        assertFailsWith<FeatureNotFoundException> {
+        shouldThrow<FeatureNotFoundException> {
             store.removeFromGroup(FEATURE_NAME, GROUP_NAME)
         }
     }
 
-    @Test
-    fun `should throw exception when removing group the feature is not in`() = runTest {
+    test("should throw exception when removing group the feature is not in") {
         // Given
         val store = createStore()
         store += feature(uid = FEATURE_NAME) {
@@ -119,13 +117,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         }
 
         // When / Then
-        assertFailsWith<GroupNotFoundException> {
+        shouldThrow<GroupNotFoundException> {
             store.removeFromGroup(FEATURE_NAME, ANOTHER_GROUP_NAME)
         }
     }
 
-    @Test
-    fun `should get all features in a group`() = runTest {
+    test("should get all features in a group") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1")
@@ -139,14 +136,13 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         val group1Features = store.getGroup(GROUP_NAME)
 
         // Then
-        assertEquals(2, group1Features.size)
-        assertTrue("feature1" in group1Features)
-        assertTrue("feature2" in group1Features)
-        assertFalse("feature3" in group1Features)
+        group1Features.size shouldBe 2
+        group1Features shouldContainKey "feature1"
+        group1Features shouldContainKey "feature2"
+        group1Features shouldNotContainKey "feature3"
     }
 
-    @Test
-    fun `should return empty map for non-existent group`() = runTest {
+    test("should return empty map for non-existent group") {
         // Given
         val store = createStore()
 
@@ -154,23 +150,21 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         val groupFeatures = store.getGroup(GROUP_NAME)
 
         // Then
-        assertTrue(groupFeatures.isEmpty())
+        groupFeatures.shouldBeEmpty()
     }
 
-    @Test
-    fun `should check if group exists`() = runTest {
+    test("should check if group exists") {
         // Given
         val store = createStore()
         store += createFeature()
         store.addToGroup(FEATURE_NAME, GROUP_NAME)
 
         // Then
-        assertTrue(store.containsGroup(GROUP_NAME))
-        assertFalse(store.containsGroup(ANOTHER_GROUP_NAME))
+        store.containsGroup(GROUP_NAME).shouldBeTrue()
+        store.containsGroup(ANOTHER_GROUP_NAME).shouldBeFalse()
     }
 
-    @Test
-    fun `should get all group names`() = runTest {
+    test("should get all group names") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1")
@@ -184,13 +178,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         val groups = store.getAllGroups()
 
         // Then
-        assertEquals(2, groups.size)
-        assertTrue(GROUP_NAME in groups)
-        assertTrue(ANOTHER_GROUP_NAME in groups)
+        groups.size shouldBe 2
+        groups shouldContain GROUP_NAME
+        groups shouldContain ANOTHER_GROUP_NAME
     }
 
-    @Test
-    fun `should return empty set when no groups exist`() = runTest {
+    test("should return empty set when no groups exist") {
         // Given
         val store = createStore()
 
@@ -198,11 +191,10 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         val groups = store.getAllGroups()
 
         // Then
-        assertTrue(groups.isEmpty())
+        groups.shouldBeEmpty()
     }
 
-    @Test
-    fun `should allow adding feature to same group multiple times without error`() = runTest {
+    test("should allow adding feature to same group multiple times without error") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -213,12 +205,11 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
 
         // Then
         val groupFeatures = store.getGroup(GROUP_NAME)
-        assertEquals(1, groupFeatures.size)
-        assertTrue(FEATURE_NAME in groupFeatures)
+        groupFeatures.size shouldBe 1
+        groupFeatures shouldContainKey FEATURE_NAME
     }
 
-    @Test
-    fun `should move feature from one group to another`() = runTest {
+    test("should move feature from one group to another") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -229,15 +220,14 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
 
         // Then
         val newGroupFeatures = store.getGroup(ANOTHER_GROUP_NAME)
-        assertEquals(1, newGroupFeatures.size)
-        assertTrue(FEATURE_NAME in newGroupFeatures)
+        newGroupFeatures.size shouldBe 1
+        newGroupFeatures shouldContainKey FEATURE_NAME
 
         val oldGroupFeatures = store.getGroup(GROUP_NAME)
-        assertTrue(oldGroupFeatures.isEmpty())
+        oldGroupFeatures.shouldBeEmpty()
     }
 
-    @Test
-    fun `should clean up empty group after removing last feature`() = runTest {
+    test("should clean up empty group after removing last feature") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -247,13 +237,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         store.removeFromGroup(FEATURE_NAME, GROUP_NAME)
 
         // Then
-        assertFalse(store.containsGroup(GROUP_NAME))
+        store.containsGroup(GROUP_NAME).shouldBeFalse()
         val groups = store.getAllGroups()
-        assertFalse(GROUP_NAME in groups)
+        groups shouldNotContain GROUP_NAME
     }
 
-    @Test
-    fun `should clean up group when deleting last feature in group`() = runTest {
+    test("should clean up group when deleting last feature in group") {
         // Given
         val store = createStore()
         store += createFeature()
@@ -263,13 +252,12 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
         store -= FEATURE_NAME
 
         // Then
-        assertFalse(store.containsGroup(GROUP_NAME))
+        store.containsGroup(GROUP_NAME).shouldBeFalse()
         val groups = store.getAllGroups()
-        assertFalse(GROUP_NAME in groups)
+        groups shouldNotContain GROUP_NAME
     }
 
-    @Test
-    fun `should clear groups along with features`() = runTest {
+    test("should clear groups along with features") {
         // Given
         val store = createStore()
         store += createFeature(uid = "feature1")
@@ -282,8 +270,8 @@ internal interface FeatureStoreGroupTests : FeatureStoreTestSupport {
 
         // Then
         val groups = store.getAllGroups()
-        assertTrue(groups.isEmpty())
-        assertFalse(store.containsGroup(GROUP_NAME))
-        assertFalse(store.containsGroup(ANOTHER_GROUP_NAME))
+        groups.shouldBeEmpty()
+        store.containsGroup(GROUP_NAME).shouldBeFalse()
+        store.containsGroup(ANOTHER_GROUP_NAME).shouldBeFalse()
     }
 }

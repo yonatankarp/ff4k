@@ -1,188 +1,176 @@
 package com.yonatankarp.ff4k.core
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FlippingExecutionContext.
  *
  * @author Yonatan Karp-Rudin
  */
-class FlippingExecutionContextTest {
+internal class FlippingExecutionContextTest :
+    FunSpec({
 
-    @Test
-    fun `should store and retrieve values with correct types`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["userId"] = 123
-        context["userName"] = "Alice"
-        context["isActive"] = true
+        test("should store and retrieve values with correct types") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["userId"] = 123
+            context["userName"] = "Alice"
+            context["isActive"] = true
 
-        // When
-        val userId = context.get<Int>("userId")
-        val userName = context.get<String>("userName")
-        val isActive = context.get<Boolean>("isActive")
+            // When
+            val userId = context.get<Int>("userId")
+            val userName = context.get<String>("userName")
+            val isActive = context.get<Boolean>("isActive")
 
-        // Then
-        assertEquals(123, userId)
-        assertEquals("Alice", userName)
-        assertEquals(true, isActive)
-    }
-
-    @Test
-    fun `should return null for non-existent keys`() {
-        // Given
-        val context = FlippingExecutionContext()
-
-        // When
-        val result = context.get<String>("missingKey")
-
-        // Then
-        assertNull(result)
-    }
-
-    @Test
-    fun `should throw when type mismatch occurs`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["userId"] = 123
-
-        // When / Then
-        assertFailsWith<IllegalStateException> {
-            context.get<String>("userId")
+            // Then
+            userId shouldBe 123
+            userName shouldBe "Alice"
+            isActive shouldBe true
         }
-    }
 
-    @Test
-    fun `should throw when required key is missing`() {
-        // Given
-        val context = FlippingExecutionContext()
+        test("should return null for non-existent keys") {
+            // Given
+            val context = FlippingExecutionContext()
 
-        // When / Then
-        assertFailsWith<IllegalArgumentException> {
-            context.get<String>("missingKey", required = true)
+            // When
+            val result = context.get<String>("missingKey")
+
+            // Then
+            result shouldBe null
         }
-    }
 
-    @Test
-    fun `should not throw when required key exists`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["key"] = "value"
+        test("should throw when type mismatch occurs") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["userId"] = 123
 
-        // When
-        val result = context.get<String>("key", required = true)
+            // When / Then
+            shouldThrow<IllegalStateException> {
+                context.get<String>("userId")
+            }
+        }
 
-        // Then
-        assertEquals("value", result)
-    }
+        test("should throw when required key is missing") {
+            // Given
+            val context = FlippingExecutionContext()
 
-    @Test
-    fun `contains operator should return true for existing keys`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["userId"] = 123
+            // When / Then
+            shouldThrow<IllegalArgumentException> {
+                context.get<String>("missingKey", required = true)
+            }
+        }
 
-        // When
-        val contains = "userId" in context
+        test("should not throw when required key exists") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["key"] = "value"
 
-        // Then
-        assertTrue(contains)
-    }
+            // When
+            val result = context.get<String>("key", required = true)
 
-    @Test
-    fun `contains operator should return false for non-existent keys`() {
-        // Given
-        val context = FlippingExecutionContext()
+            // Then
+            result shouldBe "value"
+        }
 
-        // When
-        val contains = "userId" in context
+        test("contains operator should return true for existing keys") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["userId"] = 123
 
-        // Then
-        assertFalse(contains)
-    }
+            // When
+            val contains = "userId" in context
 
-    @Test
-    fun `isEmpty should return true for new context`() {
-        // Given
-        val context = FlippingExecutionContext()
+            // Then
+            contains.shouldBeTrue()
+        }
 
-        // When
-        val isEmpty = context.isEmpty
+        test("contains operator should return false for non-existent keys") {
+            // Given
+            val context = FlippingExecutionContext()
 
-        // Then
-        assertTrue(isEmpty)
-    }
+            // When
+            val contains = "userId" in context
 
-    @Test
-    fun `isEmpty should return false after adding values`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["key"] = "value"
+            // Then
+            contains.shouldBeFalse()
+        }
 
-        // When
-        val isEmpty = context.isEmpty
+        test("isEmpty should return true for new context") {
+            // Given
+            val context = FlippingExecutionContext()
 
-        // Then
-        assertFalse(isEmpty)
-    }
+            // When
+            val isEmpty = context.isEmpty
 
-    @Test
-    fun `should handle null values correctly`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["nullableValue"] = null
+            // Then
+            isEmpty.shouldBeTrue()
+        }
 
-        // When
-        val value = context.get<String?>("nullableValue")
-        val contains = "nullableValue" in context
+        test("isEmpty should return false after adding values") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["key"] = "value"
 
-        // Then
-        assertNull(value)
-        assertTrue(contains)
-    }
+            // When
+            val isEmpty = context.isEmpty
 
-    @Test
-    fun `should work with data class as value in context`() {
-        // Given
-        data class User(val id: Int, val name: String)
-        val context = FlippingExecutionContext()
-        val user = User(1, "Alice")
-        context["user"] = user
+            // Then
+            isEmpty.shouldBeFalse()
+        }
 
-        // When
-        val result = context.get<User>("user")
+        test("should handle null values correctly") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["nullableValue"] = null
 
-        // Then
-        assertEquals(user, result)
-    }
+            // When
+            val value = context.get<String?>("nullableValue")
+            val contains = "nullableValue" in context
 
-    @Test
-    fun `should support multiple types in same context`() {
-        // Given
-        val context = FlippingExecutionContext()
-        context["string"] = "text"
-        context["int"] = 42
-        context["double"] = 3.14
-        context["boolean"] = true
-        context["list"] = listOf(1, 2, 3)
+            // Then
+            value shouldBe null
+            contains.shouldBeTrue()
+        }
 
-        // When
-        val string = context.get<String>("string")
-        val int = context.get<Int>("int")
-        val double = context.get<Double>("double")
-        val boolean = context.get<Boolean>("boolean")
-        val list = context.get<List<Int>>("list")
+        test("should work with data class as value in context") {
+            // Given
+            data class User(val id: Int, val name: String)
+            val context = FlippingExecutionContext()
+            val user = User(1, "Alice")
+            context["user"] = user
 
-        // Then
-        assertEquals("text", string)
-        assertEquals(42, int)
-        assertEquals(3.14, double)
-        assertEquals(true, boolean)
-        assertEquals(listOf(1, 2, 3), list)
-    }
-}
+            // When
+            val result = context.get<User>("user")
+
+            // Then
+            result shouldBe user
+        }
+
+        test("should support multiple types in same context") {
+            // Given
+            val context = FlippingExecutionContext()
+            context["string"] = "text"
+            context["int"] = 42
+            context["double"] = 3.14
+            context["boolean"] = true
+            context["list"] = listOf(1, 2, 3)
+
+            // When
+            val string = context.get<String>("string")
+            val int = context.get<Int>("int")
+            val double = context.get<Double>("double")
+            val boolean = context.get<Boolean>("boolean")
+            val list = context.get<List<Int>>("list")
+
+            // Then
+            string shouldBe "text"
+            int shouldBe 42
+            double shouldBe 3.14
+            boolean shouldBe true
+            list shouldBe listOf(1, 2, 3)
+        }
+    })

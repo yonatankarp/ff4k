@@ -1,14 +1,14 @@
 package com.yonatankarp.ff4k.property
 
 import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
-import kotlin.test.assertTrue
+import io.kotest.matchers.string.shouldContain
 
 /**
  * Tests for PropertyString class.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
+internal class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
 
     override val serializer = PropertyString.serializer()
 
@@ -32,6 +32,6 @@ class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
     override fun fixedValuesIncludingSample(sample: String): Set<String> = setOf("dev", "staging", "prod", sample)
 
     override fun assertJsonHasValue(jsonString: String, expectedValue: String) {
-        assertTrue(""""value":"$expectedValue"""" in jsonString, "JSON missing value: $jsonString")
+        jsonString shouldContain """"value":"$expectedValue""""
     }
 }

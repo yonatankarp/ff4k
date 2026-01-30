@@ -7,7 +7,7 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertyDoubleTest : PropertyContractTest<Double, PropertyDouble>() {
+internal class PropertyDoubleTest : PropertyContractTest<Double, PropertyDouble>() {
 
     override val serializer = PropertyDouble.serializer()
 

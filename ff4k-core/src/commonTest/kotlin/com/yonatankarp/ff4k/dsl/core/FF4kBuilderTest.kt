@@ -6,301 +6,289 @@ import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.store.InMemoryPropertyStore
-import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FF4kBuilder and ff4k() DSL entry point.
  *
  * @author Yonatan Karp-Rudin
  */
-class FF4kBuilderTest {
+internal class FF4kBuilderTest :
+    FunSpec({
 
-    @Test
-    fun `ff4k creates empty instance when no configuration provided`() = runTest {
-        // When
-        val ff4k = ff4k { }
+        test("ff4k creates empty instance when no configuration provided") {
+            // When
+            val ff4k = ff4k { }
 
-        // Then
-        assertTrue(ff4k.features().isEmpty())
-        assertTrue(ff4k.properties().isEmpty())
-    }
-
-    @Test
-    fun `ff4k registers pre-built feature using feature method`() = runTest {
-        // Given
-        val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
-
-        // When
-        val ff4k = ff4k {
-            feature(feature)
+            // Then
+            ff4k.features().shouldBeEmpty()
+            ff4k.properties().shouldBeEmpty()
         }
 
-        // Then
-        assertTrue(ff4k.hasFeature(FEATURE_DARK_MODE))
-        assertTrue(ff4k.check(FEATURE_DARK_MODE))
-    }
+        test("ff4k registers pre-built feature using feature method") {
+            // Given
+            val feature = Feature(FEATURE_DARK_MODE, isEnabled = true)
 
-    @Test
-    fun `ff4k registers pre-built property using property method`() = runTest {
-        // Given
-        val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
-
-        // When
-        val ff4k = ff4k {
-            property(property)
-        }
-
-        // Then
-        assertTrue(ff4k.hasProperty(PROPERTY_API_URL))
-        assertEquals(VALUE_API_URL, ff4k.property<String>(PROPERTY_API_URL)?.value)
-    }
-
-    @Test
-    fun `ff4k registers multiple features using features block`() = runTest {
-        // When
-        val ff4k = ff4k {
-            features {
-                feature(FEATURE_DARK_MODE) {
-                    isEnabled = true
-                    description = DESCRIPTION_DARK_MODE
-                }
-                feature(FEATURE_BETA) {
-                    isEnabled = false
-                    group = GROUP_EXPERIMENTAL
-                }
+            // When
+            val ff4k = ff4k {
+                feature(feature)
             }
+
+            // Then
+            ff4k.hasFeature(FEATURE_DARK_MODE).shouldBeTrue()
+            ff4k.check(FEATURE_DARK_MODE).shouldBeTrue()
         }
 
-        // Then
-        assertEquals(2, ff4k.features().size)
-        assertTrue(ff4k.check(FEATURE_DARK_MODE))
-        assertFalse(ff4k.check(FEATURE_BETA))
-        assertEquals(DESCRIPTION_DARK_MODE, ff4k.feature(FEATURE_DARK_MODE).description)
-        assertEquals(GROUP_EXPERIMENTAL, ff4k.feature(FEATURE_BETA).group)
-    }
+        test("ff4k registers pre-built property using property method") {
+            // Given
+            val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
 
-    @Test
-    fun `ff4k registers multiple properties using properties block`() = runTest {
-        // When
-        val ff4k = ff4k {
-            properties {
-                property(PROPERTY_MAX_RETRIES) {
-                    value = VALUE_MAX_RETRIES
-                    description = DESCRIPTION_MAX_RETRIES
-                }
-                property(PROPERTY_TIMEOUT_MS) {
-                    value = VALUE_TIMEOUT_MS
-                }
+            // When
+            val ff4k = ff4k {
+                property(property)
             }
+
+            // Then
+            ff4k.hasProperty(PROPERTY_API_URL).shouldBeTrue()
+            ff4k.property<String>(PROPERTY_API_URL)?.value shouldBe VALUE_API_URL
         }
 
-        // Then
-        assertEquals(2, ff4k.properties().size)
-        assertEquals(VALUE_MAX_RETRIES, ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.value)
-        assertEquals(VALUE_TIMEOUT_MS, ff4k.property<Long>(PROPERTY_TIMEOUT_MS)?.value)
-        assertEquals(DESCRIPTION_MAX_RETRIES, ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.description)
-    }
-
-    @Test
-    fun `ff4k combines pre-built and DSL-defined features`() = runTest {
-        // Given
-        val preBuiltFeature = Feature(FEATURE_PREMIUM, isEnabled = true)
-
-        // When
-        val ff4k = ff4k {
-            feature(preBuiltFeature)
-            features {
-                feature(FEATURE_DARK_MODE) {
-                    isEnabled = true
-                }
-            }
-        }
-
-        // Then
-        assertEquals(2, ff4k.features().size)
-        assertTrue(ff4k.hasFeature(FEATURE_PREMIUM))
-        assertTrue(ff4k.hasFeature(FEATURE_DARK_MODE))
-    }
-
-    @Test
-    fun `ff4k combines pre-built and DSL-defined properties`() = runTest {
-        // Given
-        val preBuiltProperty = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
-
-        // When
-        val ff4k = ff4k {
-            property(preBuiltProperty)
-            properties {
-                property(PROPERTY_MAX_RETRIES) {
-                    value = VALUE_MAX_RETRIES
-                }
-            }
-        }
-
-        // Then
-        assertEquals(2, ff4k.properties().size)
-        assertTrue(ff4k.hasProperty(PROPERTY_API_URL))
-        assertTrue(ff4k.hasProperty(PROPERTY_MAX_RETRIES))
-    }
-
-    @Test
-    fun `ff4k accepts custom feature store`() = runTest {
-        // Given
-        val customStore = InMemoryFeatureStore()
-
-        // When
-        val ff4k = ff4k(featureStore = customStore) {
-            features {
-                feature(FEATURE_DARK_MODE) {
-                    isEnabled = true
-                }
-            }
-        }
-
-        // Then
-        assertTrue(ff4k.hasFeature(FEATURE_DARK_MODE))
-        assertTrue(FEATURE_DARK_MODE in customStore)
-    }
-
-    @Test
-    fun `ff4k accepts custom property store`() = runTest {
-        // Given
-        val customStore = InMemoryPropertyStore()
-
-        // When
-        val ff4k = ff4k(propertyStore = customStore) {
-            properties {
-                property(PROPERTY_MAX_RETRIES) {
-                    value = VALUE_MAX_RETRIES
-                }
-            }
-        }
-
-        // Then
-        assertTrue(ff4k.hasProperty(PROPERTY_MAX_RETRIES))
-        assertTrue(PROPERTY_MAX_RETRIES in customStore)
-    }
-
-    @Test
-    fun `ff4k respects autoCreate parameter`() = runTest {
-        // When
-        val ff4k = ff4k(autoCreate = true) { }
-
-        // Then
-        assertFalse(ff4k.check(FEATURE_NON_EXISTENT))
-        assertTrue(ff4k.hasFeature(FEATURE_NON_EXISTENT))
-    }
-
-    @Test
-    fun `ff4k creates complete configuration with all options`() = runTest {
-        // Given
-        val strategy = TestStrategy()
-        val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
-        val preBuiltProperty = PropertyInt(PROPERTY_PORT, VALUE_PORT)
-
-        // When
-        val ff4k = ff4k {
-            feature(preBuiltFeature)
-            property(preBuiltProperty)
-
-            features {
-                feature(FEATURE_DARK_MODE) {
-                    isEnabled = true
-                    description = DESCRIPTION_DARK_MODE
-                    group = GROUP_UI
-                    flippingStrategy = strategy
-                    permissions(PERMISSION_ADMIN, PERMISSION_USER)
-                    property(PROPERTY_THEME) {
-                        value = VALUE_THEME
+        test("ff4k registers multiple features using features block") {
+            // When
+            val ff4k = ff4k {
+                features {
+                    feature(FEATURE_DARK_MODE) {
+                        isEnabled = true
+                        description = DESCRIPTION_DARK_MODE
+                    }
+                    feature(FEATURE_BETA) {
+                        isEnabled = false
+                        group = GROUP_EXPERIMENTAL
                     }
                 }
-                feature(FEATURE_BETA) {
-                    isEnabled = false
-                    group = GROUP_EXPERIMENTAL
+            }
+
+            // Then
+            ff4k.features().size shouldBe 2
+            ff4k.check(FEATURE_DARK_MODE).shouldBeTrue()
+            ff4k.check(FEATURE_BETA).shouldBeFalse()
+            ff4k.feature(FEATURE_DARK_MODE).description shouldBe DESCRIPTION_DARK_MODE
+            ff4k.feature(FEATURE_BETA).group shouldBe GROUP_EXPERIMENTAL
+        }
+
+        test("ff4k registers multiple properties using properties block") {
+            // When
+            val ff4k = ff4k {
+                properties {
+                    property(PROPERTY_MAX_RETRIES) {
+                        value = VALUE_MAX_RETRIES
+                        description = DESCRIPTION_MAX_RETRIES
+                    }
+                    property(PROPERTY_TIMEOUT_MS) {
+                        value = VALUE_TIMEOUT_MS
+                    }
                 }
             }
 
-            properties {
-                property(PROPERTY_MAX_RETRIES) {
-                    value = VALUE_MAX_RETRIES
-                    description = DESCRIPTION_MAX_RETRIES
-                    readOnly = true
+            // Then
+            ff4k.properties().size shouldBe 2
+            ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.value shouldBe VALUE_MAX_RETRIES
+            ff4k.property<Long>(PROPERTY_TIMEOUT_MS)?.value shouldBe VALUE_TIMEOUT_MS
+            ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.description shouldBe DESCRIPTION_MAX_RETRIES
+        }
+
+        test("ff4k combines pre-built and DSL-defined features") {
+            // Given
+            val preBuiltFeature = Feature(FEATURE_PREMIUM, isEnabled = true)
+
+            // When
+            val ff4k = ff4k {
+                feature(preBuiltFeature)
+                features {
+                    feature(FEATURE_DARK_MODE) {
+                        isEnabled = true
+                    }
                 }
-                property(PROPERTY_API_URL) {
-                    value = VALUE_API_URL
+            }
+
+            // Then
+            ff4k.features().size shouldBe 2
+            ff4k.hasFeature(FEATURE_PREMIUM).shouldBeTrue()
+            ff4k.hasFeature(FEATURE_DARK_MODE).shouldBeTrue()
+        }
+
+        test("ff4k combines pre-built and DSL-defined properties") {
+            // Given
+            val preBuiltProperty = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
+
+            // When
+            val ff4k = ff4k {
+                property(preBuiltProperty)
+                properties {
+                    property(PROPERTY_MAX_RETRIES) {
+                        value = VALUE_MAX_RETRIES
+                    }
                 }
             }
+
+            // Then
+            ff4k.properties().size shouldBe 2
+            ff4k.hasProperty(PROPERTY_API_URL).shouldBeTrue()
+            ff4k.hasProperty(PROPERTY_MAX_RETRIES).shouldBeTrue()
         }
 
-        // Then
-        assertEquals(3, ff4k.features().size)
-        assertTrue(ff4k.hasFeature(FEATURE_LEGACY))
-        assertTrue(ff4k.hasFeature(FEATURE_DARK_MODE))
-        assertTrue(ff4k.hasFeature(FEATURE_BETA))
+        test("ff4k accepts custom feature store") {
+            // Given
+            val customStore = InMemoryFeatureStore()
 
-        val darkModeFeature = ff4k.feature(FEATURE_DARK_MODE)
-        assertEquals(DESCRIPTION_DARK_MODE, darkModeFeature.description)
-        assertEquals(GROUP_UI, darkModeFeature.group)
-        assertEquals(strategy, darkModeFeature.flippingStrategy)
-        assertEquals(setOf(PERMISSION_ADMIN, PERMISSION_USER), darkModeFeature.permissions)
-        assertNotNull(darkModeFeature.customProperties[PROPERTY_THEME])
-
-        assertEquals(3, ff4k.properties().size)
-        assertTrue(ff4k.hasProperty(PROPERTY_PORT))
-        assertTrue(ff4k.hasProperty(PROPERTY_MAX_RETRIES))
-        assertTrue(ff4k.hasProperty(PROPERTY_API_URL))
-
-        val maxRetriesProperty = ff4k.property<Int>(PROPERTY_MAX_RETRIES)
-        assertNotNull(maxRetriesProperty)
-        assertEquals(DESCRIPTION_MAX_RETRIES, maxRetriesProperty.description)
-        assertTrue(maxRetriesProperty.readOnly)
-    }
-
-    @Test
-    fun `ff4k features block can add pre-built features`() = runTest {
-        // Given
-        val feature1 = Feature(FEATURE_DARK_MODE, isEnabled = true)
-        val feature2 = Feature(FEATURE_BETA, isEnabled = false)
-
-        // When
-        val ff4k = ff4k {
-            features {
-                feature(feature1)
-                feature(feature2)
+            // When
+            val ff4k = ff4k(featureStore = customStore) {
+                features {
+                    feature(FEATURE_DARK_MODE) {
+                        isEnabled = true
+                    }
+                }
             }
+
+            // Then
+            ff4k.hasFeature(FEATURE_DARK_MODE).shouldBeTrue()
+            (FEATURE_DARK_MODE in customStore).shouldBeTrue()
         }
 
-        // Then
-        assertEquals(2, ff4k.features().size)
-        assertTrue(ff4k.check(FEATURE_DARK_MODE))
-        assertFalse(ff4k.check(FEATURE_BETA))
-    }
+        test("ff4k accepts custom property store") {
+            // Given
+            val customStore = InMemoryPropertyStore()
 
-    @Test
-    fun `ff4k properties block can add pre-built properties`() = runTest {
-        // Given
-        val property1 = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
-        val property2 = PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES)
-
-        // When
-        val ff4k = ff4k {
-            properties {
-                property(property1)
-                property(property2)
+            // When
+            val ff4k = ff4k(propertyStore = customStore) {
+                properties {
+                    property(PROPERTY_MAX_RETRIES) {
+                        value = VALUE_MAX_RETRIES
+                    }
+                }
             }
+
+            // Then
+            ff4k.hasProperty(PROPERTY_MAX_RETRIES).shouldBeTrue()
+            (PROPERTY_MAX_RETRIES in customStore).shouldBeTrue()
         }
 
-        // Then
-        assertEquals(2, ff4k.properties().size)
-        assertEquals(VALUE_API_URL, ff4k.property<String>(PROPERTY_API_URL)?.value)
-        assertEquals(VALUE_MAX_RETRIES, ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.value)
-    }
+        test("ff4k respects autoCreate parameter") {
+            // When
+            val ff4k = ff4k(autoCreate = true) { }
 
+            // Then
+            ff4k.check(FEATURE_NON_EXISTENT).shouldBeFalse()
+            ff4k.hasFeature(FEATURE_NON_EXISTENT).shouldBeTrue()
+        }
+
+        test("ff4k creates complete configuration with all options") {
+            // Given
+            val strategy = TestStrategy()
+            val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
+            val preBuiltProperty = PropertyInt(PROPERTY_PORT, VALUE_PORT)
+
+            // When
+            val ff4k = ff4k {
+                feature(preBuiltFeature)
+                property(preBuiltProperty)
+
+                features {
+                    feature(FEATURE_DARK_MODE) {
+                        isEnabled = true
+                        description = DESCRIPTION_DARK_MODE
+                        group = GROUP_UI
+                        flippingStrategy = strategy
+                        permissions(PERMISSION_ADMIN, PERMISSION_USER)
+                        property(PROPERTY_THEME) {
+                            value = VALUE_THEME
+                        }
+                    }
+                    feature(FEATURE_BETA) {
+                        isEnabled = false
+                        group = GROUP_EXPERIMENTAL
+                    }
+                }
+
+                properties {
+                    property(PROPERTY_MAX_RETRIES) {
+                        value = VALUE_MAX_RETRIES
+                        description = DESCRIPTION_MAX_RETRIES
+                        readOnly = true
+                    }
+                    property(PROPERTY_API_URL) {
+                        value = VALUE_API_URL
+                    }
+                }
+            }
+
+            // Then
+            ff4k.features().size shouldBe 3
+            ff4k.hasFeature(FEATURE_LEGACY).shouldBeTrue()
+            ff4k.hasFeature(FEATURE_DARK_MODE).shouldBeTrue()
+            ff4k.hasFeature(FEATURE_BETA).shouldBeTrue()
+
+            val darkModeFeature = ff4k.feature(FEATURE_DARK_MODE)
+            darkModeFeature.description shouldBe DESCRIPTION_DARK_MODE
+            darkModeFeature.group shouldBe GROUP_UI
+            darkModeFeature.flippingStrategy shouldBe strategy
+            darkModeFeature.permissions shouldBe setOf(PERMISSION_ADMIN, PERMISSION_USER)
+            darkModeFeature.customProperties[PROPERTY_THEME].shouldNotBeNull()
+
+            ff4k.properties().size shouldBe 3
+            ff4k.hasProperty(PROPERTY_PORT).shouldBeTrue()
+            ff4k.hasProperty(PROPERTY_MAX_RETRIES).shouldBeTrue()
+            ff4k.hasProperty(PROPERTY_API_URL).shouldBeTrue()
+
+            val maxRetriesProperty = ff4k.property<Int>(PROPERTY_MAX_RETRIES)
+            maxRetriesProperty.shouldNotBeNull()
+            maxRetriesProperty.description shouldBe DESCRIPTION_MAX_RETRIES
+            maxRetriesProperty.readOnly.shouldBeTrue()
+        }
+
+        test("ff4k features block can add pre-built features") {
+            // Given
+            val feature1 = Feature(FEATURE_DARK_MODE, isEnabled = true)
+            val feature2 = Feature(FEATURE_BETA, isEnabled = false)
+
+            // When
+            val ff4k = ff4k {
+                features {
+                    feature(feature1)
+                    feature(feature2)
+                }
+            }
+
+            // Then
+            ff4k.features().size shouldBe 2
+            ff4k.check(FEATURE_DARK_MODE).shouldBeTrue()
+            ff4k.check(FEATURE_BETA).shouldBeFalse()
+        }
+
+        test("ff4k properties block can add pre-built properties") {
+            // Given
+            val property1 = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
+            val property2 = PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES)
+
+            // When
+            val ff4k = ff4k {
+                properties {
+                    property(property1)
+                    property(property2)
+                }
+            }
+
+            // Then
+            ff4k.properties().size shouldBe 2
+            ff4k.property<String>(PROPERTY_API_URL)?.value shouldBe VALUE_API_URL
+            ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.value shouldBe VALUE_MAX_RETRIES
+        }
+    }) {
     private class TestStrategy : FlippingStrategy {
         override val initParams = emptyMap<String, String>()
     }

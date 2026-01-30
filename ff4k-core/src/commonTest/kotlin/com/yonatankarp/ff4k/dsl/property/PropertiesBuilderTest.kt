@@ -2,193 +2,186 @@ package com.yonatankarp.ff4k.dsl.property
 
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.shouldBe
 
 /**
  * Tests for PropertiesBuilder DSL.
  *
  * @author Yonatan Karp-Rudin
  */
-class PropertiesBuilderTest {
+internal class PropertiesBuilderTest :
+    FunSpec({
 
-    @Test
-    fun `builds empty list when no properties added`() {
-        // Given
-        val builder = PropertiesBuilder()
+        test("builds empty list when no properties added") {
+            // Given
+            val builder = PropertiesBuilder()
 
-        // When
-        val result = builder.build()
+            // When
+            val result = builder.build()
 
-        // Then
-        assertTrue(result.isEmpty())
-    }
+            // Then
+            result.shouldBeEmpty()
+        }
 
-    @Test
-    fun `adds pre-built property using property method`() {
-        // Given
-        val builder = PropertiesBuilder()
-        val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
+        test("adds pre-built property using property method") {
+            // Given
+            val builder = PropertiesBuilder()
+            val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
 
-        // When
-        val result = builder.apply {
-            property(property)
-        }.build()
+            // When
+            val result = builder.apply {
+                property(property)
+            }.build()
 
-        // Then
-        assertEquals(1, result.size)
-        assertEquals(property, result[0])
-    }
+            // Then
+            result.size shouldBe 1
+            result[0] shouldBe property
+        }
 
-    @Test
-    fun `adds multiple pre-built properties`() {
-        // Given
-        val builder = PropertiesBuilder()
-        val property1 = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
-        val property2 = PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES)
+        test("adds multiple pre-built properties") {
+            // Given
+            val builder = PropertiesBuilder()
+            val property1 = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
+            val property2 = PropertyInt(PROPERTY_MAX_RETRIES, VALUE_MAX_RETRIES)
 
-        // When
-        val result = builder.apply {
-            property(property1)
-            property(property2)
-        }.build()
+            // When
+            val result = builder.apply {
+                property(property1)
+                property(property2)
+            }.build()
 
-        // Then
-        assertEquals(2, result.size)
-        assertEquals(property1, result[0])
-        assertEquals(property2, result[1])
-    }
+            // Then
+            result.size shouldBe 2
+            result[0] shouldBe property1
+            result[1] shouldBe property2
+        }
 
-    @Test
-    fun `creates property inline using DSL block`() {
-        // Given
-        val builder = PropertiesBuilder()
+        test("creates property inline using DSL block") {
+            // Given
+            val builder = PropertiesBuilder()
 
-        // When
-        val result = builder.apply {
-            property(PROPERTY_MAX_RETRIES) {
-                value = VALUE_MAX_RETRIES
-                description = DESCRIPTION_MAX_RETRIES
-            }
-        }.build()
-
-        // Then
-        assertEquals(1, result.size)
-        assertEquals(PROPERTY_MAX_RETRIES, result[0].name)
-        assertEquals(VALUE_MAX_RETRIES, result[0].value)
-        assertEquals(DESCRIPTION_MAX_RETRIES, result[0].description)
-    }
-
-    @Test
-    fun `creates multiple properties inline using DSL blocks`() {
-        // Given
-        val builder = PropertiesBuilder()
-
-        // When
-        val result = builder.apply {
-            property(PROPERTY_MAX_RETRIES) {
-                value = VALUE_MAX_RETRIES
-            }
-            property(PROPERTY_TIMEOUT_MS) {
-                value = VALUE_TIMEOUT_MS
-            }
-            property(PROPERTY_API_URL) {
-                value = VALUE_API_URL
-            }
-        }.build()
-
-        // Then
-        assertEquals(3, result.size)
-        assertEquals(PROPERTY_MAX_RETRIES, result[0].name)
-        assertEquals(PROPERTY_TIMEOUT_MS, result[1].name)
-        assertEquals(PROPERTY_API_URL, result[2].name)
-    }
-
-    @Test
-    fun `combines pre-built and DSL-defined properties`() {
-        // Given
-        val builder = PropertiesBuilder()
-        val preBuiltProperty = PropertyString(PROPERTY_ENV, VALUE_ENV)
-
-        // When
-        val result = builder.apply {
-            property(preBuiltProperty)
-            property(PROPERTY_MAX_RETRIES) {
-                value = VALUE_MAX_RETRIES
-            }
-        }.build()
-
-        // Then
-        assertEquals(2, result.size)
-        assertEquals(PROPERTY_ENV, result[0].name)
-        assertEquals(PROPERTY_MAX_RETRIES, result[1].name)
-    }
-
-    @Test
-    fun `preserves insertion order`() {
-        // Given
-        val builder = PropertiesBuilder()
-
-        // When
-        val result = builder.apply {
-            property(PROPERTY_THIRD) { value = VALUE_THIRD }
-            property(PROPERTY_FIRST) { value = VALUE_FIRST }
-            property(PROPERTY_SECOND) { value = VALUE_SECOND }
-        }.build()
-
-        // Then
-        assertEquals(PROPERTY_THIRD, result[0].name)
-        assertEquals(PROPERTY_FIRST, result[1].name)
-        assertEquals(PROPERTY_SECOND, result[2].name)
-    }
-
-    @Test
-    fun `allows duplicate properties`() {
-        // Given
-        val builder = PropertiesBuilder()
-        val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
-
-        // When
-        val result = builder.apply {
-            property(property)
-            property(property)
-        }.build()
-
-        // Then
-        assertEquals(2, result.size)
-    }
-
-    @Test
-    fun `creates property with all options`() {
-        // Given
-        val builder = PropertiesBuilder()
-
-        // When
-        val result = builder.apply {
-            property(PROPERTY_LOG_LEVEL) {
-                value = VALUE_LOG_LEVEL
-                description = DESCRIPTION_LOG_LEVEL
-                readOnly = true
-                fixedValues {
-                    +LOG_LEVEL_DEBUG
-                    +LOG_LEVEL_INFO
-                    +LOG_LEVEL_WARN
-                    +LOG_LEVEL_ERROR
+            // When
+            val result = builder.apply {
+                property(PROPERTY_MAX_RETRIES) {
+                    value = VALUE_MAX_RETRIES
+                    description = DESCRIPTION_MAX_RETRIES
                 }
-            }
-        }.build()
+            }.build()
 
-        // Then
-        assertEquals(1, result.size)
-        val prop = result[0]
-        assertEquals(PROPERTY_LOG_LEVEL, prop.name)
-        assertEquals(VALUE_LOG_LEVEL, prop.value)
-        assertEquals(DESCRIPTION_LOG_LEVEL, prop.description)
-        assertTrue(prop.readOnly)
-        assertEquals(LOG_LEVELS, prop.fixedValues)
-    }
+            // Then
+            result.size shouldBe 1
+            result[0].name shouldBe PROPERTY_MAX_RETRIES
+            result[0].value shouldBe VALUE_MAX_RETRIES
+            result[0].description shouldBe DESCRIPTION_MAX_RETRIES
+        }
 
+        test("creates multiple properties inline using DSL blocks") {
+            // Given
+            val builder = PropertiesBuilder()
+
+            // When
+            val result = builder.apply {
+                property(PROPERTY_MAX_RETRIES) {
+                    value = VALUE_MAX_RETRIES
+                }
+                property(PROPERTY_TIMEOUT_MS) {
+                    value = VALUE_TIMEOUT_MS
+                }
+                property(PROPERTY_API_URL) {
+                    value = VALUE_API_URL
+                }
+            }.build()
+
+            // Then
+            result.size shouldBe 3
+            result[0].name shouldBe PROPERTY_MAX_RETRIES
+            result[1].name shouldBe PROPERTY_TIMEOUT_MS
+            result[2].name shouldBe PROPERTY_API_URL
+        }
+
+        test("combines pre-built and DSL-defined properties") {
+            // Given
+            val builder = PropertiesBuilder()
+            val preBuiltProperty = PropertyString(PROPERTY_ENV, VALUE_ENV)
+
+            // When
+            val result = builder.apply {
+                property(preBuiltProperty)
+                property(PROPERTY_MAX_RETRIES) {
+                    value = VALUE_MAX_RETRIES
+                }
+            }.build()
+
+            // Then
+            result.size shouldBe 2
+            result[0].name shouldBe PROPERTY_ENV
+            result[1].name shouldBe PROPERTY_MAX_RETRIES
+        }
+
+        test("preserves insertion order") {
+            // Given
+            val builder = PropertiesBuilder()
+
+            // When
+            val result = builder.apply {
+                property(PROPERTY_THIRD) { value = VALUE_THIRD }
+                property(PROPERTY_FIRST) { value = VALUE_FIRST }
+                property(PROPERTY_SECOND) { value = VALUE_SECOND }
+            }.build()
+
+            // Then
+            result[0].name shouldBe PROPERTY_THIRD
+            result[1].name shouldBe PROPERTY_FIRST
+            result[2].name shouldBe PROPERTY_SECOND
+        }
+
+        test("allows duplicate properties") {
+            // Given
+            val builder = PropertiesBuilder()
+            val property = PropertyString(PROPERTY_API_URL, VALUE_API_URL)
+
+            // When
+            val result = builder.apply {
+                property(property)
+                property(property)
+            }.build()
+
+            // Then
+            result.size shouldBe 2
+        }
+
+        test("creates property with all options") {
+            // Given
+            val builder = PropertiesBuilder()
+
+            // When
+            val result = builder.apply {
+                property(PROPERTY_LOG_LEVEL) {
+                    value = VALUE_LOG_LEVEL
+                    description = DESCRIPTION_LOG_LEVEL
+                    readOnly = true
+                    fixedValues {
+                        +LOG_LEVEL_DEBUG
+                        +LOG_LEVEL_INFO
+                        +LOG_LEVEL_WARN
+                        +LOG_LEVEL_ERROR
+                    }
+                }
+            }.build()
+
+            // Then
+            result.size shouldBe 1
+            val prop = result[0]
+            prop.name shouldBe PROPERTY_LOG_LEVEL
+            prop.value shouldBe VALUE_LOG_LEVEL
+            prop.description shouldBe DESCRIPTION_LOG_LEVEL
+            prop.readOnly.shouldBeTrue()
+            prop.fixedValues shouldBe LOG_LEVELS
+        }
+    }) {
     private companion object {
         private const val PROPERTY_API_URL = "api.base.url"
         private const val PROPERTY_MAX_RETRIES = "max-retries"

@@ -12,6 +12,7 @@ robolectric = "4.16"
 serialization = "1.7.0"
 slf4j = "2.0.9"
 spotless = "8.1.0"
+kotest = "5.9.1"
 
 [libraries]
 # KMP Common
@@ -34,9 +35,12 @@ kover-gradle-plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", ve
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 
 # Testing
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
 
 # JVM Platform-Specific
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
@@ -55,4 +59,10 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 bignum = [
     "bignum",
     "bignum-serialization"
+]
+kotest = [
+    "kotest-framework-engine",
+    "kotest-assertions-core",
+    "kotest-property",
+    "kotest-framework-datatest"
 ]

@@ -13,17 +13,7 @@ kotlin {
             api(libs.kotlinx.serialization.json)
             api(libs.kotlinx.coroutines.test)
             api(libs.bundles.bignum)
-            api(libs.kotlin.test)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.kotlin.test.junit)
-        }
-
-        androidMain {
-            dependencies {
-                implementation(libs.kotlin.test.junit)
-            }
+            api(libs.bundles.kotest)
         }
     }
 }

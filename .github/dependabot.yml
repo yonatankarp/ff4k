@@ -21,20 +21,24 @@ updates:
       # Build/test dependencies - safe to update freely
       build-and-test:
         patterns:
-          - "org.jetbrains.kotlin:kotlin-gradle-plugin"
-          - "com.android.tools.build:gradle"
           - "com.diffplug.spotless:*"
           - "org.jetbrains.kotlinx:kover-*"
           - "org.jetbrains.dokka:*"
           - "com.vanniktech:*"
           - "io.kotest:*"
           - "org.robolectric:*"
-          - "org.slf4j:*"
     ignore:
       # Gradle wrapper - only patch updates (e.g., 8.5.0 -> 8.5.1)
       - dependency-name: "gradle"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      # Kotlin and Android - affects binary compatibility with consumers
+      - dependency-name: "org.jetbrains.kotlin:*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "com.android.tools.build:gradle"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       # Runtime dependencies affecting consumers - only patch updates
+      - dependency-name: "org.slf4j:*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-coroutines-*"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-serialization-*"

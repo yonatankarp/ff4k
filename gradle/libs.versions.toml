@@ -1,19 +1,19 @@
 [versions]
-android-library = "8.2.2"
+android-library = "9.0.0"
 bignum = "0.3.10"
 coroutines = "1.9.0"
 dokka = "2.1.0"
 jvm-toolchain = "17"
 kmp-datetime = "0.6.0"
-kotlin = "2.0.0"
-kover = "0.9.4"
+kotlin = "2.3.0"
+kover = "0.9.5"
 ktor = "2.3.12"
-robolectric = "4.16"
+robolectric = "4.16.1"
 serialization = "1.7.0"
-slf4j = "2.0.9"
-spotless = "8.1.0"
+slf4j = "2.0.17"
+spotless = "8.2.1"
 kotest = "5.9.1"
-maven-publish = "0.34.0"
+maven-publish = "0.36.0"
 
 [libraries]
 # KMP Common

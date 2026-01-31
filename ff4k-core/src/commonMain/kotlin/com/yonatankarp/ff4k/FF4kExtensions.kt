@@ -2,13 +2,6 @@ package com.yonatankarp.ff4k
 
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 
-/**
- * Extension functions for [FF4k] providing convenient operations for conditional
- * execution and batch feature checks.
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- */
-
 // ============================================================================
 // Conditional Execution Extensions
 // ============================================================================

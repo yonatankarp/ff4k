@@ -4,17 +4,6 @@ import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.core.hasFlippingStrategy
 import com.yonatankarp.ff4k.core.hasPermissions
 
-/**
- * Extension functions for [FF4k] providing feature filtering and statistics.
- *
- * This file contains helpers for:
- * - Filtering features by state, permissions, and strategy
- * - Aggregating feature statistics
- * - Generating debug/CLI reports
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- */
-
 // ============================================================================
 // Feature Statistics Data Class
 // ============================================================================

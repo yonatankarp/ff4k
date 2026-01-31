@@ -11,7 +11,32 @@ on:
     branches: [ "main" ]
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      source: ${{ steps.filter.outputs.source }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Detect changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            source:
+              - '**/*.kt'
+              - '**/*.kts'
+              - 'gradle/**'
+              - 'gradle.properties'
+              - '.github/workflows/ci.yml'
+
   code-quality:
+    needs: changes
+    if: needs.changes.outputs.source == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,7 +57,8 @@ jobs:
         run: ./gradlew spotlessCheck --no-daemon
 
   build-linux:
-    needs: code-quality
+    needs: [changes, code-quality]
+    if: needs.changes.outputs.source == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -73,7 +99,8 @@ jobs:
           retention-days: 1
 
   build-ios:
-    needs: code-quality
+    needs: [changes, code-quality]
+    if: needs.changes.outputs.source == 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -112,9 +139,9 @@ jobs:
           retention-days: 1
 
   sonarcloud:
-    needs: [build-linux, build-ios]
+    needs: [changes, build-linux, build-ios]
+    if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6

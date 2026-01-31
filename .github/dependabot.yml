@@ -1,0 +1,45 @@
+version: 2
+
+updates:
+  # GitHub Actions - safe to update, doesn't affect library consumers
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Gradle wrapper and dependencies
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      # Build/test dependencies - safe to update freely
+      build-and-test:
+        patterns:
+          - "org.jetbrains.kotlin:kotlin-gradle-plugin"
+          - "com.android.tools.build:gradle"
+          - "com.diffplug.spotless:*"
+          - "org.jetbrains.kotlinx:kover-*"
+          - "org.jetbrains.dokka:*"
+          - "com.vanniktech:*"
+          - "io.kotest:*"
+          - "org.robolectric:*"
+          - "org.slf4j:*"
+    ignore:
+      # Gradle wrapper - only patch updates (e.g., 8.5.0 -> 8.5.1)
+      - dependency-name: "gradle"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      # Runtime dependencies affecting consumers - only patch updates
+      - dependency-name: "org.jetbrains.kotlinx:kotlinx-coroutines-*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "org.jetbrains.kotlinx:kotlinx-serialization-*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "org.jetbrains.kotlinx:kotlinx-datetime"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "com.ionspin.kotlin:bignum*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]

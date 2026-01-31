@@ -13,7 +13,7 @@ serialization = "1.7.0"
 slf4j = "2.0.9"
 spotless = "8.1.0"
 kotest = "5.9.1"
-maven-publish = "0.34.0"
+maven-publish = "0.36.0"
 
 [libraries]
 # KMP Common

@@ -6,13 +6,13 @@ dokka = "2.1.0"
 jvm-toolchain = "17"
 kmp-datetime = "0.6.0"
 kotlin = "2.0.0"
-kover = "0.9.4"
-robolectric = "4.16"
+kover = "0.9.5"
+robolectric = "4.16.1"
 serialization = "1.7.0"
 slf4j = "2.0.9"
-spotless = "8.1.0"
+spotless = "8.2.1"
 kotest = "5.9.1"
-maven-publish = "0.34.0"
+maven-publish = "0.35.0"
 
 [libraries]
 # KMP Common

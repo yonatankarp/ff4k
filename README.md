@@ -2,7 +2,8 @@
 
 <div align="center">
 
-[![CI](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml/badge.svg)](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml)
+[![CI](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://yonatankarp.github.io/ff4k/)
 [![License Apache2](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.0.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17-orange.svg?logo=openjdk)](https://openjdk.org/)
@@ -120,6 +121,14 @@ ff4k.enableGroup("ui-experiments")
 ff4k.disableGroup("ui-experiments")
 ```
 
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
+
+## Security
+
+To report a security vulnerability, please see our [Security Policy](SECURITY.md).
+
 ## License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the [Apache License 2.0](LICENSE).

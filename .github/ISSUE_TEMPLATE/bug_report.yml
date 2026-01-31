@@ -1,0 +1,88 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us investigate.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug.
+      placeholder: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal code or steps to reproduce the issue.
+      placeholder: |
+        1. Configure FF4K with...
+        2. Call...
+        3. See error...
+      render: kotlin
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform(s) are affected?
+      multiple: true
+      options:
+        - JVM
+        - Android
+        - iOS
+    validations:
+      required: true
+
+  - type: input
+    id: ff4k-version
+    attributes:
+      label: FF4K Version
+      description: Which version of FF4K are you using?
+      placeholder: e.g., 0.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: kotlin-version
+    attributes:
+      label: Kotlin Version
+      description: Which version of Kotlin are you using?
+      placeholder: e.g., 2.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Any additional environment details (OS, JDK version, Android API level, iOS version, etc.)
+      placeholder: |
+        - OS: macOS 14.0
+        - JDK: 17
+        - Android API: 34
+
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Stack Trace / Logs
+      description: If applicable, paste relevant error logs or stack traces.
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues to ensure this bug hasn't been reported
+          required: true
+        - label: I am using the latest version of FF4K
+          required: false

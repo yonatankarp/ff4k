@@ -114,6 +114,7 @@ jobs:
   sonarcloud:
     needs: [build-linux, build-ios]
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6

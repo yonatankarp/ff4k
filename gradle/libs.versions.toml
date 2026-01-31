@@ -7,7 +7,6 @@ jvm-toolchain = "17"
 kmp-datetime = "0.6.0"
 kotlin = "2.0.0"
 kover = "0.9.4"
-ktor = "2.3.12"
 robolectric = "4.16"
 serialization = "1.7.0"
 slf4j = "2.0.9"
@@ -24,10 +23,6 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
 bignum-serialization = { module = "com.ionspin.kotlin:bignum-serialization-kotlinx", version.ref = "bignum" }
 
-# Ktor (Web & Networking)
-ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
-ktor-server-html-builder = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
-
 # Build Logic Dependencies
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-library" }
@@ -41,7 +36,6 @@ robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectr
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
-kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
 
 # JVM Platform-Specific
@@ -55,7 +49,6 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 
 [bundles]
 

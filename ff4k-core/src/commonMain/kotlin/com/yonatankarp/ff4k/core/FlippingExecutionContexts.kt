@@ -3,35 +3,6 @@ package com.yonatankarp.ff4k.core
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.coroutineContext
 
-/**
- * Extension functions and coroutine utilities for [FlippingExecutionContext].
- *
- * This file provides:
- * - **Immutable builder extensions**: Create modified contexts without mutating the original
- * - **Coroutine context propagation**: Automatically propagate context through suspend calls
- *
- * ## Coroutine Context Propagation
- *
- * [FlippingExecutionContext] implements [kotlin.coroutines.CoroutineContext.Element],
- * enabling automatic propagation through coroutine scopes. This replaces ThreadLocal-based
- * context storage (which doesn't work with coroutines or Kotlin Multiplatform).
- *
- * Example:
- * ```kotlin
- * withFlippingContext(FlippingExecutionContext("userId" to "user-123")) {
- *     // All suspend calls within this block can access the context
- *     ff4k.check("my-feature") // uses implicit context
- *
- *     // Nested scopes can override values
- *     withFlippingParameters("region" to "EU") {
- *         ff4k.check("eu-feature") // sees userId + region
- *     }
- * }
- * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- */
-
 // ============================================================================
 // Immutable Builder Extensions
 // ============================================================================

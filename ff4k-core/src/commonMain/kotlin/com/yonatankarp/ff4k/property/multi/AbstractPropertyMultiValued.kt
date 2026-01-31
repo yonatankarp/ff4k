@@ -94,7 +94,9 @@ abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
         // Use collection hashCode for List/Set types to maintain equals/hashCode contract
         return when (value) {
             is List<*> -> value.hashCode()
+
             is Set<*> -> value.hashCode()
+
             else -> {
                 var result = name.hashCode()
                 result = 31 * result + value.hashCode()

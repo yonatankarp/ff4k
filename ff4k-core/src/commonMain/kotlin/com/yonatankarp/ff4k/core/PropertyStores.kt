@@ -4,19 +4,6 @@ import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.Property
 
 /**
- * Extension functions for [PropertyStore] providing convenient operations for working with
- * property storage.
- *
- * This file contains helpers for:
- * - Property retrieval with defaults and null-safety
- * - Atomic-like upsert operations
- * - Transform-based updates
- * - Store metadata queries
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- */
-
-/**
  * Creates a new property or updates it if it already exists (upsert operation).
  *
  * This is a convenience operation that:

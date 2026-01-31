@@ -4,20 +4,6 @@ import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.Property
 
 /**
- * Extension functions for [Feature] providing convenient operations for working with
- * immutable feature instances.
- *
- * This file contains helpers for:
- * - Property access and manipulation
- * - Permission management
- * - Feature state checking
- *
- * All modification operations return new [Feature] instances, maintaining immutability.
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- */
-
-/**
  * Checks if this feature is disabled.
  *
  * This is a convenience extension property that returns the inverse of [Feature.isEnabled].

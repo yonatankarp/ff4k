@@ -17,9 +17,11 @@ import com.yonatankarp.ff4k.property.PropertyLogLevel
 import com.yonatankarp.ff4k.property.PropertyLong
 import com.yonatankarp.ff4k.property.PropertyShort
 import com.yonatankarp.ff4k.property.PropertyString
+import com.yonatankarp.ff4k.strategy.AllowListStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysFalseFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AndStrategy
+import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.NotStrategy
 import com.yonatankarp.ff4k.strategy.OrStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
@@ -55,6 +57,8 @@ val ff4kSerializersModule = SerializersModule {
         subclass(AlwaysFalseFlippingStrategy::class, AlwaysFalseFlippingStrategy.serializer())
         subclass(PonderationStrategy::class, PonderationStrategy.serializer())
         subclass(UserPonderationStrategy::class, UserPonderationStrategy.serializer())
+        subclass(AllowListStrategy::class, AllowListStrategy.serializer())
+        subclass(DenyListStrategy::class, DenyListStrategy.serializer())
     }
 } + humanReadableSerializerModule
 

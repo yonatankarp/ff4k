@@ -37,7 +37,7 @@ internal class FeatureBuilderTest :
 
         test("feature creates feature with all fields set") {
             // Given
-            val strategy = AlwaysTrueFlippingStrategy()
+            val strategy = AlwaysTrueFlippingStrategy
 
             // When
             val feature = feature(FEATURE_UID) {
@@ -80,7 +80,7 @@ internal class FeatureBuilderTest :
 
         test("flippingStrategy property sets strategy") {
             // Given
-            val strategy = AlwaysTrueFlippingStrategy()
+            val strategy = AlwaysTrueFlippingStrategy
 
             // When
             val feature = feature(FEATURE_UID) {
@@ -311,7 +311,7 @@ internal class FeatureBuilderTest :
 
         test("complex nested scenario with all features") {
             // Given
-            val strategy = AlwaysTrueFlippingStrategy()
+            val strategy = AlwaysTrueFlippingStrategy
             val existingProp = PropertyString(
                 name = PROPERTY_EXTERNAL_CONFIG,
                 value = EXTERNAL_CONFIG_VALUE,

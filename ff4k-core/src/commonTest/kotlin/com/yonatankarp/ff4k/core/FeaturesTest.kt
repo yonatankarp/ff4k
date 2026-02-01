@@ -123,7 +123,7 @@ internal class FeaturesTest :
             // Given
             val feature = Feature(
                 uid = FEATURE_UID,
-                flippingStrategy = AlwaysTrueFlippingStrategy(),
+                flippingStrategy = AlwaysTrueFlippingStrategy,
             )
 
             // When

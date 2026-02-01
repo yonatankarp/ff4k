@@ -397,8 +397,6 @@ internal class FF4kExtensionsTest :
      * Simple flipping strategy that checks if the context contains a specific user ID.
      */
     private class UserIdStrategy(private val allowedUserId: String) : FlippingStrategy {
-        override val initParams: Map<String, String> = mapOf("allowedUserId" to allowedUserId)
-
         override suspend fun evaluate(
             featureId: String,
             store: FeatureStore?,

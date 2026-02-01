@@ -191,7 +191,7 @@ internal class FF4kBuilderTest :
 
         test("ff4k creates complete configuration with all options") {
             // Given
-            val strategy = AlwaysTrueFlippingStrategy()
+            val strategy = AlwaysTrueFlippingStrategy
             val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
             val preBuiltProperty = PropertyInt(PROPERTY_PORT, VALUE_PORT)
 

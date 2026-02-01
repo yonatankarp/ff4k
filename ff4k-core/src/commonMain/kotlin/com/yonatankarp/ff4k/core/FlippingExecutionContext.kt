@@ -31,7 +31,7 @@ import kotlin.coroutines.CoroutineContext
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 data class FlippingExecutionContext(
-    @PublishedApi internal val values: MutableMap<String, Any?> = mutableMapOf(),
+    @PublishedApi internal val values: Map<String, Any> = emptyMap(),
 ) : CoroutineContext.Element {
     /**
      * Key for retrieving [FlippingExecutionContext] from a [CoroutineContext].
@@ -45,7 +45,7 @@ data class FlippingExecutionContext(
      *
      * @param pairs Initial parameters to populate the context
      */
-    constructor(vararg pairs: Pair<String, Any?>) : this(mutableMapOf(*pairs))
+    constructor(vararg pairs: Pair<String, Any>) : this(mapOf(*pairs))
 
     /**
      * Retrieves a value from the context with runtime type checking.
@@ -73,14 +73,14 @@ data class FlippingExecutionContext(
     }
 
     /**
-     * Stores a value in the context.
+     * Combines this context with another, returning a new context containing all entries from both.
      *
-     * @param key the key under which to store the value
-     * @param value the value to store
+     * If both contexts contain the same key, the value from [other] takes precedence.
+     *
+     * @param other The context to combine with this one
+     * @return A new [FlippingExecutionContext] containing entries from both contexts
      */
-    operator fun <T> set(key: String, value: T) {
-        values[key] = value as Any?
-    }
+    operator fun plus(other: FlippingExecutionContext): FlippingExecutionContext = copy(values = (values + other.values))
 
     /**
      * Checks if the context contains a value for the given key.

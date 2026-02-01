@@ -1,7 +1,7 @@
 package com.yonatankarp.ff4k.core
 
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 // ============================================================================
 // Immutable Builder Extensions
@@ -22,7 +22,7 @@ import kotlin.coroutines.coroutineContext
  * @param value The parameter value
  * @return A new [FlippingExecutionContext] with the added parameter
  */
-fun FlippingExecutionContext.withParameter(key: String, value: Any?): FlippingExecutionContext = FlippingExecutionContext((values + (key to value)).toMutableMap())
+fun FlippingExecutionContext.withParameter(key: String, value: Any): FlippingExecutionContext = FlippingExecutionContext((values + (key to value)))
 
 /**
  * Creates a new context with additional parameters.
@@ -41,7 +41,7 @@ fun FlippingExecutionContext.withParameter(key: String, value: Any?): FlippingEx
  * @param pairs The parameters to add
  * @return A new [FlippingExecutionContext] with the added parameters
  */
-fun FlippingExecutionContext.withParameters(vararg pairs: Pair<String, Any?>): FlippingExecutionContext = FlippingExecutionContext((values + pairs.toMap()).toMutableMap())
+fun FlippingExecutionContext.withParameters(vararg pairs: Pair<String, Any>): FlippingExecutionContext = FlippingExecutionContext((values + pairs.toMap()))
 
 /**
  * Merges this context with another, with the other context's values taking precedence.
@@ -119,7 +119,7 @@ suspend inline fun <T> withFlippingContext(
  * @return The result of the block
  */
 suspend inline fun <T> withFlippingParameters(
-    vararg parameters: Pair<String, Any?>,
+    vararg parameters: Pair<String, Any>,
     crossinline block: suspend () -> T,
 ): T {
     val current = currentFlippingContext()
@@ -143,4 +143,4 @@ suspend inline fun <T> withFlippingParameters(
  *
  * @return The current [FlippingExecutionContext], or an empty context if none is set
  */
-suspend fun currentFlippingContext(): FlippingExecutionContext = coroutineContext[FlippingExecutionContext] ?: FlippingExecutionContext()
+suspend fun currentFlippingContext(): FlippingExecutionContext = currentCoroutineContext()[FlippingExecutionContext] ?: FlippingExecutionContext()

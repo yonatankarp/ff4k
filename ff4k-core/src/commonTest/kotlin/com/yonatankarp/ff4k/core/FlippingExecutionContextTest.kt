@@ -16,10 +16,12 @@ internal class FlippingExecutionContextTest :
 
         test("should store and retrieve values with correct types") {
             // Given
-            val context = FlippingExecutionContext()
-            context["userId"] = 123
-            context["userName"] = "Alice"
-            context["isActive"] = true
+            val values = mapOf(
+                "userId" to 123,
+                "userName" to "Alice",
+                "isActive" to true,
+            )
+            val context = FlippingExecutionContext(values)
 
             // When
             val userId = context.get<Int>("userId")
@@ -45,8 +47,8 @@ internal class FlippingExecutionContextTest :
 
         test("should throw when type mismatch occurs") {
             // Given
-            val context = FlippingExecutionContext()
-            context["userId"] = 123
+            val values = mapOf("userId" to 123)
+            val context = FlippingExecutionContext(values)
 
             // When / Then
             shouldThrow<IllegalStateException> {
@@ -66,8 +68,8 @@ internal class FlippingExecutionContextTest :
 
         test("should not throw when required key exists") {
             // Given
-            val context = FlippingExecutionContext()
-            context["key"] = "value"
+            val values = mapOf("key" to "value")
+            val context = FlippingExecutionContext(values)
 
             // When
             val result = context.get<String>("key", required = true)
@@ -78,8 +80,8 @@ internal class FlippingExecutionContextTest :
 
         test("contains operator should return true for existing keys") {
             // Given
-            val context = FlippingExecutionContext()
-            context["userId"] = 123
+            val values = mapOf("userId" to 123)
+            val context = FlippingExecutionContext(values)
 
             // When
             val contains = "userId" in context
@@ -112,8 +114,8 @@ internal class FlippingExecutionContextTest :
 
         test("isEmpty should return false after adding values") {
             // Given
-            val context = FlippingExecutionContext()
-            context["key"] = "value"
+            val values = mapOf("key" to "value")
+            val context = FlippingExecutionContext(values)
 
             // When
             val isEmpty = context.isEmpty
@@ -122,26 +124,12 @@ internal class FlippingExecutionContextTest :
             isEmpty.shouldBeFalse()
         }
 
-        test("should handle null values correctly") {
-            // Given
-            val context = FlippingExecutionContext()
-            context["nullableValue"] = null
-
-            // When
-            val value = context.get<String?>("nullableValue")
-            val contains = "nullableValue" in context
-
-            // Then
-            value shouldBe null
-            contains.shouldBeTrue()
-        }
-
         test("should work with data class as value in context") {
             // Given
             data class User(val id: Int, val name: String)
-            val context = FlippingExecutionContext()
             val user = User(1, "Alice")
-            context["user"] = user
+            val values = mapOf("user" to user)
+            val context = FlippingExecutionContext(values)
 
             // When
             val result = context.get<User>("user")
@@ -152,12 +140,14 @@ internal class FlippingExecutionContextTest :
 
         test("should support multiple types in same context") {
             // Given
-            val context = FlippingExecutionContext()
-            context["string"] = "text"
-            context["int"] = 42
-            context["double"] = 3.14
-            context["boolean"] = true
-            context["list"] = listOf(1, 2, 3)
+            val values = mapOf(
+                "string" to "text",
+                "int" to 42,
+                "double" to 3.14,
+                "boolean" to true,
+                "list" to listOf(1, 2, 3),
+            )
+            val context = FlippingExecutionContext(values)
 
             // When
             val string = context.get<String>("string")
@@ -172,5 +162,62 @@ internal class FlippingExecutionContextTest :
             double shouldBe 3.14
             boolean shouldBe true
             list shouldBe listOf(1, 2, 3)
+        }
+
+        test("plus operator should combine two contexts") {
+            // Given
+            val context1 = FlippingExecutionContext("userId" to "user-123", "region" to "EU")
+            val context2 = FlippingExecutionContext("tier" to "premium", "enabled" to true)
+
+            // When
+            val combined = context1 + context2
+
+            // Then
+            combined.get<String>("userId") shouldBe "user-123"
+            combined.get<String>("region") shouldBe "EU"
+            combined.get<String>("tier") shouldBe "premium"
+            combined.get<Boolean>("enabled") shouldBe true
+        }
+
+        test("plus operator should give precedence to right context for duplicate keys") {
+            // Given
+            val context1 = FlippingExecutionContext("tier" to "free", "region" to "US")
+            val context2 = FlippingExecutionContext("tier" to "premium")
+
+            // When
+            val combined = context1 + context2
+
+            // Then
+            combined.get<String>("tier") shouldBe "premium"
+            combined.get<String>("region") shouldBe "US"
+        }
+
+        test("plus operator should not modify original contexts") {
+            // Given
+            val context1 = FlippingExecutionContext("key1" to "value1")
+            val context2 = FlippingExecutionContext("key2" to "value2")
+
+            // When
+            val combined = context1 + context2
+
+            // Then
+            ("key2" in context1).shouldBeFalse()
+            ("key1" in context2).shouldBeFalse()
+            ("key1" in combined).shouldBeTrue()
+            ("key2" in combined).shouldBeTrue()
+        }
+
+        test("plus operator with empty context should return equivalent context") {
+            // Given
+            val context = FlippingExecutionContext("userId" to "user-123")
+            val empty = FlippingExecutionContext()
+
+            // When
+            val result1 = context + empty
+            val result2 = empty + context
+
+            // Then
+            result1.get<String>("userId") shouldBe "user-123"
+            result2.get<String>("userId") shouldBe "user-123"
         }
     })

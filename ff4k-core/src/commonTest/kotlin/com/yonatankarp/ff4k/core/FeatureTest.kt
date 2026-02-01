@@ -196,7 +196,7 @@ internal class FeatureTest :
 
         test("displayStrategyClassName should return strategy class name when strategy exists") {
             // Given
-            val strategy = AlwaysTrueFlippingStrategy()
+            val strategy = AlwaysTrueFlippingStrategy
             val feature = Feature(uid = FEATURE_UID, flippingStrategy = strategy)
 
             // When

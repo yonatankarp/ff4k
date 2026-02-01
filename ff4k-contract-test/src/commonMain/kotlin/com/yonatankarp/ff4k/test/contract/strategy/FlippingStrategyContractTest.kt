@@ -46,17 +46,6 @@ abstract class FlippingStrategyContractTest : FunSpec() {
     protected abstract fun expectedJsonForSampleParams(): String
 
     init {
-        test("should store init params") {
-            // Given
-            val initParams = sampleInitParams()
-
-            // When
-            val strategy = createStrategy(initParams)
-
-            // Then
-            strategy.initParams shouldBe initParams
-        }
-
         test("should evaluate to true when context matches strategy criteria") {
             // Given
             val initParams = sampleInitParams()
@@ -109,20 +98,6 @@ abstract class FlippingStrategyContractTest : FunSpec() {
 
             // Then
             actualJson shouldBe expectedJson
-        }
-
-        test("should deserialize from json") {
-            // Given
-            val initParams = sampleInitParams()
-            val strategy = createStrategy(initParams)
-            val jsonString = expectedJsonForSampleParams()
-
-            // When
-            val serializer = PolymorphicSerializer(FlippingStrategy::class)
-            val deserialized = FF4kJson.decodeFromString(serializer, jsonString)
-
-            // Then
-            deserialized.initParams shouldBe strategy.initParams
         }
     }
 

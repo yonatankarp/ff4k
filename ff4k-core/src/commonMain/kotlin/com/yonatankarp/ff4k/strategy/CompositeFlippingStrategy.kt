@@ -4,6 +4,7 @@ import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
 import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -18,9 +19,9 @@ import kotlinx.serialization.Serializable
  * @see NotStrategy
  */
 @Serializable
+@SerialName("and")
 data class AndStrategy(
     val strategies: List<@Polymorphic FlippingStrategy>,
-    override val initParams: Map<String, String> = emptyMap(),
 ) : FlippingStrategy {
     override suspend fun evaluate(
         featureId: String,
@@ -46,9 +47,9 @@ data class AndStrategy(
  * @see NotStrategy
  */
 @Serializable
+@SerialName("or")
 data class OrStrategy(
     val strategies: List<@Polymorphic FlippingStrategy>,
-    override val initParams: Map<String, String> = emptyMap(),
 ) : FlippingStrategy {
     override suspend fun evaluate(
         featureId: String,
@@ -70,9 +71,9 @@ data class OrStrategy(
  * @see OrStrategy
  */
 @Serializable
+@SerialName("not")
 data class NotStrategy(
     val strategy: @Polymorphic FlippingStrategy,
-    override val initParams: Map<String, String> = emptyMap(),
 ) : FlippingStrategy {
     override suspend fun evaluate(
         featureId: String,

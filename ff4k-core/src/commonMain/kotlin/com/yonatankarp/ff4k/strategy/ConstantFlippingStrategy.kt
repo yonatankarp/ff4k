@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.strategy
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -13,7 +14,8 @@ import kotlinx.serialization.Serializable
  * @see AlwaysFalseFlippingStrategy
  */
 @Serializable
-data class AlwaysTrueFlippingStrategy(override val initParams: Map<String, String> = emptyMap()) : FlippingStrategy {
+@SerialName("alwaysTrue")
+data object AlwaysTrueFlippingStrategy : FlippingStrategy {
 
     override suspend fun evaluate(
         featureId: String,
@@ -30,7 +32,8 @@ data class AlwaysTrueFlippingStrategy(override val initParams: Map<String, Strin
  * @see AlwaysTrueFlippingStrategy
  */
 @Serializable
-data class AlwaysFalseFlippingStrategy(override val initParams: Map<String, String> = emptyMap()) : FlippingStrategy {
+@SerialName("alwaysFalse")
+data object AlwaysFalseFlippingStrategy : FlippingStrategy {
     override suspend fun evaluate(
         featureId: String,
         store: FeatureStore?,

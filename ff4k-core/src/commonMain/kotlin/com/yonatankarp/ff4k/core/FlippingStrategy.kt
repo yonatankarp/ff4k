@@ -44,17 +44,6 @@ package com.yonatankarp.ff4k.core
  */
 interface FlippingStrategy {
     /**
-     * Configuration parameters for this strategy.
-     *
-     * These parameters are provided during strategy initialization and define the behavior
-     * of the strategy. For example:
-     * - A percentage-based strategy might have `{"percentage": "25"}`
-     * - A region-based strategy might have `{"regions": "US,EU,APAC"}`
-     * - A time-based strategy might have `{"startTime": "09:00", "endTime": "17:00"}`
-     */
-    val initParams: Map<String, String>
-
-    /**
      * Evaluates whether the feature should be enabled based on the execution context.
      *
      * This method contains the core decision logic for the strategy. It examines the
@@ -71,14 +60,4 @@ interface FlippingStrategy {
         store: FeatureStore?,
         context: FlippingExecutionContext,
     ): Boolean
-
-    /**
-     * Asserts that a required parameter exists in [initParams].
-     *
-     * @param paramName The name of the required parameter.
-     * @throws IllegalArgumentException if the parameter is not present.
-     */
-    fun assertRequiredParameter(paramName: String) {
-        require(paramName in initParams.keys) { "Parameter '$paramName' is required for this FlippingStrategy" }
-    }
 }

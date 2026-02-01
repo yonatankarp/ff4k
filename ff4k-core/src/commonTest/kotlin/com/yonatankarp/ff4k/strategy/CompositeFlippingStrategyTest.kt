@@ -96,9 +96,9 @@ internal class CompositeFlippingStrategyTest :
         context("DSL flattening for AndStrategy") {
             test("chaining 'and' creates flat list instead of nested structure") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
-                val c = AlwaysTrueFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
+                val c = AlwaysTrueFlippingStrategy
 
                 // When
                 val result = a and b and c
@@ -112,11 +112,11 @@ internal class CompositeFlippingStrategyTest :
 
             test("chaining multiple 'and' operations creates flat list") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysTrueFlippingStrategy()
-                val c = AlwaysTrueFlippingStrategy()
-                val d = AlwaysTrueFlippingStrategy()
-                val e = AlwaysTrueFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysTrueFlippingStrategy
+                val c = AlwaysTrueFlippingStrategy
+                val d = AlwaysTrueFlippingStrategy
+                val e = AlwaysTrueFlippingStrategy
 
                 // When
                 val result = a and b and c and d and e
@@ -127,8 +127,8 @@ internal class CompositeFlippingStrategyTest :
 
             test("'and' with non-AndStrategy creates new list") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
 
                 // When
                 val result = a and b
@@ -141,9 +141,9 @@ internal class CompositeFlippingStrategyTest :
         context("DSL flattening for OrStrategy") {
             test("chaining 'or' creates flat list instead of nested structure") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
-                val c = AlwaysTrueFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
+                val c = AlwaysTrueFlippingStrategy
 
                 // When
                 val result = a or b or c
@@ -157,11 +157,11 @@ internal class CompositeFlippingStrategyTest :
 
             test("chaining multiple 'or' operations creates flat list") {
                 // Given
-                val a = AlwaysFalseFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
-                val c = AlwaysFalseFlippingStrategy()
-                val d = AlwaysFalseFlippingStrategy()
-                val e = AlwaysFalseFlippingStrategy()
+                val a = AlwaysFalseFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
+                val c = AlwaysFalseFlippingStrategy
+                val d = AlwaysFalseFlippingStrategy
+                val e = AlwaysFalseFlippingStrategy
 
                 // When
                 val result = a or b or c or d or e
@@ -172,8 +172,8 @@ internal class CompositeFlippingStrategyTest :
 
             test("'or' with non-OrStrategy creates new list") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
 
                 // When
                 val result = a or b
@@ -186,9 +186,9 @@ internal class CompositeFlippingStrategyTest :
         context("DSL does not flatten different strategy types") {
             test("'and' after 'or' creates nested structure") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
-                val c = AlwaysTrueFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
+                val c = AlwaysTrueFlippingStrategy
 
                 // When
                 val result = (a or b) and c
@@ -201,9 +201,9 @@ internal class CompositeFlippingStrategyTest :
 
             test("'or' after 'and' creates nested structure") {
                 // Given
-                val a = AlwaysTrueFlippingStrategy()
-                val b = AlwaysFalseFlippingStrategy()
-                val c = AlwaysTrueFlippingStrategy()
+                val a = AlwaysTrueFlippingStrategy
+                val b = AlwaysFalseFlippingStrategy
+                val c = AlwaysTrueFlippingStrategy
 
                 // When
                 val result = (a and b) or c
@@ -219,24 +219,24 @@ internal class CompositeFlippingStrategyTest :
             test("serializes to JSON with nested strategies") {
                 // Given
                 val strategy =
-                    AlwaysTrueFlippingStrategy() and AlwaysFalseFlippingStrategy()
+                    AlwaysTrueFlippingStrategy and AlwaysFalseFlippingStrategy
 
                 // When
                 val json = FF4kJson.encodeToString(strategy)
 
                 // Then
-                json shouldContain "AlwaysTrueFlippingStrategy"
-                json shouldContain "AlwaysFalseFlippingStrategy"
+                json shouldContain "alwaysTrue"
+                json shouldContain "alwaysFalse"
             }
 
             test("round-trip serialization") {
                 // Given
                 val original =
-                    AlwaysTrueFlippingStrategy() and AlwaysFalseFlippingStrategy()
+                    AlwaysTrueFlippingStrategy and AlwaysFalseFlippingStrategy
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<AndStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -245,11 +245,11 @@ internal class CompositeFlippingStrategyTest :
             test("round-trip with nested AndStrategy") {
                 // Given
                 val original =
-                    AndStrategy(strategies = listOf(AlwaysTrueFlippingStrategy())) and AlwaysFalseFlippingStrategy()
+                    AndStrategy(strategies = listOf(AlwaysTrueFlippingStrategy)) and AlwaysFalseFlippingStrategy
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<AndStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -260,24 +260,24 @@ internal class CompositeFlippingStrategyTest :
             test("serializes to JSON with nested strategies") {
                 // Given
                 val strategy =
-                    AlwaysTrueFlippingStrategy() or AlwaysFalseFlippingStrategy()
+                    AlwaysTrueFlippingStrategy or AlwaysFalseFlippingStrategy
 
                 // When
                 val json = FF4kJson.encodeToString(strategy)
 
                 // Then
-                json shouldContain "AlwaysTrueFlippingStrategy"
-                json shouldContain "AlwaysFalseFlippingStrategy"
+                json shouldContain "alwaysTrue"
+                json shouldContain "alwaysFalse"
             }
 
             test("round-trip serialization") {
                 // Given
                 val original =
-                    AlwaysTrueFlippingStrategy() or AlwaysFalseFlippingStrategy()
+                    AlwaysTrueFlippingStrategy or AlwaysFalseFlippingStrategy
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<OrStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -286,11 +286,11 @@ internal class CompositeFlippingStrategyTest :
             test("round-trip with nested OrStrategy") {
                 // Given
                 val original =
-                    OrStrategy(strategies = listOf(AlwaysTrueFlippingStrategy())) or AlwaysFalseFlippingStrategy()
+                    OrStrategy(strategies = listOf(AlwaysTrueFlippingStrategy)) or AlwaysFalseFlippingStrategy
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<OrStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -300,22 +300,22 @@ internal class CompositeFlippingStrategyTest :
         context("NotStrategy serialization") {
             test("serializes to JSON with nested strategy") {
                 // Given
-                val strategy = AlwaysTrueFlippingStrategy().not()
+                val strategy = AlwaysTrueFlippingStrategy.not()
 
                 // When
                 val json = FF4kJson.encodeToString(strategy)
 
                 // Then
-                json shouldContain "AlwaysTrueFlippingStrategy"
+                json shouldContain "alwaysTrue"
             }
 
             test("round-trip serialization") {
                 // Given
-                val original = AlwaysTrueFlippingStrategy().not()
+                val original = AlwaysTrueFlippingStrategy.not()
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<NotStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -324,11 +324,11 @@ internal class CompositeFlippingStrategyTest :
             test("round-trip with nested NotStrategy") {
                 // Given
                 val original =
-                    NotStrategy(strategy = AlwaysFalseFlippingStrategy().not())
+                    NotStrategy(strategy = AlwaysFalseFlippingStrategy.not())
 
                 // When
-                val json = FF4kJson.encodeToString(original)
-                val deserialized = FF4kJson.decodeFromString<NotStrategy>(json)
+                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
+                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
 
                 // Then
                 deserialized shouldBe original
@@ -342,7 +342,7 @@ internal class CompositeFlippingStrategyTest :
             ) { (_, strategy) ->
                 // When
                 val json =
-                    FF4kJson.encodeToString(strategy)
+                    FF4kJson.encodeToString<FlippingStrategy>(strategy)
                 val deserialized =
                     FF4kJson.decodeFromString<FlippingStrategy>(json)
 
@@ -355,26 +355,26 @@ internal class CompositeFlippingStrategyTest :
         private val andStrategyCases = listOf(
             CompositeFlippingStrategyTestData(
                 description = "false AND false returns false",
-                left = AlwaysFalseFlippingStrategy(),
-                right = AlwaysFalseFlippingStrategy(),
+                left = AlwaysFalseFlippingStrategy,
+                right = AlwaysFalseFlippingStrategy,
                 expected = false,
             ),
             CompositeFlippingStrategyTestData(
                 description = "true AND false returns false",
-                left = AlwaysTrueFlippingStrategy(),
-                right = AlwaysFalseFlippingStrategy(),
+                left = AlwaysTrueFlippingStrategy,
+                right = AlwaysFalseFlippingStrategy,
                 expected = false,
             ),
             CompositeFlippingStrategyTestData(
                 description = "false AND true returns false",
-                left = AlwaysFalseFlippingStrategy(),
-                right = AlwaysTrueFlippingStrategy(),
+                left = AlwaysFalseFlippingStrategy,
+                right = AlwaysTrueFlippingStrategy,
                 expected = false,
             ),
             CompositeFlippingStrategyTestData(
                 description = "true AND true returns true",
-                left = AlwaysTrueFlippingStrategy(),
-                right = AlwaysTrueFlippingStrategy(),
+                left = AlwaysTrueFlippingStrategy,
+                right = AlwaysTrueFlippingStrategy,
                 expected = true,
             ),
         )
@@ -382,26 +382,26 @@ internal class CompositeFlippingStrategyTest :
         private val orStrategyCases = listOf(
             CompositeFlippingStrategyTestData(
                 description = "false OR false returns false",
-                left = AlwaysFalseFlippingStrategy(),
-                right = AlwaysFalseFlippingStrategy(),
+                left = AlwaysFalseFlippingStrategy,
+                right = AlwaysFalseFlippingStrategy,
                 expected = false,
             ),
             CompositeFlippingStrategyTestData(
                 description = "true OR false returns true",
-                left = AlwaysTrueFlippingStrategy(),
-                right = AlwaysFalseFlippingStrategy(),
+                left = AlwaysTrueFlippingStrategy,
+                right = AlwaysFalseFlippingStrategy,
                 expected = true,
             ),
             CompositeFlippingStrategyTestData(
                 description = "false OR true returns true",
-                left = AlwaysFalseFlippingStrategy(),
-                right = AlwaysTrueFlippingStrategy(),
+                left = AlwaysFalseFlippingStrategy,
+                right = AlwaysTrueFlippingStrategy,
                 expected = true,
             ),
             CompositeFlippingStrategyTestData(
                 description = "true OR true returns true",
-                left = AlwaysTrueFlippingStrategy(),
-                right = AlwaysTrueFlippingStrategy(),
+                left = AlwaysTrueFlippingStrategy,
+                right = AlwaysTrueFlippingStrategy,
                 expected = true,
             ),
         )
@@ -409,12 +409,12 @@ internal class CompositeFlippingStrategyTest :
         private val notStrategyCases = listOf(
             NotStrategyTestData(
                 description = "NOT false returns true",
-                operand = AlwaysFalseFlippingStrategy(),
+                operand = AlwaysFalseFlippingStrategy,
                 expected = true,
             ),
             NotStrategyTestData(
                 description = "NOT true returns false",
-                operand = AlwaysTrueFlippingStrategy(),
+                operand = AlwaysTrueFlippingStrategy,
                 expected = false,
             ),
         )
@@ -424,8 +424,8 @@ internal class CompositeFlippingStrategyTest :
                 description = "AND with OR children",
                 strategy = AndStrategy(
                     strategies = listOf(
-                        AlwaysTrueFlippingStrategy() or AlwaysFalseFlippingStrategy(),
-                        AlwaysTrueFlippingStrategy(),
+                        AlwaysTrueFlippingStrategy or AlwaysFalseFlippingStrategy,
+                        AlwaysTrueFlippingStrategy,
                     ),
                 ),
             ),
@@ -433,29 +433,29 @@ internal class CompositeFlippingStrategyTest :
                 description = "OR with AND children",
                 strategy = OrStrategy(
                     strategies = listOf(
-                        AlwaysTrueFlippingStrategy() and AlwaysFalseFlippingStrategy(),
-                        AlwaysFalseFlippingStrategy(),
+                        AlwaysTrueFlippingStrategy and AlwaysFalseFlippingStrategy,
+                        AlwaysFalseFlippingStrategy,
                     ),
                 ),
             ),
             ComplexStrategyTestData(
                 description = "NOT with AND child",
                 strategy = NotStrategy(
-                    strategy = AlwaysTrueFlippingStrategy() and AlwaysTrueFlippingStrategy(),
+                    strategy = AlwaysTrueFlippingStrategy and AlwaysTrueFlippingStrategy,
                 ),
             ),
             ComplexStrategyTestData(
                 description = "NOT with OR child",
                 strategy = NotStrategy(
-                    strategy = AlwaysFalseFlippingStrategy() or AlwaysFalseFlippingStrategy(),
+                    strategy = AlwaysFalseFlippingStrategy or AlwaysFalseFlippingStrategy,
                 ),
             ),
             ComplexStrategyTestData(
                 description = "deeply nested composite",
                 strategy = AndStrategy(
                     strategies = listOf(
-                        AlwaysFalseFlippingStrategy().not() or (AlwaysTrueFlippingStrategy() and AlwaysTrueFlippingStrategy()),
-                        AlwaysFalseFlippingStrategy().not(),
+                        AlwaysFalseFlippingStrategy.not() or (AlwaysTrueFlippingStrategy and AlwaysTrueFlippingStrategy),
+                        AlwaysFalseFlippingStrategy.not(),
                     ),
                 ),
             ),

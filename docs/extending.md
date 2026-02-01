@@ -11,11 +11,6 @@ To create a custom feature store, implement the `FeatureStore` interface. For co
 `AbstractFeatureStore` provides default implementations for group management, permission handling helper methods, and validation. You primarily need to implement the core CRUD operations.
 
 ```kotlin
-import com.yonatankarp.ff4k.core.Feature
-import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
-import com.yonatankarp.ff4k.exception.FeatureNotFoundException
-import com.yonatankarp.ff4k.store.AbstractFeatureStore
-
 class MyCustomFeatureStore : AbstractFeatureStore() {
 
     // Helper map to simulate a DB for this example
@@ -65,9 +60,6 @@ class MyCustomFeatureStore : AbstractFeatureStore() {
 Similarly, to create a custom property store, implement the `PropertyStore` interface.
 
 ```kotlin
-import com.yonatankarp.ff4k.core.PropertyStore
-import com.yonatankarp.ff4k.property.Property
-
 class MyCustomPropertyStore : PropertyStore {
    // Implement interface...
 }
@@ -89,5 +81,48 @@ suspend fun main() {
     ) {
         // ...
     }
+}
+```
+
+## Implementing a Flipping Strategy
+
+To create a custom flipping strategy, implement the `FlippingStrategy` interface. For an overview
+of built-in strategies, see [Flipping Strategies](strategies.md).
+
+```kotlin
+@Serializable
+@SerialName("timeBasedStrategy")
+data class TimeBasedStrategy(
+    val startHour: Int,
+    val endHour: Int
+) : FlippingStrategy {
+    override suspend fun evaluate(
+        featureId: String,
+        store: FeatureStore?,
+        context: FlippingExecutionContext
+    ): Boolean {
+        val currentHour = Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .hour
+        return currentHour in startHour until endHour
+    }
+}
+```
+
+### Registering for Serialization
+
+If you need JSON serialization support for your custom strategy, register it in a custom
+serializers module and combine it with the built-in module. See [Serialization](usage.md#serialization)
+for more details on `ff4kSerializersModule`.
+
+```kotlin
+val customSerializersModule = SerializersModule {
+    polymorphic(FlippingStrategy::class) {
+        subclass(TimeBasedStrategy::class, TimeBasedStrategy.serializer())
+    }
+}
+
+val json = Json {
+    serializersModule = ff4kSerializersModule + customSerializersModule
 }
 ```

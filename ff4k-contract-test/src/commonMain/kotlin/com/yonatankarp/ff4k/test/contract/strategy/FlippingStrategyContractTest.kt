@@ -5,12 +5,10 @@ package com.yonatankarp.ff4k.test.contract.strategy
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
-import com.yonatankarp.ff4k.serialization.ff4kSerializersModule
+import com.yonatankarp.ff4k.serialization.FF4kJson
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.PolymorphicSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 
 /**
  * Contract test for FlippingStrategy implementations.
@@ -46,13 +44,6 @@ abstract class FlippingStrategyContractTest : FunSpec() {
      * The JSON should include the polymorphic type discriminator if applicable.
      */
     protected abstract fun expectedJsonForSampleParams(): String
-
-    /**
-     * The SerializersModule to use for serialization tests.
-     * Defaults to [ff4kSerializersModule].
-     * Override this to register the strategy implementation being tested if it's not in the default module.
-     */
-    protected open val serializersModule: SerializersModule = ff4kSerializersModule
 
     init {
         test("should store init params") {
@@ -110,16 +101,11 @@ abstract class FlippingStrategyContractTest : FunSpec() {
             // Given
             val initParams = sampleInitParams()
             val strategy = createStrategy(initParams)
-            val json = Json {
-                serializersModule = this@FlippingStrategyContractTest.serializersModule
-                prettyPrint = true
-                ignoreUnknownKeys = true
-            }
-            val expectedJson = json.parseToJsonElement(expectedJsonForSampleParams())
+            val expectedJson = FF4kJson.parseToJsonElement(expectedJsonForSampleParams())
 
             // When
             val serializer = PolymorphicSerializer(FlippingStrategy::class)
-            val actualJson = json.encodeToJsonElement(serializer, strategy)
+            val actualJson = FF4kJson.encodeToJsonElement(serializer, strategy)
 
             // Then
             actualJson shouldBe expectedJson
@@ -129,16 +115,11 @@ abstract class FlippingStrategyContractTest : FunSpec() {
             // Given
             val initParams = sampleInitParams()
             val strategy = createStrategy(initParams)
-            val json = Json {
-                serializersModule = this@FlippingStrategyContractTest.serializersModule
-                prettyPrint = true
-                ignoreUnknownKeys = true
-            }
             val jsonString = expectedJsonForSampleParams()
 
             // When
             val serializer = PolymorphicSerializer(FlippingStrategy::class)
-            val deserialized = json.decodeFromString(serializer, jsonString)
+            val deserialized = FF4kJson.decodeFromString(serializer, jsonString)
 
             // Then
             deserialized.initParams shouldBe strategy.initParams

@@ -6,6 +6,7 @@ import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.store.InMemoryPropertyStore
+import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -190,7 +191,7 @@ internal class FF4kBuilderTest :
 
         test("ff4k creates complete configuration with all options") {
             // Given
-            val strategy = TestStrategy()
+            val strategy = AlwaysTrueFlippingStrategy()
             val preBuiltFeature = Feature(FEATURE_LEGACY, isEnabled = false)
             val preBuiltProperty = PropertyInt(PROPERTY_PORT, VALUE_PORT)
 
@@ -291,9 +292,6 @@ internal class FF4kBuilderTest :
             ff4k.property<Int>(PROPERTY_MAX_RETRIES)?.value shouldBe VALUE_MAX_RETRIES
         }
     }) {
-    private class TestStrategy : FlippingStrategy {
-        override val initParams = emptyMap<String, String>()
-    }
 
     private companion object {
         private const val FEATURE_DARK_MODE = "dark-mode"

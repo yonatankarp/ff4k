@@ -17,6 +17,12 @@ import com.yonatankarp.ff4k.property.PropertyLogLevel
 import com.yonatankarp.ff4k.property.PropertyLong
 import com.yonatankarp.ff4k.property.PropertyShort
 import com.yonatankarp.ff4k.property.PropertyString
+import com.yonatankarp.ff4k.strategy.AlwaysFalseFlippingStrategy
+import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
+import com.yonatankarp.ff4k.strategy.AndStrategy
+import com.yonatankarp.ff4k.strategy.NotStrategy
+import com.yonatankarp.ff4k.strategy.OrStrategy
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.plus
 import kotlinx.serialization.modules.polymorphic
@@ -40,6 +46,24 @@ val ff4kSerializersModule = SerializersModule {
     }
 
     polymorphic(FlippingStrategy::class) {
-        // Register FlippingStrategy implementations here as they are created
+        subclass(AndStrategy::class, AndStrategy.serializer())
+        subclass(OrStrategy::class, OrStrategy.serializer())
+        subclass(NotStrategy::class, NotStrategy.serializer())
+        subclass(AlwaysTrueFlippingStrategy::class, AlwaysTrueFlippingStrategy.serializer())
+        subclass(AlwaysFalseFlippingStrategy::class, AlwaysFalseFlippingStrategy.serializer())
     }
 } + humanReadableSerializerModule
+
+/**
+ * Pre-configured [Json] instance with FF4k serializers module.
+ *
+ * Configured with:
+ * - [ff4kSerializersModule] for polymorphic serialization of FF4k types
+ * - `ignoreUnknownKeys = true` for forward compatibility
+ * - `prettyPrint = true` for readable output
+ */
+val FF4kJson = Json {
+    serializersModule = ff4kSerializersModule
+    ignoreUnknownKeys = true
+    prettyPrint = true
+}

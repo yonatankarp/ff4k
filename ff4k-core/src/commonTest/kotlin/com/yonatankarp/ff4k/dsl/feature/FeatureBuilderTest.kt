@@ -1,8 +1,8 @@
 package com.yonatankarp.ff4k.dsl.feature
 
-import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
+import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -37,7 +37,7 @@ internal class FeatureBuilderTest :
 
         test("feature creates feature with all fields set") {
             // Given
-            val strategy = TestStrategy()
+            val strategy = AlwaysTrueFlippingStrategy()
 
             // When
             val feature = feature(FEATURE_UID) {
@@ -80,7 +80,7 @@ internal class FeatureBuilderTest :
 
         test("flippingStrategy property sets strategy") {
             // Given
-            val strategy = TestStrategy()
+            val strategy = AlwaysTrueFlippingStrategy()
 
             // When
             val feature = feature(FEATURE_UID) {
@@ -311,7 +311,7 @@ internal class FeatureBuilderTest :
 
         test("complex nested scenario with all features") {
             // Given
-            val strategy = TestStrategy()
+            val strategy = AlwaysTrueFlippingStrategy()
             val existingProp = PropertyString(
                 name = PROPERTY_EXTERNAL_CONFIG,
                 value = EXTERNAL_CONFIG_VALUE,
@@ -382,9 +382,6 @@ internal class FeatureBuilderTest :
             }
         }
     }) {
-    private class TestStrategy : FlippingStrategy {
-        override val initParams = emptyMap<String, String>()
-    }
 
     private companion object {
         // Feature constants

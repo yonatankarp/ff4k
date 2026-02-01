@@ -15,17 +15,17 @@ import kotlin.coroutines.CoroutineContext
  * Example usage:
  * ```
  * // Creating and using context directly
- * val context = FlippingExecutionContext("userId" to 123, "userName" to "Alice")
- * val id: Int? = context["userId"]           // Returns 123
- * val name: String? = context["userName"]    // Returns "Alice"
+ * val context = FlippingExecutionContext(ContextKeys.USER_ID to 123, ContextKeys.USER_NAME to "Alice")
+ * val id: Int? = context[ContextKeys.USER_ID]           // Returns 123
+ * val name: String? = context[ContextKeys.USER_NAME]    // Returns "Alice"
  *
  * // Using with coroutines (implicit context propagation)
- * withFlippingContext(FlippingExecutionContext("userId" to "user-123")) {
+ * withFlippingContext(FlippingExecutionContext(ContextKeys.USER_ID to "user-123")) {
  *     ff4k.check("my-feature") // context automatically available
  * }
  *
  * // Immutable modification (creates new instance)
- * val newContext = context.withParameter("region", "EU")
+ * val newContext = context.withParameter(ContextKeys.REGION, "EU")
  * ```
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)

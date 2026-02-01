@@ -17,15 +17,15 @@ internal class FlippingExecutionContextTest :
         test("should store and retrieve values with correct types") {
             // Given
             val values = mapOf(
-                "userId" to 123,
-                "userName" to "Alice",
+                ContextKeys.USER_ID to 123,
+                ContextKeys.USER_NAME to "Alice",
                 "isActive" to true,
             )
             val context = FlippingExecutionContext(values)
 
             // When
-            val userId = context.get<Int>("userId")
-            val userName = context.get<String>("userName")
+            val userId = context.get<Int>(ContextKeys.USER_ID)
+            val userName = context.get<String>(ContextKeys.USER_NAME)
             val isActive = context.get<Boolean>("isActive")
 
             // Then
@@ -47,12 +47,12 @@ internal class FlippingExecutionContextTest :
 
         test("should throw when type mismatch occurs") {
             // Given
-            val values = mapOf("userId" to 123)
+            val values = mapOf(ContextKeys.USER_ID to 123)
             val context = FlippingExecutionContext(values)
 
             // When / Then
             shouldThrow<IllegalStateException> {
-                context.get<String>("userId")
+                context.get<String>(ContextKeys.USER_ID)
             }
         }
 
@@ -80,11 +80,11 @@ internal class FlippingExecutionContextTest :
 
         test("contains operator should return true for existing keys") {
             // Given
-            val values = mapOf("userId" to 123)
+            val values = mapOf(ContextKeys.USER_ID to 123)
             val context = FlippingExecutionContext(values)
 
             // When
-            val contains = "userId" in context
+            val contains = ContextKeys.USER_ID in context
 
             // Then
             contains.shouldBeTrue()
@@ -95,7 +95,7 @@ internal class FlippingExecutionContextTest :
             val context = FlippingExecutionContext()
 
             // When
-            val contains = "userId" in context
+            val contains = ContextKeys.USER_ID in context
 
             // Then
             contains.shouldBeFalse()
@@ -166,22 +166,22 @@ internal class FlippingExecutionContextTest :
 
         test("plus operator should combine two contexts") {
             // Given
-            val context1 = FlippingExecutionContext("userId" to "user-123", "region" to "EU")
+            val context1 = FlippingExecutionContext(ContextKeys.USER_ID to "user-123", ContextKeys.REGION to "EU")
             val context2 = FlippingExecutionContext("tier" to "premium", "enabled" to true)
 
             // When
             val combined = context1 + context2
 
             // Then
-            combined.get<String>("userId") shouldBe "user-123"
-            combined.get<String>("region") shouldBe "EU"
+            combined.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
+            combined.get<String>(ContextKeys.REGION) shouldBe "EU"
             combined.get<String>("tier") shouldBe "premium"
             combined.get<Boolean>("enabled") shouldBe true
         }
 
         test("plus operator should give precedence to right context for duplicate keys") {
             // Given
-            val context1 = FlippingExecutionContext("tier" to "free", "region" to "US")
+            val context1 = FlippingExecutionContext("tier" to "free", ContextKeys.REGION to "US")
             val context2 = FlippingExecutionContext("tier" to "premium")
 
             // When
@@ -189,7 +189,7 @@ internal class FlippingExecutionContextTest :
 
             // Then
             combined.get<String>("tier") shouldBe "premium"
-            combined.get<String>("region") shouldBe "US"
+            combined.get<String>(ContextKeys.REGION) shouldBe "US"
         }
 
         test("plus operator should not modify original contexts") {
@@ -209,7 +209,7 @@ internal class FlippingExecutionContextTest :
 
         test("plus operator with empty context should return equivalent context") {
             // Given
-            val context = FlippingExecutionContext("userId" to "user-123")
+            val context = FlippingExecutionContext(ContextKeys.USER_ID to "user-123")
             val empty = FlippingExecutionContext()
 
             // When
@@ -217,7 +217,7 @@ internal class FlippingExecutionContextTest :
             val result2 = empty + context
 
             // Then
-            result1.get<String>("userId") shouldBe "user-123"
-            result2.get<String>("userId") shouldBe "user-123"
+            result1.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
+            result2.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
         }
     })

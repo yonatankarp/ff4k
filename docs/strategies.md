@@ -46,7 +46,7 @@ feature("gradual-rollout") {
 Enables a feature for a consistent percentage of users. The same user always gets the same
 result (sticky sessions), making it ideal for A/B testing and gradual rollouts.
 
-Requires `userId` in the execution context.
+Requires `ContextKeys.USER_ID` in the execution context.
 
 ```kotlin
 feature("beta-feature") {
@@ -59,7 +59,7 @@ feature("beta-feature") {
 }
 
 // Checking with user context
-val context = FlippingExecutionContext("userId" to currentUserId)
+val context = FlippingExecutionContext(ContextKeys.USER_ID to currentUserId)
 ff4k.check("beta-feature", context)
 ```
 

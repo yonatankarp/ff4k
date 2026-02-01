@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k
 
+import com.yonatankarp.ff4k.core.ContextKeys
 import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
@@ -152,7 +153,6 @@ internal class FF4kExtensionsTest :
         private const val VALUE_DISABLED = "disabled"
 
         // Context keys and values
-        private const val KEY_USER_ID = "userId"
         private const val TARGET_USER_ID = "user-123"
         private const val OTHER_USER_ID = "user-456"
 
@@ -175,7 +175,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to TARGET_USER_ID),
                 expected = VALUE_EXECUTED,
             ),
             ExtensionCheckData(
@@ -186,7 +186,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to OTHER_USER_ID),
                 expected = null,
             ),
         )
@@ -210,7 +210,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to TARGET_USER_ID),
                 expected = VALUE_ENABLED,
             ),
             ExtensionCheckData(
@@ -221,7 +221,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to OTHER_USER_ID),
                 expected = VALUE_DISABLED,
             ),
         )
@@ -245,7 +245,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to TARGET_USER_ID),
                 expected = true,
             ),
             ExtensionCheckData(
@@ -256,7 +256,7 @@ internal class FF4kExtensionsTest :
                         flippingStrategy = UserIdStrategy(TARGET_USER_ID)
                     }
                 },
-                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to OTHER_USER_ID),
                 expected = false,
             ),
         )
@@ -308,7 +308,7 @@ internal class FF4kExtensionsTest :
                     Feature(FEATURE_TWO, isEnabled = true),
                 ),
                 featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
-                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to TARGET_USER_ID),
                 expected = true,
             ),
             CheckData(
@@ -322,7 +322,7 @@ internal class FF4kExtensionsTest :
                     Feature(FEATURE_TWO, isEnabled = true),
                 ),
                 featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
-                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to OTHER_USER_ID),
                 expected = false,
             ),
         )
@@ -373,7 +373,7 @@ internal class FF4kExtensionsTest :
                     Feature(FEATURE_TWO, isEnabled = false),
                 ),
                 featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
-                context = FlippingExecutionContext(KEY_USER_ID to TARGET_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to TARGET_USER_ID),
                 expected = true,
             ),
             CheckData(
@@ -387,7 +387,7 @@ internal class FF4kExtensionsTest :
                     Feature(FEATURE_TWO, isEnabled = false),
                 ),
                 featureIdsToCheck = listOf(FEATURE_ONE, FEATURE_TWO),
-                context = FlippingExecutionContext(KEY_USER_ID to OTHER_USER_ID),
+                context = FlippingExecutionContext(ContextKeys.USER_ID to OTHER_USER_ID),
                 expected = false,
             ),
         )
@@ -402,7 +402,7 @@ internal class FF4kExtensionsTest :
             store: FeatureStore?,
             context: FlippingExecutionContext,
         ): Boolean {
-            val userId = context.get<String>(KEY_USER_ID)
+            val userId = context.get<String>(ContextKeys.USER_ID)
             return userId == allowedUserId
         }
     }

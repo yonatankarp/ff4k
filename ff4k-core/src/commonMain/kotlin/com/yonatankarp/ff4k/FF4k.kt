@@ -79,11 +79,11 @@ import kotlinx.coroutines.sync.Mutex
  * ff4k.addFeature(feature)
  *
  * // Check with explicit context
- * val context = FlippingExecutionContext("userId" to "user-123")
+ * val context = FlippingExecutionContext(ContextKeys.USER_ID to "user-123")
  * val isEnabled = ff4k.check("new-checkout", context)
  *
  * // Or use coroutine context propagation
- * withFlippingContext(FlippingExecutionContext("userId" to "user-123")) {
+ * withFlippingContext(FlippingExecutionContext(ContextKeys.USER_ID to "user-123")) {
  *     val isEnabled = ff4k.check("new-checkout") // context automatically available
  * }
  * ```

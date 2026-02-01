@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.strategy
 
+import com.yonatankarp.ff4k.core.ContextKeys
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
  * the same user will always get the same result. Users are bucketed based
  * on their user ID hash.
  *
- * Requires [USER_ID_KEY] to be set in the [FlippingExecutionContext].
+ * Requires [ContextKeys.USER_ID] to be set in the [FlippingExecutionContext].
  * Returns `false` if no user ID is present.
  *
  * @property weight The percentage of users (0.0 to 1.0) for whom the feature is enabled.
@@ -36,7 +37,7 @@ data class UserPonderationStrategy(
         store: FeatureStore?,
         context: FlippingExecutionContext,
     ): Boolean {
-        val userId = context.get<String>(USER_ID_KEY) ?: return false
+        val userId = context.get<String>(ContextKeys.USER_ID) ?: return false
 
         val bucket = (userId.hash() and 0x7FFFFFFF) % 100 // 0-99
         val threshold = (weight * 100).toInt()
@@ -53,8 +54,6 @@ data class UserPonderationStrategy(
     }
 
     companion object {
-        const val USER_ID_KEY = "userId"
-
         private const val HALF = 0.5
     }
 }

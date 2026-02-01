@@ -1,9 +1,9 @@
 package com.yonatankarp.ff4k.strategy
 
+import com.yonatankarp.ff4k.core.ContextKeys
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
-import com.yonatankarp.ff4k.strategy.UserPonderationStrategy.Companion.USER_ID_KEY
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -19,8 +19,8 @@ internal class UserPonderationStrategyTest :
                 // Given
                 val strategy = UserPonderationStrategy(0.5)
                 val store = InMemoryFeatureStore()
-                val context1 = FlippingExecutionContext(USER_ID_KEY to "user123")
-                val context2 = FlippingExecutionContext(USER_ID_KEY to "user123")
+                val context1 = FlippingExecutionContext(ContextKeys.USER_ID to "user123")
+                val context2 = FlippingExecutionContext(ContextKeys.USER_ID to "user123")
 
                 // When
                 val result1 = strategy.evaluate("test", store, context1)
@@ -38,7 +38,7 @@ internal class UserPonderationStrategyTest :
                 // When
                 val enabled = (1..1000).count { userId ->
                     val context =
-                        FlippingExecutionContext(USER_ID_KEY to "user$userId")
+                        FlippingExecutionContext(ContextKeys.USER_ID to "user$userId")
                     strategy.evaluate("test", store, context)
                 }
 
@@ -56,7 +56,7 @@ internal class UserPonderationStrategyTest :
                 // When / Then
                 repeat(100) { userId ->
                     val context =
-                        FlippingExecutionContext(USER_ID_KEY to "user$userId")
+                        FlippingExecutionContext(ContextKeys.USER_ID to "user$userId")
                     strategy.evaluate("test", store, context).shouldBeTrue()
                 }
             }
@@ -69,7 +69,7 @@ internal class UserPonderationStrategyTest :
                 // When / Then
                 repeat(100) { userId ->
                     val context =
-                        FlippingExecutionContext(USER_ID_KEY to "user$userId")
+                        FlippingExecutionContext(ContextKeys.USER_ID to "user$userId")
                     strategy.evaluate("test", store, context).shouldBeFalse()
                 }
             }
@@ -91,7 +91,7 @@ internal class UserPonderationStrategyTest :
                 // Given
                 val strategy = UserPonderationStrategy(100)
                 val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext(USER_ID_KEY to "user123")
+                val context = FlippingExecutionContext(ContextKeys.USER_ID to "user123")
 
                 // When / Then
                 repeat(10) {
@@ -129,9 +129,10 @@ internal class UserPonderationStrategyTest :
 
     override fun createStrategy(): FlippingStrategy = UserPonderationStrategy(weight = 1.0)
 
-    override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext(USER_ID_KEY to "test-user")
+    override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "test-user")
 
     override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext()
 
-    override fun expectedJsonForSampleParams(): String = """{"type":"userPonderation","weight":1.0}"""
+    override fun expectedJsonForSampleParams(): String = // language=json
+        """{"type":"userPonderation","weight":1.0}"""
 }

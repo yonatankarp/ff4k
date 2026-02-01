@@ -11,8 +11,8 @@ import com.yonatankarp.ff4k.core.FlippingExecutionContext
  * Example usage:
  * ```kotlin
  * val ctx = context {
- *     "userId" to "user-123"
- *     "region" to "EU"
+ *     ContextKeys.USER_ID to "user-123"
+ *     ContextKeys.REGION to "EU"
  *     this["tier"] = "premium"
  * }
  * ```
@@ -29,7 +29,7 @@ class FlippingExecutionContextBuilder {
      * Example:
      * ```kotlin
      * context {
-     *     "userId" to "user-123"
+     *     ContextKeys.USER_ID to "user-123"
      * }
      * ```
      *
@@ -45,7 +45,7 @@ class FlippingExecutionContextBuilder {
      * Example:
      * ```kotlin
      * context {
-     *     this["userId"] = "user-123"
+     *     this[ContextKeys.USER_ID] = "user-123"
      * }
      * ```
      *
@@ -88,8 +88,8 @@ class FlippingExecutionContextBuilder {
  * Example:
  * ```kotlin
  * val ctx = context {
- *     "userId" to "user-123"
- *     "region" to "EU"
+ *     ContextKeys.USER_ID to "user-123"
+ *     ContextKeys.REGION to "EU"
  *     "tier" to "premium"
  * }
  * ```

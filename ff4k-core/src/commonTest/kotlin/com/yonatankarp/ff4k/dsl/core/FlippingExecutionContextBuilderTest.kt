@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.dsl.core
 
+import com.yonatankarp.ff4k.core.ContextKeys
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -23,44 +24,44 @@ internal class FlippingExecutionContextBuilderTest :
         test("context function should support infix to notation") {
             // When
             val ctx = context {
-                "userId" to "user-123"
-                "region" to "EU"
+                ContextKeys.USER_ID to "user-123"
+                ContextKeys.REGION to "EU"
             }
 
             // Then
-            ctx.get<String>("userId") shouldBe "user-123"
-            ctx.get<String>("region") shouldBe "EU"
+            ctx.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
+            ctx.get<String>(ContextKeys.REGION) shouldBe "EU"
         }
 
         test("context function should support indexed access notation") {
             // When
             val ctx = context {
-                this["userId"] = "user-456"
+                this[ContextKeys.USER_ID] = "user-456"
                 this["tier"] = "premium"
             }
 
             // Then
-            ctx.get<String>("userId") shouldBe "user-456"
+            ctx.get<String>(ContextKeys.USER_ID) shouldBe "user-456"
             ctx.get<String>("tier") shouldBe "premium"
         }
 
         test("context function should support mixed notation") {
             // When
             val ctx = context {
-                "userId" to "user-789"
-                this["region"] = "US"
+                ContextKeys.USER_ID to "user-789"
+                this[ContextKeys.REGION] = "US"
                 "tier" to "enterprise"
             }
 
             // Then
-            ctx.get<String>("userId") shouldBe "user-789"
-            ctx.get<String>("region") shouldBe "US"
+            ctx.get<String>(ContextKeys.USER_ID) shouldBe "user-789"
+            ctx.get<String>(ContextKeys.REGION) shouldBe "US"
             ctx.get<String>("tier") shouldBe "enterprise"
         }
 
         test("context function should support putAll with map") {
             // Given
-            val params = mapOf("userId" to "user-123", "region" to "APAC")
+            val params = mapOf(ContextKeys.USER_ID to "user-123", ContextKeys.REGION to "APAC")
 
             // When
             val ctx = context {
@@ -68,23 +69,23 @@ internal class FlippingExecutionContextBuilderTest :
             }
 
             // Then
-            ctx.get<String>("userId") shouldBe "user-123"
-            ctx.get<String>("region") shouldBe "APAC"
+            ctx.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
+            ctx.get<String>(ContextKeys.REGION) shouldBe "APAC"
         }
 
         test("context function should support putAll with vararg pairs") {
             // When
             val ctx = context {
                 putAll(
-                    Pair("userId", "user-123"),
-                    Pair("region", "EU"),
+                    Pair(ContextKeys.USER_ID, "user-123"),
+                    Pair(ContextKeys.REGION, "EU"),
                     Pair("tier", "free"),
                 )
             }
 
             // Then
-            ctx.get<String>("userId") shouldBe "user-123"
-            ctx.get<String>("region") shouldBe "EU"
+            ctx.get<String>(ContextKeys.USER_ID) shouldBe "user-123"
+            ctx.get<String>(ContextKeys.REGION) shouldBe "EU"
             ctx.get<String>("tier") shouldBe "free"
         }
 

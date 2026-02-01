@@ -13,8 +13,8 @@ import kotlinx.coroutines.withContext
  *
  * Example:
  * ```kotlin
- * val context = FlippingExecutionContext("userId" to "123")
- * val withRegion = context.withParameter("region", "EU")
+ * val context = FlippingExecutionContext(ContextKeys.USER_ID to "123")
+ * val withRegion = context.withParameter(ContextKeys.REGION, "EU")
  * // context is unchanged, withRegion has both userId and region
  * ```
  *
@@ -32,8 +32,8 @@ fun FlippingExecutionContext.withParameter(key: String, value: Any): FlippingExe
  * ```kotlin
  * val context = FlippingExecutionContext()
  * val populated = context.withParameters(
- *     "userId" to "123",
- *     "region" to "EU",
+ *     ContextKeys.USER_ID to "123",
+ *     ContextKeys.REGION to "EU",
  *     "tier" to "premium"
  * )
  * ```
@@ -52,8 +52,8 @@ fun FlippingExecutionContext.withParameters(vararg pairs: Pair<String, Any>): Fl
  *
  * Example:
  * ```kotlin
- * val base = FlippingExecutionContext("env" to "prod", "region" to "US")
- * val override = FlippingExecutionContext("region" to "EU")
+ * val base = FlippingExecutionContext(ContextKeys.ENVIRONMENT to "prod", ContextKeys.REGION to "US")
+ * val override = FlippingExecutionContext(ContextKeys.REGION to "EU")
  * val merged = base.mergeWith(override)
  * // merged has env=prod, region=EU
  * ```
@@ -75,12 +75,12 @@ fun FlippingExecutionContext.mergeWith(other: FlippingExecutionContext): Flippin
  *
  * Contexts can be nested - inner contexts completely replace outer ones:
  * ```kotlin
- * withFlippingContext(FlippingExecutionContext("env" to "prod")) {
- *     // env = "prod"
- *     withFlippingContext(FlippingExecutionContext("env" to "staging")) {
- *         // env = "staging" (replaced, not merged)
+ * withFlippingContext(FlippingExecutionContext(ContextKeys.ENVIRONMENT to "prod")) {
+ *     // environment = "prod"
+ *     withFlippingContext(FlippingExecutionContext(ContextKeys.ENVIRONMENT to "staging")) {
+ *         // environment = "staging" (replaced, not merged)
  *     }
- *     // env = "prod" (restored)
+ *     // environment = "prod" (restored)
  * }
  * ```
  *
@@ -103,10 +103,10 @@ suspend inline fun <T> withFlippingContext(
  *
  * Example:
  * ```kotlin
- * withFlippingContext(FlippingExecutionContext("userId" to "123", "tier" to "free")) {
+ * withFlippingContext(FlippingExecutionContext(ContextKeys.USER_ID to "123", "tier" to "free")) {
  *     // userId=123, tier=free
  *
- *     withFlippingParameters("tier" to "premium", "region" to "EU") {
+ *     withFlippingParameters("tier" to "premium", ContextKeys.REGION to "EU") {
  *         // userId=123, tier=premium, region=EU (merged)
  *     }
  *
@@ -136,7 +136,7 @@ suspend inline fun <T> withFlippingParameters(
  * ```kotlin
  * suspend fun myFunction() {
  *     val context = currentFlippingContext()
- *     val userId: String? = context["userId"]
+ *     val userId: String? = context[ContextKeys.USER_ID]
  *     // ...
  * }
  * ```

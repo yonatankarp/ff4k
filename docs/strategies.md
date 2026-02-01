@@ -63,6 +63,37 @@ val context = FlippingExecutionContext(ContextKeys.USER_ID to currentUserId)
 ff4k.check("beta-feature", context)
 ```
 
+#### AllowListStrategy
+
+Enables a feature only for specific users. All other users will have the feature disabled.
+
+Requires `ContextKeys.USER_ID` in the execution context.
+
+```kotlin
+feature("vip-feature") {
+    allowListStrategy {
+        +"user-123"
+        +"user-456"
+        add("user-789")
+    }
+}
+```
+
+#### DenyListStrategy
+
+Disables a feature for specific users. All other users will have the feature enabled.
+
+Requires `ContextKeys.USER_ID` in the execution context.
+
+```kotlin
+feature("new-ui") {
+    denyListStrategy {
+        +"problematic-user-1"
+        +"problematic-user-2"
+    }
+}
+```
+
 ### Composite Strategies
 
 Combine multiple strategies using logical operators.

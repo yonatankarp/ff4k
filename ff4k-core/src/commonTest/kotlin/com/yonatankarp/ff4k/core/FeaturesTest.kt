@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.core
 import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
+import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -120,12 +121,9 @@ internal class FeaturesTest :
 
         test("hasFlippingStrategy should return true when strategy exists") {
             // Given
-            class TestStrategy : FlippingStrategy {
-                override val initParams = emptyMap<String, String>()
-            }
             val feature = Feature(
                 uid = FEATURE_UID,
-                flippingStrategy = TestStrategy(),
+                flippingStrategy = AlwaysTrueFlippingStrategy(),
             )
 
             // When

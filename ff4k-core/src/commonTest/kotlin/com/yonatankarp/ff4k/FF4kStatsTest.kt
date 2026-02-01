@@ -1,6 +1,7 @@
 package com.yonatankarp.ff4k
 
 import com.yonatankarp.ff4k.dsl.core.ff4k
+import com.yonatankarp.ff4k.dsl.feature.FeaturesBuilder
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -182,7 +183,7 @@ internal class FF4kStatsTest :
             withData(
                 nameFn = { it.description },
                 reportGenerationData,
-            ) { (description, featuresBlock, expectedContent) ->
+            ) { (_, featuresBlock, expectedContent) ->
                 // Given
                 val ff4k = ff4k {
                     features(featuresBlock)
@@ -395,19 +396,19 @@ internal class FF4kStatsTest :
 }
 private data class ReportTestData(
     val description: String,
-    val featuresBlock: com.yonatankarp.ff4k.dsl.feature.FeaturesBuilder.() -> Unit,
+    val featuresBlock: FeaturesBuilder.() -> Unit,
     val expectedContent: List<String>,
 )
 
 private data class FeatureFilterData(
     val description: String,
-    val featuresBlock: com.yonatankarp.ff4k.dsl.feature.FeaturesBuilder.() -> Unit,
+    val featuresBlock: FeaturesBuilder.() -> Unit,
     val expectedUids: List<String>,
 )
 
 private data class PermissionFilterData(
     val description: String,
-    val featuresBlock: com.yonatankarp.ff4k.dsl.feature.FeaturesBuilder.() -> Unit,
+    val featuresBlock: FeaturesBuilder.() -> Unit,
     val permission: String,
     val expectedUids: List<String>,
 )

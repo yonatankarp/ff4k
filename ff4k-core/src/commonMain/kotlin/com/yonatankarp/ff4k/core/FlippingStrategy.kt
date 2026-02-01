@@ -66,10 +66,19 @@ interface FlippingStrategy {
      * @param context execution context containing runtime parameters (user info, region, etc.)
      * @return `true` if the feature should be enabled, `false` otherwise
      */
-    // TODO - will be implemented in Phase 2
     suspend fun evaluate(
         featureId: String,
         store: FeatureStore?,
         context: FlippingExecutionContext,
-    ): Boolean = true
+    ): Boolean
+
+    /**
+     * Asserts that a required parameter exists in [initParams].
+     *
+     * @param paramName The name of the required parameter.
+     * @throws IllegalArgumentException if the parameter is not present.
+     */
+    fun assertRequiredParameter(paramName: String) {
+        require(paramName in initParams.keys) { "Parameter '$paramName' is required for this FlippingStrategy" }
+    }
 }

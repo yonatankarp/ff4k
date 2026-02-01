@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.core
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
 import com.yonatankarp.ff4k.serialization.ff4kSerializersModule
+import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -195,18 +196,14 @@ internal class FeatureTest :
 
         test("displayStrategyClassName should return strategy class name when strategy exists") {
             // Given
-            class TestStrategy : FlippingStrategy {
-                override val initParams = emptyMap<String, String>()
-            }
-
-            val strategy = TestStrategy()
+            val strategy = AlwaysTrueFlippingStrategy()
             val feature = Feature(uid = FEATURE_UID, flippingStrategy = strategy)
 
             // When
             val className = feature.displayStrategyClassName
 
             // Then
-            className shouldBe "TestStrategy"
+            className shouldBe "AlwaysTrueFlippingStrategy"
         }
 
         test("getProperty should return property when it exists") {

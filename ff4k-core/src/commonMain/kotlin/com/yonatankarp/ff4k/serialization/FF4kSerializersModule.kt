@@ -21,10 +21,12 @@ import com.yonatankarp.ff4k.strategy.AllowListStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysFalseFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AndStrategy
+import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.NotStrategy
 import com.yonatankarp.ff4k.strategy.OrStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -59,6 +61,8 @@ val ff4kSerializersModule = SerializersModule {
         subclass(UserPonderationStrategy::class, UserPonderationStrategy.serializer())
         subclass(AllowListStrategy::class, AllowListStrategy.serializer())
         subclass(DenyListStrategy::class, DenyListStrategy.serializer())
+        subclass(ReleaseDateStrategy::class, ReleaseDateStrategy.serializer())
+        subclass(DateRangeStrategy::class, DateRangeStrategy.serializer())
     }
 } + humanReadableSerializerModule
 

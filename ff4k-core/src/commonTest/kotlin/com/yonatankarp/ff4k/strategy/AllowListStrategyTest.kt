@@ -93,12 +93,14 @@ internal class AllowListStrategyTest :
         }
     }) {
 
-    override fun createStrategy(): FlippingStrategy = AllowListStrategy(setOf("Alice"))
+    override fun createStrategyForPassingCase(): FlippingStrategy = AllowListStrategy(setOf("Alice"))
+
+    override fun createStrategyForFailingCase(): FlippingStrategy = AllowListStrategy(setOf("Alice"))
 
     override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "Alice")
 
     override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "Bob")
 
     override fun expectedJsonForSampleParams(): String = // language=json
-        """{"type": "allowList","allowedList": ["Alice"]}"""
+        """{"type":"allowList","allowedList":["Alice"]}"""
 }

@@ -32,6 +32,7 @@ nav:
   - Home: index.md
   - Usage: usage.md
   - Properties: properties.md
+  - Strategies: strategies.md
   - Testing: testing.md
   - Extending: extending.md
   - API Reference: https://yonatankarp.github.io/ff4k/api/

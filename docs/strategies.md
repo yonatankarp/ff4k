@@ -94,6 +94,69 @@ feature("new-ui") {
 }
 ```
 
+### Time-Based Strategies
+
+#### ReleaseDateStrategy
+
+Enables a feature after a specified release date. The feature is disabled before the release
+date and enabled once the current time reaches or passes it.
+
+Useful for scheduling feature launches without requiring a deployment.
+
+```kotlin
+// Using ISO-8601 string
+feature("new-feature") {
+    releaseDateStrategy("2025-06-01T00:00:00Z")
+}
+
+// Using Instant
+feature("new-feature") {
+    releaseDateStrategy(Instant.parse("2025-06-01T00:00:00Z"))
+}
+
+// Using LocalDateTime with timezone
+feature("new-feature") {
+    releaseDateStrategy(
+        dateTime = LocalDateTime(2025, 6, 1, 9, 0),
+        timezone = TimeZone.of("America/New_York")
+    )
+}
+```
+
+#### DateRangeStrategy
+
+Enables a feature only within a specified time range. The feature is enabled when the current
+time is at or after the start date and before the end date (i.e., `[startDate, endDate)`).
+
+Useful for limited-time promotions, scheduled maintenance windows, or time-boxed experiments.
+
+```kotlin
+// Using ISO-8601 strings
+feature("holiday-sale") {
+    dateRangeStrategy(
+        startDate = "2025-12-20T00:00:00Z",
+        endDate = "2025-12-26T00:00:00Z"
+    )
+}
+
+// Using Instant values
+feature("maintenance-mode") {
+    dateRangeStrategy(
+        startDate = maintenanceStart,
+        endDate = maintenanceEnd
+    )
+}
+
+// Using LocalDateTime with timezone
+feature("summer-promo") {
+    dateRangeStrategy(
+        startDate = LocalDateTime(2025, 6, 1, 0, 0),
+        endDate = LocalDateTime(2025, 8, 31, 23, 59),
+        timezone = TimeZone.of("Europe/London")
+    )
+}
+```
+
 ### Composite Strategies
 
 Combine multiple strategies using logical operators.

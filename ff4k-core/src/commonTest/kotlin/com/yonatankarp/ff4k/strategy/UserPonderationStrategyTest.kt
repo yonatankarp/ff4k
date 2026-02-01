@@ -127,11 +127,13 @@ internal class UserPonderationStrategyTest :
         }
     }) {
 
-    override fun createStrategy(): FlippingStrategy = UserPonderationStrategy(weight = 1.0)
+    override fun createStrategyForPassingCase(): FlippingStrategy = UserPonderationStrategy(weight = 1.0)
+
+    override fun createStrategyForFailingCase(): FlippingStrategy = UserPonderationStrategy(weight = 0.0)
 
     override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "test-user")
 
-    override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext()
+    override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "test-user")
 
     override fun expectedJsonForSampleParams(): String = // language=json
         """{"type":"userPonderation","weight":1.0}"""

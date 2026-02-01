@@ -61,6 +61,48 @@ class MyPropertyTest : PropertyContractTest<String, MyStringProperty>() {
 }
 ```
 
+## Testing Flipping Strategies
+
+To test custom `FlippingStrategy` implementations, extend `FlippingStrategyContractTest` and implement the required methods.
+
+```kotlin
+class MyCustomStrategyTest : FlippingStrategyContractTest() {
+
+    // Create a strategy instance configured to pass with contextThatShouldPass()
+    override fun createStrategyForPassingCase(): FlippingStrategy {
+        return MyCustomStrategy(configuredToPass = true)
+    }
+
+    // Create a strategy instance configured to fail with contextThatShouldFail()
+    override fun createStrategyForFailingCase(): FlippingStrategy {
+        return MyCustomStrategy(configuredToPass = false)
+    }
+
+    // Context that should result in true when used with createStrategyForPassingCase()
+    override fun contextThatShouldPass(): FlippingExecutionContext {
+        return FlippingExecutionContext(ContextKeys.USER_ID to "allowed-user")
+    }
+
+    // Context that should result in false when used with createStrategyForFailingCase()
+    override fun contextThatShouldFail(): FlippingExecutionContext {
+        return FlippingExecutionContext(ContextKeys.USER_ID to "denied-user")
+    }
+
+    // Expected JSON serialization for the strategy from createStrategyForPassingCase()
+    override fun expectedJsonForSampleParams(): String {
+        return """{"type":"myCustom","configuredToPass":true}"""
+    }
+}
+```
+
+The contract test provides separate strategy creation methods (`createStrategyForPassingCase` and `createStrategyForFailingCase`) to support strategies that depend on injected dependencies like clocks or random sources. For context-driven strategies where the same instance can both pass and fail based on context, both methods can return the same strategy instance.
+
+The `FlippingStrategyContractTest` will automatically run tests covering:
+- Evaluation returns true for passing case
+- Evaluation returns false for failing case
+- Handling of null feature store
+- JSON serialization
+
 ## Running Tests
 
 Run your tests as you normally would use Gradle:

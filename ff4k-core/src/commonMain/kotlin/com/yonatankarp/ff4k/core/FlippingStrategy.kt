@@ -21,7 +21,7 @@ package com.yonatankarp.ff4k.core
  *         context: FlippingExecutionContext
  *     ): Boolean {
  *         val percentage = initParams["percentage"]?.toInt() ?: 0
- *         val userId = context.get<String>("userId") ?: return false
+ *         val userId = context.get<String>(ContextKeys.USER_ID) ?: return false
  *         return userId.hashCode() % 100 < percentage
  *     }
  * }
@@ -34,7 +34,7 @@ package com.yonatankarp.ff4k.core
  *         context: FlippingExecutionContext
  *     ): Boolean {
  *         val allowedRegions = initParams["regions"]?.split(",") ?: emptyList()
- *         val userRegion = context.get<String>("region") ?: return false
+ *         val userRegion = context.get<String>(ContextKeys.REGION) ?: return false
  *         return userRegion in allowedRegions
  *     }
  * }

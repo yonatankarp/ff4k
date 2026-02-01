@@ -18,16 +18,16 @@ internal class FlippingExecutionContextsTest :
 
         test("withParameter should create new context with added parameter") {
             // Given
-            val original = FlippingExecutionContext(USER_ID_KEY to ALICE_USER_ID)
+            val original = FlippingExecutionContext(ContextKeys.USER_ID to ALICE_USER_ID)
 
             // When
-            val result = original.withParameter(REGION_KEY, REGION_EU)
+            val result = original.withParameter(ContextKeys.REGION, REGION_EU)
 
             // Then
-            result.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID
-            result.get<String>(REGION_KEY) shouldBe REGION_EU
+            result.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID
+            result.get<String>(ContextKeys.REGION) shouldBe REGION_EU
             // Original unchanged
-            original.get<String>(REGION_KEY).shouldBeNull()
+            original.get<String>(ContextKeys.REGION).shouldBeNull()
         }
 
         test("withParameter should override existing parameter") {
@@ -44,42 +44,42 @@ internal class FlippingExecutionContextsTest :
 
         test("withParameters should create new context with multiple parameters") {
             // Given
-            val original = FlippingExecutionContext(USER_ID_KEY to BOB_USER_ID)
+            val original = FlippingExecutionContext(ContextKeys.USER_ID to BOB_USER_ID)
 
             // When
             val result = original.withParameters(
-                REGION_KEY to REGION_US,
+                ContextKeys.REGION to REGION_US,
                 TIER_KEY to TIER_ENTERPRISE,
                 REQUEST_COUNT_KEY to REQUEST_COUNT,
             )
 
             // Then
-            result.get<String>(USER_ID_KEY) shouldBe BOB_USER_ID
-            result.get<String>(REGION_KEY) shouldBe REGION_US
+            result.get<String>(ContextKeys.USER_ID) shouldBe BOB_USER_ID
+            result.get<String>(ContextKeys.REGION) shouldBe REGION_US
             result.get<String>(TIER_KEY) shouldBe TIER_ENTERPRISE
             result.get<Int>(REQUEST_COUNT_KEY) shouldBe REQUEST_COUNT
             // Original unchanged
-            original.get<String>(REGION_KEY).shouldBeNull()
+            original.get<String>(ContextKeys.REGION).shouldBeNull()
         }
 
         test("mergeWith should merge contexts with right precedence") {
             // Given
             val baseContext = FlippingExecutionContext(
-                USER_ID_KEY to ALICE_USER_ID,
+                ContextKeys.USER_ID to ALICE_USER_ID,
                 TIER_KEY to TIER_FREE,
             )
             val overrideContext = FlippingExecutionContext(
                 TIER_KEY to TIER_PREMIUM,
-                REGION_KEY to REGION_APAC,
+                ContextKeys.REGION to REGION_APAC,
             )
 
             // When
             val result = baseContext.mergeWith(overrideContext)
 
             // Then
-            result.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID
+            result.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID
             result.get<String>(TIER_KEY) shouldBe TIER_PREMIUM // right takes precedence
-            result.get<String>(REGION_KEY) shouldBe REGION_APAC
+            result.get<String>(ContextKeys.REGION) shouldBe REGION_APAC
             // Originals unchanged
             baseContext.get<String>(TIER_KEY) shouldBe TIER_FREE
         }
@@ -87,14 +87,14 @@ internal class FlippingExecutionContextsTest :
         test("vararg constructor should create context with parameters") {
             // Given/When
             val context = FlippingExecutionContext(
-                USER_ID_KEY to ALICE_USER_ID,
-                REGION_KEY to REGION_EU,
+                ContextKeys.USER_ID to ALICE_USER_ID,
+                ContextKeys.REGION to REGION_EU,
                 TIER_KEY to TIER_PREMIUM,
             )
 
             // Then
-            context.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID
-            context.get<String>(REGION_KEY) shouldBe REGION_EU
+            context.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID
+            context.get<String>(ContextKeys.REGION) shouldBe REGION_EU
             context.get<String>(TIER_KEY) shouldBe TIER_PREMIUM
         }
 
@@ -110,54 +110,54 @@ internal class FlippingExecutionContextsTest :
 
         test("withFlippingContext should make context available in block") {
             // Given
-            val requestContext = FlippingExecutionContext(USER_ID_KEY to ALICE_USER_ID)
+            val requestContext = FlippingExecutionContext(ContextKeys.USER_ID to ALICE_USER_ID)
 
             // When/Then
             withFlippingContext(requestContext) {
                 val current = currentFlippingContext()
-                current.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID
+                current.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID
             }
         }
 
         test("withFlippingContext should restore previous context after block") {
             // Given
-            val productionContext = FlippingExecutionContext(ENVIRONMENT_KEY to ENV_PRODUCTION)
-            val stagingContext = FlippingExecutionContext(ENVIRONMENT_KEY to ENV_STAGING)
+            val productionContext = FlippingExecutionContext(ContextKeys.ENVIRONMENT to ENV_PRODUCTION)
+            val stagingContext = FlippingExecutionContext(ContextKeys.ENVIRONMENT to ENV_STAGING)
 
             // When/Then
             withFlippingContext(productionContext) {
-                currentFlippingContext().get<String>(ENVIRONMENT_KEY) shouldBe ENV_PRODUCTION
+                currentFlippingContext().get<String>(ContextKeys.ENVIRONMENT) shouldBe ENV_PRODUCTION
 
                 withFlippingContext(stagingContext) {
-                    currentFlippingContext().get<String>(ENVIRONMENT_KEY) shouldBe ENV_STAGING
+                    currentFlippingContext().get<String>(ContextKeys.ENVIRONMENT) shouldBe ENV_STAGING
                 }
 
                 // Restored after inner block
-                currentFlippingContext().get<String>(ENVIRONMENT_KEY) shouldBe ENV_PRODUCTION
+                currentFlippingContext().get<String>(ContextKeys.ENVIRONMENT) shouldBe ENV_PRODUCTION
             }
         }
 
         test("withFlippingParameters should merge with current context") {
             // Given
             val baseContext = FlippingExecutionContext(
-                USER_ID_KEY to ALICE_USER_ID,
+                ContextKeys.USER_ID to ALICE_USER_ID,
                 TIER_KEY to TIER_FREE,
             )
 
             // When/Then
             withFlippingContext(baseContext) {
-                withFlippingParameters(TIER_KEY to TIER_PREMIUM, REGION_KEY to REGION_EU) {
+                withFlippingParameters(TIER_KEY to TIER_PREMIUM, ContextKeys.REGION to REGION_EU) {
                     val current = currentFlippingContext()
-                    current.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID // preserved
+                    current.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID // preserved
                     current.get<String>(TIER_KEY) shouldBe TIER_PREMIUM // overridden
-                    current.get<String>(REGION_KEY) shouldBe REGION_EU // added
+                    current.get<String>(ContextKeys.REGION) shouldBe REGION_EU // added
                 }
 
                 // After withFlippingParameters block, original values restored
                 val afterBlock = currentFlippingContext()
-                afterBlock.get<String>(USER_ID_KEY) shouldBe ALICE_USER_ID
+                afterBlock.get<String>(ContextKeys.USER_ID) shouldBe ALICE_USER_ID
                 afterBlock.get<String>(TIER_KEY) shouldBe TIER_FREE
-                (REGION_KEY in afterBlock).shouldBeFalse()
+                (ContextKeys.REGION in afterBlock).shouldBeFalse()
             }
         }
 
@@ -171,12 +171,12 @@ internal class FlippingExecutionContextsTest :
 
         test("context should propagate through nested suspend calls") {
             // Given
-            suspend fun innerFunction(): String? = currentFlippingContext().get<String>(USER_ID_KEY)
+            suspend fun innerFunction(): String? = currentFlippingContext().get<String>(ContextKeys.USER_ID)
 
             suspend fun middleFunction(): String? = innerFunction()
 
             // When/Then
-            withFlippingContext(FlippingExecutionContext(USER_ID_KEY to BOB_USER_ID)) {
+            withFlippingContext(FlippingExecutionContext(ContextKeys.USER_ID to BOB_USER_ID)) {
                 val result = middleFunction()
                 result shouldBe BOB_USER_ID
             }
@@ -184,18 +184,15 @@ internal class FlippingExecutionContextsTest :
 
         test("FlippingExecutionContext should be a CoroutineContext Element") {
             // Given
-            val context = FlippingExecutionContext(USER_ID_KEY to ALICE_USER_ID)
+            val context = FlippingExecutionContext(ContextKeys.USER_ID to ALICE_USER_ID)
 
             // Then
             context.key shouldBe FlippingExecutionContext.Key
         }
     }) {
     companion object {
-        // Context keys
-        private const val USER_ID_KEY = "userId"
-        private const val REGION_KEY = "region"
+        // Context keys (custom keys not in ContextKeys)
         private const val TIER_KEY = "tier"
-        private const val ENVIRONMENT_KEY = "environment"
         private const val TENANT_KEY = "tenantId"
         private const val REQUEST_COUNT_KEY = "requestCount"
 

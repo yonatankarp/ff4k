@@ -79,7 +79,7 @@ val Feature.hasPermissions: Boolean
  * if (feature.hasFlippingStrategy) {
  *     // Evaluate strategy with context
  *     val context = FlippingExecutionContext()
- *     context["userId"] = currentUserId
+ *     context[ContextKeys.USER_ID] = currentUserId
  *     val shouldActivate = feature.flippingStrategy?.evaluate(
  *         feature.uid,
  *         featureStore,

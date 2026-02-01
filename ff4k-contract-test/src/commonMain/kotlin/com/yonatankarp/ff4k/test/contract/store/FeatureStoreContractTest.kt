@@ -29,7 +29,7 @@ import io.kotest.core.spec.style.FunSpec
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
-abstract class FeatureStoreContractTest : FunSpec() {
+abstract class FeatureStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): FeatureStore
 
     init {

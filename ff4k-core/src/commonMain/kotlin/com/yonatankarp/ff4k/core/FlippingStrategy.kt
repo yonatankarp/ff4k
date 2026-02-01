@@ -42,7 +42,7 @@ package com.yonatankarp.ff4k.core
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
-interface FlippingStrategy {
+fun interface FlippingStrategy {
     /**
      * Evaluates whether the feature should be enabled based on the execution context.
      *

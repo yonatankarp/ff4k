@@ -19,9 +19,6 @@ dependencies {
 To test your custom `FeatureStore`, create a test class that extends `FeatureStoreContractTest` and implement the `createStore` method.
 
 ```kotlin
-import com.yonatankarp.ff4k.test.contract.store.FeatureStoreContractTest
-import com.yonatankarp.ff4k.core.FeatureStore
-
 class MyCustomFeatureStoreTest : FeatureStoreContractTest() {
 
     // This method is called before each test to provide a fresh store instance
@@ -46,8 +43,6 @@ The `FeatureStoreContractTest` will automatically run a comprehensive set of tes
 To test custom `Property` implementations, you can extend `PropertyContractTest`.
 
 ```kotlin
-import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
-
 class MyPropertyTest : PropertyContractTest<String, MyStringProperty>() {
     override val serializer = MyStringProperty.serializer()
 
@@ -68,7 +63,7 @@ class MyPropertyTest : PropertyContractTest<String, MyStringProperty>() {
 
 ## Running Tests
 
-Run your tests as you normally would using Gradle:
+Run your tests as you normally would use Gradle:
 
 ```bash
 ./gradlew test

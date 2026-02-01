@@ -6,8 +6,9 @@ FF4K is a Kotlin Multiplatform (KMP) implementation of the popular [FF4J](https:
 
 - **Kotlin Multiplatform**: Designed to work across different platforms supported by Kotlin (JVM, Android, Native, etc.).
 - **Type-safe Properties**: Strongly typed property definitions (String, Int, Boolean, etc.).
+- **Flipping Strategies**: Gradual rollouts, A/B testing, and user targeting with [built-in strategies](strategies.md).
 - **Serialization Support**: Built-in support for `kotlinx.serialization`.
-- **Extensible**: Easily implement custom storage backends (Redis, SQL, etc.).
+- **Extensible**: Easily implement custom storage backends (Redis, SQL, etc.) and [custom strategies](extending.md#implementing-a-flipping-strategy).
 - **DSL**: Intuitive Domain Specific Language for configuration.
 
 ## Installation
@@ -23,8 +24,6 @@ dependencies {
 ## Quick Start
 
 ```kotlin
-import com.yonatankarp.ff4k.dsl.core.ff4k
-
 suspend fun main() {
     val ff4k = ff4k {
         features {

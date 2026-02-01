@@ -22,6 +22,8 @@ import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AndStrategy
 import com.yonatankarp.ff4k.strategy.NotStrategy
 import com.yonatankarp.ff4k.strategy.OrStrategy
+import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.plus
@@ -51,6 +53,8 @@ val ff4kSerializersModule = SerializersModule {
         subclass(NotStrategy::class, NotStrategy.serializer())
         subclass(AlwaysTrueFlippingStrategy::class, AlwaysTrueFlippingStrategy.serializer())
         subclass(AlwaysFalseFlippingStrategy::class, AlwaysFalseFlippingStrategy.serializer())
+        subclass(PonderationStrategy::class, PonderationStrategy.serializer())
+        subclass(UserPonderationStrategy::class, UserPonderationStrategy.serializer())
     }
 } + humanReadableSerializerModule
 

@@ -66,9 +66,6 @@ If the built-in types don't meet your needs, you can create custom property type
 You need to implement `Property<T>`. It's recommended to make your implementation a data class and include serialization support.
 
 ```kotlin
-import com.yonatankarp.ff4k.property.Property
-import kotlinx.serialization.Serializable
-
 @Serializable
 data class PropertyColor(
     override val name: String,

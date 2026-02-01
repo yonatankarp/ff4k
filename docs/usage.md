@@ -7,8 +7,6 @@ This guide covers the core concepts and usage patterns of FF4K.
 The entry point for FF4K is the `ff4k` DSL function. It allows you to configure features and properties and returns an `FF4k` instance.
 
 ```kotlin
-import com.yonatankarp.ff4k.dsl.core.ff4k
-
 suspend fun main() {
     val ff4k = ff4k {
         // Configuration block
@@ -150,3 +148,44 @@ ff4k.enable("my-feature")
 // Disable a feature
 ff4k.disable("my-feature")
 ```
+
+## Serialization
+
+FF4K provides pre-configured serialization support for all built-in types using `kotlinx.serialization`.
+
+### FF4kJson
+
+`FF4kJson` is a pre-configured `Json` instance ready to use for serializing and deserializing
+FF4K types (features, properties, strategies).
+
+```kotlin
+// Serialize a feature
+val json = FF4kJson.encodeToString(feature)
+
+// Deserialize a feature
+val feature = FF4kJson.decodeFromString<Feature>(json)
+```
+
+Configuration:
+- Includes `ff4kSerializersModule` for polymorphic serialization of all FF4K types
+- `ignoreUnknownKeys = true` for forward compatibility
+- `prettyPrint = true` for readable output
+
+### ff4kSerializersModule
+
+If you need to customize the `Json` configuration or combine with your own serializers,
+use `ff4kSerializersModule` directly:
+
+```kotlin
+val customJson = Json {
+    serializersModule = ff4kSerializersModule + myCustomSerializersModule
+    prettyPrint = false // Override defaults as needed
+    encodeDefaults = true
+}
+```
+
+The module includes serializers for:
+- All `Property` subtypes (PropertyInt, PropertyString, PropertyBoolean, etc.)
+- All `FlippingStrategy` subtypes (AndStrategy, OrStrategy, PonderationStrategy, etc.)
+
+For registering custom types, see [Extending FF4K](extending.md).

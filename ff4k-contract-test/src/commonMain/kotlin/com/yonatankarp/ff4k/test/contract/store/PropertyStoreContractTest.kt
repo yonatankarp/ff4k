@@ -25,7 +25,7 @@ import io.kotest.core.spec.style.FunSpec
  *
  * @author Yonatan Karp-Rudin (@yonatankarp)
  */
-abstract class PropertyStoreContractTest : FunSpec() {
+abstract class PropertyStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): PropertyStore
 
     init {

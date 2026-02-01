@@ -9,6 +9,7 @@ import com.yonatankarp.ff4k.serialization.FF4kJson
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.PolymorphicSerializer
+import kotlinx.serialization.encodeToString
 
 /**
  * Contract test for FlippingStrategy implementations.
@@ -20,9 +21,18 @@ import kotlinx.serialization.PolymorphicSerializer
 abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
 
     /**
-     * Creates an instance of the strategy being tested.
+     * Creates an instance of the strategy configured to pass when evaluated with [contextThatShouldPass].
+     * This allows strategies that depend on injected dependencies (e.g., clocks) to configure
+     * themselves appropriately for the passing test case.
      */
-    protected abstract fun createStrategy(): FlippingStrategy
+    protected abstract fun createStrategyForPassingCase(): FlippingStrategy
+
+    /**
+     * Creates an instance of the strategy configured to fail when evaluated with [contextThatShouldFail].
+     * This allows strategies that depend on injected dependencies (e.g., clocks) to configure
+     * themselves appropriately for the failing test case.
+     */
+    protected abstract fun createStrategyForFailingCase(): FlippingStrategy
 
     /**
      * Provides an execution context that should result in the strategy evaluating to true.
@@ -35,7 +45,7 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
     protected abstract fun contextThatShouldFail(): FlippingExecutionContext
 
     /**
-     * Provides the expected JSON representation for the strategy.
+     * Provides the expected JSON representation for the strategy created by [createStrategyForPassingCase].
      * The JSON should include the polymorphic type discriminator if applicable.
      */
     protected abstract fun expectedJsonForSampleParams(): String
@@ -43,7 +53,7 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
     init {
         test("should evaluate to true when context matches strategy criteria") {
             // Given
-            val strategy = createStrategy()
+            val strategy = createStrategyForPassingCase()
             val context = contextThatShouldPass()
 
             // When
@@ -55,7 +65,7 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
 
         test("should evaluate to false when context does not match strategy criteria") {
             // Given
-            val strategy = createStrategy()
+            val strategy = createStrategyForFailingCase()
             val context = contextThatShouldFail()
 
             // When
@@ -67,7 +77,7 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
 
         test("should handle null feature store") {
             // Given
-            val strategy = createStrategy()
+            val strategy = createStrategyForPassingCase()
             val context = contextThatShouldPass()
             val store: FeatureStore? = null
 
@@ -80,7 +90,7 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
 
         test("should serialize to correct json") {
             // Given
-            val strategy = createStrategy()
+            val strategy = createStrategyForPassingCase()
             val expectedJson = FF4kJson.parseToJsonElement(expectedJsonForSampleParams())
 
             // When
@@ -89,6 +99,18 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
 
             // Then
             actualJson shouldBe expectedJson
+        }
+
+        test("should work with round-trip serialization") {
+            // Given
+            val strategy = createStrategyForPassingCase()
+
+            // When
+            val json = FF4kJson.encodeToString<FlippingStrategy>(strategy)
+            val deserializedStrategy = FF4kJson.decodeFromString<FlippingStrategy>(json)
+
+            // Then
+            deserializedStrategy shouldBe strategy
         }
     }
 

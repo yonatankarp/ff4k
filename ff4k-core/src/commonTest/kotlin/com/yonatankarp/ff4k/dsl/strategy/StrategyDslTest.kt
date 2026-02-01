@@ -2,13 +2,19 @@ package com.yonatankarp.ff4k.dsl.strategy
 
 import com.yonatankarp.ff4k.dsl.feature.feature
 import com.yonatankarp.ff4k.strategy.AllowListStrategy
+import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 internal class StrategyDslTest :
     FunSpec({
@@ -19,7 +25,7 @@ internal class StrategyDslTest :
             }
 
             feature.flippingStrategy.shouldBeInstanceOf<PonderationStrategy>()
-            (feature.flippingStrategy as PonderationStrategy).weight shouldBe 0.75
+            feature.flippingStrategy.weight shouldBe 0.75
         }
 
         test("ponderationStrategy with Int sets strategy") {
@@ -28,7 +34,7 @@ internal class StrategyDslTest :
             }
 
             feature.flippingStrategy.shouldBeInstanceOf<PonderationStrategy>()
-            (feature.flippingStrategy as PonderationStrategy).weight shouldBe 0.5
+            feature.flippingStrategy.weight shouldBe 0.5
         }
 
         test("userPonderationStrategy with Double sets strategy") {
@@ -37,7 +43,7 @@ internal class StrategyDslTest :
             }
 
             feature.flippingStrategy.shouldBeInstanceOf<UserPonderationStrategy>()
-            (feature.flippingStrategy as UserPonderationStrategy).weight shouldBe 0.75
+            feature.flippingStrategy.weight shouldBe 0.75
         }
 
         test("userPonderationStrategy with Int sets strategy") {
@@ -46,7 +52,7 @@ internal class StrategyDslTest :
             }
 
             feature.flippingStrategy.shouldBeInstanceOf<UserPonderationStrategy>()
-            (feature.flippingStrategy as UserPonderationStrategy).weight shouldBe 0.5
+            feature.flippingStrategy.weight shouldBe 0.5
         }
 
         context("allowListStrategy") {
@@ -59,8 +65,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                (feature.flippingStrategy as AllowListStrategy).allowedList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2")
+                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
             test("sets AllowListStrategy with add function") {
@@ -72,8 +77,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                (feature.flippingStrategy as AllowListStrategy).allowedList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2")
+                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
             test("sets AllowListStrategy with addAll function") {
@@ -84,8 +88,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                (feature.flippingStrategy as AllowListStrategy).allowedList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2", "user-3")
+                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3")
             }
 
             test("sets AllowListStrategy with mixed methods") {
@@ -98,8 +101,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                (feature.flippingStrategy as AllowListStrategy).allowedList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2", "user-3", "user-4")
+                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3", "user-4")
             }
 
             test("deduplicates entries") {
@@ -112,7 +114,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                (feature.flippingStrategy as AllowListStrategy).allowedList shouldBe setOf("user-1")
+                feature.flippingStrategy.allowedList shouldBe setOf("user-1")
             }
         }
 
@@ -126,8 +128,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                (feature.flippingStrategy as DenyListStrategy).denyList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2")
+                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
             test("sets DenyListStrategy with add function") {
@@ -139,8 +140,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                (feature.flippingStrategy as DenyListStrategy).denyList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2")
+                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
             test("sets DenyListStrategy with addAll function") {
@@ -151,8 +151,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                (feature.flippingStrategy as DenyListStrategy).denyList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2", "user-3")
+                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3")
             }
 
             test("sets DenyListStrategy with mixed methods") {
@@ -165,8 +164,7 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                (feature.flippingStrategy as DenyListStrategy).denyList shouldContainExactlyInAnyOrder
-                    listOf("user-1", "user-2", "user-3", "user-4")
+                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3", "user-4")
             }
 
             test("deduplicates entries") {
@@ -179,7 +177,82 @@ internal class StrategyDslTest :
                 }
 
                 feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                (feature.flippingStrategy as DenyListStrategy).denyList shouldBe setOf("user-1")
+                feature.flippingStrategy.denyList shouldBe setOf("user-1")
+            }
+        }
+
+        context("releaseDateStrategy") {
+            test("sets ReleaseDateStrategy with Instant") {
+                val date = Instant.parse("2025-01-01T00:00:00Z")
+                val feature = feature("test") {
+                    releaseDateStrategy(date)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<ReleaseDateStrategy>()
+                feature.flippingStrategy.releaseDate shouldBe date
+            }
+
+            test("sets ReleaseDateStrategy with ISO string") {
+                val dateString = "2025-01-01T00:00:00Z"
+                val feature = feature("test") {
+                    releaseDateStrategy(dateString)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<ReleaseDateStrategy>()
+                feature.flippingStrategy.releaseDate shouldBe Instant.parse(dateString)
+            }
+
+            test("sets ReleaseDateStrategy with LocalDateTime") {
+                val dateTime = LocalDateTime(2025, 1, 1, 0, 0)
+                val timezone = TimeZone.UTC
+                val feature = feature("test") {
+                    releaseDateStrategy(dateTime, timezone)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<ReleaseDateStrategy>()
+                feature.flippingStrategy.releaseDate shouldBe dateTime.toInstant(timezone)
+            }
+        }
+
+        context("dateRangeStrategy") {
+            test("sets DateRangeStrategy with Instant") {
+                val start = Instant.parse("2025-01-01T00:00:00Z")
+                val end = Instant.parse("2025-01-02T00:00:00Z")
+                val feature = feature("test") {
+                    dateRangeStrategy(start, end)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<DateRangeStrategy>()
+                val strategy = feature.flippingStrategy
+                strategy.startDate shouldBe start
+                strategy.endDate shouldBe end
+            }
+
+            test("sets DateRangeStrategy with ISO string") {
+                val start = "2025-01-01T00:00:00Z"
+                val end = "2025-01-02T00:00:00Z"
+                val feature = feature("test") {
+                    dateRangeStrategy(start, end)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<DateRangeStrategy>()
+                val strategy = feature.flippingStrategy
+                strategy.startDate shouldBe Instant.parse(start)
+                strategy.endDate shouldBe Instant.parse(end)
+            }
+
+            test("sets DateRangeStrategy with LocalDateTime") {
+                val start = LocalDateTime(2025, 1, 1, 0, 0)
+                val end = LocalDateTime(2025, 1, 2, 0, 0)
+                val timezone = TimeZone.UTC
+                val feature = feature("test") {
+                    dateRangeStrategy(start, end, timezone)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<DateRangeStrategy>()
+                val strategy = feature.flippingStrategy
+                strategy.startDate shouldBe start.toInstant(timezone)
+                strategy.endDate shouldBe end.toInstant(timezone)
             }
         }
     })

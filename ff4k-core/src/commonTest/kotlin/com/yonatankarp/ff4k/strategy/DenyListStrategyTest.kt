@@ -93,12 +93,14 @@ internal class DenyListStrategyTest :
         }
     }) {
 
-    override fun createStrategy(): FlippingStrategy = DenyListStrategy(setOf("Alice"))
+    override fun createStrategyForPassingCase(): FlippingStrategy = DenyListStrategy(setOf("Alice"))
+
+    override fun createStrategyForFailingCase(): FlippingStrategy = DenyListStrategy(setOf("Alice"))
 
     override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "Bob")
 
     override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext(ContextKeys.USER_ID to "Alice")
 
     override fun expectedJsonForSampleParams(): String = // language=json
-        """{"type": "denyList","denyList": ["Alice"]}"""
+        """{"type":"denyList","denyList":["Alice"]}"""
 }

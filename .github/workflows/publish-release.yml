@@ -82,6 +82,8 @@ jobs:
     runs-on: macos-latest
     permissions:
       contents: write
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
 
     steps:
       - name: Checkout code
@@ -127,15 +129,30 @@ jobs:
       contents: write
 
     steps:
-      - name: Extract version from tag
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Release ${{ steps.version.outputs.VERSION }}
+          name: Release ${{ needs.publish.outputs.version }}
           draft: false
           prerelease: false
           generate_release_notes: true
+
+  deploy-docs:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Deploy release docs
+        uses: ./.github/actions/deploy-docs
+        with:
+          version: ${{ needs.publish.outputs.version }}
+          aliases: latest
+          gradle-version-arg: "-Pversion=${{ needs.publish.outputs.version }}"

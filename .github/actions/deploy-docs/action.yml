@@ -1,0 +1,58 @@
+name: Deploy Documentation
+description: Build and deploy versioned documentation using MkDocs and mike
+
+inputs:
+  version:
+    description: 'Version to deploy (e.g., "main", "0.2.0")'
+    required: true
+  aliases:
+    description: 'Space-separated aliases to update (e.g., "latest")'
+    required: false
+    default: ''
+  gradle-version-arg:
+    description: 'Version argument to pass to Gradle for KDoc generation'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: 3.x
+
+    - name: Install MkDocs Material and mike
+      shell: bash
+      run: pip install mkdocs-material==9.5.0 mike==2.0.0
+
+    - name: Setup Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v5
+      with:
+        cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+    - name: Configure Git
+      shell: bash
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Generate KDoc
+      shell: bash
+      run: ./gradlew --no-daemon dokkaGenerateHtml ${{ inputs.gradle-version-arg }}
+
+    - name: Copy KDoc to docs
+      shell: bash
+      run: |
+        mkdir -p docs/api
+        cp -r build/dokka/html/* docs/api/
+
+    - name: Deploy docs with mike
+      shell: bash
+      run: mike deploy --push --update-aliases ${{ inputs.version }} ${{ inputs.aliases }}

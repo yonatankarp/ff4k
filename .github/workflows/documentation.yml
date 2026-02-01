@@ -14,28 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
         with:
-          python-version: 3.x
+          fetch-depth: 0
 
-      - name: Install MkDocs Material
-        run: pip install mkdocs-material
-
-      - name: Setup Java
-        uses: actions/setup-java@v5
+      - name: Deploy snapshot docs
+        uses: ./.github/actions/deploy-docs
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Generate KDoc
-        run: ./gradlew dokkaGenerateHtml
-
-      - name: Copy KDoc to docs
-        run: |
-          mkdir -p docs/api
-          cp -r build/dokka/html/* docs/api/
-
-      - name: Build and Deploy MkDocs
-        run: mkdocs gh-deploy --force
+          version: main

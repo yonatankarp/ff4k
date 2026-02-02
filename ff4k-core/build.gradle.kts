@@ -25,6 +25,8 @@ kotlin {
     }
 }
 
-dependencies {
-    add("androidUnitTestImplementation", libs.robolectric)
+if (pluginManager.hasPlugin("com.android.library")) {
+    dependencies {
+        add("androidUnitTestImplementation", libs.robolectric)
+    }
 }

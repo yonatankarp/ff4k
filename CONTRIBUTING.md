@@ -4,10 +4,38 @@ Thank you for your interest in contributing to FF4K! This document provides guid
 
 ## Getting Started
 
-### Prerequisites
+### Building Locally
 
-- JDK 17 or later
-- Gradle 8.x (wrapper included)
+This project uses an **adaptive build system** that automatically enables or disables platform targets based on the tools available in your environment.
+
+#### 1. Default Behavior
+*   **JVM:** Always built.
+*   **Android:** Built only if the Android SDK is detected.
+*   **Apple (iOS):** Built only if running on macOS with Xcode Command Line Tools installed.
+
+#### 2. Prerequisites
+
+To build all targets, including Android and iOS, ensure you have the following:
+
+*   **Java Development Kit (JDK):**
+    *   **Version 17 or higher** is required for all builds.
+*   **Android SDK:**
+    *   Set the `ANDROID_HOME` or `ANDROID_SDK_ROOT` environment variable.
+    *   **OR** create a `local.properties` file in the project root with `sdk.dir=/path/to/android/sdk`.
+*   **Apple (macOS only):**
+    *   Xcode or Command Line Tools (`xcode-select --install`).
+
+#### 3. Customizing the Build
+
+You can manually control build options by creating a `local.properties` file in the project root:
+
+```properties
+# Path to Android SDK (automatically added by Android Studio)
+sdk.dir=/Users/username/Library/Android/sdk
+
+# Explicitly disable Apple targets (even on macOS) to speed up the build
+ff4k.include.apple=false
+```
 
 ### Building the Project
 

@@ -11,21 +11,19 @@ A `FlippingStrategy` is evaluated each time a feature is checked. This enables u
 - A/B testing
 - Time-based feature availability
 
-## Built-in Strategies
+## Constant Strategies
 
-### Constant Strategies
-
-#### AlwaysTrueFlippingStrategy
+### AlwaysTrueFlippingStrategy
 
 Always returns `true`. Useful as a base case in composite strategies.
 
-#### AlwaysFalseFlippingStrategy
+### AlwaysFalseFlippingStrategy
 
 Always returns `false`. Useful as a base case in composite strategies.
 
-### Ponderation Strategies
+## Percentage-Based Strategies
 
-#### PonderationStrategy
+### PonderationStrategy
 
 Enables a feature based on a random percentage. Each evaluation is independent - the same user
 may get different results on subsequent calls.
@@ -41,7 +39,7 @@ feature("gradual-rollout") {
 }
 ```
 
-#### UserPonderationStrategy
+### UserPonderationStrategy
 
 Enables a feature for a consistent percentage of users. The same user always gets the same
 result (sticky sessions), making it ideal for A/B testing and gradual rollouts.
@@ -63,7 +61,9 @@ val context = FlippingExecutionContext(ContextKeys.USER_ID to currentUserId)
 ff4k.check("beta-feature", context)
 ```
 
-#### AllowListStrategy
+## User-List Strategies
+
+### AllowListStrategy
 
 Enables a feature only for specific users. All other users will have the feature disabled.
 
@@ -79,7 +79,7 @@ feature("vip-feature") {
 }
 ```
 
-#### DenyListStrategy
+### DenyListStrategy
 
 Disables a feature for specific users. All other users will have the feature enabled.
 
@@ -94,9 +94,9 @@ feature("new-ui") {
 }
 ```
 
-### Time-Based Strategies
+## Time-Based Strategies
 
-#### ReleaseDateStrategy
+### ReleaseDateStrategy
 
 Enables a feature after a specified release date. The feature is disabled before the release
 date and enabled once the current time reaches or passes it.
@@ -123,7 +123,7 @@ feature("new-feature") {
 }
 ```
 
-#### DateRangeStrategy
+### DateRangeStrategy
 
 Enables a feature only within a specified time range. The feature is enabled when the current
 time is at or after the start date and before the end date (i.e., `[startDate, endDate)`).
@@ -157,11 +157,11 @@ feature("summer-promo") {
 }
 ```
 
-### Composite Strategies
+## Composite Strategies
 
 Combine multiple strategies using logical operators.
 
-#### AndStrategy
+### AndStrategy
 
 All strategies must evaluate to `true`.
 
@@ -169,7 +169,7 @@ All strategies must evaluate to `true`.
 val strategy = strategyA and strategyB // Both must be true
 ```
 
-#### OrStrategy
+### OrStrategy
 
 At least one strategy must evaluate to `true`.
 
@@ -177,7 +177,7 @@ At least one strategy must evaluate to `true`.
 val strategy = strategyA or strategyB // Either can be true
 ```
 
-#### NotStrategy
+### NotStrategy
 
 Inverts the result of a strategy.
 
@@ -185,7 +185,7 @@ Inverts the result of a strategy.
 val strategy = !strategyA // Inverts the result
 ```
 
-### Combining Strategies
+## Combining Strategies
 
 You can chain multiple operators to create complex conditions:
 

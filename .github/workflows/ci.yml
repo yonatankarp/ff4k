@@ -36,29 +36,31 @@ jobs:
 
   code-quality:
     needs: changes
-    if: needs.changes.outputs.source == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
+        if: needs.changes.outputs.source == 'true'
         uses: actions/checkout@v6
 
       - name: Set up JDK 17
+        if: needs.changes.outputs.source == 'true'
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Gradle
+        if: needs.changes.outputs.source == 'true'
         uses: gradle/actions/setup-gradle@v5
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Check code formatting
+        if: needs.changes.outputs.source == 'true'
         run: ./gradlew spotlessCheck --no-daemon
 
   build-linux:
     needs: [changes, code-quality]
-    if: needs.changes.outputs.source == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -71,27 +73,32 @@ jobs:
 
     steps:
       - name: Checkout code
+        if: needs.changes.outputs.source == 'true'
         uses: actions/checkout@v6
 
       - name: Set up JDK 17
+        if: needs.changes.outputs.source == 'true'
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Android SDK
-        if: matrix.target == 'android'
+        if: matrix.target == 'android' && needs.changes.outputs.source == 'true'
         uses: android-actions/setup-android@v3
 
       - name: Setup Gradle
+        if: needs.changes.outputs.source == 'true'
         uses: gradle/actions/setup-gradle@v5
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Build and test ${{ matrix.target }}
+        if: needs.changes.outputs.source == 'true'
         run: ./gradlew ${{ matrix.task }} --no-daemon
 
       - name: Upload coverage data
+        if: needs.changes.outputs.source == 'true'
         uses: actions/upload-artifact@v6
         with:
           name: kover-data-linux-${{ matrix.target }}
@@ -100,7 +107,6 @@ jobs:
 
   build-ios:
     needs: [changes, code-quality]
-    if: needs.changes.outputs.source == 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -115,23 +121,28 @@ jobs:
 
     steps:
       - name: Checkout code
+        if: needs.changes.outputs.source == 'true'
         uses: actions/checkout@v6
 
       - name: Set up JDK 17
+        if: needs.changes.outputs.source == 'true'
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Gradle
+        if: needs.changes.outputs.source == 'true'
         uses: gradle/actions/setup-gradle@v5
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Build and test ${{ matrix.target }}
+        if: needs.changes.outputs.source == 'true'
         run: ./gradlew ${{ matrix.task }} --no-daemon
 
       - name: Upload coverage data
+        if: needs.changes.outputs.source == 'true'
         uses: actions/upload-artifact@v6
         with:
           name: kover-data-ios-${{ matrix.target }}
@@ -140,26 +151,29 @@ jobs:
 
   sonarcloud:
     needs: [changes, build-linux, build-ios]
-    if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up JDK 17
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Gradle
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: gradle/actions/setup-gradle@v5
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Download all coverage artifacts
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: actions/download-artifact@v7
         with:
           pattern: kover-data-*
@@ -167,9 +181,11 @@ jobs:
           merge-multiple: true
 
       - name: Generate merged coverage report
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         run: ./gradlew koverXmlReport --no-daemon
 
       - name: SonarCloud Scan
+        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

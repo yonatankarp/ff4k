@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/testing/">
       
       
-        <link rel="prev" href="../properties/">
+        <link rel="prev" href="../strategies/">
       
       
         <link rel="next" href="../extending/">
@@ -270,6 +270,23 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../strategies/" class="md-tabs__link">
+        
+  
+    
+  
+  Strategies
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
     
   
   
@@ -429,6 +446,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../strategies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Strategies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -499,6 +536,15 @@
   <a href="#testing-properties" class="md-nav__link">
     <span class="md-ellipsis">
       Testing Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-flipping-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Flipping Strategies
     </span>
   </a>
   
@@ -615,6 +661,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#testing-flipping-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Flipping Strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-tests" class="md-nav__link">
     <span class="md-ellipsis">
       Running Tests
@@ -688,9 +743,45 @@
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fixedValuesIncludingSample</span><span class="p">(</span><span class="n">sample</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setOf</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;other&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
 </code></pre></div>
+<h2 id="testing-flipping-strategies">Testing Flipping Strategies<a class="headerlink" href="#testing-flipping-strategies" title="Permanent link">&para;</a></h2>
+<p>To test custom <code>FlippingStrategy</code> implementations, extend <code>FlippingStrategyContractTest</code> and implement the required methods.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomStrategyTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategyContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="c1">// Create a strategy instance configured to pass with contextThatShouldPass()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForPassingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyCustomStrategy</span><span class="p">(</span><span class="n">configuredToPass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Create a strategy instance configured to fail with contextThatShouldFail()</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForFailingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyCustomStrategy</span><span class="p">(</span><span class="n">configuredToPass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="c1">// Context that should result in true when used with createStrategyForPassingCase()</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldPass</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">(</span><span class="n">ContextKeys</span><span class="p">.</span><span class="na">USER_ID</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;allowed-user&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="c1">// Context that should result in false when used with createStrategyForFailingCase()</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldFail</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">(</span><span class="n">ContextKeys</span><span class="p">.</span><span class="na">USER_ID</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;denied-user&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="c1">// Expected JSON serialization for the strategy from createStrategyForPassingCase()</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">expectedJsonForSampleParams</span><span class="p">():</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;&quot;{&quot;type&quot;:&quot;myCustom&quot;,&quot;configuredToPass&quot;:true}&quot;&quot;&quot;</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="p">}</span>
+</code></pre></div>
+<p>The contract test provides separate strategy creation methods (<code>createStrategyForPassingCase</code> and <code>createStrategyForFailingCase</code>) to support strategies that depend on injected dependencies like clocks or random sources. For context-driven strategies where the same instance can both pass and fail based on context, both methods can return the same strategy instance.</p>
+<p>The <code>FlippingStrategyContractTest</code> will automatically run tests covering:
+- Evaluation returns true for passing case
+- Evaluation returns false for failing case
+- Handling of null feature store
+- JSON serialization</p>
 <h2 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h2>
 <p>Run your tests as you normally would use Gradle:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./gradlew<span class="w"> </span><span class="nb">test</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./gradlew<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
 
 

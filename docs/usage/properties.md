@@ -6,6 +6,7 @@ Properties in FF4K allow you to manage configuration values alongside your featu
 
 FF4K comes with support for common data types out of the box:
 
+### Primitives
 - `PropertyString`
 - `PropertyInt`
 - `PropertyLong`
@@ -14,11 +15,17 @@ FF4K comes with support for common data types out of the box:
 - `PropertyBoolean`
 - `PropertyByte`
 - `PropertyShort`
+
+### Big Numbers
 - `PropertyBigInteger`
 - `PropertyBigDecimal`
+
+### Date & Time
 - `PropertyLocalDate`
 - `PropertyLocalDateTime`
 - `PropertyInstant`
+
+### Miscellaneous
 - `PropertyLogLevel`
 
 ## Usage

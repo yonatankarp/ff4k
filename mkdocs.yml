@@ -30,12 +30,19 @@ theme:
 
 nav:
   - Home: index.md
-  - Usage: usage.md
-  - Properties: properties.md
-  - Strategies: strategies.md
-  - Testing: testing.md
-  - Extending: extending.md
-  - API Reference: https://yonatankarp.github.io/ff4k/api/
+  - Usage:
+      - Basics: usage/basics.md
+      - Configuration: usage/configuration.md
+      - Monitoring: usage/monitoring.md
+      - Properties: usage/properties.md
+      - Strategies: usage/strategies.md
+      - Testing: usage/testing.md
+  - Extending:
+      - Overview: extending/index.md
+      - Custom Feature Store: extending/custom-feature-store.md
+      - Custom Property Store: extending/custom-property-store.md
+      - Custom Flipping Strategy: extending/custom-strategy.md
+  - API Reference: api_reference.md
 
 markdown_extensions:
   - pymdownx.highlight:

@@ -38,6 +38,20 @@ The `FeatureStoreContractTest` will automatically run a comprehensive set of tes
 - error handling (e.g., throwing correct exceptions for missing features)
 - concurrency handling
 
+## Testing a Property Store
+
+Similar to features, you can test your custom `PropertyStore` by extending `PropertyStoreContractTest`.
+
+```kotlin
+class MyCustomPropertyStoreTest : PropertyStoreContractTest() {
+    override suspend fun createStore(): PropertyStore {
+        return MyCustomPropertyStore()
+    }
+}
+```
+
+This ensures your property store correctly handles CRUD operations for properties, type safety, and concurrency.
+
 ## Testing Properties
 
 To test custom `Property` implementations, you can extend `PropertyContractTest`.

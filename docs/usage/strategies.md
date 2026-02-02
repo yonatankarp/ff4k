@@ -11,6 +11,26 @@ A `FlippingStrategy` is evaluated each time a feature is checked. This enables u
 - A/B testing
 - Time-based feature availability
 
+## Execution Context
+
+Most strategies require runtime context (e.g., who is the current user?) to make decisions. You can pass this context using `FlippingExecutionContext`.
+
+FF4K provides standard keys in `ContextKeys` for common parameters such as:
+
+- `ContextKeys.USER_ID` ("userId"): Unique identifier for the user. Required for user-based strategies.
+- `ContextKeys.USER_NAME` ("userName"): User's display name.
+- `ContextKeys.REGION` ("region"): Geographic region (e.g., "EU", "US").
+- `ContextKeys.ENVIRONMENT` ("environment"): App environment (e.g., "prod", "staging").
+
+```kotlin
+val context = FlippingExecutionContext(
+    ContextKeys.USER_ID to "user-123",
+    ContextKeys.REGION to "EU"
+)
+
+ff4k.check("my-feature", context)
+```
+
 ## Constant Strategies
 
 ### AlwaysTrueFlippingStrategy
@@ -195,4 +215,4 @@ feature("complex-feature") {
 }
 ```
 
-For creating custom strategies, see [Extending FF4K](extending.md#implementing-a-flipping-strategy).
+For creating custom strategies, see [Extending FF4K](../extending/custom-strategy.md).

@@ -188,4 +188,4 @@ The module includes serializers for:
 - All `Property` subtypes (PropertyInt, PropertyString, PropertyBoolean, etc.)
 - All `FlippingStrategy` subtypes (AndStrategy, OrStrategy, PonderationStrategy, etc.)
 
-For registering custom types, see [Extending FF4K](extending.md).
+For registering custom types, see [Extending FF4K](../extending/index.md).

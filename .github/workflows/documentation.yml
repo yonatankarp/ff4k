@@ -17,7 +17,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Calculate next minor version
+        id: version
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          VERSION=${LATEST_TAG#v}
+          IFS='.' read -r -a PARTS <<< "$VERSION"
+          NEXT_MINOR="${PARTS[0]}.$((PARTS[1] + 1)).0-SNAPSHOT"
+          echo "NEXT_VERSION=$NEXT_MINOR" >> "$GITHUB_OUTPUT"
+
       - name: Deploy snapshot docs
         uses: ./.github/actions/deploy-docs
         with:
           version: main
+          gradle-version-arg: "-Pversion=${{ steps.version.outputs.NEXT_VERSION }}"

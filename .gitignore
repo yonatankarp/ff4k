@@ -17,6 +17,9 @@ openspec
 AGENTS.md
 CLAUDE.md
 
+### Auto Generated Docs ###
+/docs/api
+
 ### IntelliJ IDEA ###
 .idea
 .kotlin

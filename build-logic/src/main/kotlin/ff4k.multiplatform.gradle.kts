@@ -1,3 +1,7 @@
+import com.android.build.gradle.LibraryExtension
+import java.io.File
+import java.util.Properties
+import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
@@ -5,7 +9,34 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.diffplug.spotless")
-    id("com.android.library")
+}
+
+val androidSdkAvailable: Boolean by lazy {
+    val env = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
+    if (env != null && File(env).exists()) return@lazy true
+    val localProperties = project.rootProject.file("local.properties")
+    if (localProperties.exists()) {
+        val properties = Properties()
+        localProperties.inputStream().use { properties.load(it) }
+        val sdkDir = properties.getProperty("sdk.dir")
+        return@lazy sdkDir != null && File(sdkDir).exists()
+    }
+    false
+}
+val appleTargetsAvailable: Boolean by lazy {
+    val localProperties = project.rootProject.file("local.properties")
+    if (localProperties.exists()) {
+        val properties = Properties()
+        localProperties.inputStream().use { properties.load(it) }
+        if (properties.getProperty("ff4k.include.apple") == "false") return@lazy false
+    }
+    val osName = System.getProperty("os.name")
+    if (!osName.contains("Mac", ignoreCase = true)) return@lazy false
+    File("/usr/bin/xcrun").exists()
+}
+
+if (androidSdkAvailable) {
+    apply(plugin = "com.android.library")
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -15,18 +46,22 @@ kotlin {
         libs.findVersion("jvm-toolchain").get().requiredVersion.toInt()
     )
 
-    androidTarget {
-        publishLibraryVariants("release")
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    if (androidSdkAvailable) {
+        androidTarget {
+            publishLibraryVariants("release")
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_11)
+            }
         }
     }
 
     jvm()
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    if (appleTargetsAvailable) {
+        iosX64()
+        iosArm64()
+        iosSimulatorArm64()
+    }
 
     applyDefaultHierarchyTemplate()
 
@@ -43,15 +78,17 @@ kotlin {
             dependsOn(jvmSharedMain)
         }
 
-        androidMain {
-            dependsOn(jvmSharedMain)
+        if (androidSdkAvailable) {
+            val androidMain by getting {
+                dependsOn(jvmSharedMain)
+            }
+
+            named("androidUnitTest") {
+                dependsOn(jvmSharedTest)
+            }
         }
 
         jvmTest {
-            dependsOn(jvmSharedTest)
-        }
-
-        named("androidUnitTest") {
             dependsOn(jvmSharedTest)
         }
 
@@ -74,25 +111,27 @@ dependencies {
     "jvmSharedTestImplementation"(libs.findLibrary("kotest-runner-junit5").get())
 }
 
-android {
-    namespace = "com.yonatankarp.${project.name.replace("-", ".")}"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            isReturnDefaultValues = true
+if (androidSdkAvailable) {
+    extensions.configure<LibraryExtension> {
+        namespace = "com.yonatankarp.${project.name.replace("-", ".")}"
+        compileSdk = 34
+        defaultConfig {
+            minSdk = 24
         }
-    }
-    sourceSets {
-        named("test") {
-            resources.srcDir("src/commonTest/resources")
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+        }
+        testOptions {
+            unitTests {
+                isIncludeAndroidResources = true
+                isReturnDefaultValues = true
+            }
+        }
+        sourceSets {
+            named("test") {
+                resources.srcDir("src/commonTest/resources")
+            }
         }
     }
 }

@@ -13,7 +13,27 @@ FF4K is a Kotlin Multiplatform (KMP) implementation of the popular [FF4J](https:
 
 ## Installation
 
-Add the dependency to your `build.gradle.kts`:
+### Using Bill of Materials (BOM) - Recommended
+
+The BOM ensures that all FF4K modules are using compatible versions.
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Import the BOM
+    implementation(platform("com.yonatankarp:ff4k-bom:<version>"))
+
+    // Add dependencies without versions
+    implementation("com.yonatankarp:ff4k-core")
+}
+```
+
+### Manual Versioning
+
+Alternatively, you can specify the version for each module directly:
 
 ```kotlin
 repositories {

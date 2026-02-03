@@ -8,6 +8,16 @@ First, add the contract test dependency to your project.
 
 **Gradle (Kotlin DSL)**
 
+If you are using the [FF4K BOM](../index.md#installation), you don't need to specify the version:
+
+```kotlin
+dependencies {
+    testImplementation("com.yonatankarp:ff4k-contract-test")
+}
+```
+
+Otherwise, specify the version explicitly:
+
 ```kotlin
 dependencies {
     testImplementation("com.yonatankarp:ff4k-contract-test:<version>")

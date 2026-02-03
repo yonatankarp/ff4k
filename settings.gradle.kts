@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 rootProject.name = "ff4k"
 
 include(
-    "ff4k-core",
+    "ff4k-bom",
     "ff4k-contract-test",
+    "ff4k-core",
 )

@@ -19,11 +19,13 @@ dependencies {
     // Code coverage
     subprojects
         .filter { it.name.startsWith("ff4k-") }
-        .filter { it.name.contains("test").not() }
+        .filter { "test" !in it.name }
+        .filter { "ff4k-bom" !in it.name }
         .forEach { kover(it) }
 
     // Documentation
     subprojects
         .filter { it.name.startsWith("ff4k-") }
+        .filter { "ff4k-bom" !in it.name }
         .forEach { dokka(it) }
 }

@@ -42,6 +42,7 @@ nav:
       - Custom Feature Store: extending/custom-feature-store.md
       - Custom Property Store: extending/custom-property-store.md
       - Custom Flipping Strategy: extending/custom-strategy.md
+  - Packages: packages.md
   - API Reference: api_reference.md
 
 markdown_extensions:

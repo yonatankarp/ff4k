@@ -3,11 +3,14 @@ package com.yonatankarp.ff4k.dsl.strategy
 import com.yonatankarp.ff4k.dsl.core.FF4kDsl
 import com.yonatankarp.ff4k.dsl.feature.FeatureBuilder
 import com.yonatankarp.ff4k.strategy.AllowListStrategy
+import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
+import com.yonatankarp.ff4k.strategy.WeekdayStrategy
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -312,6 +315,182 @@ fun FeatureBuilder.dateRangeStrategy(
         startDate = startDate.toInstant(timezone),
         endDate = endDate.toInstant(timezone),
     )
+}
+
+/**
+ * Configures a [DailyHoursStrategy] for this feature.
+ *
+ * The feature will be enabled only during the specified hours of the day.
+ * Hours are evaluated in the specified timezone.
+ *
+ * ## Example
+ *
+ * ```kotlin
+ * feature("business-hours-only") {
+ *     dailyHoursStrategy(
+ *         startHour = 9,
+ *         endHour = 17,
+ *         timeZone = TimeZone.of("America/New_York")
+ *     )
+ * }
+ * ```
+ *
+ * @param startHour The hour when the feature becomes enabled (0-23, inclusive).
+ * @param endHour The hour when the feature becomes disabled (1-24, exclusive).
+ * @param timezone The timezone to use for hour calculations. Defaults to UTC.
+ * @throws IllegalArgumentException if startHour is not in 0..23, endHour is not in 1..24,
+ *         or endHour is not greater than startHour.
+ * @see weekdayStrategy for day-of-week based enabling
+ */
+fun FeatureBuilder.dailyHoursStrategy(
+    startHour: Int,
+    endHour: Int,
+    timezone: TimeZone = TimeZone.UTC,
+) {
+    flippingStrategy = DailyHoursStrategy(startHour, endHour, timezone)
+}
+
+/**
+ * Configures a [WeekdayStrategy] for this feature using a DSL builder.
+ *
+ * The feature will be enabled only on the specified days of the week.
+ * Days are evaluated in the specified timezone.
+ *
+ * ## Example
+ *
+ * ```kotlin
+ * feature("weekday-only") {
+ *     weekdayStrategy(TimeZone.of("Europe/London")) {
+ *         +DayOfWeek.MONDAY
+ *         +DayOfWeek.TUESDAY
+ *         +DayOfWeek.WEDNESDAY
+ *         +DayOfWeek.THURSDAY
+ *         +DayOfWeek.FRIDAY
+ *     }
+ * }
+ * ```
+ *
+ * @param timezone The timezone to use for day calculations. Defaults to UTC.
+ * @param block A DSL block to configure the allowed days of the week.
+ * @see dailyHoursStrategy for hour-based enabling
+ */
+fun FeatureBuilder.weekdayStrategy(
+    timezone: TimeZone = TimeZone.UTC,
+    block: WeekdayBuilder.() -> Unit,
+) {
+    val days = WeekdayBuilder().apply(block).build()
+    flippingStrategy = WeekdayStrategy(days, timezone)
+}
+
+/**
+ * DSL builder for constructing a set of [DayOfWeek] used by [WeekdayStrategy].
+ *
+ * Provides multiple ways to add days:
+ * - Unary plus operator: `+DayOfWeek.MONDAY`
+ * - [add] function: `add(DayOfWeek.MONDAY)`
+ * - [addAll] function: `addAll(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)`
+ * - Convenience functions: [weekdays], [weekends], [allDays]
+ *
+ * @see weekdayStrategy
+ */
+@FF4kDsl
+class WeekdayBuilder {
+    private val days = mutableSetOf<DayOfWeek>()
+
+    /**
+     * Adds this day to the allowed days.
+     *
+     * ## Example
+     *
+     * ```kotlin
+     * weekdayStrategy {
+     *     +DayOfWeek.MONDAY
+     *     +DayOfWeek.FRIDAY
+     * }
+     * ```
+     */
+    operator fun DayOfWeek.unaryPlus() {
+        days.add(this)
+    }
+
+    /**
+     * Adds a day to the allowed days.
+     *
+     * @param day The day to add.
+     */
+    fun add(day: DayOfWeek) {
+        days.add(day)
+    }
+
+    /**
+     * Adds multiple days to the allowed days.
+     *
+     * @param days The days to add.
+     */
+    fun addAll(vararg days: DayOfWeek) {
+        this.days.addAll(days)
+    }
+
+    /**
+     * Adds all weekdays (Monday through Friday) to the allowed days.
+     *
+     * ## Example
+     *
+     * ```kotlin
+     * feature("workday-feature") {
+     *     weekdayStrategy {
+     *         weekdays() // Monday through Friday
+     *     }
+     * }
+     * ```
+     */
+    fun weekdays() {
+        days.addAll(
+            listOf(
+                DayOfWeek.MONDAY,
+                DayOfWeek.TUESDAY,
+                DayOfWeek.WEDNESDAY,
+                DayOfWeek.THURSDAY,
+                DayOfWeek.FRIDAY,
+            ),
+        )
+    }
+
+    /**
+     * Adds weekend days (Saturday and Sunday) to the allowed days.
+     *
+     * ## Example
+     *
+     * ```kotlin
+     * feature("weekend-promo") {
+     *     weekdayStrategy {
+     *         weekends() // Saturday and Sunday
+     *     }
+     * }
+     * ```
+     */
+    fun weekends() {
+        days.addAll(listOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY))
+    }
+
+    /**
+     * Adds all days of the week to the allowed days.
+     *
+     * ## Example
+     *
+     * ```kotlin
+     * feature("always-available") {
+     *     weekdayStrategy {
+     *         allDays() // All seven days
+     *     }
+     * }
+     * ```
+     */
+    fun allDays() {
+        days.addAll(DayOfWeek.entries)
+    }
+
+    internal fun build(): Set<DayOfWeek> = days.toSet()
 }
 
 /**

@@ -2,15 +2,18 @@ package com.yonatankarp.ff4k.dsl.strategy
 
 import com.yonatankarp.ff4k.dsl.feature.feature
 import com.yonatankarp.ff4k.strategy.AllowListStrategy
+import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
+import com.yonatankarp.ff4k.strategy.WeekdayStrategy
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -253,6 +256,119 @@ internal class StrategyDslTest :
                 val strategy = feature.flippingStrategy
                 strategy.startDate shouldBe start.toInstant(timezone)
                 strategy.endDate shouldBe end.toInstant(timezone)
+            }
+        }
+
+        context("dailyHoursStrategy") {
+            test("sets DailyHoursStrategy") {
+                val startHour = 9
+                val endHour = 17
+                val timezone = TimeZone.of("Europe/Paris")
+
+                val feature = feature("test") {
+                    dailyHoursStrategy(startHour, endHour, timezone)
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<DailyHoursStrategy>()
+                val strategy = feature.flippingStrategy
+                strategy.startHour shouldBe startHour
+                strategy.endHour shouldBe endHour
+                strategy.timezone shouldBe timezone
+            }
+        }
+
+        context("weekdayStrategy") {
+            test("sets WeekdayStrategy with unary plus operator") {
+                val timezone = TimeZone.of("Asia/Tokyo")
+                val feature = feature("test") {
+                    weekdayStrategy(timezone) {
+                        +DayOfWeek.MONDAY
+                        +DayOfWeek.FRIDAY
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                val strategy = feature.flippingStrategy
+                strategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
+                strategy.timezone shouldBe timezone
+            }
+
+            test("sets WeekdayStrategy with add function") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        add(DayOfWeek.TUESDAY)
+                        add(DayOfWeek.THURSDAY)
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY)
+            }
+
+            test("sets WeekdayStrategy with addAll function") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        addAll(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
+            }
+
+            test("sets WeekdayStrategy with weekdays() helper") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        weekdays()
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(
+                    DayOfWeek.MONDAY,
+                    DayOfWeek.TUESDAY,
+                    DayOfWeek.WEDNESDAY,
+                    DayOfWeek.THURSDAY,
+                    DayOfWeek.FRIDAY,
+                )
+            }
+
+            test("sets WeekdayStrategy with weekends() helper") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        weekends()
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
+            }
+
+            test("sets WeekdayStrategy with allDays() helper") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        allDays()
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder DayOfWeek.entries.toSet()
+            }
+
+            test("sets WeekdayStrategy with mixed methods") {
+                val feature = feature("test") {
+                    weekdayStrategy {
+                        +DayOfWeek.MONDAY
+                        weekends()
+                    }
+                }
+
+                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(
+                    DayOfWeek.MONDAY,
+                    DayOfWeek.SATURDAY,
+                    DayOfWeek.SUNDAY,
+                )
             }
         }
     })

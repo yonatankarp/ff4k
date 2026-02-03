@@ -177,6 +177,72 @@ feature("summer-promo") {
 }
 ```
 
+### DailyHoursStrategy
+
+Enables a feature only during specific hours of the day. The feature is enabled when the current
+hour is within the specified range: `[startHour, endHour)` (start inclusive, end exclusive).
+
+Useful for features that should only be available during business hours, off-peak times,
+or any recurring daily time window.
+
+```kotlin
+// Enable feature from 9 AM to 5 PM UTC
+feature("business-hours") {
+    dailyHoursStrategy(
+        startHour = 9,
+        endHour = 17
+    )
+}
+
+// Enable feature during off-peak hours (10 PM to 00 AM) in a specific timezone
+feature("off-peak-processing") {
+    dailyHoursStrategy(
+        startHour = 22,
+        endHour = 24,
+        timezone = TimeZone.of("America/New_York")
+    )
+}
+```
+
+### WeekdayStrategy
+
+Enables a feature only on specific days of the week. The feature is enabled when the current
+day matches one of the allowed days.
+
+Useful for features that should only be available on certain days, such as weekday-only
+features, weekend promotions, or scheduled maintenance windows.
+
+```kotlin
+// Enable feature on weekdays only
+feature("weekday-feature") {
+    weekdayStrategy {
+        weekdays() // Monday through Friday
+    }
+}
+
+// Enable feature on weekends only
+feature("weekend-promo") {
+    weekdayStrategy {
+        weekends() // Saturday and Sunday
+    }
+}
+
+// Enable feature on specific days
+feature("tuesday-thursday") {
+    weekdayStrategy(TimeZone.of("Europe/London")) {
+        +DayOfWeek.TUESDAY
+        +DayOfWeek.THURSDAY
+    }
+}
+
+// Enable feature every day (useful when combined with other strategies)
+feature("all-week") {
+    weekdayStrategy {
+        allDays()
+    }
+}
+```
+
 ## Composite Strategies
 
 Combine multiple strategies using logical operators.

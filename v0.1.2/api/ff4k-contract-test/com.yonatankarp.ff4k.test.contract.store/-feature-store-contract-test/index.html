@@ -1,0 +1,1155 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FeatureStoreContractTest</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    ff4k
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.1.0-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-contract-test/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ff4k-contract-test/commonMain" data-filter=":ff4k-contract-test/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ff4k
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-contract-test::com.yonatankarp.ff4k.test.contract.store/FeatureStoreContractTest///PointingToDeclaration//-1943998686">
+  <div class="breadcrumbs"><a href="../../index.html">ff4k-contract-test</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.test.contract.store</a><span class="delimiter">/</span><span class="current">FeatureStoreContractTest</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Feature</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">FeatureStoreContractTest</a> : <span data-unresolved-link="io.kotest.core.spec.style/FunSpec///PointingToDeclaration/">FunSpec</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-contract-test/src/commonMain/kotlin/com/yonatankarp/ff4k/test/contract/store/FeatureStoreContractTest.kt#L32">source</a>)</span></span></div><p class="paragraph">Abstract contract test for <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature-store/index.html">FeatureStore</a> implementations.</p><p class="paragraph">This abstract class defines a comprehensive test suite that all FeatureStore implementations must pass. It implements all specific contract test interfaces:</p><ul><li><p class="paragraph"><span data-unresolved-link="com.yonatankarp.ff4k.test.contract.store.feature//featureStoreCrudTests/io.kotest.core.spec.style.FunSpec#kotlin.coroutines.SuspendFunction0[com.yonatankarp.ff4k.core.FeatureStore]/PointingToDeclaration/">featureStoreCrudTests</span></p></li><li><p class="paragraph"><span data-unresolved-link="com.yonatankarp.ff4k.test.contract.store.feature//featureStoreGroupTests/io.kotest.core.spec.style.FunSpec#kotlin.coroutines.SuspendFunction0[com.yonatankarp.ff4k.core.FeatureStore]/PointingToDeclaration/">featureStoreGroupTests</span></p></li><li><p class="paragraph"><span data-unresolved-link="com.yonatankarp.ff4k.test.contract.store.feature//featureStorePermissionTests/io.kotest.core.spec.style.FunSpec#kotlin.coroutines.SuspendFunction0[com.yonatankarp.ff4k.core.FeatureStore]/PointingToDeclaration/">featureStorePermissionTests</span></p></li><li><p class="paragraph"><span data-unresolved-link="com.yonatankarp.ff4k.test.contract.store.feature//featureStoreConcurrencyTests/io.kotest.core.spec.style.FunSpec#kotlin.coroutines.SuspendFunction0[com.yonatankarp.ff4k.core.FeatureStore]/PointingToDeclaration/">featureStoreConcurrencyTests</span></p></li></ul><p class="paragraph">To use this contract test, extend this class and implement the <a href="create-store.html">createStore</a> method:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class InMemoryFeatureStoreTest : FeatureStoreContractTest() {<br>    override suspend fun createStore(): FeatureStore = InMemoryFeatureStore()<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Yonatan Karp-Rudin (@yonatankarp)</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="2084308292%2FConstructors%2F-1943998686" anchor-label="FeatureStoreContractTest" id="2084308292%2FConstructors%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-feature-store-contract-test.html"><span>Feature</span><wbr><span>Store</span><wbr><span>Contract</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2084308292%2FConstructors%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-903273535%2FProperties%2F-1943998686" anchor-label="assertions" id="-903273535%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-903273535%2FProperties%2F-1943998686"><span><span>assertions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-903273535%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-903273535%2FProperties%2F-1943998686">assertions</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/AssertionMode///PointingToDeclaration/">AssertionMode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-469419115%2FProperties%2F-1943998686" anchor-label="assertSoftly" id="-469419115%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-469419115%2FProperties%2F-1943998686"><span>assert</span><wbr><span><span>Softly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-469419115%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-469419115%2FProperties%2F-1943998686">assertSoftly</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1109722295%2FProperties%2F-1943998686" anchor-label="blockingTest" id="1109722295%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1109722295%2FProperties%2F-1943998686"><span>blocking</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1109722295%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1109722295%2FProperties%2F-1943998686">blockingTest</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1608059369%2FProperties%2F-1943998686" anchor-label="concurrency" id="1608059369%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1608059369%2FFunctions%2F-1943998686"><span><span>concurrency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1608059369%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1608059369%2FFunctions%2F-1943998686">concurrency</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="337488128%2FProperties%2F-1943998686" anchor-label="coroutineDebugProbes" id="337488128%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#337488128%2FProperties%2F-1943998686"><span>coroutine</span><wbr><span>Debug</span><wbr><span><span>Probes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="337488128%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#337488128%2FProperties%2F-1943998686">coroutineDebugProbes</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-335339149%2FProperties%2F-1943998686" anchor-label="coroutineDispatcherFactory" id="-335339149%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-335339149%2FFunctions%2F-1943998686"><span>coroutine</span><wbr><span>Dispatcher</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-335339149%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-335339149%2FFunctions%2F-1943998686">coroutineDispatcherFactory</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.concurrency/CoroutineDispatcherFactory///PointingToDeclaration/">CoroutineDispatcherFactory</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-575355180%2FProperties%2F-1943998686" anchor-label="coroutineTestScope" id="-575355180%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-575355180%2FProperties%2F-1943998686"><span>coroutine</span><wbr><span>Test</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-575355180%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-575355180%2FProperties%2F-1943998686">coroutineTestScope</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="732610451%2FProperties%2F-1943998686" anchor-label="defaultTestConfig" id="732610451%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#732610451%2FProperties%2F-1943998686"><span>default</span><wbr><span>Test</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="732610451%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#732610451%2FProperties%2F-1943998686"><strike>defaultTestConfig</strike></a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test.config/TestCaseConfig///PointingToDeclaration/">TestCaseConfig</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="967441007%2FProperties%2F-1943998686" anchor-label="dispatcherAffinity" id="967441007%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#967441007%2FFunctions%2F-1943998686"><span>dispatcher</span><wbr><span><span>Affinity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967441007%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#967441007%2FFunctions%2F-1943998686">dispatcherAffinity</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-254083183%2FProperties%2F-1943998686" anchor-label="duplicateTestNameMode" id="-254083183%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-254083183%2FProperties%2F-1943998686"><span>duplicate</span><wbr><span>Test</span><wbr><span>Name</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-254083183%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-254083183%2FProperties%2F-1943998686">duplicateTestNameMode</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.names/DuplicateTestNameMode///PointingToDeclaration/">DuplicateTestNameMode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1052371588%2FProperties%2F-1943998686" anchor-label="failfast" id="1052371588%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1052371588%2FProperties%2F-1943998686"><span><span>failfast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1052371588%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1052371588%2FProperties%2F-1943998686">failfast</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1543059125%2FProperties%2F-1943998686" anchor-label="invocationTimeout" id="-1543059125%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1543059125%2FFunctions%2F-1943998686"><span>invocation</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1543059125%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1543059125%2FFunctions%2F-1943998686">invocationTimeout</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-209763861%2FProperties%2F-1943998686" anchor-label="isolationMode" id="-209763861%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-209763861%2FFunctions%2F-1943998686"><span>isolation</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-209763861%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-209763861%2FFunctions%2F-1943998686">isolationMode</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/IsolationMode///PointingToDeclaration/">IsolationMode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2023779999%2FProperties%2F-1943998686" anchor-label="severity" id="-2023779999%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-2023779999%2FProperties%2F-1943998686"><span><span>severity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2023779999%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-2023779999%2FProperties%2F-1943998686">severity</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCaseSeverityLevel///PointingToDeclaration/">TestCaseSeverityLevel</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1742905999%2FProperties%2F-1943998686" anchor-label="testCoroutineDispatcher" id="1742905999%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1742905999%2FProperties%2F-1943998686"><span>test</span><wbr><span>Coroutine</span><wbr><span><span>Dispatcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1742905999%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1742905999%2FProperties%2F-1943998686"><strike>testCoroutineDispatcher</strike></a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1930754944%2FProperties%2F-1943998686" anchor-label="testOrder" id="1930754944%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1930754944%2FProperties%2F-1943998686"><span>test</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1930754944%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1930754944%2FProperties%2F-1943998686">testOrder</a><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCaseOrder///PointingToDeclaration/">TestCaseOrder</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2107429395%2FProperties%2F-1943998686" anchor-label="threads" id="2107429395%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#2107429395%2FFunctions%2F-1943998686"><span><span>threads</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2107429395%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#2107429395%2FFunctions%2F-1943998686">threads</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1966074021%2FProperties%2F-1943998686" anchor-label="timeout" id="-1966074021%2FProperties%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1966074021%2FFunctions%2F-1943998686"><span><span>timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1966074021%2FProperties%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1966074021%2FFunctions%2F-1943998686">timeout</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1999980164%2FFunctions%2F-1943998686" anchor-label="add" id="-1999980164%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1999980164%2FFunctions%2F-1943998686"><span><span>add</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1999980164%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1999980164%2FFunctions%2F-1943998686"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">test<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/RootTest///PointingToDeclaration/">RootTest</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2139317456%2FFunctions%2F-1943998686" anchor-label="afterAny" id="-2139317456%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1547740728%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Any</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2139317456%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1547740728%2FFunctions%2F-1943998686"><span class="token function">afterAny</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#136674436%2FFunctions%2F-1943998686"><span class="token function">afterAny</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span></span><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-660233968%2FFunctions%2F-1943998686" anchor-label="afterContainer" id="-660233968%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1960575549%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Container</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-660233968%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1960575549%2FFunctions%2F-1943998686"><span class="token function">afterContainer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#758535257%2FFunctions%2F-1943998686"><span class="token function">afterContainer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span></span><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-806760710%2FFunctions%2F-1943998686" anchor-label="afterEach" id="-806760710%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1014745089%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Each</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-806760710%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1014745089%2FFunctions%2F-1943998686"><span class="token function">afterEach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-742374221%2FFunctions%2F-1943998686"><span class="token function">afterEach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span></span><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="210246118%2FFunctions%2F-1943998686" anchor-label="afterInvocation" id="210246118%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#210246118%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Invocation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="210246118%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#210246118%2FFunctions%2F-1943998686"><span class="token function">afterInvocation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="32903022%2FFunctions%2F-1943998686" anchor-label="afterProject" id="32903022%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#32903022%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Project</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="32903022%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#32903022%2FFunctions%2F-1943998686"><span class="token function">afterProject</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/AfterProject///PointingToDeclaration/">AfterProject</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="111141418%2FFunctions%2F-1943998686" anchor-label="afterSpec" id="111141418%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-468334506%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Spec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="111141418%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-468334506%2FFunctions%2F-1943998686"><span class="token function">afterSpec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">spec<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1229631156%2FFunctions%2F-1943998686"><span class="token function">afterSpec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1068324076%2FFunctions%2F-1943998686" anchor-label="afterTest" id="1068324076%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1115432156%2FFunctions%2F-1943998686"><span>after</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1068324076%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1115432156%2FFunctions%2F-1943998686"><span class="token function">afterTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1247554756%2FFunctions%2F-1943998686"><span class="token function">afterTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span></span><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="281443410%2FFunctions%2F-1943998686" anchor-label="appliedTags" id="281443410%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#281443410%2FFunctions%2F-1943998686"><span>applied</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281443410%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#281443410%2FFunctions%2F-1943998686"><span class="token function">appliedTags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core/Tag///PointingToDeclaration/">Tag</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="785363173%2FFunctions%2F-1943998686" anchor-label="aroundSpec" id="785363173%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#785363173%2FFunctions%2F-1943998686"><span>around</span><wbr><span><span>Spec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="785363173%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#785363173%2FFunctions%2F-1943998686"><span class="token function"><strike>aroundSpec</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">aroundSpecFn<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1698503286%2FFunctions%2F-1943998686" anchor-label="aroundTest" id="-1698503286%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1698503286%2FFunctions%2F-1943998686"><span>around</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1698503286%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1698503286%2FFunctions%2F-1943998686"><span class="token function">aroundTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">aroundTestFn<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-115997129%2FFunctions%2F-1943998686" anchor-label="assertionMode" id="-115997129%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-115997129%2FFunctions%2F-1943998686"><span>assertion</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-115997129%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-115997129%2FFunctions%2F-1943998686"><span class="token function">assertionMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/AssertionMode///PointingToDeclaration/">AssertionMode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1603124585%2FFunctions%2F-1943998686" anchor-label="autoClose" id="-1603124585%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#786730832%2FFunctions%2F-1943998686"><span>auto</span><wbr><span><span>Close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1603124585%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#786730832%2FFunctions%2F-1943998686">T</a><span class="token operator"> : </span><span data-unresolved-link="io.kotest.core.spec/AutoCloseable///PointingToDeclaration/">AutoCloseable</span><span class="token operator">&gt; </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#786730832%2FFunctions%2F-1943998686"><span class="token function">autoClose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closeable<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#786730832%2FFunctions%2F-1943998686">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#786730832%2FFunctions%2F-1943998686">T</a></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1636968667%2FFunctions%2F-1943998686">T</a><span class="token operator"> : </span><span data-unresolved-link="io.kotest.core.spec/AutoCloseable///PointingToDeclaration/">AutoCloseable</span><span class="token operator">&gt; </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1636968667%2FFunctions%2F-1943998686"><span class="token function">autoClose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closeable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1636968667%2FFunctions%2F-1943998686">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1636968667%2FFunctions%2F-1943998686">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="605016950%2FFunctions%2F-1943998686" anchor-label="beforeAny" id="605016950%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1851449574%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Any</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="605016950%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1851449574%2FFunctions%2F-1943998686"><span class="token function">beforeAny</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#940017072%2FFunctions%2F-1943998686"><span class="token function">beforeAny</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="666705686%2FFunctions%2F-1943998686" anchor-label="beforeContainer" id="666705686%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1596196389%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Container</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="666705686%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1596196389%2FFunctions%2F-1943998686"><span class="token function">beforeContainer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1269235781%2FFunctions%2F-1943998686"><span class="token function">beforeContainer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1170415428%2FFunctions%2F-1943998686" anchor-label="beforeEach" id="1170415428%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1986061201%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Each</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1170415428%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1986061201%2FFunctions%2F-1943998686"><span class="token function">beforeEach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-174575617%2FFunctions%2F-1943998686"><span class="token function">beforeEach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1033982401%2FFunctions%2F-1943998686" anchor-label="beforeInvocation" id="-1033982401%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1033982401%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Invocation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1033982401%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1033982401%2FFunctions%2F-1943998686"><span class="token function">beforeInvocation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1308283472%2FFunctions%2F-1943998686" anchor-label="beforeSpec" id="1308283472%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-516232345%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Spec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1308283472%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-516232345%2FFunctions%2F-1943998686"><span class="token function">beforeSpec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1683292107%2FFunctions%2F-1943998686"><span class="token function">beforeSpec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">spec<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="879257806%2FFunctions%2F-1943998686" anchor-label="beforeTest" id="879257806%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-55753202%2FFunctions%2F-1943998686"><span>before</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="879257806%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-55753202%2FFunctions%2F-1943998686"><span class="token function">beforeTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">testCase<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1647465780%2FFunctions%2F-1943998686"><span class="token function">beforeTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1608059369%2FFunctions%2F-1943998686" anchor-label="concurrency" id="1608059369%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1608059369%2FFunctions%2F-1943998686"><span><span>concurrency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1608059369%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1608059369%2FFunctions%2F-1943998686"><span class="token function">concurrency</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1144894266%2FFunctions%2F-1943998686" anchor-label="context" id="1144894266%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-931840898%2FFunctions%2F-1943998686"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1144894266%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-931840898%2FFunctions%2F-1943998686"><span class="token function">context</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/RootContainerWithConfigBuilder///PointingToDeclaration/">RootContainerWithConfigBuilder</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.spec.style.scopes/FunSpecContainerScope///PointingToDeclaration/">FunSpecContainerScope</span><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1854742352%2FFunctions%2F-1943998686"><span class="token function">context</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token keyword">suspend </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/FunSpecContainerScope///PointingToDeclaration/">FunSpecContainerScope</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-335339149%2FFunctions%2F-1943998686" anchor-label="coroutineDispatcherFactory" id="-335339149%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-335339149%2FFunctions%2F-1943998686"><span>coroutine</span><wbr><span>Dispatcher</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-335339149%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-335339149%2FFunctions%2F-1943998686"><span class="token function">coroutineDispatcherFactory</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.concurrency/CoroutineDispatcherFactory///PointingToDeclaration/">CoroutineDispatcherFactory</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-94180446%2FFunctions%2F-1943998686" anchor-label="createStore" id="-94180446%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-store.html"><span>create</span><wbr><span><span>Store</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-94180446%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="create-store.html"><span class="token function">createStore</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature-store/index.html">FeatureStore</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1208186473%2FFunctions%2F-1943998686" anchor-label="defaultTestCaseConfig" id="-1208186473%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1208186473%2FFunctions%2F-1943998686"><span>default</span><wbr><span>Test</span><wbr><span>Case</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1208186473%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1208186473%2FFunctions%2F-1943998686"><span class="token function"><strike>defaultTestCaseConfig</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test.config/TestCaseConfig///PointingToDeclaration/">TestCaseConfig</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="967441007%2FFunctions%2F-1943998686" anchor-label="dispatcherAffinity" id="967441007%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#967441007%2FFunctions%2F-1943998686"><span>dispatcher</span><wbr><span><span>Affinity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967441007%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#967441007%2FFunctions%2F-1943998686"><span class="token function">dispatcherAffinity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1799513083%2FFunctions%2F-1943998686" anchor-label="extension" id="1799513083%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1270485135%2FFunctions%2F-1943998686"><span><span>extension</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1799513083%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1270485135%2FFunctions%2F-1943998686">T</a><span class="token operator"> : </span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt; </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1270485135%2FFunctions%2F-1943998686"><span class="token function">extension</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extension<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1270485135%2FFunctions%2F-1943998686">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1270485135%2FFunctions%2F-1943998686">T</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-625111808%2FFunctions%2F-1943998686"><span class="token function">extension</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2086363676%2FFunctions%2F-1943998686" anchor-label="extensions" id="-2086363676%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1426228288%2FFunctions%2F-1943998686"><span><span>extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2086363676%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1426228288%2FFunctions%2F-1943998686"><span class="token function">extensions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>extensions<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1743402674%2FFunctions%2F-1943998686"><span class="token function">extensions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extensions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#753161194%2FFunctions%2F-1943998686"><span class="token function">extensions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="483870928%2FFunctions%2F-1943998686" anchor-label="finalizeSpec" id="483870928%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#483870928%2FFunctions%2F-1943998686"><span>finalize</span><wbr><span><span>Spec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="483870928%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#483870928%2FFunctions%2F-1943998686"><span class="token function">finalizeSpec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span data-unresolved-link="io.kotest.core/Tuple2///PointingToDeclaration/">Tuple2</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><span data-unresolved-link="io.kotest.core.spec/Spec///PointingToDeclaration/">Spec</span><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.test/TestCase///PointingToDeclaration/">TestCase</span><span class="token punctuation">, </span><span data-unresolved-link="io.kotest.core.test/TestResult///PointingToDeclaration/">TestResult</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1081396766%2FFunctions%2F-1943998686" anchor-label="globalExtensions" id="1081396766%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1081396766%2FFunctions%2F-1943998686"><span>global</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1081396766%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1081396766%2FFunctions%2F-1943998686"><span class="token function">globalExtensions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-14288961%2FFunctions%2F-1943998686" anchor-label="include" id="-14288961%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#340185448%2FFunctions%2F-1943998686"><span><span>include</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-14288961%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#340185448%2FFunctions%2F-1943998686"><span class="token function">include</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factory<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.factory/TestFactory///PointingToDeclaration/">TestFactory</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1076090397%2FFunctions%2F-1943998686"><span class="token function">include</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">prefix<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">factory<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.factory/TestFactory///PointingToDeclaration/">TestFactory</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1543059125%2FFunctions%2F-1943998686" anchor-label="invocationTimeout" id="-1543059125%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1543059125%2FFunctions%2F-1943998686"><span>invocation</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1543059125%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1543059125%2FFunctions%2F-1943998686"><span class="token function">invocationTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-209763861%2FFunctions%2F-1943998686" anchor-label="isolationMode" id="-209763861%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-209763861%2FFunctions%2F-1943998686"><span>isolation</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-209763861%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-209763861%2FFunctions%2F-1943998686"><span class="token function">isolationMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec/IsolationMode///PointingToDeclaration/">IsolationMode</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-718864244%2FFunctions%2F-1943998686" anchor-label="listener" id="-718864244%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-718864244%2FFunctions%2F-1943998686"><span><span>listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-718864244%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-718864244%2FFunctions%2F-1943998686">T</a><span class="token operator"> : </span><span data-unresolved-link="io.kotest.core.listeners/TestListener///PointingToDeclaration/">TestListener</span><span class="token operator">&gt; </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-718864244%2FFunctions%2F-1943998686"><span class="token function">listener</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">listener<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-718864244%2FFunctions%2F-1943998686">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-718864244%2FFunctions%2F-1943998686">T</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="827343679%2FFunctions%2F-1943998686" anchor-label="listeners" id="827343679%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1908000859%2FFunctions%2F-1943998686"><span><span>listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="827343679%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1908000859%2FFunctions%2F-1943998686"><span class="token function">listeners</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>listeners<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.listeners/TestListener///PointingToDeclaration/">TestListener</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1561031497%2FFunctions%2F-1943998686"><span class="token function">listeners</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">listeners<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.listeners/TestListener///PointingToDeclaration/">TestListener</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-959107971%2FFunctions%2F-1943998686"><span class="token function">listeners</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.listeners/TestListener///PointingToDeclaration/">TestListener</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-784223555%2FFunctions%2F-1943998686" anchor-label="prependExtension" id="-784223555%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-784223555%2FFunctions%2F-1943998686"><span>prepend</span><wbr><span><span>Extension</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-784223555%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-784223555%2FFunctions%2F-1943998686"><span class="token function">prependExtension</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extension<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1555743722%2FFunctions%2F-1943998686" anchor-label="prependExtensions" id="-1555743722%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1555743722%2FFunctions%2F-1943998686"><span>prepend</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1555743722%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1555743722%2FFunctions%2F-1943998686"><span class="token function">prependExtensions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extensions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="571351251%2FFunctions%2F-1943998686" anchor-label="register" id="571351251%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1123447995%2FFunctions%2F-1943998686"><span><span>register</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="571351251%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1123447995%2FFunctions%2F-1943998686">T</a><span class="token operator"> : </span><span data-unresolved-link="io.kotest.core.listeners/TestListener///PointingToDeclaration/">TestListener</span><span class="token operator">&gt; </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1123447995%2FFunctions%2F-1943998686"><span class="token function">register</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extension<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1123447995%2FFunctions%2F-1943998686">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1123447995%2FFunctions%2F-1943998686">T</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1760344817%2FFunctions%2F-1943998686"><span class="token function">register</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>extensions<span class="token operator">: </span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1159151455%2FFunctions%2F-1943998686"><span class="token function">register</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extensions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1761867328%2FFunctions%2F-1943998686" anchor-label="registeredAutoCloseables" id="1761867328%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1761867328%2FFunctions%2F-1943998686"><span>registered</span><wbr><span>Auto</span><wbr><span><span>Closeables</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1761867328%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1761867328%2FFunctions%2F-1943998686"><span class="token function">registeredAutoCloseables</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.spec/AutoCloseable///PointingToDeclaration/">AutoCloseable</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1202043548%2FFunctions%2F-1943998686" anchor-label="registeredExtensions" id="1202043548%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1202043548%2FFunctions%2F-1943998686"><span>registered</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1202043548%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1202043548%2FFunctions%2F-1943998686"><span class="token function">registeredExtensions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.extensions/Extension///PointingToDeclaration/">Extension</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="580898470%2FFunctions%2F-1943998686" anchor-label="rootTests" id="580898470%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#580898470%2FFunctions%2F-1943998686"><span>root</span><wbr><span><span>Tests</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="580898470%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#580898470%2FFunctions%2F-1943998686"><span class="token function">rootTests</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.spec/RootTest///PointingToDeclaration/">RootTest</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2055778568%2FFunctions%2F-1943998686" anchor-label="seal" id="-2055778568%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-2055778568%2FFunctions%2F-1943998686"><span><span>seal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2055778568%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-2055778568%2FFunctions%2F-1943998686"><span class="token function">seal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-17347901%2FFunctions%2F-1943998686" anchor-label="setParentConfiguration" id="-17347901%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-17347901%2FFunctions%2F-1943998686"><span>set</span><wbr><span>Parent</span><wbr><span><span>Configuration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-17347901%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-17347901%2FFunctions%2F-1943998686"><span class="token function">setParentConfiguration</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">configuration<span class="token operator">: </span><span data-unresolved-link="io.kotest.core/TestConfiguration///PointingToDeclaration/">TestConfiguration</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-83780070%2FFunctions%2F-1943998686" anchor-label="tags" id="-83780070%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1163821471%2FFunctions%2F-1943998686"><span><span>tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-83780070%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1163821471%2FFunctions%2F-1943998686"><span class="token function">tags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>tags<span class="token operator">: </span><span data-unresolved-link="io.kotest.core/Tag///PointingToDeclaration/">Tag</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#502911045%2FFunctions%2F-1943998686"><span class="token function">tags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core/Tag///PointingToDeclaration/">Tag</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-96616178%2FFunctions%2F-1943998686" anchor-label="test" id="-96616178%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#310933201%2FFunctions%2F-1943998686"><span><span>test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-96616178%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#310933201%2FFunctions%2F-1943998686"><span class="token function">test</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/RootTestWithConfigBuilder///PointingToDeclaration/">RootTestWithConfigBuilder</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1089832823%2FFunctions%2F-1943998686"><span class="token function">test</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token keyword">suspend </span><span data-unresolved-link="io.kotest.core.test/TestScope///PointingToDeclaration/">TestScope</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-223199664%2FFunctions%2F-1943998686" anchor-label="testCaseOrder" id="-223199664%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-223199664%2FFunctions%2F-1943998686"><span>test</span><wbr><span>Case</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-223199664%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-223199664%2FFunctions%2F-1943998686"><span class="token function">testCaseOrder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.test/TestCaseOrder///PointingToDeclaration/">TestCaseOrder</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2107429395%2FFunctions%2F-1943998686" anchor-label="threads" id="2107429395%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#2107429395%2FFunctions%2F-1943998686"><span><span>threads</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2107429395%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#2107429395%2FFunctions%2F-1943998686"><span class="token function">threads</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1966074021%2FFunctions%2F-1943998686" anchor-label="timeout" id="-1966074021%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1966074021%2FFunctions%2F-1943998686"><span><span>timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1966074021%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1966074021%2FFunctions%2F-1943998686"><span class="token function">timeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="311303234%2FFunctions%2F-1943998686" anchor-label="xcontext" id="311303234%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-34627402%2FFunctions%2F-1943998686"><span><span>xcontext</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="311303234%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.kotest.common/ExperimentalKotest///PointingToDeclaration/"><span class="token annotation builtin">ExperimentalKotest</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-34627402%2FFunctions%2F-1943998686"><span class="token function">xcontext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/RootContainerWithConfigBuilder///PointingToDeclaration/">RootContainerWithConfigBuilder</span><span class="token operator">&lt;</span><span data-unresolved-link="io.kotest.core.spec.style.scopes/FunSpecContainerScope///PointingToDeclaration/">FunSpecContainerScope</span><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1381192680%2FFunctions%2F-1943998686"><span class="token function">xcontext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token keyword">suspend </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/FunSpecContainerScope///PointingToDeclaration/">FunSpecContainerScope</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1752082124%2FFunctions%2F-1943998686" anchor-label="xtest" id="-1752082124%2FFunctions%2F-1943998686" data-filterable-set=":ff4k-contract-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-contract-test/commonMain" data-filterable-set=":ff4k-contract-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1009466777%2FFunctions%2F-1943998686"><span><span>xtest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1752082124%2FFunctions%2F-1943998686"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-contract-test/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#1009466777%2FFunctions%2F-1943998686"><span class="token function">xtest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.kotest.core.spec.style.scopes/RootTestWithConfigBuilder///PointingToDeclaration/">RootTestWithConfigBuilder</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k.test.contract.strategy/-flipping-strategy-contract-test/index.html#-1944354479%2FFunctions%2F-1943998686"><span class="token function">xtest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token keyword">suspend </span><span data-unresolved-link="io.kotest.core.test/TestScope///PointingToDeclaration/">TestScope</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

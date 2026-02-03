@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/api_reference/">
+        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/packages/">
       
       
-        <link rel="prev" href="../packages/">
+        <link rel="prev" href="../extending/custom-strategy/">
       
+      
+        <link rel="next" href="../api_reference/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +24,7 @@
     
     
       
-        <title>API Reference - FF4K</title>
+        <title>Packages - FF4K</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#api-reference" class="md-skip">
+        <a href="#packages" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API Reference
+              Packages
             
           </span>
         </div>
@@ -270,9 +272,11 @@
         
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../packages/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
     
@@ -287,11 +291,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../api_reference/" class="md-tabs__link">
         
   
     
@@ -676,26 +678,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../packages/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Packages
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -712,12 +694,32 @@
         
   
   <span class="md-ellipsis">
-    API Reference
+    Packages
   </span>
   
 
       </a>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -758,9 +760,34 @@
   
 
 
-<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
-<p>The full API reference documentation is generated via Dokka.</p>
-<p><a href="../api/">Click here to view the API documentation</a></p>
+<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
+<p>FF4K is modularized into several packages to allow for flexible usage and extension.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Platform Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>ff4k-bom</code></strong></td>
+<td style="text-align: left;">The Bill of Materials (BOM) helps you manage versions of FF4K libraries. By importing the BOM, you ensure that all FF4K dependencies in your project use the same version.</td>
+<td style="text-align: left;"><img alt="Maven" src="https://img.shields.io/badge/-Maven%20BOM-C71A36?style=flat&amp;logo=apachemaven&amp;logoColor=white" /></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>ff4k-contract-test</code></strong></td>
+<td style="text-align: left;">Contains contract tests (like <code>FeatureStoreContractTest</code>) to verify that custom implementations of FF4K interfaces (e.g., custom Feature Stores) adhere to the expected behavior.</td>
+<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>ff4k-core</code></strong></td>
+<td style="text-align: left;">The core library containing the main API, configuration logic, default stores, and standard strategies. This is the primary dependency for using FF4K.</td>
+<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+</tr>
+</tbody>
+</table>
 
 
 

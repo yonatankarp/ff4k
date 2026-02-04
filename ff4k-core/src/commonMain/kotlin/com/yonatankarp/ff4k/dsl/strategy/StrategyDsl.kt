@@ -1,16 +1,17 @@
 package com.yonatankarp.ff4k.dsl.strategy
 
-import com.yonatankarp.ff4k.dsl.core.FF4kDsl
 import com.yonatankarp.ff4k.dsl.feature.FeatureBuilder
 import com.yonatankarp.ff4k.strategy.AllowListStrategy
+import com.yonatankarp.ff4k.strategy.ClientFilterStrategy
 import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.RegionFilterStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
+import com.yonatankarp.ff4k.strategy.ServerFilterStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import com.yonatankarp.ff4k.strategy.WeekdayStrategy
-import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -383,164 +384,89 @@ fun FeatureBuilder.weekdayStrategy(
 }
 
 /**
- * DSL builder for constructing a set of [DayOfWeek] used by [WeekdayStrategy].
+ * Configures a [ClientFilterStrategy] for this feature.
  *
- * Provides multiple ways to add days:
- * - Unary plus operator: `+DayOfWeek.MONDAY`
- * - [add] function: `add(DayOfWeek.MONDAY)`
- * - [addAll] function: `addAll(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)`
- * - Convenience functions: [weekdays], [weekends], [allDays]
+ * The feature will be enabled only for requests from the specified client
+ * hostnames. Requires [com.yonatankarp.ff4k.core.ContextKeys.CLIENT_HOSTNAME]
+ * to be set in the [com.yonatankarp.ff4k.core.FlippingExecutionContext].
  *
- * @see weekdayStrategy
+ * ## Example
+ *
+ * ```kotlin
+ * feature("internal-only") {
+ *     clientFilterStrategy {
+ *         +"client-a.internal.com"
+ *         +"client-b.internal.com"
+ *     }
+ * }
+ * ```
+ *
+ * @param block A DSL block to configure the set of allowed client hostnames.
+ * @see serverFilterStrategy
+ * @see regionStrategy
  */
-@FF4kDsl
-class WeekdayBuilder {
-    private val days = mutableSetOf<DayOfWeek>()
-
-    /**
-     * Adds this day to the allowed days.
-     *
-     * ## Example
-     *
-     * ```kotlin
-     * weekdayStrategy {
-     *     +DayOfWeek.MONDAY
-     *     +DayOfWeek.FRIDAY
-     * }
-     * ```
-     */
-    operator fun DayOfWeek.unaryPlus() {
-        days.add(this)
-    }
-
-    /**
-     * Adds a day to the allowed days.
-     *
-     * @param day The day to add.
-     */
-    fun add(day: DayOfWeek) {
-        days.add(day)
-    }
-
-    /**
-     * Adds multiple days to the allowed days.
-     *
-     * @param days The days to add.
-     */
-    fun addAll(vararg days: DayOfWeek) {
-        this.days.addAll(days)
-    }
-
-    /**
-     * Adds all weekdays (Monday through Friday) to the allowed days.
-     *
-     * ## Example
-     *
-     * ```kotlin
-     * feature("workday-feature") {
-     *     weekdayStrategy {
-     *         weekdays() // Monday through Friday
-     *     }
-     * }
-     * ```
-     */
-    fun weekdays() {
-        days.addAll(
-            listOf(
-                DayOfWeek.MONDAY,
-                DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY,
-                DayOfWeek.THURSDAY,
-                DayOfWeek.FRIDAY,
-            ),
-        )
-    }
-
-    /**
-     * Adds weekend days (Saturday and Sunday) to the allowed days.
-     *
-     * ## Example
-     *
-     * ```kotlin
-     * feature("weekend-promo") {
-     *     weekdayStrategy {
-     *         weekends() // Saturday and Sunday
-     *     }
-     * }
-     * ```
-     */
-    fun weekends() {
-        days.addAll(listOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY))
-    }
-
-    /**
-     * Adds all days of the week to the allowed days.
-     *
-     * ## Example
-     *
-     * ```kotlin
-     * feature("always-available") {
-     *     weekdayStrategy {
-     *         allDays() // All seven days
-     *     }
-     * }
-     * ```
-     */
-    fun allDays() {
-        days.addAll(DayOfWeek.entries)
-    }
-
-    internal fun build(): Set<DayOfWeek> = days.toSet()
+fun FeatureBuilder.clientFilterStrategy(
+    block: ListBuilder.() -> Unit,
+) {
+    val grantedClients = ListBuilder().apply(block).build()
+    flippingStrategy = ClientFilterStrategy(grantedClients)
 }
 
 /**
- * DSL builder for constructing a set of identifiers used by list-based strategies.
+ * Configures a [ServerFilterStrategy] for this feature.
  *
- * Provides multiple ways to add identifiers:
- * - Unary plus operator: `+"identifier"`
- * - [add] function: `add("identifier")`
- * - [addAll] function: `addAll("id1", "id2", "id3")`
+ * The feature will be enabled only on the specified server hostnames.
+ * Useful for canary deployments or instance-specific feature toggles.
+ * Requires [com.yonatankarp.ff4k.core.ContextKeys.SERVER_HOSTNAME]
+ * to be set in the [com.yonatankarp.ff4k.core.FlippingExecutionContext].
  *
- * @see allowListStrategy
- * @see denyListStrategy
+ * ## Example
+ *
+ * ```kotlin
+ * feature("canary-feature") {
+ *     serverFilterStrategy {
+ *         +"server-1.prod.com"
+ *         +"server-2.prod.com"
+ *     }
+ * }
+ * ```
+ *
+ * @param block A DSL block to configure the set of target server hostnames.
+ * @see clientFilterStrategy
+ * @see regionStrategy
  */
-@FF4kDsl
-class ListBuilder {
-    private val identifiers = mutableSetOf<String>()
+fun FeatureBuilder.serverFilterStrategy(
+    block: ListBuilder.() -> Unit,
+) {
+    val targetServers = ListBuilder().apply(block).build()
+    flippingStrategy = ServerFilterStrategy(targetServers)
+}
 
-    /**
-     * Adds this string as an identifier to the list.
-     *
-     * ## Example
-     *
-     * ```kotlin
-     * allowListStrategy {
-     *     +"user-123"
-     *     +"user-456"
-     * }
-     * ```
-     */
-    operator fun String.unaryPlus() {
-        identifiers.add(this)
-    }
-
-    /**
-     * Adds an identifier to the list.
-     *
-     * @param identifier The identifier to add.
-     */
-    fun add(identifier: String) {
-        identifiers.add(identifier)
-    }
-
-    /**
-     * Adds multiple identifiers to the list.
-     *
-     * @param identifiers The identifiers to add.
-     */
-    fun addAll(vararg identifiers: String) {
-        this.identifiers.addAll(identifiers)
-    }
-
-    internal fun build(): Set<String> = identifiers.toSet()
+/**
+ * Configures a [RegionFilterStrategy] for this feature.
+ *
+ * The feature will be enabled only for the specified geographic regions.
+ * Requires [com.yonatankarp.ff4k.core.ContextKeys.REGION] to be set in the
+ * [com.yonatankarp.ff4k.core.FlippingExecutionContext].
+ *
+ * ## Example
+ *
+ * ```kotlin
+ * feature("eu-only") {
+ *     regionStrategy {
+ *         +"eu-central-1"
+ *         +"eu-west-1"
+ *     }
+ * }
+ * ```
+ *
+ * @param block A DSL block to configure the set of allowed regions.
+ * @see clientFilterStrategy
+ * @see serverFilterStrategy
+ */
+fun FeatureBuilder.regionStrategy(
+    block: ListBuilder.() -> Unit,
+) {
+    val allowedRegions = ListBuilder().apply(block).build()
+    flippingStrategy = RegionFilterStrategy(allowedRegions)
 }

@@ -42,4 +42,17 @@ object ContextKeys {
      * Useful for environment-specific feature toggles.
      */
     const val ENVIRONMENT = "environment"
+
+    /**
+     * Key for the client hostname making the request.
+     * Used by [ClientFilterStrategy] for client-based feature filtering.
+     */
+    const val CLIENT_HOSTNAME = "clientHostname"
+
+    /**
+     * Key for the server hostname handling the request.
+     * Used by [ServerFilterStrategy] for server-based feature filtering,
+     * useful for canary deployments or instance-specific features.
+     */
+    const val SERVER_HOSTNAME = "serverHostname"
 }

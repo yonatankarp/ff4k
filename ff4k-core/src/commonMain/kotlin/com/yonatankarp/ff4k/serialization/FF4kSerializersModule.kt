@@ -21,13 +21,16 @@ import com.yonatankarp.ff4k.strategy.AllowListStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysFalseFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AlwaysTrueFlippingStrategy
 import com.yonatankarp.ff4k.strategy.AndStrategy
+import com.yonatankarp.ff4k.strategy.ClientFilterStrategy
 import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.NotStrategy
 import com.yonatankarp.ff4k.strategy.OrStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.RegionFilterStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
+import com.yonatankarp.ff4k.strategy.ServerFilterStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import com.yonatankarp.ff4k.strategy.WeekdayStrategy
 import kotlinx.serialization.json.Json
@@ -67,6 +70,9 @@ val ff4kSerializersModule = SerializersModule {
         subclass(DateRangeStrategy::class, DateRangeStrategy.serializer())
         subclass(DailyHoursStrategy::class, DailyHoursStrategy.serializer())
         subclass(WeekdayStrategy::class, WeekdayStrategy.serializer())
+        subclass(RegionFilterStrategy::class, RegionFilterStrategy.serializer())
+        subclass(ClientFilterStrategy::class, ClientFilterStrategy.serializer())
+        subclass(ServerFilterStrategy::class, ServerFilterStrategy.serializer())
     }
 } + humanReadableSerializerModule
 

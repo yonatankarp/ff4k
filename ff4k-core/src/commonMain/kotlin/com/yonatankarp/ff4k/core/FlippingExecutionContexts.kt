@@ -166,4 +166,4 @@ suspend fun currentFlippingContext(): FlippingExecutionContext = currentCoroutin
  * @return The value associated with the key, cast to type [T]
  * @throws IllegalStateException if the key is not present in the context
  */
-inline fun <reified T> FlippingExecutionContext.getOrThrow(key: String): T = get<T>(key) ?: error("To work with ${this::class.simpleName} you must provide '$key' parameter in execution context")
+inline fun <reified T> FlippingExecutionContext.getOrThrow(key: String): T = get<T>(key) ?: error("${this::class.simpleName} requires '$key' parameter in execution context to work with this strategy")

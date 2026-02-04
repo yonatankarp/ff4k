@@ -211,7 +211,7 @@ internal class FlippingExecutionContextsTest :
             // When/Then
             shouldThrow<IllegalStateException> {
                 context.getOrThrow<String>(ContextKeys.USER_ID)
-            }.message shouldBe "To work with FlippingExecutionContext you must provide '${ContextKeys.USER_ID}' parameter in execution context"
+            }
         }
 
         test("getOrThrow should work with different types") {

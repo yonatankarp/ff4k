@@ -21,6 +21,8 @@ FF4K provides standard keys in `ContextKeys` for common parameters such as:
 - `ContextKeys.USER_NAME` ("userName"): User's display name.
 - `ContextKeys.REGION` ("region"): Geographic region (e.g., "EU", "US").
 - `ContextKeys.ENVIRONMENT` ("environment"): App environment (e.g., "prod", "staging").
+- `ContextKeys.CLIENT_HOSTNAME` ("clientHostname"): Client hostname making the request.
+- `ContextKeys.SERVER_HOSTNAME` ("serverHostname"): Server hostname handling the request.
 
 ```kotlin
 val context = FlippingExecutionContext(
@@ -112,6 +114,66 @@ feature("new-ui") {
         +"problematic-user-2"
     }
 }
+```
+
+## Filter Strategies
+
+### ClientFilterStrategy
+
+Enables a feature only for requests from specific client hostnames.
+
+Requires `ContextKeys.CLIENT_HOSTNAME` in the execution context.
+
+```kotlin
+feature("internal-only") {
+    clientFilterStrategy {
+        +"client-a.internal.com"
+        +"client-b.internal.com"
+    }
+}
+
+// Checking with client context
+val context = FlippingExecutionContext(ContextKeys.CLIENT_HOSTNAME to request.hostname)
+ff4k.check("internal-only", context)
+```
+
+### ServerFilterStrategy
+
+Enables a feature only on specific server hostnames. Useful for canary deployments or
+testing features on specific server instances.
+
+Requires `ContextKeys.SERVER_HOSTNAME` in the execution context.
+
+```kotlin
+feature("canary-feature") {
+    serverFilterStrategy {
+        +"server-1.prod.com"
+        +"server-2.prod.com"
+    }
+}
+
+// Checking with server context
+val context = FlippingExecutionContext(ContextKeys.SERVER_HOSTNAME to System.getenv("HOSTNAME"))
+ff4k.check("canary-feature", context)
+```
+
+### RegionFilterStrategy
+
+Enables a feature only for specific geographic regions.
+
+Requires `ContextKeys.REGION` in the execution context.
+
+```kotlin
+feature("eu-only") {
+    regionStrategy {
+        +"eu-central-1"
+        +"eu-west-1"
+    }
+}
+
+// Checking with region context
+val context = FlippingExecutionContext(ContextKeys.REGION to currentRegion)
+ff4k.check("eu-only", context)
 ```
 
 ## Time-Based Strategies

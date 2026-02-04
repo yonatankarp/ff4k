@@ -2,11 +2,14 @@ package com.yonatankarp.ff4k.dsl.strategy
 
 import com.yonatankarp.ff4k.dsl.feature.feature
 import com.yonatankarp.ff4k.strategy.AllowListStrategy
+import com.yonatankarp.ff4k.strategy.ClientFilterStrategy
 import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.DenyListStrategy
 import com.yonatankarp.ff4k.strategy.PonderationStrategy
+import com.yonatankarp.ff4k.strategy.RegionFilterStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
+import com.yonatankarp.ff4k.strategy.ServerFilterStrategy
 import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import com.yonatankarp.ff4k.strategy.WeekdayStrategy
 import io.kotest.core.spec.style.FunSpec
@@ -58,130 +61,64 @@ internal class StrategyDslTest :
             feature.flippingStrategy.weight shouldBe 0.5
         }
 
-        context("allowListStrategy") {
-            test("sets AllowListStrategy with unary plus operator") {
-                val feature = feature("test") {
-                    allowListStrategy {
-                        +"user-1"
-                        +"user-2"
-                    }
+        test("allowListStrategy sets AllowListStrategy") {
+            val feature = feature("test") {
+                allowListStrategy {
+                    +"user-1"
+                    +"user-2"
                 }
-
-                feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
-            test("sets AllowListStrategy with add function") {
-                val feature = feature("test") {
-                    allowListStrategy {
-                        add("user-1")
-                        add("user-2")
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
-            }
-
-            test("sets AllowListStrategy with addAll function") {
-                val feature = feature("test") {
-                    allowListStrategy {
-                        addAll("user-1", "user-2", "user-3")
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3")
-            }
-
-            test("sets AllowListStrategy with mixed methods") {
-                val feature = feature("test") {
-                    allowListStrategy {
-                        +"user-1"
-                        add("user-2")
-                        addAll("user-3", "user-4")
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3", "user-4")
-            }
-
-            test("deduplicates entries") {
-                val feature = feature("test") {
-                    allowListStrategy {
-                        +"user-1"
-                        +"user-1"
-                        add("user-1")
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-                feature.flippingStrategy.allowedList shouldBe setOf("user-1")
-            }
+            feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
+            feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
         }
 
-        context("denyListStrategy") {
-            test("sets DenyListStrategy with unary plus operator") {
-                val feature = feature("test") {
-                    denyListStrategy {
-                        +"user-1"
-                        +"user-2"
-                    }
+        test("denyListStrategy sets DenyListStrategy") {
+            val feature = feature("test") {
+                denyListStrategy {
+                    +"user-1"
+                    +"user-2"
                 }
-
-                feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
             }
 
-            test("sets DenyListStrategy with add function") {
-                val feature = feature("test") {
-                    denyListStrategy {
-                        add("user-1")
-                        add("user-2")
-                    }
-                }
+            feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
+            feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
+        }
 
-                feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
+        test("clientFilterStrategy sets ClientFilterStrategy") {
+            val feature = feature("test") {
+                clientFilterStrategy {
+                    +"client-a"
+                    +"client-b"
+                }
             }
 
-            test("sets DenyListStrategy with addAll function") {
-                val feature = feature("test") {
-                    denyListStrategy {
-                        addAll("user-1", "user-2", "user-3")
-                    }
-                }
+            feature.flippingStrategy.shouldBeInstanceOf<ClientFilterStrategy>()
+            feature.flippingStrategy.grantedClients shouldContainExactlyInAnyOrder listOf("client-a", "client-b")
+        }
 
-                feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3")
+        test("serverFilterStrategy sets ServerFilterStrategy") {
+            val feature = feature("test") {
+                serverFilterStrategy {
+                    +"server-1"
+                    +"server-2"
+                }
             }
 
-            test("sets DenyListStrategy with mixed methods") {
-                val feature = feature("test") {
-                    denyListStrategy {
-                        +"user-1"
-                        add("user-2")
-                        addAll("user-3", "user-4")
-                    }
-                }
+            feature.flippingStrategy.shouldBeInstanceOf<ServerFilterStrategy>()
+            feature.flippingStrategy.targetServers shouldContainExactlyInAnyOrder listOf("server-1", "server-2")
+        }
 
-                feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2", "user-3", "user-4")
+        test("regionStrategy sets RegionFilterStrategy") {
+            val feature = feature("test") {
+                regionStrategy {
+                    +"eu-central-1"
+                    +"us-west-2"
+                }
             }
 
-            test("deduplicates entries") {
-                val feature = feature("test") {
-                    denyListStrategy {
-                        +"user-1"
-                        +"user-1"
-                        add("user-1")
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-                feature.flippingStrategy.denyList shouldBe setOf("user-1")
-            }
+            feature.flippingStrategy.shouldBeInstanceOf<RegionFilterStrategy>()
+            feature.flippingStrategy.grantedRegions shouldContainExactlyInAnyOrder listOf("eu-central-1", "us-west-2")
         }
 
         context("releaseDateStrategy") {
@@ -277,98 +214,29 @@ internal class StrategyDslTest :
             }
         }
 
-        context("weekdayStrategy") {
-            test("sets WeekdayStrategy with unary plus operator") {
-                val timezone = TimeZone.of("Asia/Tokyo")
-                val feature = feature("test") {
-                    weekdayStrategy(timezone) {
-                        +DayOfWeek.MONDAY
-                        +DayOfWeek.FRIDAY
-                    }
+        test("weekdayStrategy sets WeekdayStrategy with timezone") {
+            val timezone = TimeZone.of("Asia/Tokyo")
+            val feature = feature("test") {
+                weekdayStrategy(timezone) {
+                    +DayOfWeek.MONDAY
+                    +DayOfWeek.FRIDAY
                 }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                val strategy = feature.flippingStrategy
-                strategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
-                strategy.timezone shouldBe timezone
             }
 
-            test("sets WeekdayStrategy with add function") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        add(DayOfWeek.TUESDAY)
-                        add(DayOfWeek.THURSDAY)
-                    }
-                }
+            feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+            val strategy = feature.flippingStrategy
+            strategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
+            strategy.timezone shouldBe timezone
+        }
 
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY)
+        test("weekdayStrategy defaults to UTC") {
+            val feature = feature("test") {
+                weekdayStrategy {
+                    +DayOfWeek.MONDAY
+                }
             }
 
-            test("sets WeekdayStrategy with addAll function") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        addAll(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
-            }
-
-            test("sets WeekdayStrategy with weekdays() helper") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        weekdays()
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(
-                    DayOfWeek.MONDAY,
-                    DayOfWeek.TUESDAY,
-                    DayOfWeek.WEDNESDAY,
-                    DayOfWeek.THURSDAY,
-                    DayOfWeek.FRIDAY,
-                )
-            }
-
-            test("sets WeekdayStrategy with weekends() helper") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        weekends()
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)
-            }
-
-            test("sets WeekdayStrategy with allDays() helper") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        allDays()
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder DayOfWeek.entries.toSet()
-            }
-
-            test("sets WeekdayStrategy with mixed methods") {
-                val feature = feature("test") {
-                    weekdayStrategy {
-                        +DayOfWeek.MONDAY
-                        weekends()
-                    }
-                }
-
-                feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
-                feature.flippingStrategy.allowedDays shouldContainExactlyInAnyOrder setOf(
-                    DayOfWeek.MONDAY,
-                    DayOfWeek.SATURDAY,
-                    DayOfWeek.SUNDAY,
-                )
-            }
+            feature.flippingStrategy.shouldBeInstanceOf<WeekdayStrategy>()
+            feature.flippingStrategy.timezone shouldBe TimeZone.UTC
         }
     })

@@ -2,44 +2,17 @@ package com.yonatankarp.ff4k.strategy
 
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
-import com.yonatankarp.ff4k.serialization.FF4kJson
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
+import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.doubles.shouldBeBetween
 import io.kotest.matchers.shouldBe
-import kotlinx.serialization.encodeToString
 
 internal class PonderationStrategyTest :
-    FunSpec({
+    FlippingStrategyContractTest({
 
         context("evaluate") {
-            test("always returns true when weight is 1.0") {
-                // Given
-                val strategy = PonderationStrategy(1.0)
-                val context = FlippingExecutionContext()
-                val store = InMemoryFeatureStore()
-
-                // When / Then
-                repeat(100) {
-                    strategy.evaluate("test", store, context).shouldBeTrue()
-                }
-            }
-
-            test("always returns false when weight is 0.0") {
-                // Given
-                val strategy = PonderationStrategy(0.0)
-                val context = FlippingExecutionContext()
-                val store = InMemoryFeatureStore()
-
-                // When / Then
-                repeat(100) {
-                    strategy.evaluate("test", store, context).shouldBeFalse()
-                }
-            }
-
             test("returns approximately expected percentage") {
                 // Given
                 val strategy = PonderationStrategy(0.5)
@@ -55,18 +28,6 @@ internal class PonderationStrategyTest :
                 // Then
                 val actualPercentage = enabled.toDouble() / iterations
                 actualPercentage.shouldBeBetween(0.5, 0.5, tolerance = 0.05)
-            }
-
-            test("handles null feature store") {
-                // Given
-                val strategy = PonderationStrategy(1.0)
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", null, context)
-
-                // Then
-                result.shouldBeTrue()
             }
         }
 
@@ -120,18 +81,16 @@ internal class PonderationStrategyTest :
                 }
             }
         }
+    }) {
 
-        context("serialization") {
-            test("round-trip serialization preserves strategy") {
-                // Given
-                val strategy = PonderationStrategy(0.75)
+    override fun createStrategyForPassingCase(): FlippingStrategy = PonderationStrategy(1.0)
 
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(strategy)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
+    override fun createStrategyForFailingCase(): FlippingStrategy = PonderationStrategy(0.0)
 
-                // Then
-                deserialized shouldBe strategy
-            }
-        }
-    })
+    override fun contextThatShouldPass(): FlippingExecutionContext = FlippingExecutionContext()
+
+    override fun contextThatShouldFail(): FlippingExecutionContext = FlippingExecutionContext()
+
+    override fun expectedJsonForSampleParams(): String = // language=json
+        """{"type":"ponderation","weight":1.0}"""
+}

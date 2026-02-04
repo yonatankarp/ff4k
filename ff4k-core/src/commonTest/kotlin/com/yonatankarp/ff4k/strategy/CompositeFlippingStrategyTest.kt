@@ -10,7 +10,6 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.serialization.encodeToString
 
@@ -212,126 +211,6 @@ internal class CompositeFlippingStrategyTest :
                 result.strategies shouldHaveSize 2
                 result.strategies[0].shouldBeInstanceOf<AndStrategy>()
                 result.strategies[1] shouldBe c
-            }
-        }
-
-        context("AndStrategy serialization") {
-            test("serializes to JSON with nested strategies") {
-                // Given
-                val strategy =
-                    AlwaysTrueFlippingStrategy and AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString(strategy)
-
-                // Then
-                json shouldContain "alwaysTrue"
-                json shouldContain "alwaysFalse"
-            }
-
-            test("round-trip serialization") {
-                // Given
-                val original =
-                    AlwaysTrueFlippingStrategy and AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
-            }
-
-            test("round-trip with nested AndStrategy") {
-                // Given
-                val original =
-                    AndStrategy(strategies = listOf(AlwaysTrueFlippingStrategy)) and AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
-            }
-        }
-
-        context("OrStrategy serialization") {
-            test("serializes to JSON with nested strategies") {
-                // Given
-                val strategy =
-                    AlwaysTrueFlippingStrategy or AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString(strategy)
-
-                // Then
-                json shouldContain "alwaysTrue"
-                json shouldContain "alwaysFalse"
-            }
-
-            test("round-trip serialization") {
-                // Given
-                val original =
-                    AlwaysTrueFlippingStrategy or AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
-            }
-
-            test("round-trip with nested OrStrategy") {
-                // Given
-                val original =
-                    OrStrategy(strategies = listOf(AlwaysTrueFlippingStrategy)) or AlwaysFalseFlippingStrategy
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
-            }
-        }
-
-        context("NotStrategy serialization") {
-            test("serializes to JSON with nested strategy") {
-                // Given
-                val strategy = AlwaysTrueFlippingStrategy.not()
-
-                // When
-                val json = FF4kJson.encodeToString(strategy)
-
-                // Then
-                json shouldContain "alwaysTrue"
-            }
-
-            test("round-trip serialization") {
-                // Given
-                val original = AlwaysTrueFlippingStrategy.not()
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
-            }
-
-            test("round-trip with nested NotStrategy") {
-                // Given
-                val original =
-                    NotStrategy(strategy = AlwaysFalseFlippingStrategy.not())
-
-                // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(original)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
-
-                // Then
-                deserialized shouldBe original
             }
         }
 

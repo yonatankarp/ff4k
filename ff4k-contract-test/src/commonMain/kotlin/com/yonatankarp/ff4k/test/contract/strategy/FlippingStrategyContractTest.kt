@@ -8,6 +8,7 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.serialization.FF4kJson
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.encodeToString
 
@@ -50,6 +51,14 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
      */
     protected abstract fun expectedJsonForSampleParams(): String
 
+    /**
+     * Provides a set of context keys that are required for the strategy to function.
+     * If the strategy requires specific keys to be present in the execution context,
+     * they should be returned here. The contract test will verify that missing these
+     * keys results in an [IllegalStateException].
+     */
+    protected open fun requiredContextKeys(): Set<String> = emptySet()
+
     init {
         test("should evaluate to true when context matches strategy criteria") {
             // Given
@@ -73,6 +82,24 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
 
             // Then
             result shouldBe false
+        }
+
+        test("should throw IllegalStateException when required context keys are missing") {
+            // Given
+            val requiredKeys = requiredContextKeys()
+            if (requiredKeys.isNotEmpty()) {
+                val strategy = createStrategyForPassingCase()
+                val passingContext = contextThatShouldPass()
+
+                // When / Then
+                requiredKeys.forEach { missingKey ->
+                    val contextWithMissingKey = createContextExcludingKey(missingKey, passingContext, requiredKeys)
+
+                    io.kotest.assertions.throwables.shouldThrow<IllegalStateException> {
+                        strategy.evaluate(FEATURE_ID, null, contextWithMissingKey)
+                    }.message shouldContain missingKey
+                }
+            }
         }
 
         test("should handle null feature store") {
@@ -112,6 +139,22 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
             // Then
             deserializedStrategy shouldBe strategy
         }
+    }
+
+    private fun createContextExcludingKey(
+        missingKey: String,
+        sourceContext: FlippingExecutionContext,
+        allRequiredKeys: Set<String>,
+    ): FlippingExecutionContext {
+        val reducedContextPairs = allRequiredKeys
+            .filter { it != missingKey }
+            .mapNotNull { key ->
+                val value = sourceContext.get<Any>(key)
+                if (value != null) key to value else null
+            }
+            .toTypedArray()
+
+        return FlippingExecutionContext(*reducedContextPairs)
     }
 
     private companion object {

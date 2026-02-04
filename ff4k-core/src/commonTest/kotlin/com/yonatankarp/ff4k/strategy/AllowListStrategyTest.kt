@@ -6,11 +6,9 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.serialization.FF4kJson
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.encodeToString
 
 internal class AllowListStrategyTest :
@@ -28,18 +26,6 @@ internal class AllowListStrategyTest :
 
                 // Then
                 result.shouldBeFalse()
-            }
-
-            test("throws IllegalStateException when user ID is missing from context") {
-                // Given
-                val strategy = AllowListStrategy(setOf("Alice", "Bob"))
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When/Then
-                shouldThrow<IllegalStateException> {
-                    strategy.evaluate("test", store, context)
-                }.message shouldContain ContextKeys.USER_ID
             }
 
             test("returns true only for users in the allow list") {
@@ -104,4 +90,6 @@ internal class AllowListStrategyTest :
 
     override fun expectedJsonForSampleParams(): String = // language=json
         """{"type":"allowList","allowedList":["Alice"]}"""
+
+    override fun requiredContextKeys(): Set<String> = setOf(ContextKeys.USER_ID)
 }

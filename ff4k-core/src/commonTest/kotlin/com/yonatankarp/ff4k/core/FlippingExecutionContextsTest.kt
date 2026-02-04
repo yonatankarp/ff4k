@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.core
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -188,6 +189,45 @@ internal class FlippingExecutionContextsTest :
 
             // Then
             context.key shouldBe FlippingExecutionContext.Key
+        }
+
+        // ========== getOrThrow Tests ==========
+
+        test("getOrThrow should return value when key exists") {
+            // Given
+            val context = FlippingExecutionContext(ContextKeys.USER_ID to ALICE_USER_ID)
+
+            // When
+            val result: String = context.getOrThrow(ContextKeys.USER_ID)
+
+            // Then
+            result shouldBe ALICE_USER_ID
+        }
+
+        test("getOrThrow should throw IllegalStateException when key is missing") {
+            // Given
+            val context = FlippingExecutionContext()
+
+            // When/Then
+            shouldThrow<IllegalStateException> {
+                context.getOrThrow<String>(ContextKeys.USER_ID)
+            }.message shouldBe "To work with FlippingExecutionContext you must provide '${ContextKeys.USER_ID}' parameter in execution context"
+        }
+
+        test("getOrThrow should work with different types") {
+            // Given
+            val context = FlippingExecutionContext(
+                ContextKeys.USER_ID to ALICE_USER_ID,
+                REQUEST_COUNT_KEY to REQUEST_COUNT,
+            )
+
+            // When
+            val userId: String = context.getOrThrow(ContextKeys.USER_ID)
+            val count: Int = context.getOrThrow(REQUEST_COUNT_KEY)
+
+            // Then
+            userId shouldBe ALICE_USER_ID
+            count shouldBe REQUEST_COUNT
         }
     }) {
     companion object {

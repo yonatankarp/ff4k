@@ -4,6 +4,7 @@ import com.yonatankarp.ff4k.core.ContextKeys
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
+import com.yonatankarp.ff4k.core.getOrThrow
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,9 +16,10 @@ import kotlinx.serialization.Serializable
  * on their user ID hash.
  *
  * Requires [ContextKeys.USER_ID] to be set in the [FlippingExecutionContext].
- * Returns `false` if no user ID is present.
+ * Throws [IllegalStateException] if no user ID is present.
  *
  * @property weight The percentage of users (0.0 to 1.0) for whom the feature is enabled.
+ * @throws IllegalStateException if [ContextKeys.USER_ID] is not present in the context
  * @see PonderationStrategy
  */
 @Serializable
@@ -37,7 +39,7 @@ data class UserPonderationStrategy(
         store: FeatureStore?,
         context: FlippingExecutionContext,
     ): Boolean {
-        val userId = context.get<String>(ContextKeys.USER_ID) ?: return false
+        val userId = context.getOrThrow<String>(ContextKeys.USER_ID)
 
         val bucket = (userId.hash() and 0x7FFFFFFF) % 100 // 0-99
         val threshold = (weight * 100).toInt()

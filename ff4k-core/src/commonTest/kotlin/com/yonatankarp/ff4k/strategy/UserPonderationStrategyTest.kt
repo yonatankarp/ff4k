@@ -10,6 +10,7 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.doubles.shouldBeBetween
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 
 internal class UserPonderationStrategyTest :
     FlippingStrategyContractTest({
@@ -72,6 +73,18 @@ internal class UserPonderationStrategyTest :
                         FlippingExecutionContext(ContextKeys.USER_ID to "user$userId")
                     strategy.evaluate("test", store, context).shouldBeFalse()
                 }
+            }
+
+            test("throws IllegalStateException when user ID is missing from context") {
+                // Given
+                val strategy = UserPonderationStrategy(0.5)
+                val store = InMemoryFeatureStore()
+                val context = FlippingExecutionContext()
+
+                // When/Then
+                shouldThrow<IllegalStateException> {
+                    strategy.evaluate("test", store, context)
+                }.message shouldContain ContextKeys.USER_ID
             }
         }
 

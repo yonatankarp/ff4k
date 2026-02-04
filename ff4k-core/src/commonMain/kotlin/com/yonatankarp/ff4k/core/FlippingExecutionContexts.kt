@@ -144,3 +144,26 @@ suspend inline fun <T> withFlippingParameters(
  * @return The current [FlippingExecutionContext], or an empty context if none is set
  */
 suspend fun currentFlippingContext(): FlippingExecutionContext = currentCoroutineContext()[FlippingExecutionContext] ?: FlippingExecutionContext()
+
+/**
+ * Retrieves a required parameter from the context, throwing if not present.
+ *
+ * Use this when a parameter is mandatory for your strategy or feature flag evaluation.
+ * Provides a descriptive error message indicating which parameter is missing.
+ *
+ * Example:
+ * ```kotlin
+ * class MyStrategy : FlippingStrategy {
+ *     override fun evaluate(context: FlippingExecutionContext): Boolean {
+ *         val userId: String = context.getOrThrow(ContextKeys.USER_ID)
+ *         // userId is guaranteed to be non-null here
+ *         return userId.startsWith("premium_")
+ *     }
+ * }
+ * ```
+ *
+ * @param key The parameter key to retrieve
+ * @return The value associated with the key, cast to type [T]
+ * @throws IllegalStateException if the key is not present in the context
+ */
+inline fun <reified T> FlippingExecutionContext.getOrThrow(key: String): T = get<T>(key) ?: error("To work with ${this::class.simpleName} you must provide '$key' parameter in execution context")

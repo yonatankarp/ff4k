@@ -24,190 +24,104 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlin.reflect.KClass
 
 /**
  * Tests for PropertyBuilder DSL.
  */
 internal class PropertyBuilderTest :
     FunSpec({
+        registerTests(
+            typeName = "String",
+            defaultValue = "test-value",
+            expectedClass = PropertyString::class,
+        )
 
-        test("builds String property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
-            }
+        registerTests(
+            typeName = "Int",
+            defaultValue = 42,
+            expectedClass = PropertyInt::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyString> {
-                it.name shouldBe PROPERTY_NAME
-                it.value shouldBe VALUE_STRING
-            }
-        }
+        registerTests(
+            typeName = "Long",
+            defaultValue = 1000L,
+            expectedClass = PropertyLong::class,
+        )
 
-        test("builds Int property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_INT
-            }
+        registerTests(
+            typeName = "Short",
+            defaultValue = 100.toShort(),
+            expectedClass = PropertyShort::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyInt> {
-                it.value shouldBe VALUE_INT
-            }
-        }
+        registerTests(
+            typeName = "Byte",
+            defaultValue = 10.toByte(),
+            expectedClass = PropertyByte::class,
+        )
 
-        test("builds Long property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_LONG
-            }
+        registerTests(
+            typeName = "Float",
+            defaultValue = 3.14f,
+            expectedClass = PropertyFloat::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyLong> {
-                it.value shouldBe VALUE_LONG
-            }
-        }
+        registerTests(
+            typeName = "Double",
+            defaultValue = 3.14159,
+            expectedClass = PropertyDouble::class,
+        )
 
-        test("builds Short property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_SHORT
-            }
+        registerTests(
+            typeName = "Boolean",
+            defaultValue = true,
+            expectedClass = PropertyBoolean::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyShort> {
-                it.value shouldBe VALUE_SHORT
-            }
-        }
+        registerTests(
+            typeName = "BigDecimal",
+            defaultValue = BigDecimal.parseString("123.456"),
+            expectedClass = PropertyBigDecimal::class,
+        )
 
-        test("builds Byte property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_BYTE
-            }
+        registerTests(
+            typeName = "BigInteger",
+            defaultValue = BigInteger.parseString("123456789"),
+            expectedClass = PropertyBigInteger::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyByte> {
-                it.value shouldBe VALUE_BYTE
-            }
-        }
+        registerTests(
+            typeName = "Instant",
+            defaultValue = Instant.parse("2024-01-15T10:30:00Z"),
+            expectedClass = PropertyInstant::class,
+        )
 
-        test("builds Float property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_FLOAT
-            }
+        registerTests(
+            typeName = "LocalDate",
+            defaultValue = LocalDate.parse("2024-01-15"),
+            expectedClass = PropertyLocalDate::class,
+        )
 
-            // Then
-            result.shouldBeInstanceOf<PropertyFloat> {
-                it.value shouldBe VALUE_FLOAT
-            }
-        }
+        registerTests(
+            typeName = "LocalDateTime",
+            defaultValue = LocalDateTime.parse("2024-01-15T10:30:00"),
+            expectedClass = PropertyLocalDateTime::class,
+        )
 
-        test("builds Double property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_DOUBLE
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyDouble> {
-                it.value shouldBe VALUE_DOUBLE
-            }
-        }
-
-        test("builds Boolean property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_BOOLEAN
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyBoolean> {
-                it.value shouldBe VALUE_BOOLEAN
-            }
-        }
-
-        test("builds BigDecimal property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_BIG_DECIMAL
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyBigDecimal> {
-                it.value shouldBe VALUE_BIG_DECIMAL
-            }
-        }
-
-        test("builds BigInteger property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_BIG_INTEGER
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyBigInteger> {
-                it.value shouldBe VALUE_BIG_INTEGER
-            }
-        }
-
-        test("builds Instant property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_INSTANT
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyInstant> {
-                it.value shouldBe VALUE_INSTANT
-            }
-        }
-
-        test("builds LocalDate property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_LOCAL_DATE
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyLocalDate> {
-                it.value shouldBe VALUE_LOCAL_DATE
-            }
-        }
-
-        test("builds LocalDateTime property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_LOCAL_DATE_TIME
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyLocalDateTime> {
-                it.value shouldBe VALUE_LOCAL_DATE_TIME
-            }
-        }
-
-        test("builds LogLevel property") {
-            // When
-            val result = property(PROPERTY_NAME) {
-                value = VALUE_LOG_LEVEL
-            }
-
-            // Then
-            result.shouldBeInstanceOf<PropertyLogLevel> {
-                it.value shouldBe VALUE_LOG_LEVEL
-            }
-        }
+        registerTests(
+            typeName = "LogLevel",
+            defaultValue = PropertyLogLevel.LogLevel.INFO,
+            expectedClass = PropertyLogLevel::class,
+        )
 
         test("sets description") {
             // When
             val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
+                value = "test-value"
                 description = DESCRIPTION
             }
 
@@ -218,7 +132,7 @@ internal class PropertyBuilderTest :
         test("description defaults to null") {
             // When
             val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
+                value = "test-value"
             }
 
             // Then
@@ -228,7 +142,7 @@ internal class PropertyBuilderTest :
         test("sets readOnly flag") {
             // When
             val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
+                value = "test-value"
                 readOnly = true
             }
 
@@ -239,7 +153,7 @@ internal class PropertyBuilderTest :
         test("readOnly defaults to false") {
             // When
             val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
+                value = "test-value"
             }
 
             // Then
@@ -278,7 +192,7 @@ internal class PropertyBuilderTest :
         test("fixedValues defaults to empty set") {
             // When
             val result = property(PROPERTY_NAME) {
-                value = VALUE_STRING
+                value = "test-value"
             }
 
             // Then
@@ -328,20 +242,26 @@ internal class PropertyBuilderTest :
     private companion object {
         private const val PROPERTY_NAME = "test-property"
         private const val DESCRIPTION = "Test property description"
+    }
+}
 
-        private const val VALUE_STRING = "test-value"
-        private const val VALUE_INT = 42
-        private const val VALUE_LONG = 1000L
-        private val VALUE_SHORT: Short = 100
-        private val VALUE_BYTE: Byte = 10
-        private const val VALUE_FLOAT = 3.14f
-        private const val VALUE_DOUBLE = 3.14159
-        private const val VALUE_BOOLEAN = true
-        private val VALUE_BIG_DECIMAL = BigDecimal.parseString("123.456")
-        private val VALUE_BIG_INTEGER = BigInteger.parseString("123456789")
-        private val VALUE_INSTANT = Instant.parse("2024-01-15T10:30:00Z")
-        private val VALUE_LOCAL_DATE = LocalDate.parse("2024-01-15")
-        private val VALUE_LOCAL_DATE_TIME = LocalDateTime.parse("2024-01-15T10:30:00")
-        private val VALUE_LOG_LEVEL = PropertyLogLevel.LogLevel.INFO
+/**
+ * Registers a builder test for a specific type.
+ */
+private inline fun <reified T : Any> FunSpec.registerTests(
+    typeName: String,
+    defaultValue: T,
+    expectedClass: KClass<*>,
+) {
+    test("builds $typeName property") {
+        // When
+        val result = property("test-property") {
+            value = defaultValue
+        }
+
+        // Then
+        result::class shouldBe expectedClass
+        result.value shouldBe defaultValue
+        result.name shouldBe "test-property"
     }
 }

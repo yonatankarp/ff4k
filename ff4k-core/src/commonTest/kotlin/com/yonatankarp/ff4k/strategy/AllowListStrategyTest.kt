@@ -6,6 +6,7 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.serialization.FF4kJson
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
+import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -28,16 +29,27 @@ internal class AllowListStrategyTest :
                 result.shouldBeFalse()
             }
 
-            test("returns true only for users in the allow list") {
-                // Given
-                val strategy = AllowListStrategy(setOf("Alice", "Charlie"))
-                val store = InMemoryFeatureStore()
+            context("returns true only for users in the allow list") {
+                withData(
+                    AllowListTestCase("Alice", true),
+                    AllowListTestCase("Charlie", true),
+                    AllowListTestCase("Bob", false),
+                    AllowListTestCase("David", false),
+                ) { (user, shouldBeAllowed) ->
+                    // Given
+                    val strategy = AllowListStrategy(setOf("Alice", "Charlie"))
+                    val store = InMemoryFeatureStore()
 
-                // When / Then
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Alice")).shouldBeTrue()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Charlie")).shouldBeTrue()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Bob")).shouldBeFalse()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "David")).shouldBeFalse()
+                    // When
+                    val result = strategy.evaluate(
+                        "test",
+                        store,
+                        FlippingExecutionContext(ContextKeys.USER_ID to user),
+                    )
+
+                    // Then
+                    result shouldBe shouldBeAllowed
+                }
             }
 
             test("handles null feature store") {
@@ -93,3 +105,5 @@ internal class AllowListStrategyTest :
 
     override fun requiredContextKeys(): Set<String> = setOf(ContextKeys.USER_ID)
 }
+
+private data class AllowListTestCase(val user: String, val shouldBeAllowed: Boolean)

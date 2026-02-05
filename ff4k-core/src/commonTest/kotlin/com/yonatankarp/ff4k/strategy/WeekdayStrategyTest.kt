@@ -5,8 +5,10 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import com.yonatankarp.ff4k.utils.fixedClock
+import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -24,83 +26,55 @@ internal class WeekdayStrategyTest :
         // 2025-01-19 = Sunday
 
         context("evaluate with allowed days") {
-            test("returns true when current day is in allowedDays") {
-                // Given - Monday
-                val strategy = createStrategy(currentTime = "2025-01-13T12:00:00Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false when current day is not in allowedDays") {
-                // Given - Tuesday (not in allowed days)
-                val strategy = createStrategy(currentTime = "2025-01-14T12:00:00Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns true for weekend day when weekends are allowed") {
-                // Given - Saturday
-                val strategy = createStrategy(
-                    allowedDays = setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY),
-                    currentTime = "2025-01-18T12:00:00Z",
-                )
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false for weekend day when only weekdays are allowed") {
-                // Given - Sunday
-                val strategy = createStrategy(
-                    allowedDays = setOf(
+            withData(
+                nameFn = { "current: ${it.currentTime}, allowed: ${it.allowedDays} -> expect: ${it.shouldBeEnabled}" },
+                // Monday allowed, Current Monday
+                WeekdayTestCase(
+                    "2025-01-13T12:00:00Z",
+                    setOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
+                    true,
+                ),
+                // Monday allowed, Current Tuesday
+                WeekdayTestCase(
+                    "2025-01-14T12:00:00Z",
+                    setOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
+                    false,
+                ),
+                // Weekend allowed, Current Saturday
+                WeekdayTestCase(
+                    "2025-01-18T12:00:00Z",
+                    setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY),
+                    true,
+                ),
+                // Weekdays allowed, Current Sunday
+                WeekdayTestCase(
+                    "2025-01-19T12:00:00Z",
+                    setOf(
                         DayOfWeek.MONDAY,
                         DayOfWeek.TUESDAY,
                         DayOfWeek.WEDNESDAY,
                         DayOfWeek.THURSDAY,
                         DayOfWeek.FRIDAY,
                     ),
-                    currentTime = "2025-01-19T12:00:00Z",
-                )
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns false when allowedDays is empty") {
-                // Given - any day with empty allowedDays
+                    false,
+                ),
+                // Empty allowed days
+                WeekdayTestCase(
+                    "2025-01-15T12:00:00Z",
+                    emptySet(),
+                    false,
+                ),
+                // All days allowed
+                WeekdayTestCase(
+                    "2025-01-15T12:00:00Z",
+                    DayOfWeek.entries.toSet(),
+                    true,
+                ),
+            ) { (currentTime, allowedDays, shouldBeEnabled) ->
+                // Given
                 val strategy = createStrategy(
-                    allowedDays = emptySet(),
-                    currentTime = "2025-01-15T12:00:00Z",
+                    allowedDays = allowedDays,
+                    currentTime = currentTime,
                 )
 
                 // When
@@ -111,25 +85,7 @@ internal class WeekdayStrategyTest :
                 )
 
                 // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns true when all days are allowed") {
-                // Given - any day with all days allowed
-                val strategy = createStrategy(
-                    allowedDays = DayOfWeek.entries.toSet(),
-                    currentTime = "2025-01-15T12:00:00Z",
-                )
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeTrue()
+                result shouldBe shouldBeEnabled
             }
         }
 
@@ -202,4 +158,10 @@ private fun createStrategy(
     allowedDays = allowedDays,
     timezone = timezone,
     clock = fixedClock(Instant.parse(currentTime)),
+)
+
+private data class WeekdayTestCase(
+    val currentTime: String,
+    val allowedDays: Set<DayOfWeek>,
+    val shouldBeEnabled: Boolean,
 )

@@ -5,6 +5,7 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.doubles.shouldBeBetween
 import io.kotest.matchers.shouldBe
@@ -32,15 +33,16 @@ internal class PonderationStrategyTest :
         }
 
         context("Int constructor") {
-            test("converts percentage to weight correctly") {
-                PonderationStrategy(50).weight shouldBe 0.5
-                PonderationStrategy(25).weight shouldBe 0.25
-                PonderationStrategy(75).weight shouldBe 0.75
-            }
-
-            test("handles edge cases") {
-                PonderationStrategy(0).weight shouldBe 0.0
-                PonderationStrategy(100).weight shouldBe 1.0
+            context("converts percentage to weight correctly") {
+                withData(
+                    PercentageToWeightTestCase(50, 0.5),
+                    PercentageToWeightTestCase(25, 0.25),
+                    PercentageToWeightTestCase(75, 0.75),
+                    PercentageToWeightTestCase(0, 0.0),
+                    PercentageToWeightTestCase(100, 1.0),
+                ) { (percentage, expectedWeight) ->
+                    PonderationStrategy(percentage).weight shouldBe expectedWeight
+                }
             }
 
             test("evaluates correctly with percentage constructor") {
@@ -57,27 +59,31 @@ internal class PonderationStrategyTest :
         }
 
         context("validation") {
-            test("throws IllegalArgumentException when weight is negative") {
-                shouldThrow<IllegalArgumentException> {
-                    PonderationStrategy(-0.1)
+            context("throws IllegalArgumentException for invalid weight") {
+                withData(
+                    nameFn = { "weight: $it" },
+                    -0.1,
+                    1.1,
+                    -1.0,
+                    2.0,
+                ) { weight ->
+                    shouldThrow<IllegalArgumentException> {
+                        PonderationStrategy(weight)
+                    }
                 }
             }
 
-            test("throws IllegalArgumentException when weight is greater than 1.0") {
-                shouldThrow<IllegalArgumentException> {
-                    PonderationStrategy(1.1)
-                }
-            }
-
-            test("throws IllegalArgumentException when percentage is negative") {
-                shouldThrow<IllegalArgumentException> {
-                    PonderationStrategy(-1)
-                }
-            }
-
-            test("throws IllegalArgumentException when percentage is greater than 100") {
-                shouldThrow<IllegalArgumentException> {
-                    PonderationStrategy(101)
+            context("throws IllegalArgumentException for invalid percentage") {
+                withData(
+                    nameFn = { "percentage: $it" },
+                    -1,
+                    101,
+                    -50,
+                    150,
+                ) { percentage ->
+                    shouldThrow<IllegalArgumentException> {
+                        PonderationStrategy(percentage)
+                    }
                 }
             }
         }
@@ -94,3 +100,5 @@ internal class PonderationStrategyTest :
     override fun expectedJsonForSampleParams(): String = // language=json
         """{"type":"ponderation","weight":1.0}"""
 }
+
+private data class PercentageToWeightTestCase(val percentage: Int, val expectedWeight: Double)

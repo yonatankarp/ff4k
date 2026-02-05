@@ -6,7 +6,7 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.serialization.FF4kJson
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
-import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.encodeToString
@@ -41,16 +41,27 @@ internal class DenyListStrategyTest :
                 result.shouldBeTrue()
             }
 
-            test("returns false only for users in the deny list") {
-                // Given
-                val strategy = DenyListStrategy(setOf("Alice", "Charlie"))
-                val store = InMemoryFeatureStore()
+            context("returns false only for users in the deny list") {
+                withData(
+                    DenyListTestCase("Alice", false),
+                    DenyListTestCase("Charlie", false),
+                    DenyListTestCase("Bob", true),
+                    DenyListTestCase("David", true),
+                ) { (user, shouldBeAllowed) ->
+                    // Given
+                    val strategy = DenyListStrategy(setOf("Alice", "Charlie"))
+                    val store = InMemoryFeatureStore()
 
-                // When / Then
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Alice")).shouldBeFalse()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Charlie")).shouldBeFalse()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "Bob")).shouldBeTrue()
-                strategy.evaluate("test", store, FlippingExecutionContext(ContextKeys.USER_ID to "David")).shouldBeTrue()
+                    // When
+                    val result = strategy.evaluate(
+                        "test",
+                        store,
+                        FlippingExecutionContext(ContextKeys.USER_ID to user),
+                    )
+
+                    // Then
+                    result shouldBe shouldBeAllowed
+                }
             }
 
             test("handles null feature store") {
@@ -104,3 +115,5 @@ internal class DenyListStrategyTest :
     override fun expectedJsonForSampleParams(): String = // language=json
         """{"type":"denyList","denyList":["Alice"]}"""
 }
+
+private data class DenyListTestCase(val user: String, val shouldBeAllowed: Boolean)

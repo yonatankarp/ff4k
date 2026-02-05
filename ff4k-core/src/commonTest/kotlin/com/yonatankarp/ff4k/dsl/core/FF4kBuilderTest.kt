@@ -1,7 +1,6 @@
 package com.yonatankarp.ff4k.dsl.core
 
 import com.yonatankarp.ff4k.core.Feature
-import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.property.PropertyString
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
@@ -17,8 +16,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FF4kBuilder and ff4k() DSL entry point.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FF4kBuilderTest :
     FunSpec({

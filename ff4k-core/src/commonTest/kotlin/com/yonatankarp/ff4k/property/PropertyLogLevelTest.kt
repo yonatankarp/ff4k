@@ -6,8 +6,6 @@ import io.kotest.matchers.string.shouldContain
 
 /**
  * Tests for PropertyLogLevel class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyLogLevelTest : PropertyContractTest<LogLevel, PropertyLogLevel>() {
 

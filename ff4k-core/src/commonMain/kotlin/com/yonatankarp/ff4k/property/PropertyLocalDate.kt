@@ -12,8 +12,6 @@ import kotlinx.serialization.Serializable
  * @property description Optional description
  * @property fixedValues Set of allowed local date values (empty if no restrictions)
  * @property readOnly Whether the property is read-only
- *
- * @author Yonatan Karp-Rudin
  */
 @Serializable
 @SerialName("localDate")

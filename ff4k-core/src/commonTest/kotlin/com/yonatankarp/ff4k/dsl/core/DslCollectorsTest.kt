@@ -1,15 +1,12 @@
 package com.yonatankarp.ff4k.dsl.core
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 
 /**
  * Tests for SetCollector and ListCollector DSL base classes.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class DslCollectorsTest :
     FunSpec({

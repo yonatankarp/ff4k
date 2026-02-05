@@ -8,8 +8,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FlippingExecutionContext.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FlippingExecutionContextTest :
     FunSpec({

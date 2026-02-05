@@ -15,8 +15,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FeatureBuilder DSL.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FeatureBuilderTest :
     FunSpec({

@@ -26,8 +26,6 @@ import io.kotest.core.spec.style.FunSpec
  *     override suspend fun createStore(): FeatureStore = InMemoryFeatureStore()
  * }
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 abstract class FeatureStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): FeatureStore

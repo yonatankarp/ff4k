@@ -8,8 +8,6 @@ private typealias Values<V> = MutableCollection<V>
 /**
  * SuperClass for property as maps.
  *
- * @author Yonatan Karp-Rudin (@yonatankarp)
- *
  * @param <T> current inner type
  * @param <M> current map type
  */

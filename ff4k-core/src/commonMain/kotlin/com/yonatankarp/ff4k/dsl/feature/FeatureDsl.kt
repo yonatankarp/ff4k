@@ -28,8 +28,6 @@ import com.yonatankarp.ff4k.dsl.internal.feature as featureDsl
  * @param block DSL block to configure the [FeatureBuilder]
  * @return A fully built [Feature] instance
  * @throws IllegalArgumentException if any property inside the block is invalid
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 fun feature(uid: String, block: FeatureBuilder.() -> Unit): Feature = featureDsl(uid, block)
 
@@ -54,6 +52,5 @@ fun feature(uid: String, block: FeatureBuilder.() -> Unit): Feature = featureDsl
  *
  * @param block DSL block to configure [FeaturesBuilder] with multiple features
  * @return List of fully built [Feature] instances
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 fun features(block: FeaturesBuilder.() -> Unit): List<Feature> = FeaturesBuilder().apply(block).build()

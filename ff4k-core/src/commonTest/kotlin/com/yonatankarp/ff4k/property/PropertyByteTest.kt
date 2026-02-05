@@ -4,8 +4,6 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 
 /**
  * Tests for PropertyByte class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyByteTest : PropertyContractTest<Byte, PropertyByte>() {
 

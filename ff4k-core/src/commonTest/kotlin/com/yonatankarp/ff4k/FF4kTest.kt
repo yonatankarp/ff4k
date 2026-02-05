@@ -19,8 +19,6 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 /**
  * Tests for the FF4k main class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FF4kTest :
     FunSpec({

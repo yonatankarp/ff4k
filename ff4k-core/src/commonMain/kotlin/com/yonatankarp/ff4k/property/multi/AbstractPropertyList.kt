@@ -10,8 +10,6 @@ package com.yonatankarp.ff4k.property.multi
  * @param readOnly If true, the property cannot be modified.
  *
  * @param T current type
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 abstract class AbstractPropertyList<T>(
     name: String,

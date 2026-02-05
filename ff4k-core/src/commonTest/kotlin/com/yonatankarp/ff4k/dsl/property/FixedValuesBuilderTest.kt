@@ -7,8 +7,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FixedValuesBuilder DSL.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FixedValuesBuilderTest :
     FunSpec({

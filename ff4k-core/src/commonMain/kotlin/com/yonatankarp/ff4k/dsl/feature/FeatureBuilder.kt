@@ -35,8 +35,6 @@ import com.yonatankarp.ff4k.property.Property
  * @property description Optional human-readable description of the feature
  * @property group Optional logical group name for categorization
  * @property flippingStrategy Optional strategy controlling dynamic enablement
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class FeatureBuilder internal constructor(
@@ -145,8 +143,6 @@ class FeatureBuilder internal constructor(
  *     +"BETA_USER"
  * }
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class PermissionsBuilder : SetCollector<String>()

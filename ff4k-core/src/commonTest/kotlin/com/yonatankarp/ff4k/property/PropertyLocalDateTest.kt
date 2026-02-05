@@ -6,8 +6,6 @@ import kotlinx.datetime.LocalDate
 
 /**
  * Tests for PropertyLocalDate class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyLocalDateTest : PropertyContractTest<LocalDate, PropertyLocalDate>() {
 

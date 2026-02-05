@@ -59,14 +59,18 @@ spotless {
         targetExclude("**/build/**/*.kt")
         ktlint().editorConfigOverride(
             mapOf(
-                "ktlint_standard_filename" to "disabled"
+                "ktlint_standard_filename" to "disabled",
+                "ktlint_standard_no-unused-imports" to "enabled"
             )
         )
     }
-
     kotlinGradle {
         target("**/*.gradle.kts")
         targetExclude("**/build/**/*.gradle.kts")
-        ktlint()
+        ktlint().editorConfigOverride(
+            mapOf(
+                "ktlint_standard_no-unused-imports" to "enabled"
+            )
+        )
     }
 }

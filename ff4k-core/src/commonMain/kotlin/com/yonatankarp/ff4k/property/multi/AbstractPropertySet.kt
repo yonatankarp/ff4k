@@ -4,8 +4,6 @@ package com.yonatankarp.ff4k.property.multi
  * SuperClass for property as lists.
  *
  * @param <T> current type
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @Suppress("UNCHECKED_CAST")
 abstract class AbstractPropertySet<T, S : MutableSet<T>>(

@@ -4,8 +4,6 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 
 /**
  * Tests for PropertyFloat class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyFloatTest : PropertyContractTest<Float, PropertyFloat>() {
 

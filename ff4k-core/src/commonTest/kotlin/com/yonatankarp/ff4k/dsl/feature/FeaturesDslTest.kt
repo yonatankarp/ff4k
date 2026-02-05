@@ -9,8 +9,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for top-level features() DSL function.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FeaturesDslTest :
     FunSpec({

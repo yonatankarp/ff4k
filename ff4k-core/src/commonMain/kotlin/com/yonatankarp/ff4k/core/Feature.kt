@@ -45,8 +45,6 @@ import kotlinx.serialization.Serializable
  * ```
  *
  * @throws IllegalArgumentException if [uid] is blank or [group] is blank (when non-null)
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @Serializable
 data class Feature(

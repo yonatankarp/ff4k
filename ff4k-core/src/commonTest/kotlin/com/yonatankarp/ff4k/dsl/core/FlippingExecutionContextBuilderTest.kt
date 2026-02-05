@@ -7,8 +7,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FlippingExecutionContextBuilder DSL.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FlippingExecutionContextBuilderTest :
     FunSpec({

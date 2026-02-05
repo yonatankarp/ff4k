@@ -4,8 +4,6 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 
 /**
  * Tests for PropertyDouble class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyDoubleTest : PropertyContractTest<Double, PropertyDouble>() {
 

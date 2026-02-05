@@ -4,8 +4,6 @@ import com.yonatankarp.ff4k.test.contract.property.PropertyContractTest
 
 /**
  * Tests for PropertyShort class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyShortTest : PropertyContractTest<Short, PropertyShort>() {
 

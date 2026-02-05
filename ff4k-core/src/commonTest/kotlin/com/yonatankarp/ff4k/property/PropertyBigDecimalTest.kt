@@ -9,8 +9,6 @@ import kotlinx.serialization.json.Json
 
 /**
  * Tests for PropertyBigDecimal class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyBigDecimalTest : PropertyContractTest<BigDecimal, PropertyBigDecimal>() {
 

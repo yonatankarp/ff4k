@@ -19,8 +19,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for Feature extension functions defined in Features.kt.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FeaturesTest :
     FunSpec({

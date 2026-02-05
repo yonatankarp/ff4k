@@ -9,8 +9,6 @@ import kotlinx.serialization.json.Json
 
 /**
  * Tests for PropertyBigInteger class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyBigIntegerTest : PropertyContractTest<BigInteger, PropertyBigInteger>() {
 

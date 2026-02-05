@@ -14,8 +14,6 @@ package com.yonatankarp.ff4k.dsl.core
  * when used inside nested DSL blocks.
  *
  * @param T the type of elements collected by this builder
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 abstract class SetCollector<T> {
@@ -85,8 +83,6 @@ abstract class SetCollector<T> {
  * This class is marked with [FF4kDsl] to enforce proper DSL scoping rules.
  *
  * @param T the type of elements collected by this builder
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 abstract class ListCollector<T> {

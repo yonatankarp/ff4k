@@ -9,8 +9,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FlippingExecutionContext extension functions and coroutine context propagation.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FlippingExecutionContextsTest :
     FunSpec({

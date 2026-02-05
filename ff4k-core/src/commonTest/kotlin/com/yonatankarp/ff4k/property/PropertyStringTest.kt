@@ -5,8 +5,6 @@ import io.kotest.matchers.string.shouldContain
 
 /**
  * Tests for PropertyString class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyStringTest : PropertyContractTest<String, PropertyString>() {
 

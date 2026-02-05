@@ -39,8 +39,6 @@ package com.yonatankarp.ff4k.core
  *     }
  * }
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 fun interface FlippingStrategy {
     /**

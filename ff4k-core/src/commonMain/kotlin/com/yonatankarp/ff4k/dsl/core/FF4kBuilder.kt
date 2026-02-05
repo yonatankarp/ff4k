@@ -59,8 +59,6 @@ import com.yonatankarp.ff4k.store.InMemoryPropertyStore
  *
  * This class is annotated with [FF4kDsl] to prevent accidental receiver leakage
  * when nesting DSL blocks (e.g. feature builders inside the root DSL).
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class FF4kBuilder internal constructor(
@@ -203,8 +201,6 @@ class FF4kBuilder internal constructor(
  * @param block DSL block used to configure the FF4k instance
  *
  * @return a fully configured [FF4k] instance
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 suspend fun ff4k(
     featureStore: FeatureStore = InMemoryFeatureStore(),

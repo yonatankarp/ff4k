@@ -37,8 +37,6 @@ import com.yonatankarp.ff4k.dsl.core.SetCollector
  * ```
  *
  * @param T Type of the values in the set
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kPropertyDsl
 class FixedValuesBuilder<T> : SetCollector<T>()

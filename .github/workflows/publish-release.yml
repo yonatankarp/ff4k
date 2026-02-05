@@ -84,6 +84,7 @@ jobs:
       contents: write
     outputs:
       version: ${{ steps.version.outputs.VERSION }}
+      tag_name: ${{ steps.version.outputs.TAG_NAME }}
 
     steps:
       - name: Checkout code
@@ -112,7 +113,9 @@ jobs:
 
       - name: Extract version from tag
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Publish to Maven Central
         run: ./gradlew publishAllPublicationsToMavenCentralRepository "-Pversion=${{ steps.version.outputs.VERSION }}" --parallel --no-daemon
@@ -141,6 +144,9 @@ jobs:
   deploy-docs:
     needs: publish
     runs-on: ubuntu-latest
+    concurrency:
+      group: documentation
+      cancel-in-progress: false
     permissions:
       contents: write
 
@@ -153,6 +159,6 @@ jobs:
       - name: Deploy release docs
         uses: ./.github/actions/deploy-docs
         with:
-          version: ${{ needs.publish.outputs.version }}
+          version: ${{ needs.publish.outputs.tag_name }}
           aliases: latest
           gradle-version-arg: "-Pversion=${{ needs.publish.outputs.version }}"

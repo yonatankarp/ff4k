@@ -6,8 +6,10 @@ import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import com.yonatankarp.ff4k.utils.fixedClock
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 
@@ -15,9 +17,21 @@ internal class DailyHoursStrategyTest :
     FlippingStrategyContractTest({
 
         context("evaluate boundary conditions") {
-            test("returns true when current hour equals startHour (inclusive)") {
-                // Given - 10:00 UTC
-                val strategy = createStrategy(currentTime = "2025-01-15T10:00:00Z")
+            withData(
+                nameFn = { "time: ${it.currentTime} -> expect: ${it.shouldBeEnabled}" },
+                // 10:00 start (inclusive)
+                DailyHoursEvaluationTestCase("2025-01-15T10:00:00Z", true),
+                // 14:00 end (exclusive)
+                DailyHoursEvaluationTestCase("2025-01-15T14:00:00Z", false),
+                // 12:30 in range
+                DailyHoursEvaluationTestCase("2025-01-15T12:30:00Z", true),
+                // 09:59 before start
+                DailyHoursEvaluationTestCase("2025-01-15T09:59:59Z", false),
+                // 15:00 after end
+                DailyHoursEvaluationTestCase("2025-01-15T15:00:00Z", false),
+            ) { (currentTime, shouldBeEnabled) ->
+                // Given - range 10:00 to 14:00
+                val strategy = createStrategy(currentTime = currentTime)
 
                 // When
                 val result = strategy.evaluate(
@@ -27,67 +41,7 @@ internal class DailyHoursStrategyTest :
                 )
 
                 // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false when current hour equals endHour (exclusive)") {
-                // Given - 14:00 UTC
-                val strategy = createStrategy(currentTime = "2025-01-15T14:00:00Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns true when current hour is within range") {
-                // Given - 12:30 UTC
-                val strategy = createStrategy(currentTime = "2025-01-15T12:30:00Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false when current hour is before startHour") {
-                // Given - 09:59 UTC
-                val strategy = createStrategy(currentTime = "2025-01-15T09:59:59Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns false when current hour is after endHour") {
-                // Given - 15:00 UTC
-                val strategy = createStrategy(currentTime = "2025-01-15T15:00:00Z")
-
-                // When
-                val result = strategy.evaluate(
-                    featureId = "test",
-                    store = InMemoryFeatureStore(),
-                    context = FlippingExecutionContext(),
-                )
-
-                // Then
-                result.shouldBeFalse()
+                result shouldBe shouldBeEnabled
             }
         }
 
@@ -130,45 +84,20 @@ internal class DailyHoursStrategyTest :
         }
 
         context("validation") {
-            test("throws IllegalArgumentException when startHour is negative") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = -1, endHour = 10)
-                }
-            }
-
-            test("throws IllegalArgumentException when startHour is greater than 23") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 24, endHour = 25)
-                }
-            }
-
-            test("throws IllegalArgumentException when endHour is negative") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 0, endHour = -1)
-                }
-            }
-
-            test("throws IllegalArgumentException when endHour is zero") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 0, endHour = 0)
-                }
-            }
-
-            test("throws IllegalArgumentException when endHour is greater than 24") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 10, endHour = 25)
-                }
-            }
-
-            test("throws IllegalArgumentException when endHour equals startHour") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 10, endHour = 10)
-                }
-            }
-
-            test("throws IllegalArgumentException when endHour is before startHour") {
-                shouldThrow<IllegalArgumentException> {
-                    DailyHoursStrategy(startHour = 14, endHour = 10)
+            context("throws IllegalArgumentException for invalid configuration") {
+                withData(
+                    nameFn = { "start: ${it.start}, end: ${it.end}" },
+                    InvalidDailyHoursTestCase(-1, 10), // start negative
+                    InvalidDailyHoursTestCase(24, 25), // start > 23
+                    InvalidDailyHoursTestCase(0, -1), // end negative
+                    InvalidDailyHoursTestCase(0, 0), // end zero
+                    InvalidDailyHoursTestCase(10, 25), // end > 24
+                    InvalidDailyHoursTestCase(10, 10), // start == end
+                    InvalidDailyHoursTestCase(14, 10), // start > end
+                ) { (start, end) ->
+                    shouldThrow<IllegalArgumentException> {
+                        DailyHoursStrategy(startHour = start, endHour = end)
+                    }
                 }
             }
 
@@ -226,3 +155,7 @@ private fun createStrategy(
     timezone = timeZone,
     clock = fixedClock(Instant.parse(currentTime)),
 )
+
+private data class DailyHoursEvaluationTestCase(val currentTime: String, val shouldBeEnabled: Boolean)
+
+private data class InvalidDailyHoursTestCase(val start: Int, val end: Int)

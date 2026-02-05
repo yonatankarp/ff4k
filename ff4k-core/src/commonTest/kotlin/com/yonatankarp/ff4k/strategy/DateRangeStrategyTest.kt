@@ -5,8 +5,8 @@ import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.store.InMemoryFeatureStore
 import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import com.yonatankarp.ff4k.utils.fixedClock
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.datatest.withData
+import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
@@ -27,12 +27,20 @@ internal class DateRangeStrategyTest :
                 }
             }
 
-            test("returns true when now equals startDate (inclusive)") {
+            withData(
+                nameFn = { "current: ${it.currentDate} -> expect: ${it.shouldBeEnabled}" },
+                DateRangeTestCase(startDate, true),
+                DateRangeTestCase(endDate, false),
+                DateRangeTestCase(startDate.plus(1.milliseconds), true),
+                DateRangeTestCase(endDate.minus(1.milliseconds), true),
+                DateRangeTestCase(startDate.minus(1.milliseconds), false),
+                DateRangeTestCase(endDate.plus(1.milliseconds), false),
+            ) { (currentDate, shouldBeEnabled) ->
                 // Given
                 val strategy = DateRangeStrategy(
                     startDate = startDate,
                     endDate = endDate,
-                    clock = fixedClock(startDate),
+                    clock = fixedClock(currentDate),
                 )
                 val store = InMemoryFeatureStore()
                 val context = FlippingExecutionContext()
@@ -41,92 +49,7 @@ internal class DateRangeStrategyTest :
                 val result = strategy.evaluate("test", store, context)
 
                 // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false when now equals endDate (exclusive)") {
-                // Given
-                val strategy = DateRangeStrategy(
-                    startDate = startDate,
-                    endDate = endDate,
-                    clock = fixedClock(endDate),
-                )
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", store, context)
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns true when now is 1ms after startDate") {
-                // Given
-                val strategy = DateRangeStrategy(
-                    startDate = startDate,
-                    endDate = endDate,
-                    clock = fixedClock(startDate.plus(1.milliseconds)),
-                )
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", store, context)
-
-                // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns true when now is 1ms before endDate") {
-                // Given
-                val strategy = DateRangeStrategy(
-                    startDate = startDate,
-                    endDate = endDate,
-                    clock = fixedClock(endDate.minus(1.milliseconds)),
-                )
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", store, context)
-
-                // Then
-                result.shouldBeTrue()
-            }
-
-            test("returns false when now is 1ms before startDate") {
-                // Given
-                val strategy = DateRangeStrategy(
-                    startDate = startDate,
-                    endDate = endDate,
-                    clock = fixedClock(startDate.minus(1.milliseconds)),
-                )
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", store, context)
-
-                // Then
-                result.shouldBeFalse()
-            }
-
-            test("returns false when now is 1ms after endDate") {
-                // Given
-                val strategy = DateRangeStrategy(
-                    startDate = startDate,
-                    endDate = endDate,
-                    clock = fixedClock(endDate.plus(1.milliseconds)),
-                )
-                val store = InMemoryFeatureStore()
-                val context = FlippingExecutionContext()
-
-                // When
-                val result = strategy.evaluate("test", store, context)
-
-                // Then
-                result.shouldBeFalse()
+                result shouldBe shouldBeEnabled
             }
         }
     }) {
@@ -153,3 +76,5 @@ internal class DateRangeStrategyTest :
     override fun expectedJsonForSampleParams(): String = // language=json
         """{"type":"dateRange","startDate":"2025-01-01T00:00:00Z","endDate":"2025-01-30T00:00:00Z"}"""
 }
+
+private data class DateRangeTestCase(val currentDate: Instant, val shouldBeEnabled: Boolean)

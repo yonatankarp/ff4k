@@ -1,16 +1,9 @@
 package com.yonatankarp.ff4k.dsl.strategy
 
 import com.yonatankarp.ff4k.dsl.feature.feature
-import com.yonatankarp.ff4k.strategy.AllowListStrategy
-import com.yonatankarp.ff4k.strategy.ClientFilterStrategy
 import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
-import com.yonatankarp.ff4k.strategy.DenyListStrategy
-import com.yonatankarp.ff4k.strategy.PonderationStrategy
-import com.yonatankarp.ff4k.strategy.RegionFilterStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
-import com.yonatankarp.ff4k.strategy.ServerFilterStrategy
-import com.yonatankarp.ff4k.strategy.UserPonderationStrategy
 import com.yonatankarp.ff4k.strategy.WeekdayStrategy
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
@@ -22,104 +15,11 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
-internal class StrategyDslTest :
+/**
+ * @author Yonatan Karp-Rudin
+ */
+internal class TimeStrategyDslTest :
     FunSpec({
-
-        test("ponderationStrategy with Double sets strategy") {
-            val feature = feature("test") {
-                ponderationStrategy(0.75)
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<PonderationStrategy>()
-            feature.flippingStrategy.weight shouldBe 0.75
-        }
-
-        test("ponderationStrategy with Int sets strategy") {
-            val feature = feature("test") {
-                ponderationStrategy(50)
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<PonderationStrategy>()
-            feature.flippingStrategy.weight shouldBe 0.5
-        }
-
-        test("userPonderationStrategy with Double sets strategy") {
-            val feature = feature("test") {
-                userPonderationStrategy(0.75)
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<UserPonderationStrategy>()
-            feature.flippingStrategy.weight shouldBe 0.75
-        }
-
-        test("userPonderationStrategy with Int sets strategy") {
-            val feature = feature("test") {
-                userPonderationStrategy(50)
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<UserPonderationStrategy>()
-            feature.flippingStrategy.weight shouldBe 0.5
-        }
-
-        test("allowListStrategy sets AllowListStrategy") {
-            val feature = feature("test") {
-                allowListStrategy {
-                    +"user-1"
-                    +"user-2"
-                }
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<AllowListStrategy>()
-            feature.flippingStrategy.allowedList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
-        }
-
-        test("denyListStrategy sets DenyListStrategy") {
-            val feature = feature("test") {
-                denyListStrategy {
-                    +"user-1"
-                    +"user-2"
-                }
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<DenyListStrategy>()
-            feature.flippingStrategy.denyList shouldContainExactlyInAnyOrder listOf("user-1", "user-2")
-        }
-
-        test("clientFilterStrategy sets ClientFilterStrategy") {
-            val feature = feature("test") {
-                clientFilterStrategy {
-                    +"client-a"
-                    +"client-b"
-                }
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<ClientFilterStrategy>()
-            feature.flippingStrategy.grantedClients shouldContainExactlyInAnyOrder listOf("client-a", "client-b")
-        }
-
-        test("serverFilterStrategy sets ServerFilterStrategy") {
-            val feature = feature("test") {
-                serverFilterStrategy {
-                    +"server-1"
-                    +"server-2"
-                }
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<ServerFilterStrategy>()
-            feature.flippingStrategy.targetServers shouldContainExactlyInAnyOrder listOf("server-1", "server-2")
-        }
-
-        test("regionStrategy sets RegionFilterStrategy") {
-            val feature = feature("test") {
-                regionStrategy {
-                    +"eu-central-1"
-                    +"us-west-2"
-                }
-            }
-
-            feature.flippingStrategy.shouldBeInstanceOf<RegionFilterStrategy>()
-            feature.flippingStrategy.grantedRegions shouldContainExactlyInAnyOrder listOf("eu-central-1", "us-west-2")
-        }
 
         context("releaseDateStrategy") {
             test("sets ReleaseDateStrategy with Instant") {

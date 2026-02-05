@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/api_reference/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/api_reference/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/packages/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/packages/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/extending/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/extending/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/extending/custom-feature-store/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/extending/custom-feature-store/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/extending/custom-property-store/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/extending/custom-property-store/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/extending/custom-strategy/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/extending/custom-strategy/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/basics/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/basics/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/configuration/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/configuration/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/monitoring/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/monitoring/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/properties/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/properties/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/strategies/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/strategies/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/0.2.0/usage/testing/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/v0.2.0/usage/testing/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
 </urlset>

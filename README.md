@@ -5,7 +5,7 @@
 [![CI](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://yonatankarp.github.io/ff4k/)
 [![License Apache2](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.0.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0.21-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17-orange.svg?logo=openjdk)](https://openjdk.org/)
 [![GitHub release](https://img.shields.io/github/v/release/yonatankarp/ff4k)](https://github.com/yonatankarp/ff4k/releases)
 [![CodeRabbit Reviews](https://img.shields.io/coderabbit/prs/github/yonatankarp/ff4k?utm_source=oss&utm_medium=github&utm_campaign=yonatankarp%2Fff4k&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)](https://coderabbit.ai)

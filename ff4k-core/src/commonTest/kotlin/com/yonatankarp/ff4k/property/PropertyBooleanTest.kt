@@ -5,8 +5,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for PropertyBoolean class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyBooleanTest : PropertyContractTest<Boolean, PropertyBoolean>() {
 

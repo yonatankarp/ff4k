@@ -22,8 +22,6 @@ import io.kotest.core.spec.style.FunSpec
  *     override suspend fun createStore(): PropertyStore = InMemoryPropertyStore()
  * }
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 abstract class PropertyStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): PropertyStore

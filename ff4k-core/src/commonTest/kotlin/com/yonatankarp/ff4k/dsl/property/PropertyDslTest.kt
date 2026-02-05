@@ -10,8 +10,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for top-level property() and properties() DSL functions.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyDslTest :
     FunSpec({

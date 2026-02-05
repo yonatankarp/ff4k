@@ -11,8 +11,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for PropertiesBuilder DSL.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertiesBuilderTest :
     FunSpec({

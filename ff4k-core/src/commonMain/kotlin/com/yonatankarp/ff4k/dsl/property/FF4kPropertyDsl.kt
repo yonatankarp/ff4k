@@ -9,8 +9,6 @@ package com.yonatankarp.ff4k.dsl.property
  * It ensures that configuration blocks such as `fixedValues {}` can only be
  * invoked in their intended context (for example, inside a property definition),
  * providing better compile-time safety and clearer DSL usage.
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)

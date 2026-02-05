@@ -28,8 +28,6 @@ import com.yonatankarp.ff4k.dsl.internal.feature as featureDsl
  *     ))
  * }.build()
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class FeaturesBuilder : ListCollector<Feature>() {

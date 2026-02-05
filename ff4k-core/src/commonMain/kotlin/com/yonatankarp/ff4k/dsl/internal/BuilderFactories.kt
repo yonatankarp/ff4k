@@ -14,7 +14,6 @@ import com.yonatankarp.ff4k.property.Property
  * @param uid Unique identifier for the feature
  * @param block DSL block to configure the [FeatureBuilder]
  * @return A fully built [Feature] instance
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 internal fun feature(
     uid: String,
@@ -30,7 +29,6 @@ internal fun feature(
  * @param name Name of the property
  * @param block DSL block to configure the [PropertyBuilder]
  * @return A fully built [Property] instance of type [T]
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 internal fun <T> property(
     name: String,

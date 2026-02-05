@@ -6,8 +6,6 @@ import kotlinx.datetime.Instant
 
 /**
  * Tests for PropertyInstant class.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyInstantTest : PropertyContractTest<Instant, PropertyInstant>() {
 

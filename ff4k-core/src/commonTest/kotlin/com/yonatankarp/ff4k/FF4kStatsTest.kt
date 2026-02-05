@@ -11,8 +11,6 @@ import io.kotest.matchers.string.shouldContain
 
 /**
  * Tests for FF4k filtering, statistics, and reporting extension functions.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FF4kStatsTest :
     FunSpec({
@@ -394,6 +392,7 @@ internal class FF4kStatsTest :
         )
     }
 }
+
 private data class ReportTestData(
     val description: String,
     val featuresBlock: FeaturesBuilder.() -> Unit,

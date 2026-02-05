@@ -12,8 +12,6 @@ import io.kotest.matchers.shouldBe
 
 /**
  * Tests for FF4k conditional execution and batch check extension functions.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FF4kExtensionsTest :
     FunSpec({
@@ -22,7 +20,7 @@ internal class FF4kExtensionsTest :
             withData(
                 nameFn = { it.description },
                 ifEnabledData,
-            ) { (description, featuresBlock, context, expected) ->
+            ) { (_, featuresBlock, context, expected) ->
                 // Given
                 val ff4k = ff4k {
                     features(featuresBlock)
@@ -44,7 +42,7 @@ internal class FF4kExtensionsTest :
             withData(
                 nameFn = { it.description },
                 ifEnabledOrElseData,
-            ) { (description, featuresBlock, context, expected) ->
+            ) { (_, featuresBlock, context, expected) ->
                 // Given
                 val ff4k = ff4k {
                     features(featuresBlock)
@@ -75,7 +73,7 @@ internal class FF4kExtensionsTest :
             withData(
                 nameFn = { it.description },
                 whenEnabledData,
-            ) { (description, featuresBlock, context, expected) ->
+            ) { (_, featuresBlock, context, expected) ->
                 // Given
                 val ff4k = ff4k {
                     features(featuresBlock)

@@ -10,7 +10,6 @@ package com.yonatankarp.ff4k.dsl.core
  * safe and readable DSL usage.
  *
  * @see DslMarker
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)

@@ -7,8 +7,6 @@ import com.yonatankarp.ff4k.property.Property
  *
  * @param <T> current inner type
  * @param <C> current collection type
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 abstract class AbstractPropertyMultiValued<T, C : MutableCollection<T>>(
     override val name: String,

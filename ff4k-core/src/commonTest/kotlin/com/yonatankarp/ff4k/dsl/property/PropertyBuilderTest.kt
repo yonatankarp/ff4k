@@ -31,8 +31,6 @@ import kotlinx.datetime.LocalDateTime
 
 /**
  * Tests for PropertyBuilder DSL.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class PropertyBuilderTest :
     FunSpec({

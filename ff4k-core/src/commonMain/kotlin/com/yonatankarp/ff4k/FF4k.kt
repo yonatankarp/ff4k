@@ -124,7 +124,6 @@ import kotlinx.coroutines.sync.Mutex
  * @property autoCreate When `true`, automatically creates missing features as disabled on first access.
  *                      When `false`, throws [FeatureNotFoundException] for missing features.
  *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  * @see FeatureStore
  * @see PropertyStore
  * @see Feature

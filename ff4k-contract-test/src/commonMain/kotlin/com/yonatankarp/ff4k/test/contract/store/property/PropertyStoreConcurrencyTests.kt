@@ -5,7 +5,6 @@ package com.yonatankarp.ff4k.test.contract.store.property
 import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.core.count
 import com.yonatankarp.ff4k.core.createOrUpdateProperty
-import com.yonatankarp.ff4k.exception.PropertyNotFoundException
 import com.yonatankarp.ff4k.property.PropertyInt
 import com.yonatankarp.ff4k.test.contract.store.property.PropertyStoreFixture.PROPERTY_NAME
 import io.kotest.core.spec.style.FunSpec

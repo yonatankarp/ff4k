@@ -33,8 +33,6 @@ import com.yonatankarp.ff4k.exception.FeatureNotFoundException
  * // Delete feature
  * store -= "dark-mode"
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 interface FeatureStore {
 

@@ -17,8 +17,6 @@ package com.yonatankarp.ff4k.exception
  *
  * @see com.yonatankarp.ff4k.core.Feature.getProperty
  * @see com.yonatankarp.ff4k.property.Property
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 sealed class PropertyStoreException(message: String, cause: Throwable? = null) : FF4kException(message, cause)
 

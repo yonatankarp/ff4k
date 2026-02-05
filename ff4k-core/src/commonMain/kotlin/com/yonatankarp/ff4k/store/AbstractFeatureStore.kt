@@ -15,8 +15,6 @@ import com.yonatankarp.ff4k.exception.GroupNotFoundException
  *
  * This class implements many of the default behaviors for a feature store,
  * allowing specific implementations to focus on the storage mechanism itself.
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 abstract class AbstractFeatureStore : FeatureStore {
 

@@ -20,7 +20,6 @@ import kotlinx.coroutines.sync.Mutex
  * - Prototyping feature flag systems
  *
  * @param initialFeatures Optional map of features to initialize the store with
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 class InMemoryFeatureStore(
     initialFeatures: Map<String, Feature> = emptyMap(),

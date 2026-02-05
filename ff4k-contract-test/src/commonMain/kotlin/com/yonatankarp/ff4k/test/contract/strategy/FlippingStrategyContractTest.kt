@@ -16,8 +16,6 @@ import kotlinx.serialization.encodeToString
  * Contract test for FlippingStrategy implementations.
  *
  * Extend this class to test custom flipping strategy implementations.
- *
- * @author Yonatan Karp-Rudin
  */
 abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
 

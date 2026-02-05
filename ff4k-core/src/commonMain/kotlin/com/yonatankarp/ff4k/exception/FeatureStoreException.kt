@@ -16,8 +16,6 @@ package com.yonatankarp.ff4k.exception
  * @param cause The underlying cause of this exception, or null if none
  *
  * @see com.yonatankarp.ff4k.core.FeatureStore
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 sealed class FeatureStoreException(message: String, cause: Throwable? = null) : FF4kException(message, cause)
 

@@ -30,8 +30,6 @@ import com.yonatankarp.ff4k.dsl.internal.property as propertyDsl
  * @return The fully-built [Property] of type [T]
  * @throws IllegalStateException if [PropertyBuilder.value] is not set
  * @throws IllegalArgumentException if the value type is unsupported
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 fun <T> property(name: String, block: PropertyBuilder<T>.() -> Unit): Property<T> = propertyDsl(name, block)
 
@@ -57,7 +55,5 @@ fun <T> property(name: String, block: PropertyBuilder<T>.() -> Unit): Property<T
  *
  * @param block DSL block used to define multiple properties
  * @return A list of fully-built [Property] instances
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 fun properties(block: PropertiesBuilder.() -> Unit): List<Property<*>> = PropertiesBuilder().apply(block).build()

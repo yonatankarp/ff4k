@@ -7,8 +7,6 @@ import com.yonatankarp.ff4k.property.Property
  *
  * PropertyStore provides a collection-like interface for storing and retrieving
  * properties with support for operator overloading and suspending operations.
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 interface PropertyStore {
 

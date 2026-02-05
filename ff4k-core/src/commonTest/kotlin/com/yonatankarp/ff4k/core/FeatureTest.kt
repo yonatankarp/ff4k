@@ -20,8 +20,6 @@ import kotlinx.serialization.json.Json
 
 /**
  * Tests for Feature.
- *
- * @author Yonatan Karp-Rudin
  */
 internal class FeatureTest :
     FunSpec({

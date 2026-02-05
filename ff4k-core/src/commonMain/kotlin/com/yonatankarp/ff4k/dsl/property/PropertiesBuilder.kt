@@ -24,8 +24,6 @@ import com.yonatankarp.ff4k.dsl.internal.property as propertyDsl
  *     property(PropertyString("api-key", "secret"))
  * }.build()
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class PropertiesBuilder : ListCollector<Property<*>>() {

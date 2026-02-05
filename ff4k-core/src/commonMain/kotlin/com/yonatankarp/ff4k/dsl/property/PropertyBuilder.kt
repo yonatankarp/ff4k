@@ -53,8 +53,6 @@ import kotlinx.datetime.LocalDateTime
  * - [readOnly] marks the property as immutable after creation.
  *
  * @param T Type of the property value
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 @FF4kDsl
 class PropertyBuilder<T> internal constructor(

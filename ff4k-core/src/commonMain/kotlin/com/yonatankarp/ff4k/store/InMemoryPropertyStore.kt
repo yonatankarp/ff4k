@@ -26,8 +26,6 @@ import kotlinx.coroutines.sync.Mutex
  *
  * Despite being thread-safe within a single process, this implementation does not
  * provide any cross-process or distributed consistency guarantees.
- *
- * @author Yonatan Karp
  */
 class InMemoryPropertyStore(
     initialProperties: Map<String, Property<*>> = emptyMap(),

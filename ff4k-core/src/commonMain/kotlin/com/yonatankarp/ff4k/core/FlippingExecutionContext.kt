@@ -27,8 +27,6 @@ import kotlin.coroutines.CoroutineContext
  * // Immutable modification (creates new instance)
  * val newContext = context.withParameter(ContextKeys.REGION, "EU")
  * ```
- *
- * @author Yonatan Karp-Rudin (@yonatankarp)
  */
 data class FlippingExecutionContext(
     @PublishedApi internal val values: Map<String, Any> = emptyMap(),

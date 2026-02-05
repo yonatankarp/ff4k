@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ff4k-core-jvm">
+    <output-path>$PROJECT_DIR$/ff4k-core/build/libs</output-path>
+    <root id="archive" name="ff4k-core-jvm.jar">
+      <element id="module-output" name="ff4k.ff4k-core.jvmMain" />
+    </root>
+  </artifact>
+</component>

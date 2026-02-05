@@ -1,0 +1,4 @@
+report.file=/Users/yonatankarp-rudin/Projects/ff4k/ff4k-core/build/kover/bin-reports/jvmTest.ic
+exclude=android.*
+exclude=com.android.*
+exclude=jdk.internal.*

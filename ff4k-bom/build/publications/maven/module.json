@@ -1,0 +1,64 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.yonatankarp",
+    "module": "ff4k-bom",
+    "version": "0.1.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "platform",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencyConstraints": [
+        {
+          "group": "com.yonatankarp",
+          "module": "ff4k-contract-test",
+          "version": {
+            "requires": "0.1.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "com.yonatankarp",
+          "module": "ff4k-core",
+          "version": {
+            "requires": "0.1.0-SNAPSHOT"
+          }
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "platform",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencyConstraints": [
+        {
+          "group": "com.yonatankarp",
+          "module": "ff4k-contract-test",
+          "version": {
+            "requires": "0.1.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "com.yonatankarp",
+          "module": "ff4k-core",
+          "version": {
+            "requires": "0.1.0-SNAPSHOT"
+          }
+        }
+      ]
+    }
+  ]
+}

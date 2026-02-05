@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.yonatankarp.ff4k.property.PropertyLongTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-02-05T08:20:47.385Z" hostname="yonatankarp-rudin-CN6223C2M9" time="0.039">
+  <properties/>
+  <testcase name="stores name and value[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <testcase name="serializes to JSON[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <testcase name="deserializes from JSON[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.002"/>
+  <testcase name="hasFixedValues returns false when no fixed values[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.0"/>
+  <testcase name="hasFixedValues returns true when fixed values defined[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <testcase name="should create property without errors when no fixed values provided[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <testcase name="should create property without errors when value within fixed values[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <testcase name="should create property without errors when fixed values is empty[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.002"/>
+  <testcase name="should throw exception when value is not within fixed values[jvm]" classname="com.yonatankarp.ff4k.property.PropertyLongTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

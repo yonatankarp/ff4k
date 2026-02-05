@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ff4k-store-sqldelight-jvm-0.1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/ff4k-store-sqldelight/build/libs</output-path>
+    <root id="archive" name="ff4k-store-sqldelight-jvm-0.1.0-SNAPSHOT.jar">
+      <element id="module-output" name="ff4k.ff4k-store-sqldelight.jvmMain" />
+    </root>
+  </artifact>
+</component>

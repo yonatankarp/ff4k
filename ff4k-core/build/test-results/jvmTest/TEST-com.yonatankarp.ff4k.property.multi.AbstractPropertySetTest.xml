@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-02-05T08:20:47.737Z" hostname="yonatankarp-rudin-CN6223C2M9" time="0.034">
+  <properties/>
+  <testcase name="defaults are description null fixedValues empty and readOnly false[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="add inserts element and increases size[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.0"/>
+  <testcase name="add does not add duplicates[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.0"/>
+  <testcase name="plusAssign adds element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.0"/>
+  <testcase name="remove removes existing element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="minusAssign removes element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.0"/>
+  <testcase name="addAll adds all new elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="addAll vararg adds all new elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="containsAll returns true when all elements present[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="removeAll removes provided elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="retainAll keeps only provided elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="iterator iterates over all elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <testcase name="clear removes all elements[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.005"/>
+  <testcase name="set properties are equal and have same hashCode when all fields match[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.0"/>
+  <testcase name="set properties are not equal when any field differs[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertySetTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

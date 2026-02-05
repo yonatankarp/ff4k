@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" tests="57" skipped="0" failures="0" errors="0" timestamp="2026-02-05T08:20:47.855Z" hostname="yonatankarp-rudin-CN6223C2M9" time="0.271">
+  <properties/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.004"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.004"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.002"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.002"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.002"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with default parameters[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with readOnly true[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.0"/>
+  <testcase name="creates property with fixed values[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="creates property with description[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.001"/>
+  <testcase name="throws for unsupported property type[jvm]" classname="com.yonatankarp.ff4k.property.utils.PropertyFactoryTest" time="0.028"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

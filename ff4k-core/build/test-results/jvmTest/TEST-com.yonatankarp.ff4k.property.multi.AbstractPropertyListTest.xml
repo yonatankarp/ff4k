@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-02-05T08:20:47.532Z" hostname="yonatankarp-rudin-CN6223C2M9" time="0.031">
+  <properties/>
+  <testcase name="addAll at index inserts elements at the right position[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.002"/>
+  <testcase name="get returns element at index[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.005"/>
+  <testcase name="set updates element at index and returns the element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.001"/>
+  <testcase name="add at index inserts element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.002"/>
+  <testcase name="removeAt removes and returns element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.002"/>
+  <testcase name="indexOf returns first index of element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.001"/>
+  <testcase name="lastIndexOf returns last index of element[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.001"/>
+  <testcase name="listIterator iterates over current elements in order[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.0"/>
+  <testcase name="subList returns correct slice[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.0"/>
+  <testcase name="listIterator with index starts iteration at the given position[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.0"/>
+  <testcase name="list properties are equal and have same hashCode when all fields match[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.001"/>
+  <testcase name="list properties are not equal when any field differs[jvm]" classname="com.yonatankarp.ff4k.property.multi.AbstractPropertyListTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,24 +1,10 @@
-import java.io.File
-import java.util.Properties
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import com.yonatankarp.ff4k.buildlogic.isAndroidSdkAvailable
 
-val androidSdkAvailable: Boolean by lazy {
-    val env = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
-    if (env != null && File(env).exists()) return@lazy true
-    val localProperties = project.rootProject.file("local.properties")
-    if (localProperties.exists()) {
-        val properties = Properties()
-        localProperties.inputStream().use { properties.load(it) }
-        val sdkDir = properties.getProperty("sdk.dir")
-        return@lazy sdkDir != null && File(sdkDir).exists()
-    }
-    false
-}
-
-if (androidSdkAvailable) {
+if (isAndroidSdkAvailable()) {
     apply(plugin = "com.android.library")
 
     configure<KotlinMultiplatformExtension> {

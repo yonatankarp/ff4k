@@ -1,8 +1,11 @@
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import com.yonatankarp.ff4k.buildlogic.isAndroidSdkAvailable
+
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 if (isAndroidSdkAvailable()) {
     apply(plugin = "com.android.library")
@@ -25,6 +28,9 @@ if (isAndroidSdkAvailable()) {
 
             named("androidUnitTest") {
                 jvmSharedTest?.let { dependsOn(it) }
+                dependencies {
+                    implementation(libs.findLibrary("robolectric").get())
+                }
             }
         }
     }

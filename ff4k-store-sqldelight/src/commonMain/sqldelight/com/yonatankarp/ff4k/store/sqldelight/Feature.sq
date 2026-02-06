@@ -1,0 +1,43 @@
+CREATE TABLE features (
+    uid TEXT PRIMARY KEY NOT NULL,
+    enabled INTEGER NOT NULL DEFAULT 0,
+    group_name TEXT,
+    description TEXT,
+    permissions TEXT NOT NULL DEFAULT '[]',
+    flipping_strategy TEXT,
+    custom_properties TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE INDEX idx_features_enabled ON features(enabled);
+CREATE INDEX idx_features_group_name ON features(group_name);
+
+selectAll:
+SELECT * FROM features;
+
+selectByUid:
+SELECT * FROM features WHERE uid = ?;
+
+exists:
+SELECT EXISTS(SELECT 1 FROM features WHERE uid = ?);
+
+count:
+SELECT COUNT(*) FROM features;
+
+insert:
+INSERT INTO features (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE features
+SET enabled = ?, group_name = ?, description = ?, permissions = ?, flipping_strategy = ?, custom_properties = ?
+WHERE uid = ?;
+
+upsert:
+INSERT OR REPLACE INTO features (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+deleteByUid:
+DELETE FROM features WHERE uid = ?;
+
+deleteAll:
+DELETE FROM features;

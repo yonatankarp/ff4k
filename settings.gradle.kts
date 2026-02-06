@@ -20,4 +20,5 @@ include(
     "ff4k-bom",
     "ff4k-contract-test",
     "ff4k-core",
+    "ff4k-store-sqldelight",
 )

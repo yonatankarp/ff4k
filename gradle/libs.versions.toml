@@ -49,6 +49,11 @@ sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 sqldelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-driver-r2dbc = { module = "app.cash.sqldelight:r2dbc-driver", version.ref = "sqldelight" }
+sqldelight-driver-jdbc = { module = "app.cash.sqldelight:jdbc-driver", version.ref = "sqldelight" }
+sqldelight-dialect-sqlite = { module = "app.cash.sqldelight:sqlite-3-38-dialect", version.ref = "sqldelight" }
+sqldelight-dialect-postgresql = { module = "app.cash.sqldelight:postgresql-dialect", version.ref = "sqldelight" }
+sqldelight-dialect-mysql = { module = "app.cash.sqldelight:mysql-dialect", version.ref = "sqldelight" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -58,6 +63,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 [bundles]

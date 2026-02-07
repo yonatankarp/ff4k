@@ -1,0 +1,50 @@
+CREATE TABLE FF4K_FEATURES (
+    uid VARCHAR(255) PRIMARY KEY NOT NULL,
+    enabled INTEGER NOT NULL DEFAULT 0,
+    group_name VARCHAR(255),
+    description TEXT,
+    permissions TEXT NOT NULL DEFAULT '[]',
+    flipping_strategy TEXT,
+    custom_properties TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE INDEX idx_ff4k_features_enabled ON FF4K_FEATURES(enabled);
+CREATE INDEX idx_ff4k_features_group_name ON FF4K_FEATURES(group_name);
+
+selectAll:
+SELECT * FROM FF4K_FEATURES;
+
+selectByUid:
+SELECT * FROM FF4K_FEATURES WHERE uid = ?;
+
+exists:
+SELECT EXISTS(SELECT 1 FROM FF4K_FEATURES WHERE uid = ?);
+
+count:
+SELECT COUNT(*) FROM FF4K_FEATURES;
+
+insert:
+INSERT INTO FF4K_FEATURES (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE FF4K_FEATURES
+SET enabled = ?, group_name = ?, description = ?, permissions = ?, flipping_strategy = ?, custom_properties = ?
+WHERE uid = ?;
+
+upsert:
+INSERT INTO FF4K_FEATURES AS new (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
+VALUES (?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE
+    enabled = new.enabled,
+    group_name = new.group_name,
+    description = new.description,
+    permissions = new.permissions,
+    flipping_strategy = new.flipping_strategy,
+    custom_properties = new.custom_properties;
+
+deleteByUid:
+DELETE FROM FF4K_FEATURES WHERE uid = ?;
+
+deleteAll:
+DELETE FROM FF4K_FEATURES;

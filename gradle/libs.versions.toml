@@ -13,7 +13,7 @@ slf4j = "2.0.17"
 spotless = "8.2.1"
 kotest = "5.9.1"
 maven-publish = "0.35.0"
-sqldelight = "2.0.2"
+sqldelight = "2.2.1"
 
 [libraries]
 # KMP Common

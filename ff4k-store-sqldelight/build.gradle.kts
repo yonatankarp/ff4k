@@ -12,8 +12,22 @@ plugins {
 
 sqldelight {
     databases {
-        create("FF4kDatabase") {
-            packageName.set("com.yonatankarp.ff4k.store.sqldelight")
+        create("SqliteDatabase") {
+            packageName.set("com.yonatankarp.ff4k.store.sqldelight.sqlite")
+            srcDirs("src/commonMain/sqldelight/sqlite")
+            dialect(libs.sqldelight.dialect.sqlite)
+            generateAsync.set(true)
+        }
+        create("PostgresDatabase") {
+            packageName.set("com.yonatankarp.ff4k.store.sqldelight.postgres")
+            srcDirs("src/jvmMain/sqldelight/postgres")
+            dialect(libs.sqldelight.dialect.postgresql)
+            generateAsync.set(true)
+        }
+        create("MysqlDatabase") {
+            packageName.set("com.yonatankarp.ff4k.store.sqldelight.mysql")
+            srcDirs("src/jvmMain/sqldelight/mysql")
+            dialect(libs.sqldelight.dialect.mysql)
             generateAsync.set(true)
         }
     }
@@ -26,6 +40,10 @@ kotlin {
             api(libs.sqldelight.runtime)
             api(libs.sqldelight.coroutines)
             implementation(libs.kotlinx.serialization.json)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.sqldelight.driver.jdbc)
         }
 
         commonTest.dependencies {

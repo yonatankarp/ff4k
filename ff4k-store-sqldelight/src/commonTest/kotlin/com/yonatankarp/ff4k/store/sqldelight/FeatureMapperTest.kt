@@ -1,4 +1,4 @@
-package com.yonatankarp.ff4k.store.sqldelight
+package com.yonatankarp.ff4k.store.sqldelight.mapper
 
 import com.yonatankarp.ff4k.core.Feature
 import com.yonatankarp.ff4k.property.PropertyInt

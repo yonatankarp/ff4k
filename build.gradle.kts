@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.kover)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.vanniktech.maven.publish) apply false
 }
 
 spotless {

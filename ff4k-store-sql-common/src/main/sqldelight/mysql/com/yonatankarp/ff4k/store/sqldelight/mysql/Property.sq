@@ -1,0 +1,48 @@
+CREATE TABLE FF4K_PROPERTIES (
+    name VARCHAR(255) PRIMARY KEY NOT NULL,
+    type TEXT NOT NULL,
+    value TEXT NOT NULL,
+    description TEXT,
+    read_only INTEGER NOT NULL DEFAULT 0,
+    fixed_values TEXT NOT NULL DEFAULT '[]'
+);
+
+selectAll:
+SELECT * FROM FF4K_PROPERTIES;
+
+selectByName:
+SELECT * FROM FF4K_PROPERTIES WHERE name = ?;
+
+exists:
+SELECT EXISTS(SELECT 1 FROM FF4K_PROPERTIES WHERE name = ?);
+
+count:
+SELECT COUNT(*) FROM FF4K_PROPERTIES;
+
+listNames:
+SELECT name FROM FF4K_PROPERTIES;
+
+insert:
+INSERT INTO FF4K_PROPERTIES (name, type, value, description, read_only, fixed_values)
+VALUES (?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE FF4K_PROPERTIES
+SET type = ?, value = ?, description = ?, read_only = ?, fixed_values = ?
+WHERE name = ?;
+
+upsert:
+INSERT INTO FF4K_PROPERTIES AS new (name, type, value, description, read_only, fixed_values)
+VALUES (?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE
+    type = new.type,
+    value = new.value,
+    description = new.description,
+    read_only = new.read_only,
+    fixed_values = new.fixed_values;
+
+deleteByName:
+DELETE FROM FF4K_PROPERTIES WHERE name = ?;
+
+deleteAll:
+DELETE FROM FF4K_PROPERTIES;

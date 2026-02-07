@@ -34,6 +34,8 @@ updates:
       # Kotlin and Android - affects binary compatibility with consumers
       - dependency-name: "org.jetbrains.kotlin:*"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "org.jetbrains.kotlin.*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "com.android.tools.build:gradle"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       # Runtime dependencies affecting consumers - only patch updates
@@ -48,4 +50,6 @@ updates:
       - dependency-name: "com.ionspin.kotlin:bignum*"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "app.cash.sqldelight:*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "app.cash.sqldelight"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]

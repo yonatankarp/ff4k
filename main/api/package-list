@@ -20,3 +20,5 @@ com.yonatankarp.ff4k.property.utils
 com.yonatankarp.ff4k.serialization
 com.yonatankarp.ff4k.store
 com.yonatankarp.ff4k.strategy
+module:ff4k-store-sqldelight
+com.yonatankarp.ff4k.store.sqldelight

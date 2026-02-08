@@ -298,7 +298,7 @@ internal fun FunSpec.featureStoreCrudTests(createStore: suspend () -> FeatureSto
         store += createFeature()
 
         // When
-        store.updateFeature(FEATURE_NAME) { feature ->
+        store.update(FEATURE_NAME) { feature ->
             feature.copy(isEnabled = true)
         }
 
@@ -314,7 +314,7 @@ internal fun FunSpec.featureStoreCrudTests(createStore: suspend () -> FeatureSto
 
         // When / Then
         shouldThrow<FeatureNotFoundException> {
-            store.updateFeature(FEATURE_NAME) { it }
+            store.update(FEATURE_NAME) { it }
         }
     }
 
@@ -325,7 +325,7 @@ internal fun FunSpec.featureStoreCrudTests(createStore: suspend () -> FeatureSto
 
         // When / Then
         shouldThrow<IllegalStateException> {
-            store.updateFeature(FEATURE_NAME) { feature ->
+            store.update(FEATURE_NAME) { feature ->
                 feature.copy(uid = "different-id")
             }
         }

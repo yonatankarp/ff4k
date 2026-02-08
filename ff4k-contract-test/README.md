@@ -72,7 +72,7 @@ The contract test includes comprehensive coverage for:
 - Group management (add to group, remove from group, enable/disable groups)
 - Permission operations (grant/revoke roles)
 - Operator overloading (`in`, `+=`, `-=`, `[]`)
-- Extension functions (toggle, createOrUpdate, updateFeature, etc.)
+- Extension functions (toggle, createOrUpdate, update with transform, etc.)
 - Edge cases and exception handling
 
 _More contract tests will be added as the library grows._

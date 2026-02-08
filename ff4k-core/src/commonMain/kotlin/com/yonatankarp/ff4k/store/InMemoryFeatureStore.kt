@@ -67,7 +67,7 @@ class InMemoryFeatureStore(
 
     override suspend fun count(): Int = mutex.withReentrantLock { features.size }
 
-    override suspend fun updateFeature(
+    override suspend fun update(
         featureId: String,
         transform: (Feature) -> Feature,
     ): Unit = mutex.withReentrantLock {

@@ -31,4 +31,5 @@ com.yonatankarp.ff4k.store.sqldelight.mysql.r2dbc
 com.yonatankarp.ff4k.store.sqldelight.postgres
 com.yonatankarp.ff4k.store.sqldelight.postgres.r2dbc
 module:ff4k-store-sqlite
+com.yonatankarp.ff4k.store
 com.yonatankarp.ff4k.store.sqldelight.sqlite

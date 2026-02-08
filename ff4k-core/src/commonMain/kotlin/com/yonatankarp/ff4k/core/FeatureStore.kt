@@ -231,7 +231,7 @@ interface FeatureStore {
      *
      * Example:
      * ```kotlin
-     * store.updateFeature("my-feature") { feature ->
+     * store.update("my-feature") { feature ->
      *     feature.copy(isEnabled = feature.isEnabled.not())
      * }
      * ```
@@ -240,7 +240,7 @@ interface FeatureStore {
      * @param transform Function to transform the feature
      * @throws FeatureNotFoundException if feature doesn't exist
      */
-    suspend fun updateFeature(
+    suspend fun update(
         featureId: String,
         transform: (Feature) -> Feature,
     )

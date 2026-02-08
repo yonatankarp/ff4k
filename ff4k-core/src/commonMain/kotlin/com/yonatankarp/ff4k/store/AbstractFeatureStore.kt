@@ -19,21 +19,21 @@ import com.yonatankarp.ff4k.exception.GroupNotFoundException
 abstract class AbstractFeatureStore : FeatureStore {
 
     override suspend fun enable(featureId: String) {
-        updateFeature(featureId) { it.enable() }
+        update(featureId) { it.enable() }
     }
 
     override suspend fun disable(featureId: String) {
-        updateFeature(featureId) { it.disable() }
+        update(featureId) { it.disable() }
     }
 
     override suspend fun grantRoleToFeature(featureId: String, roleName: String) {
         require(roleName.isNotBlank()) { "roleName (#1) cannot be empty" }
-        updateFeature(featureId) { it.grantPermissions(roleName) }
+        update(featureId) { it.grantPermissions(roleName) }
     }
 
     override suspend fun revokeRoleFromFeature(featureId: String, roleName: String) {
         require(roleName.isNotBlank()) { "roleName (#1) cannot be empty" }
-        updateFeature(featureId) { it.revokePermissions(roleName) }
+        update(featureId) { it.revokePermissions(roleName) }
     }
 
     override suspend fun getGroup(groupName: String): Map<String, Feature> {
@@ -54,7 +54,7 @@ abstract class AbstractFeatureStore : FeatureStore {
     ) {
         getGroup(groupName).keys.forEach { featureId ->
             try {
-                updateFeature(featureId) { feature ->
+                update(featureId) { feature ->
                     if (feature.group == groupName) {
                         transform(feature)
                     } else {
@@ -69,13 +69,13 @@ abstract class AbstractFeatureStore : FeatureStore {
 
     override suspend fun addToGroup(featureId: String, groupName: String) {
         require(groupName.isNotBlank()) { "groupName (#1) cannot be empty" }
-        updateFeature(featureId) { it.addGroup(groupName) }
+        update(featureId) { it.addGroup(groupName) }
     }
 
     override suspend fun removeFromGroup(featureId: String, groupName: String) {
         require(groupName.isNotBlank()) { "groupName cannot be empty" }
 
-        updateFeature(featureId) { feature ->
+        update(featureId) { feature ->
             if (feature.group != groupName) {
                 throw GroupNotFoundException(groupName)
             }
@@ -96,7 +96,7 @@ abstract class AbstractFeatureStore : FeatureStore {
         }
     }
 
-    override suspend fun toggle(featureId: String) = updateFeature(featureId) { it.toggle() }
+    override suspend fun toggle(featureId: String) = update(featureId) { it.toggle() }
 
     override suspend fun getOrThrow(featureId: String): Feature = get(featureId) ?: throw FeatureNotFoundException(featureId)
 

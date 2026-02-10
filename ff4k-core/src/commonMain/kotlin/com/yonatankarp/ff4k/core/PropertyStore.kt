@@ -107,4 +107,21 @@ interface PropertyStore {
      * Removes all properties from the store.
      */
     suspend fun clear()
+
+    /**
+     * Creates a new property or updates an existing one.
+     *
+     * If a property with the same name already exists, it will be updated.
+     * Otherwise, a new property will be created.
+     *
+     * Implementations should ensure this operation is atomic to prevent race conditions.
+     *
+     * Example:
+     * ```kotlin
+     * store.createOrUpdate(PropertyString("config-url", "https://api.example.com"))
+     * ```
+     *
+     * @param property Property to create or update
+     */
+    suspend fun <T> createOrUpdate(property: Property<T>)
 }

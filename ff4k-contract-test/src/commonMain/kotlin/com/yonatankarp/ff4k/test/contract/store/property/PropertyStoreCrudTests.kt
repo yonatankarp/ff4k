@@ -423,4 +423,63 @@ internal fun FunSpec.propertyStoreCrudTests(createStore: suspend () -> PropertyS
         // Then
         value shouldBe 99
     }
+
+    test("should throw IllegalArgumentException when adding property with blank name") {
+        // Given
+        val store = createStore()
+        val property = PropertyInt(name = "", value = 42)
+
+        // When / Then
+        shouldThrow<IllegalArgumentException> {
+            store += property
+        }
+    }
+
+    test("should throw IllegalArgumentException when adding property with whitespace-only name") {
+        // Given
+        val store = createStore()
+        val property = PropertyInt(name = "   ", value = 42)
+
+        // When / Then
+        shouldThrow<IllegalArgumentException> {
+            store += property
+        }
+    }
+
+    test("should throw IllegalArgumentException when deleting property with blank name") {
+        // Given
+        val store = createStore()
+
+        // When / Then
+        shouldThrow<IllegalArgumentException> {
+            store -= ""
+        }
+    }
+
+    test("should throw IllegalArgumentException when deleting property with whitespace-only name") {
+        // Given
+        val store = createStore()
+
+        // When / Then
+        shouldThrow<IllegalArgumentException> {
+            store -= "   "
+        }
+    }
+
+    test("should throw IllegalArgumentException when transform changes property name") {
+        // Given
+        val store = createStore()
+        val originalName = "original-property"
+        store += PropertyInt(name = originalName, value = 10)
+
+        // When / Then
+        shouldThrow<IllegalArgumentException> {
+            store.updateProperty<Int>(originalName) { property ->
+                PropertyInt(
+                    name = "different-name",
+                    value = property.value * 2,
+                )
+            }
+        }
+    }
 }

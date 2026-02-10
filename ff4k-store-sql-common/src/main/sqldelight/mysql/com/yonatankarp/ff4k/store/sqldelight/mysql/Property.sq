@@ -1,11 +1,13 @@
 CREATE TABLE FF4K_PROPERTIES (
     name VARCHAR(255) PRIMARY KEY NOT NULL,
-    type TEXT NOT NULL,
-    value TEXT NOT NULL,
+    type VARCHAR(255) NOT NULL,
     description TEXT,
     read_only INTEGER NOT NULL DEFAULT 0,
-    fixed_values TEXT NOT NULL DEFAULT '[]'
+    data TEXT NOT NULL,
+    version INTEGER NOT NULL DEFAULT 1
 );
+
+CREATE INDEX idx_ff4k_properties_type ON FF4K_PROPERTIES(type);
 
 selectAll:
 SELECT * FROM FF4K_PROPERTIES;
@@ -23,23 +25,23 @@ listNames:
 SELECT name FROM FF4K_PROPERTIES;
 
 insert:
-INSERT INTO FF4K_PROPERTIES (name, type, value, description, read_only, fixed_values)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO FF4K_PROPERTIES (name, type, description, read_only, data, version)
+VALUES (?, ?, ?, ?, ?, 1);
 
 update:
 UPDATE FF4K_PROPERTIES
-SET type = ?, value = ?, description = ?, read_only = ?, fixed_values = ?
-WHERE name = ?;
+SET type = :type, description = :description, read_only = :read_only, data = :data, version = :expectedVersion + 1
+WHERE name = :name AND version = :expectedVersion;
 
 upsert:
-INSERT INTO FF4K_PROPERTIES AS new (name, type, value, description, read_only, fixed_values)
-VALUES (?, ?, ?, ?, ?, ?)
+INSERT INTO FF4K_PROPERTIES AS new (name, type, description, read_only, data, version)
+VALUES (?, ?, ?, ?, ?, 1)
 ON DUPLICATE KEY UPDATE
     type = new.type,
-    value = new.value,
     description = new.description,
     read_only = new.read_only,
-    fixed_values = new.fixed_values;
+    data = new.data,
+    version = version + 1;
 
 deleteByName:
 DELETE FROM FF4K_PROPERTIES WHERE name = ?;

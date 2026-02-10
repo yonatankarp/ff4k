@@ -29,7 +29,7 @@ import kotlinx.coroutines.sync.Mutex
  */
 class InMemoryPropertyStore(
     initialProperties: Map<String, Property<*>> = emptyMap(),
-) : PropertyStore {
+) : AbstractPropertyStore() {
 
     constructor(config: FF4kConfiguration) : this(config.properties)
 
@@ -95,31 +95,21 @@ class InMemoryPropertyStore(
         properties.clear()
     }
 
-    /**
-     * Checks that a property with the given [name] exists in the store.
-     *
-     * @param name The name of the property to check.
-     * @throws PropertyNotFoundException if the property does not exist.
-     * @throws IllegalArgumentException if the property name is blank.
-     */
-    private fun requirePropertyExist(name: String) {
+    override suspend fun requirePropertyExist(name: String) {
         require(name.isNotBlank()) { "propertyId cannot be empty" }
         if (name !in properties) {
             throw PropertyNotFoundException(name)
         }
     }
 
-    /**
-     * Checks that a property with the given [name] does not exist in the store.
-     *
-     * @param name The name of the property to check.
-     * @throws PropertyAlreadyExistsException if the property already exists.
-     * @throws IllegalArgumentException if the property name is blank.
-     */
-    private fun requirePropertyNotExist(name: String) {
+    override suspend fun requirePropertyNotExist(name: String) {
         require(name.isNotBlank()) { "propertyId cannot be empty" }
         if (name in properties) {
             throw PropertyAlreadyExistsException(name)
         }
+    }
+
+    override suspend fun <T> createOrUpdate(property: Property<T>): Unit = mutex.withReentrantLock {
+        properties[property.name] = property
     }
 }

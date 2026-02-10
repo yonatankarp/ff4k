@@ -11,6 +11,6 @@ import app.cash.sqldelight.db.SqlDriver
  * The SQLite functionality is tested via JVM tests which cover the platform-agnostic
  * database logic.
  */
-actual suspend fun createTestSqliteDriver(): SqlDriver = throw UnsupportedOperationException(
+actual suspend fun createSqliteDriver(): SqlDriver = throw UnsupportedOperationException(
     "Android unit tests are not currently supported. See https://github.com/yonatankarp/ff4k/issues/181",
 )

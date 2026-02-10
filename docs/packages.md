@@ -10,3 +10,13 @@ FF4K is modularized into several packages to allow for flexible usage and extens
 | **`ff4k-store-jdbc`**    | A blocking JDBC feature store implementation supporting MySQL and PostgreSQL. Ideal for traditional blocking JVM applications.                                                    | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white)                                                                                                                                                                                         |
 | **`ff4k-store-r2dbc`**   | A non-blocking, reactive R2DBC feature store implementation supporting MySQL and PostgreSQL. Ideal for reactive applications (e.g., Spring WebFlux).                              | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white)                                                                                                                                                                                         |
 | **`ff4k-store-sqlite`**  | A Multiplatform SQLite feature store implementation. Supports JVM, Android, and iOS/Native targets.                                                                               | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/-Android-3DDC84?style=flat&logo=android&logoColor=white) ![iOS](https://img.shields.io/badge/-iOS-000000?style=flat&logo=apple&logoColor=white) |
+
+## Database Requirements
+
+When using SQL-based stores, the following minimum database versions are required:
+
+| Database   | Minimum Version | Notes                                                    |
+|:-----------|:----------------|:---------------------------------------------------------|
+| MySQL      | 8.0.19+         | Required for row alias syntax in `INSERT ... AS` upserts |
+| PostgreSQL | 9.5+            | Required for `ON CONFLICT` upsert syntax                 |
+| SQLite     | 3.24.0+         | Required for `ON CONFLICT` upsert syntax                 |

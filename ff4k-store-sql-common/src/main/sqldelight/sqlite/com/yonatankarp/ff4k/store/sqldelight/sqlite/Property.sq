@@ -1,11 +1,13 @@
 CREATE TABLE properties (
     name TEXT PRIMARY KEY NOT NULL,
     type TEXT NOT NULL,
-    value TEXT NOT NULL,
     description TEXT,
     read_only INTEGER NOT NULL DEFAULT 0,
-    fixed_values TEXT NOT NULL DEFAULT '[]'
+    data TEXT NOT NULL,
+    version INTEGER NOT NULL DEFAULT 1
 );
+
+CREATE INDEX idx_properties_type ON properties(type);
 
 selectAll:
 SELECT * FROM properties;
@@ -23,17 +25,23 @@ listNames:
 SELECT name FROM properties;
 
 insert:
-INSERT INTO properties (name, type, value, description, read_only, fixed_values)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO properties (name, type, description, read_only, data, version)
+VALUES (?, ?, ?, ?, ?, 1);
 
 update:
 UPDATE properties
-SET type = ?, value = ?, description = ?, read_only = ?, fixed_values = ?
-WHERE name = ?;
+SET type = :type, description = :description, read_only = :read_only, data = :data, version = :expectedVersion + 1
+WHERE name = :name AND version = :expectedVersion;
 
 upsert:
-INSERT OR REPLACE INTO properties (name, type, value, description, read_only, fixed_values)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO properties (name, type, description, read_only, data, version)
+VALUES (?, ?, ?, ?, ?, 1)
+ON CONFLICT(name) DO UPDATE SET
+    type = excluded.type,
+    description = excluded.description,
+    read_only = excluded.read_only,
+    data = excluded.data,
+    version = version + 1;
 
 deleteByName:
 DELETE FROM properties WHERE name = ?;

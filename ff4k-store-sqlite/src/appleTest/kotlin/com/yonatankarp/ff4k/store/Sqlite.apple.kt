@@ -7,7 +7,7 @@ import app.cash.sqldelight.db.SqlSchema
 import app.cash.sqldelight.driver.native.inMemoryDriver
 import com.yonatankarp.ff4k.store.sqldelight.sqlite.SqliteDatabase
 
-actual suspend fun createTestSqliteDriver(): SqlDriver {
+actual suspend fun createSqliteDriver(): SqlDriver {
     val schema = SqliteDatabase.Schema
     val synchronousSchema = object : SqlSchema<QueryResult.Value<Unit>> {
         override val version: Long = schema.version

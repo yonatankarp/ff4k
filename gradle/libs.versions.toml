@@ -7,16 +7,23 @@ jvm-toolchain = "17"
 kmp-datetime = "0.7.1"
 kotlin = "2.3.10"
 kover = "0.9.7"
+postgresql = "42.7.4"
 robolectric = "4.16.1"
 serialization = "1.10.0"
 slf4j = "2.0.17"
 spotless = "8.2.1"
 kotest = "6.1.2"
 ksp = "2.3.5"
+mockk = "1.13.13"
 maven-publish = "0.36.0"
 sqldelight = "2.2.1"
+testcontainers = "2.0.3"
 
 [libraries]
+
+# Kotlin
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
 # KMP Common
 ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -35,6 +42,7 @@ dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", vers
 maven-publish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 
 # Testing
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
@@ -44,6 +52,13 @@ kotest-gradle-plugin = { module = "io.kotest:io.kotest.gradle.plugin", version.r
 
 # JVM Platform-Specific
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+# Database Drivers
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+
+# Testcontainers
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql" }
 
 # SQLDelight
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }

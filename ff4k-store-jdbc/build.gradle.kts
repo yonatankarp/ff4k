@@ -4,38 +4,32 @@ plugins {
     id("ff4k.coverage")
     id("ff4k.documentation")
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.sqldelight)
 }
 
-fun registerDatabase(
-    name: String,
-    dialect: Provider<MinimalExternalModuleDependency>,
-) {
-    val folder = name.lowercase()
-    sqldelight {
-        databases {
-            create("${name}Database") {
-                packageName.set("com.yonatankarp.ff4k.store.sqldelight.$folder.jdbc")
-                val commonProject = project(":ff4k-store-sql-common")
-                srcDirs(commonProject.layout.projectDirectory.dir("src/main/sqldelight/$folder"))
-                this.dialect(dialect)
-                generateAsync.set(false)
-            }
-        }
+sourceSets {
+    main {
+        kotlin.srcDir(project(":ff4k-store-sql-common").file("src/main/kotlin"))
     }
 }
 
-registerDatabase(name = "Postgres", dialect = libs.sqldelight.dialect.postgresql)
-registerDatabase(name = "Mysql", dialect = libs.sqldelight.dialect.mysql)
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
 
 dependencies {
     api(project(":ff4k-core"))
-    implementation(libs.sqldelight.runtime)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.sqldelight.driver.jdbc)
-}
 
-// TODO: remove when implementing jdbc
-kover {
-    disable()
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Test dependencies
+    testImplementation(project(":ff4k-contract-test"))
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+
+    testImplementation(platform(libs.testcontainers.bom))
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.postgresql)
 }

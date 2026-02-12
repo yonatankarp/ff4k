@@ -251,7 +251,10 @@ interface FeatureStore {
      * If the feature exists, it will be updated. If it doesn't exist, it will be created.
      * This is useful when you don't know whether the feature already exists in the store.
      *
-     * Implementations should ensure this operation is atomic to prevent race conditions.
+     * **Note:** This method uses last-writer-wins semantics and does **not** perform
+     * optimistic locking. Concurrent calls will overwrite each other without conflict
+     * detection. If you need compare-and-swap (CAS) semantics with version checking,
+     * use [update] with a transform function instead.
      *
      * Example:
      * ```kotlin

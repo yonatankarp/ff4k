@@ -1,0 +1,57 @@
+CREATE TABLE features (
+    uid TEXT PRIMARY KEY NOT NULL,
+    enabled INTEGER NOT NULL DEFAULT 0,
+    group_name TEXT,
+    description TEXT,
+    permissions TEXT NOT NULL DEFAULT '[]',
+    flipping_strategy TEXT,
+    custom_properties TEXT NOT NULL DEFAULT '{}',
+    version INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE INDEX idx_features_enabled ON features(enabled);
+CREATE INDEX idx_features_group_name ON features(group_name);
+
+selectAll:
+SELECT * FROM features;
+
+selectByUid:
+SELECT * FROM features WHERE uid = ?;
+
+exists:
+SELECT EXISTS(SELECT 1 FROM features WHERE uid = ?);
+
+count:
+SELECT COUNT(*) FROM features;
+
+insert:
+INSERT INTO features (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties, version)
+VALUES (?, ?, ?, ?, ?, ?, ?, 1);
+
+update:
+UPDATE features
+SET enabled = :enabled, group_name = :group_name, description = :description, permissions = :permissions, flipping_strategy = :flipping_strategy, custom_properties = :custom_properties, version = :expectedVersion + 1
+WHERE uid = :uid AND version = :expectedVersion;
+
+-- Note: Uses last-writer-wins semantics without optimistic locking (no version check).
+-- This is intentional for createOrUpdate which doesn't accept an expected version.
+upsert:
+INSERT INTO features (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties, version)
+VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+ON CONFLICT(uid) DO UPDATE SET
+    enabled = excluded.enabled,
+    group_name = excluded.group_name,
+    description = excluded.description,
+    permissions = excluded.permissions,
+    flipping_strategy = excluded.flipping_strategy,
+    custom_properties = excluded.custom_properties,
+    version = version + 1;
+
+deleteByUid:
+DELETE FROM features WHERE uid = ?;
+
+deleteAll:
+DELETE FROM features;
+
+changes:
+SELECT changes();

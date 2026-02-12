@@ -15,4 +15,6 @@ dependencies {
     implementation(libs.kover.gradle.plugin)
     implementation(libs.dokka.gradle.plugin)
     implementation(libs.maven.publish.gradle.plugin)
+    implementation(libs.kotest.gradle.plugin)
+    implementation(libs.ksp.gradle.plugin)
 }

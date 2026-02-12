@@ -5,10 +5,10 @@ import com.yonatankarp.ff4k.strategy.DailyHoursStrategy
 import com.yonatankarp.ff4k.strategy.DateRangeStrategy
 import com.yonatankarp.ff4k.strategy.ReleaseDateStrategy
 import com.yonatankarp.ff4k.strategy.WeekdayStrategy
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Instant
 
 /**
  * Configures a [ReleaseDateStrategy] for this feature using an [Instant].

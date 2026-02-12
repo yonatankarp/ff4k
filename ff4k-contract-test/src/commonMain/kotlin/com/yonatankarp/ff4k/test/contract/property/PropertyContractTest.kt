@@ -5,6 +5,7 @@ package com.yonatankarp.ff4k.test.contract.property
 import com.ionspin.kotlin.bignum.serialization.kotlinx.humanReadableSerializerModule
 import com.yonatankarp.ff4k.property.Property
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -13,6 +14,7 @@ import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 
+@Ignored
 abstract class PropertyContractTest<V, P : Property<V>> : FunSpec() {
 
     protected open val json = Json {

@@ -34,3 +34,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.sqldelight.driver.jdbc)
 }
+
+// TODO: remove when implementing jdbc
+kover {
+    disable()
+}

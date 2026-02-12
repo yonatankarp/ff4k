@@ -7,9 +7,9 @@ import com.yonatankarp.ff4k.test.contract.strategy.FlippingStrategyContractTest
 import com.yonatankarp.ff4k.utils.fixedClock
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
-import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Instant
 
 internal class DateRangeStrategyTest :
     FlippingStrategyContractTest({

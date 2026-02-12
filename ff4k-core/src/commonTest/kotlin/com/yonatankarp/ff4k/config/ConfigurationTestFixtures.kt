@@ -17,9 +17,9 @@ import com.yonatankarp.ff4k.property.PropertyLogLevel
 import com.yonatankarp.ff4k.property.PropertyLong
 import com.yonatankarp.ff4k.property.PropertyShort
 import com.yonatankarp.ff4k.property.PropertyString
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlin.time.Instant
 
 /**
  * Shared test fixtures for configuration parser tests.

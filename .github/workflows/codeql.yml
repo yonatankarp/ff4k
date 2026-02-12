@@ -32,10 +32,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # TODO: Remove 'tools: nightly' once CodeQL stable supports Kotlin 2.3.10
+      # Tracking issue: https://github.com/github/codeql/issues/20661
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: java-kotlin
+          tools: nightly
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5

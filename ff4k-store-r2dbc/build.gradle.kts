@@ -35,3 +35,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.sqldelight.driver.r2dbc)
 }
+
+// TODO: remove when implementing r2dbc
+kover {
+    disable()
+}

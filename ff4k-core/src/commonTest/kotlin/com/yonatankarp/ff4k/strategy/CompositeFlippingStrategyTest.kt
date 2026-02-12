@@ -11,7 +11,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.PolymorphicSerializer
 
 internal class CompositeFlippingStrategyTest :
     FunSpec({
@@ -215,15 +215,15 @@ internal class CompositeFlippingStrategyTest :
         }
 
         context("complex composite strategy serialization") {
+            val serializer = PolymorphicSerializer(FlippingStrategy::class)
+
             withData(
                 nameFn = { it.description },
                 complexStrategyCases,
             ) { (_, strategy) ->
                 // When
-                val json =
-                    FF4kJson.encodeToString<FlippingStrategy>(strategy)
-                val deserialized =
-                    FF4kJson.decodeFromString<FlippingStrategy>(json)
+                val json = FF4kJson.encodeToString(serializer, strategy)
+                val deserialized = FF4kJson.decodeFromString(serializer, json)
 
                 // Then
                 deserialized shouldBe strategy

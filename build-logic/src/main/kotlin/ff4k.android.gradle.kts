@@ -37,7 +37,7 @@ if (isAndroidSdkAvailable()) {
 
     extensions.configure<LibraryExtension> {
         namespace = "com.yonatankarp.${project.name.replace("-", ".")}"
-        compileSdk = 34
+        compileSdk = 36
         defaultConfig {
             minSdk = 24
         }

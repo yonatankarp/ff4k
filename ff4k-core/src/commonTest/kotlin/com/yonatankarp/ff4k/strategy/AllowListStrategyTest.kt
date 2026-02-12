@@ -10,7 +10,7 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.PolymorphicSerializer
 
 internal class AllowListStrategyTest :
     FlippingStrategyContractTest({
@@ -66,13 +66,15 @@ internal class AllowListStrategyTest :
         }
 
         context("serialization") {
+            val serializer = PolymorphicSerializer(FlippingStrategy::class)
+
             test("round-trip serialization preserves strategy") {
                 // Given
                 val strategy = AllowListStrategy(setOf("Alice", "Bob", "Charlie"))
 
                 // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(strategy)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
+                val json = FF4kJson.encodeToString(serializer, strategy)
+                val deserialized = FF4kJson.decodeFromString(serializer, json)
 
                 // Then
                 deserialized shouldBe strategy
@@ -83,8 +85,8 @@ internal class AllowListStrategyTest :
                 val strategy = AllowListStrategy(emptySet())
 
                 // When
-                val json = FF4kJson.encodeToString<FlippingStrategy>(strategy)
-                val deserialized = FF4kJson.decodeFromString<FlippingStrategy>(json)
+                val json = FF4kJson.encodeToString(serializer, strategy)
+                val deserialized = FF4kJson.decodeFromString(serializer, json)
 
                 // Then
                 deserialized shouldBe strategy

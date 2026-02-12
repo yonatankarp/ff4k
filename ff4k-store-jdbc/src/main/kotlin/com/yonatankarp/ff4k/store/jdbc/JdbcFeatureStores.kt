@@ -1,6 +1,7 @@
 package com.yonatankarp.ff4k.store.jdbc
 
 import com.yonatankarp.ff4k.core.FeatureStore
+import com.yonatankarp.ff4k.store.sql.MysqlDialect
 import com.yonatankarp.ff4k.store.sql.PostgresDialect
 import com.yonatankarp.ff4k.store.sql.SqlDialect
 import kotlinx.coroutines.CoroutineDispatcher
@@ -10,7 +11,7 @@ import kotlinx.serialization.modules.SerializersModule
 import java.util.Locale
 import javax.sql.DataSource
 
-private val SUPPORTED_DATABASES = listOf("PostgreSQL")
+private val SUPPORTED_DATABASES = listOf("PostgreSQL", "MySQL")
 
 /**
  * Creates a JDBC-backed [FeatureStore] that auto-detects the database type.
@@ -74,6 +75,7 @@ private fun detectDialect(dataSource: DataSource): SqlDialect =
         val productName = rawProductName.lowercase(Locale.ROOT)
         when {
             "postgresql" in productName -> PostgresDialect
+            "mysql" in productName -> MysqlDialect
             else -> throw UnsupportedDatabaseException(
                 databaseProductName = rawProductName,
                 supported = SUPPORTED_DATABASES,

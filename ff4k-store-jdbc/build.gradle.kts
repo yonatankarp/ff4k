@@ -23,6 +23,5 @@ dependencies {
     testImplementation(libs.mockk)
 
     testImplementation(platform(libs.testcontainers.bom))
-    testImplementation(libs.testcontainers.postgresql)
-    testImplementation(libs.postgresql)
+    testImplementation(libs.bundles.supportedDatabases)
 }

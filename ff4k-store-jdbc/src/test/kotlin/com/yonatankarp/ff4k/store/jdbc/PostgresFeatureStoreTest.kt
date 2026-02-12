@@ -12,7 +12,7 @@ class PostgresFeatureStoreTest : FeatureStoreContractTest() {
         jdbcFeatureStore(postgres.toDataSource()).also { it.clear() }
 
     companion object {
-        private val postgres = PostgreSQLContainer("postgres:16-alpine").apply {
+        private val postgres = PostgreSQLContainer("postgres:9.5-alpine").apply {
             start()
         }
     }

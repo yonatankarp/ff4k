@@ -1,6 +1,7 @@
 package com.yonatankarp.ff4k.store.jdbc
 
 import com.yonatankarp.ff4k.core.FeatureStore
+import com.yonatankarp.ff4k.store.sql.MysqlDialect
 import com.yonatankarp.ff4k.store.sql.PostgresDialect
 import com.yonatankarp.ff4k.store.sql.SqlDialect
 import kotlinx.serialization.modules.SerializersModule
@@ -57,7 +58,7 @@ private fun detectDialect(dataSource: DataSource): SqlDialect =
         val productName = conn.metaData.databaseProductName.lowercase()
         when {
             "postgresql" in productName -> PostgresDialect
-            // MySQL will be added in Phase 2
+            "mysql" in productName -> MysqlDialect
             else -> throw UnsupportedDatabaseException(conn.metaData.databaseProductName)
         }
     }

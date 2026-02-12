@@ -23,7 +23,7 @@ class PostgresFeatureStoreTest : FeatureStoreContractTest() {
 
     companion object {
         private val postgres: PostgreSQLContainer by lazy {
-            PostgreSQLContainer("postgres:16-alpine").apply {
+            PostgreSQLContainer("postgres:14-alpine").apply {
                 start()
             }
         }

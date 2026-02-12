@@ -8,6 +8,7 @@ kmp-datetime = "0.7.1"
 kotlin = "2.3.10"
 kover = "0.9.7"
 mockk = "1.13.13"
+mysql = "9.2.0"
 postgresql = "42.7.7"
 robolectric = "4.16.1"
 serialization = "1.10.0"
@@ -53,10 +54,12 @@ kotest-gradle-plugin = { module = "io.kotest:io.kotest.gradle.plugin", version.r
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 # Database Drivers
+mysql = { module = "com.mysql:mysql-connector-j", version.ref = "mysql" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
 # Testcontainers
 testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+testcontainers-mysql = { module = "org.testcontainers:testcontainers-mysql" }
 testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql" }
 
 # SQLDelight
@@ -95,4 +98,11 @@ kotest = [
     "kotest-framework-engine",
     "kotest-assertions-core",
     "kotest-property"
+]
+
+supportedDatabases = [
+    "mysql",
+    "testcontainers-mysql",
+    "postgresql",
+    "testcontainers-postgresql",
 ]

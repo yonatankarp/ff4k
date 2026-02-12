@@ -1,22 +1,24 @@
 [versions]
-android-library = "8.2.2"
+android-library = "8.13.2"
 bignum = "0.3.10"
-coroutines = "1.9.0"
+coroutines = "1.10.2"
 dokka = "2.1.0"
 jvm-toolchain = "17"
-kmp-datetime = "0.6.2"
-kotlin = "2.0.21"
+kmp-datetime = "0.7.1"
+kotlin = "2.3.10"
 kover = "0.9.7"
 robolectric = "4.16.1"
-serialization = "1.7.3"
+serialization = "1.10.0"
 slf4j = "2.0.17"
 spotless = "8.2.1"
-kotest = "5.9.1"
-maven-publish = "0.35.0"
-sqldelight = "2.0.2"
+kotest = "6.1.2"
+ksp = "2.3.5"
+maven-publish = "0.36.0"
+sqldelight = "2.2.1"
 
 [libraries]
 # KMP Common
+ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
@@ -38,7 +40,7 @@ kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", versio
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
-kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
+kotest-gradle-plugin = { module = "io.kotest:io.kotest.gradle.plugin", version.ref = "kotest" }
 
 # JVM Platform-Specific
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
@@ -59,12 +61,15 @@ sqldelight-dialect-mysql = { module = "app.cash.sqldelight:mysql-dialect", versi
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "android-library" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-library" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 
@@ -75,6 +80,5 @@ bignum = [
 kotest = [
     "kotest-framework-engine",
     "kotest-assertions-core",
-    "kotest-property",
-    "kotest-framework-datatest"
+    "kotest-property"
 ]

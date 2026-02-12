@@ -28,28 +28,21 @@ updates:
           - "io.kotest:*"
           - "org.robolectric:*"
     ignore:
-      # Gradle wrapper - only patch updates (e.g., 8.5.0 -> 8.5.1)
-      - dependency-name: "gradle"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      # Kotlin and Android - affects binary compatibility with consumers
+      # Kotlin and Android - major updates require manual review
       - dependency-name: "org.jetbrains.kotlin:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "org.jetbrains.kotlin.*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "com.android.tools.build:gradle"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      # Runtime dependencies affecting consumers - only patch updates
-      - dependency-name: "org.slf4j:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
+      # Runtime dependencies affecting consumers - major updates require manual review
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-coroutines-*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-serialization-*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-datetime"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      - dependency-name: "com.ionspin.kotlin:bignum*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "app.cash.sqldelight:*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "app.cash.sqldelight"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-major"]

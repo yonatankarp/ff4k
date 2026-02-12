@@ -8,8 +8,8 @@ import com.yonatankarp.ff4k.utils.fixedClock
 import io.kotest.datatest.withData
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Instant
 
 internal class ReleaseDateStrategyTest :
     FlippingStrategyContractTest({

@@ -7,6 +7,7 @@ import com.yonatankarp.ff4k.test.contract.store.feature.featureStoreConcurrencyT
 import com.yonatankarp.ff4k.test.contract.store.feature.featureStoreCrudTests
 import com.yonatankarp.ff4k.test.contract.store.feature.featureStoreGroupTests
 import com.yonatankarp.ff4k.test.contract.store.feature.featureStorePermissionTests
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FunSpec
 
 /**
@@ -27,6 +28,7 @@ import io.kotest.core.spec.style.FunSpec
  * }
  * ```
  */
+@Ignored
 abstract class FeatureStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): FeatureStore
 

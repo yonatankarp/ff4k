@@ -6,17 +6,18 @@ import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
 import com.yonatankarp.ff4k.serialization.FF4kJson
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.PolymorphicSerializer
-import kotlinx.serialization.encodeToString
 
 /**
  * Contract test for FlippingStrategy implementations.
  *
  * Extend this class to test custom flipping strategy implementations.
  */
+@Ignored
 abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
 
     /**
@@ -129,10 +130,11 @@ abstract class FlippingStrategyContractTest(body: FunSpec.() -> Unit = {}) : Fun
         test("should work with round-trip serialization") {
             // Given
             val strategy = createStrategyForPassingCase()
+            val serializer = PolymorphicSerializer(FlippingStrategy::class)
 
             // When
-            val json = FF4kJson.encodeToString<FlippingStrategy>(strategy)
-            val deserializedStrategy = FF4kJson.decodeFromString<FlippingStrategy>(json)
+            val json = FF4kJson.encodeToString(serializer, strategy)
+            val deserializedStrategy = FF4kJson.decodeFromString(serializer, json)
 
             // Then
             deserializedStrategy shouldBe strategy

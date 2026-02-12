@@ -3,6 +3,8 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.diffplug.spotless")
+    id("com.google.devtools.ksp")
+    id("io.kotest")
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

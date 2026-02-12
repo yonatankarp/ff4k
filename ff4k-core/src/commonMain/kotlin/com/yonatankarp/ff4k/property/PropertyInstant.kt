@@ -1,8 +1,8 @@
 package com.yonatankarp.ff4k.property
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 /**
  * Property implementation for Instant values.

@@ -5,6 +5,7 @@ package com.yonatankarp.ff4k.test.contract.store
 import com.yonatankarp.ff4k.core.PropertyStore
 import com.yonatankarp.ff4k.test.contract.store.property.propertyStoreConcurrencyTests
 import com.yonatankarp.ff4k.test.contract.store.property.propertyStoreCrudTests
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FunSpec
 
 /**
@@ -23,6 +24,7 @@ import io.kotest.core.spec.style.FunSpec
  * }
  * ```
  */
+@Ignored
 abstract class PropertyStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     abstract suspend fun createStore(): PropertyStore
 

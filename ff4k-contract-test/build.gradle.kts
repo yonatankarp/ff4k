@@ -17,3 +17,19 @@ kotlin {
         }
     }
 }
+
+/*
+ * This module provides contract tests for other modules to consume
+ * It doesn't have its own tests, so disable failing on no discovered tests.
+ */
+tasks.withType<Test> {
+    failOnNoDiscoveredTests = false
+}
+
+/*
+ * Disable coverage verification - this module has no tests of its own,
+ * coverage is measured when other modules use these contract tests.
+ */
+kover {
+    disable()
+}

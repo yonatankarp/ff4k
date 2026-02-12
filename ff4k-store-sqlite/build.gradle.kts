@@ -14,7 +14,6 @@ sqldelight {
     databases {
         create("SqliteDatabase") {
             packageName.set("com.yonatankarp.ff4k.store.sqldelight.sqlite")
-            srcDirs(project(":ff4k-store-sql-common").layout.projectDirectory.dir("src/main/sqldelight/sqlite"))
             dialect(libs.sqldelight.dialect.sqlite)
             generateAsync.set(true)
         }

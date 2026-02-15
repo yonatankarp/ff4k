@@ -14,10 +14,11 @@ dependencies {
     api(project(":ff4k-core"))
     api(project(":ff4k-store-sql-common"))
 
+    implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
 
-    // Test dependencies
+    testImplementation(project(":ff4k-contract-test"))
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)

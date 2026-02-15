@@ -2,6 +2,7 @@ import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.api.publish.tasks.GenerateModuleMetadata
 
 plugins {
+    alias(libs.plugins.kotlin.jvm)
     base
 }
 

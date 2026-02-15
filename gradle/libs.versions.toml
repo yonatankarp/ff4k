@@ -7,6 +7,7 @@ jvm-toolchain = "17"
 kmp-datetime = "0.7.1"
 kotlin = "2.3.10"
 kover = "0.9.7"
+mockk = "1.13.13"
 robolectric = "4.16.1"
 serialization = "1.10.0"
 slf4j = "2.0.17"
@@ -17,6 +18,7 @@ maven-publish = "0.36.0"
 sqldelight = "2.2.1"
 
 [libraries]
+
 # KMP Common
 ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -35,6 +37,7 @@ dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", vers
 maven-publish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 
 # Testing
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 junit4 = { module = "junit:junit", version = "4.13.2" }
 androidx-test-core = { module = "androidx.test:core", version = "1.7.0" }

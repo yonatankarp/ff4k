@@ -23,6 +23,7 @@ dependencies {
         .filter { it.name.startsWith("ff4k-") }
         .filter { "test" !in it.name }
         .filter { "ff4k-bom" !in it.name }
+        .filter { "ff4k-store-sql-common" !in it.name } // Excluded due to Kover/Kotlin 2.3 compatibility issue
         .forEach { kover(it) }
 
     // Documentation

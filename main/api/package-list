@@ -20,16 +20,6 @@ com.yonatankarp.ff4k.property.utils
 com.yonatankarp.ff4k.serialization
 com.yonatankarp.ff4k.store
 com.yonatankarp.ff4k.strategy
-module:ff4k-store-jdbc
-com.yonatankarp.ff4k.store.sqldelight.mysql
-com.yonatankarp.ff4k.store.sqldelight.mysql.jdbc
-com.yonatankarp.ff4k.store.sqldelight.postgres
-com.yonatankarp.ff4k.store.sqldelight.postgres.jdbc
-module:ff4k-store-r2dbc
-com.yonatankarp.ff4k.store.sqldelight.mysql
-com.yonatankarp.ff4k.store.sqldelight.mysql.r2dbc
-com.yonatankarp.ff4k.store.sqldelight.postgres
-com.yonatankarp.ff4k.store.sqldelight.postgres.r2dbc
 module:ff4k-store-sqlite
 com.yonatankarp.ff4k.store
 com.yonatankarp.ff4k.store.sqldelight.sqlite

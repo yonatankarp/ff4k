@@ -69,7 +69,12 @@ class FeatureNotFoundException(featureId: String) : FeatureStoreException("Featu
  * @see com.yonatankarp.ff4k.core.FeatureStore.plusAssign
  * @see com.yonatankarp.ff4k.core.createOrUpdate
  */
-class FeatureAlreadyExistsException(featureId: String) : FeatureStoreException("Feature already exists: $featureId")
+class FeatureAlreadyExistsException(
+    featureId: String,
+    cause: Throwable? = null,
+) : FeatureStoreException("Feature already exists: $featureId", cause) {
+    constructor(featureId: String) : this(featureId, null)
+}
 
 /**
  * Thrown when attempting to access a feature group that does not exist in the store.

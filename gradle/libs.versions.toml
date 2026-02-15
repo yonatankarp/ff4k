@@ -11,7 +11,7 @@ robolectric = "4.16.1"
 serialization = "1.10.0"
 slf4j = "2.0.17"
 spotless = "8.2.1"
-kotest = "6.1.2"
+kotest = "6.1.3"
 ksp = "2.3.5"
 maven-publish = "0.36.0"
 sqldelight = "2.2.1"
@@ -36,6 +36,8 @@ maven-publish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-pl
 
 # Testing
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+junit4 = { module = "junit:junit", version = "4.13.2" }
+androidx-test-core = { module = "androidx.test:core", version = "1.7.0" }
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }

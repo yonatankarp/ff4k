@@ -5,6 +5,7 @@ import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import app.cash.sqldelight.db.SqlDriver
 import com.yonatankarp.ff4k.core.Feature
+import com.yonatankarp.ff4k.exception.FeatureAlreadyExistsException
 import com.yonatankarp.ff4k.exception.FeatureNotFoundException
 import com.yonatankarp.ff4k.store.sqldelight.sqlite.SqliteDatabase
 import kotlinx.serialization.modules.SerializersModule
@@ -62,29 +63,41 @@ class SqliteFeatureStore(
 
     companion object {
         private const val MAX_RETRIES = 10
+        private const val FEATURE_ID_EMPTY_ERROR = "featureId cannot be empty"
     }
 
     override suspend fun contains(featureId: String): Boolean = queries.exists(featureId).awaitAsOne()
 
     override suspend fun plusAssign(feature: Feature) {
-        database.transaction {
-            requireFeatureNotExist(feature.uid)
-            queries.insert(
-                uid = feature.uid,
-                enabled = mapper.encodeEnabled(feature.isEnabled),
-                group_name = feature.group,
-                description = feature.description,
-                permissions = mapper.encodePermissions(feature.permissions),
-                flipping_strategy = mapper.encodeStrategy(feature.flippingStrategy),
-                custom_properties = mapper.encodeProperties(feature.customProperties),
-            )
+        require(feature.uid.isNotBlank()) { FEATURE_ID_EMPTY_ERROR }
+        try {
+            database.transaction {
+                queries.insert(
+                    uid = feature.uid,
+                    enabled = mapper.encodeEnabled(feature.isEnabled),
+                    group_name = feature.group,
+                    description = feature.description,
+                    permissions = mapper.encodePermissions(feature.permissions),
+                    flipping_strategy = mapper.encodeStrategy(feature.flippingStrategy),
+                    custom_properties = mapper.encodeProperties(feature.customProperties),
+                )
+            }
+        } catch (e: Exception) {
+            if (e.isSqliteUniqueConstraintViolation()) {
+                throw FeatureAlreadyExistsException(feature.uid, e)
+            }
+            throw e
         }
     }
 
     override suspend fun minusAssign(featureId: String) {
+        require(featureId.isNotBlank()) { FEATURE_ID_EMPTY_ERROR }
         database.transaction {
-            requireFeatureExist(featureId)
             queries.deleteByUid(featureId)
+            val rowsAffected = queries.changes().awaitAsOne()
+            if (rowsAffected == 0L) {
+                throw FeatureNotFoundException(featureId)
+            }
         }
     }
 
@@ -150,6 +163,7 @@ class SqliteFeatureStore(
     }
 
     override suspend fun createOrUpdate(feature: Feature) {
+        require(feature.uid.isNotBlank()) { FEATURE_ID_EMPTY_ERROR }
         queries.upsert(
             uid = feature.uid,
             enabled = mapper.encodeEnabled(feature.isEnabled),

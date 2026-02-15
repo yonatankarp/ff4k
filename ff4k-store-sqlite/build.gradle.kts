@@ -10,11 +10,20 @@ plugins {
     alias(libs.plugins.sqldelight)
 }
 
+// Use JUnit4 for Android unit tests instead of Kotest (for Robolectric compatibility)
+extra["androidUnitTest.useKotest"] = "false"
+
+// Configure Android unit tests to use JUnit4
+if (isAndroidSdkAvailable()) {
+    tasks.withType<Test>().matching { it.name.contains("UnitTest") }.configureEach {
+        useJUnit()
+    }
+}
+
 sqldelight {
     databases {
         create("SqliteDatabase") {
             packageName.set("com.yonatankarp.ff4k.store.sqldelight.sqlite")
-            srcDirs(project(":ff4k-store-sql-common").layout.projectDirectory.dir("src/main/sqldelight/sqlite"))
             dialect(libs.sqldelight.dialect.sqlite)
             generateAsync.set(true)
         }
@@ -42,6 +51,16 @@ kotlin {
         if (isAndroidSdkAvailable()) {
             val androidMain by getting {
                 dependencies {
+                    implementation(libs.sqldelight.driver.android)
+                }
+            }
+
+            // Android unit tests use JUnit4 + Robolectric (standalone, no Kotest)
+            val androidUnitTest by getting {
+                dependencies {
+                    implementation(libs.junit4)
+                    implementation(libs.androidx.test.core)
+                    implementation(libs.kotlinx.coroutines.test)
                     implementation(libs.sqldelight.driver.android)
                 }
             }

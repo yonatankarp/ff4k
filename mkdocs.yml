@@ -30,18 +30,24 @@ theme:
 
 nav:
   - Home: index.md
-  - Usage:
+  - Getting Started:
       - Basics: usage/basics.md
       - Configuration: usage/configuration.md
-      - Monitoring: usage/monitoring.md
+  - Features:
       - Properties: usage/properties.md
       - Strategies: usage/strategies.md
-      - Testing: usage/testing.md
-  - Extending:
-      - Overview: extending/index.md
-      - Custom Feature Store: extending/custom-feature-store.md
-      - Custom Property Store: extending/custom-property-store.md
-      - Custom Flipping Strategy: extending/custom-strategy.md
+      - Monitoring: usage/monitoring.md
+  - Stores:
+      - Overview: stores/index.md
+      - Sqlite: stores/sqlite.md
+      - Jdbc: stores/jdbc.md
+      - R2DBC: stores/r2dbc.md
+  - Customization:
+      - Overview: customization/index.md
+      - Custom Feature Store: customization/custom-feature-store.md
+      - Custom Property Store: customization/custom-property-store.md
+      - Custom Flipping Strategy: customization/custom-strategy.md
+      - Contract Testing: customization/testing.md
   - Packages: packages.md
   - API Reference: api_reference.md
 

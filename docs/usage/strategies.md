@@ -343,4 +343,4 @@ feature("complex-feature") {
 }
 ```
 
-For creating custom strategies, see [Extending FF4K](../extending/custom-strategy.md).
+For creating custom strategies, see [Customization](../customization/custom-strategy.md).

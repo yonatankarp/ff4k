@@ -10,7 +10,7 @@ class MyCustomPropertyStore : PropertyStore {
 
 ## Verifying Your Implementation
 
-It is critical to ensure your custom store behaves correctly. FF4K provides a [Contract Test Suite](../usage/testing.md) that you can use to automatically verify your implementation against the expected behavior.
+It is critical to ensure your custom store behaves correctly. FF4K provides a [Contract Test Suite](testing.md) that you can use to automatically verify your implementation against the expected behavior.
 
 ```kotlin
 class MyCustomPropertyStoreTest : PropertyStoreContractTest() {

@@ -39,8 +39,8 @@ nav:
       - Monitoring: usage/monitoring.md
   - Stores:
       - Overview: stores/index.md
-      - Sqlite: stores/sqlite.md
-      - Jdbc: stores/jdbc.md
+      - SQLite: stores/sqlite.md
+      - JDBC: stores/jdbc.md
       - R2DBC: stores/r2dbc.md
   - Customization:
       - Overview: customization/index.md

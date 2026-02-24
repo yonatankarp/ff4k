@@ -1,9 +1,10 @@
 package com.yonatankarp.ff4k.store.sql
 
-import java.sql.SQLException
-
 /**
- * MySQL-specific SQL dialect for feature store operations.
+ * Abstract base class providing MySQL-specific SQL statements.
+ *
+ * SQL strings use [marker] for parameter placeholders, allowing subclasses to
+ * provide the appropriate marker style (e.g., `?` for JDBC and R2DBC MySQL).
  *
  * Uses:
  * - VARCHAR(255) for uid (MySQL has length limits on indexed columns)
@@ -11,7 +12,7 @@ import java.sql.SQLException
  * - TEXT for other string columns
  * - `ON DUPLICATE KEY UPDATE` for upsert
  */
-data object MysqlDialect : SqlDialect {
+abstract class BaseMysqlStatements : SqlStatements {
 
     override val databaseName = "MySQL"
 
@@ -33,42 +34,48 @@ data object MysqlDialect : SqlDialect {
         """.trimIndent(),
     )
 
-    override val selectAllFeaturesSql: String =
+    override val selectAllFeaturesSql: String by lazy {
         // language=sql
         "SELECT uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties, version FROM FF4K_FEATURES"
+    }
 
-    override val selectFeatureByUidSql: String =
+    override val selectFeatureByUidSql: String by lazy {
         // language=sql
-        "SELECT uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties, version FROM FF4K_FEATURES WHERE uid = ?"
+        "SELECT uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties, version FROM FF4K_FEATURES WHERE uid = ${marker(1)}"
+    }
 
-    override val featureExistsSql: String =
+    override val featureExistsSql: String by lazy {
         // language=sql
-        "SELECT EXISTS(SELECT 1 FROM FF4K_FEATURES WHERE uid = ?)"
+        "SELECT EXISTS(SELECT 1 FROM FF4K_FEATURES WHERE uid = ${marker(1)})"
+    }
 
-    override val countFeaturesSql: String =
+    override val countFeaturesSql: String by lazy {
         // language=sql
         "SELECT COUNT(*) FROM FF4K_FEATURES"
+    }
 
-    override val insertFeatureSql: String =
+    override val insertFeatureSql: String by lazy {
         // language=sql
         """
         INSERT INTO FF4K_FEATURES (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (${marker(1)}, ${marker(2)}, ${marker(3)}, ${marker(4)}, ${marker(5)}, ${marker(6)}, ${marker(7)})
         """.trimIndent()
+    }
 
-    override val updateFeatureSql: String =
+    override val updateFeatureSql: String by lazy {
         // language=sql
         """
         UPDATE FF4K_FEATURES
-        SET enabled = ?, group_name = ?, description = ?, permissions = ?, flipping_strategy = ?, custom_properties = ?, version = version + 1
-        WHERE uid = ? AND version = ?
+        SET enabled = ${marker(1)}, group_name = ${marker(2)}, description = ${marker(3)}, permissions = ${marker(4)}, flipping_strategy = ${marker(5)}, custom_properties = ${marker(6)}, version = version + 1
+        WHERE uid = ${marker(7)} AND version = ${marker(8)}
         """.trimIndent()
+    }
 
-    override val upsertFeatureSql: String =
+    override val upsertFeatureSql: String by lazy {
         // language=sql
         """
         INSERT INTO FF4K_FEATURES (uid, enabled, group_name, description, permissions, flipping_strategy, custom_properties)
-        VALUES (?, ?, ?, ?, ?, ?, ?) AS new_row
+        VALUES (${marker(1)}, ${marker(2)}, ${marker(3)}, ${marker(4)}, ${marker(5)}, ${marker(6)}, ${marker(7)}) AS new_row
         ON DUPLICATE KEY UPDATE
             enabled = new_row.enabled,
             group_name = new_row.group_name,
@@ -78,16 +85,15 @@ data object MysqlDialect : SqlDialect {
             custom_properties = new_row.custom_properties,
             version = version + 1
         """.trimIndent()
+    }
 
-    override val deleteFeatureByUidSql: String =
+    override val deleteFeatureByUidSql: String by lazy {
         // language=sql
-        "DELETE FROM FF4K_FEATURES WHERE uid = ?"
+        "DELETE FROM FF4K_FEATURES WHERE uid = ${marker(1)}"
+    }
 
-    override val deleteAllFeaturesSql: String =
+    override val deleteAllFeaturesSql: String by lazy {
         // language=sql
         "DELETE FROM FF4K_FEATURES"
-
-    override fun isUniqueConstraintViolation(e: SQLException): Boolean {
-        return e.errorCode == 1062
     }
 }

@@ -10,6 +10,9 @@ internal data object TestDialect : SqlDialect {
 
     override val databaseName = "Test"
 
+    @Suppress("UNUSED_PARAMETER")
+    override fun marker(index: Int): String = "?"
+
     override val schemaSql: List<String> = listOf(
         // language=SQL
         """

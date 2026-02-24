@@ -29,6 +29,22 @@
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
+         <loc>https://yonatankarp.github.io/ff4k/main/stores/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
+         <loc>https://yonatankarp.github.io/ff4k/main/stores/jdbc/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
+         <loc>https://yonatankarp.github.io/ff4k/main/stores/r2dbc/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
+         <loc>https://yonatankarp.github.io/ff4k/main/stores/sqlite/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/basics/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>

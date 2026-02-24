@@ -10,28 +10,24 @@
       
       
       
-        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/packages/">
+        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/stores/jdbc/">
       
       
-        <link rel="prev" href="../extending/custom-strategy/">
       
       
-        <link rel="next" href="../api_reference/">
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.0">
     
     
       
-        <title>Packages - FF4K</title>
+        <title>JDBC Feature Store - FF4K</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#packages" class="md-skip">
+        <a href="#jdbc-feature-store" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="FF4K" class="md-header__button md-logo" aria-label="FF4K" data-md-component="logo">
+    <a href="../.." title="FF4K" class="md-header__button md-logo" aria-label="FF4K" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Packages
+              JDBC Feature Store
             
           </span>
         </div>
@@ -221,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -240,7 +236,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../usage/basics/" class="md-tabs__link">
+        <a href="../../usage/basics/" class="md-tabs__link">
           
   
   Usage
@@ -258,7 +254,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../extending/" class="md-tabs__link">
+        <a href="../../extending/" class="md-tabs__link">
           
   
   Extending
@@ -272,11 +268,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../packages/" class="md-tabs__link">
         
   
     
@@ -293,7 +287,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../api_reference/" class="md-tabs__link">
+      <a href="../../api_reference/" class="md-tabs__link">
         
   
     
@@ -327,7 +321,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="FF4K" class="md-nav__button md-logo" aria-label="FF4K" data-md-component="logo">
+    <a href="../.." title="FF4K" class="md-nav__button md-logo" aria-label="FF4K" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -357,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -417,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/basics/" class="md-nav__link">
+      <a href="../../usage/basics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -438,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/configuration/" class="md-nav__link">
+      <a href="../../usage/configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -459,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/monitoring/" class="md-nav__link">
+      <a href="../../usage/monitoring/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -480,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/properties/" class="md-nav__link">
+      <a href="../../usage/properties/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -501,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/strategies/" class="md-nav__link">
+      <a href="../../usage/strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -522,7 +516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/testing/" class="md-nav__link">
+      <a href="../../usage/testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -590,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../extending/" class="md-nav__link">
+      <a href="../../extending/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -611,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../extending/custom-feature-store/" class="md-nav__link">
+      <a href="../../extending/custom-feature-store/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -632,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../extending/custom-property-store/" class="md-nav__link">
+      <a href="../../extending/custom-property-store/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -653,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../extending/custom-strategy/" class="md-nav__link">
+      <a href="../../extending/custom-strategy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -678,30 +672,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Packages
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../packages/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -710,35 +684,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Requirements
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -750,7 +695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api_reference/" class="md-nav__link">
+      <a href="../../api_reference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -790,9 +735,69 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
+  <a href="#supported-databases" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Requirements
+      Supported Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-dialect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explicit Dialect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-serializers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Serializers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
     </span>
   </a>
   
@@ -816,77 +821,52 @@
   
 
 
-<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
-<p>FF4K is modularized into several packages to allow for flexible usage and extension.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">Platform Support</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-bom</code></strong></td>
-<td style="text-align: left;">The Bill of Materials (BOM) helps you manage versions of FF4K libraries. By importing the BOM, you ensure that all FF4K dependencies in your project use the same version.</td>
-<td style="text-align: left;"><img alt="Maven" src="https://img.shields.io/badge/-Maven%20BOM-C71A36?style=flat&amp;logo=apachemaven&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-contract-test</code></strong></td>
-<td style="text-align: left;">Contains contract tests (like <code>FeatureStoreContractTest</code>) to verify that custom implementations of FF4K interfaces (e.g., custom Feature Stores) adhere to the expected behavior.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-core</code></strong></td>
-<td style="text-align: left;">The core library containing the main API, configuration logic, default stores, and standard strategies. This is the primary dependency for using FF4K.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-jdbc</code></strong></td>
-<td style="text-align: left;">A blocking JDBC feature store implementation. Ideal for traditional blocking JVM applications. See <a href="../stores/jdbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-r2dbc</code></strong></td>
-<td style="text-align: left;">A non-blocking, reactive R2DBC feature store implementation. Ideal for reactive applications (e.g., Spring WebFlux). See <a href="../stores/r2dbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-sqlite</code></strong></td>
-<td style="text-align: left;">A Multiplatform SQLite feature store implementation. Supports JVM, Android, and iOS/Native targets.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="database-requirements">Database Requirements<a class="headerlink" href="#database-requirements" title="Permanent link">&para;</a></h2>
-<p>When using SQL-based stores, the following minimum database versions are required:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Database</th>
-<th style="text-align: left;">Minimum Version</th>
-<th style="text-align: left;">Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">MySQL</td>
-<td style="text-align: left;">8.0.19+</td>
-<td style="text-align: left;">Required for row alias syntax in <code>INSERT ... AS</code> upserts</td>
-</tr>
-<tr>
-<td style="text-align: left;">PostgreSQL</td>
-<td style="text-align: left;">9.5+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-<tr>
-<td style="text-align: left;">SQLite</td>
-<td style="text-align: left;">3.24.0+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-</tbody>
-</table>
+<h1 id="jdbc-feature-store">JDBC Feature Store<a class="headerlink" href="#jdbc-feature-store" title="Permanent link">&para;</a></h1>
+<p>The <code>ff4k-store-jdbc</code> module provides a JDBC-based <code>FeatureStore</code> implementation for
+relational databases on the JVM.</p>
+<h2 id="supported-databases">Supported Databases<a class="headerlink" href="#supported-databases" title="Permanent link">&para;</a></h2>
+<ul>
+<li>PostgreSQL</li>
+<li>MySQL</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>Add the dependency and your database driver:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.yonatankarp:ff4k-store-jdbc:&lt;version&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// Database driver (choose one)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">runtimeOnly</span><span class="p">(</span><span class="s">&quot;org.postgresql:postgresql:&lt;version&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">runtimeOnly</span><span class="p">(</span><span class="s">&quot;com.mysql:mysql-connector-j:&lt;version&gt;&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<p>Pass a <code>DataSource</code> to create a store. The database type is detected automatically:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">dataSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HikariDataSource</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">store</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Feature</span><span class="p">(</span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-feature&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">isEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="explicit-dialect">Explicit Dialect<a class="headerlink" href="#explicit-dialect" title="Permanent link">&para;</a></h3>
+<p>For database proxies or when auto-detection fails, use <code>&lt;DatabaseName&gt;Dialect</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">PostgresDialect</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="custom-serializers">Custom Serializers<a class="headerlink" href="#custom-serializers" title="Permanent link">&para;</a></h3>
+<p>For custom <code>FlippingStrategy</code> or <code>Property</code> implementations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">customModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">FlippingStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">subclass</span><span class="p">(</span><span class="n">MyCustomStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">customModule</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Automatic schema creation</strong> - Table created on first use</li>
+<li><strong>Optimistic locking</strong> - Safe concurrent updates with retry</li>
+<li><strong>Connection pooling</strong> - Bring your own <code>DataSource</code> (HikariCP recommended)</li>
+</ul>
 
 
 
@@ -939,10 +919,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "main", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "main", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>

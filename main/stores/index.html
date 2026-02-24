@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/packages/">
+        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/stores/">
       
       
-        <link rel="prev" href="../extending/custom-strategy/">
-      
-      
-        <link rel="next" href="../api_reference/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +20,7 @@
     
     
       
-        <title>Packages - FF4K</title>
+        <title>Feature Stores - FF4K</title>
       
     
     
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#packages" class="md-skip">
+        <a href="#feature-stores" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Packages
+              Feature Stores
             
           </span>
         </div>
@@ -272,11 +268,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../packages/" class="md-tabs__link">
         
   
     
@@ -678,30 +672,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Packages
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../packages/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -710,35 +684,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Requirements
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -783,23 +728,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Requirements
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -816,77 +744,39 @@
   
 
 
-<h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
-<p>FF4K is modularized into several packages to allow for flexible usage and extension.</p>
+<h1 id="feature-stores">Feature Stores<a class="headerlink" href="#feature-stores" title="Permanent link">&para;</a></h1>
+<p>FF4K supports multiple storage backends for feature flags.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Package</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">Platform Support</th>
+<th>Store</th>
+<th>Module</th>
+<th>Platforms</th>
+<th>Supported Databases</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong><code>ff4k-bom</code></strong></td>
-<td style="text-align: left;">The Bill of Materials (BOM) helps you manage versions of FF4K libraries. By importing the BOM, you ensure that all FF4K dependencies in your project use the same version.</td>
-<td style="text-align: left;"><img alt="Maven" src="https://img.shields.io/badge/-Maven%20BOM-C71A36?style=flat&amp;logo=apachemaven&amp;logoColor=white" /></td>
+<td><a href="jdbc/">JDBC</a></td>
+<td><code>ff4k-store-jdbc</code></td>
+<td>JVM</td>
+<td>PostgreSQL, MySQL</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong><code>ff4k-contract-test</code></strong></td>
-<td style="text-align: left;">Contains contract tests (like <code>FeatureStoreContractTest</code>) to verify that custom implementations of FF4K interfaces (e.g., custom Feature Stores) adhere to the expected behavior.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+<td><a href="r2dbc/">R2DBC</a></td>
+<td><code>ff4k-store-r2dbc</code></td>
+<td>JVM</td>
+<td>Coming soon</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong><code>ff4k-core</code></strong></td>
-<td style="text-align: left;">The core library containing the main API, configuration logic, default stores, and standard strategies. This is the primary dependency for using FF4K.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-jdbc</code></strong></td>
-<td style="text-align: left;">A blocking JDBC feature store implementation. Ideal for traditional blocking JVM applications. See <a href="../stores/jdbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-r2dbc</code></strong></td>
-<td style="text-align: left;">A non-blocking, reactive R2DBC feature store implementation. Ideal for reactive applications (e.g., Spring WebFlux). See <a href="../stores/r2dbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-sqlite</code></strong></td>
-<td style="text-align: left;">A Multiplatform SQLite feature store implementation. Supports JVM, Android, and iOS/Native targets.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+<td><a href="sqlite/">SQLite</a></td>
+<td><code>ff4k-store-sqlite</code></td>
+<td>JVM, Android, iOS, Native</td>
+<td>SQLite</td>
 </tr>
 </tbody>
 </table>
-<h2 id="database-requirements">Database Requirements<a class="headerlink" href="#database-requirements" title="Permanent link">&para;</a></h2>
-<p>When using SQL-based stores, the following minimum database versions are required:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Database</th>
-<th style="text-align: left;">Minimum Version</th>
-<th style="text-align: left;">Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">MySQL</td>
-<td style="text-align: left;">8.0.19+</td>
-<td style="text-align: left;">Required for row alias syntax in <code>INSERT ... AS</code> upserts</td>
-</tr>
-<tr>
-<td style="text-align: left;">PostgreSQL</td>
-<td style="text-align: left;">9.5+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-<tr>
-<td style="text-align: left;">SQLite</td>
-<td style="text-align: left;">3.24.0+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-</tbody>
-</table>
+<p>See <a href="../packages/#database-requirements">database requirements</a> for minimum versions.</p>
 
 
 

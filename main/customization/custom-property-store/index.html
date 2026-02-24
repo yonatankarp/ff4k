@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/extending/custom-feature-store/">
+        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/customization/custom-property-store/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../custom-feature-store/">
       
       
-        <link rel="next" href="../custom-property-store/">
+        <link rel="next" href="../custom-strategy/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Custom Feature Store - FF4K</title>
+        <title>Custom Property Store - FF4K</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#implementing-a-feature-store" class="md-skip">
+        <a href="#implementing-a-property-store" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Custom Feature Store
+              Custom Property Store
             
           </span>
         </div>
@@ -243,7 +243,43 @@
         <a href="../../usage/basics/" class="md-tabs__link">
           
   
-  Usage
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../usage/properties/" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../stores/" class="md-tabs__link">
+          
+  
+  Stores
 
         </a>
       </li>
@@ -263,7 +299,7 @@
         <a href="../" class="md-tabs__link">
           
   
-  Extending
+  Customization
 
         </a>
       </li>
@@ -396,7 +432,7 @@
             
   
   <span class="md-ellipsis">
-    Usage
+    Getting Started
   </span>
   
 
@@ -406,7 +442,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Usage
+            Getting Started
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -452,26 +488,52 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
-              
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -522,11 +584,142 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usage/testing/" class="md-nav__link">
+      <a href="../../usage/monitoring/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Testing
+    Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Stores
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Stores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/sqlite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQLite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/jdbc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/r2dbc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R2DBC
   </span>
   
 
@@ -564,24 +757,24 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Extending
+    Customization
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Extending
+            Customization
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -597,6 +790,27 @@
   
   <span class="md-ellipsis">
     Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-feature-store/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Feature Store
   </span>
   
 
@@ -626,7 +840,7 @@
           
   
   <span class="md-ellipsis">
-    Custom Feature Store
+    Custom Property Store
   </span>
   
 
@@ -637,7 +851,7 @@
         
   
   <span class="md-ellipsis">
-    Custom Feature Store
+    Custom Property Store
   </span>
   
 
@@ -657,15 +871,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#using-abstractfeaturestore" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using AbstractFeatureStore
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#verifying-your-implementation" class="md-nav__link">
@@ -701,11 +906,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-property-store/" class="md-nav__link">
+      <a href="../custom-strategy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Custom Property Store
+    Custom Flipping Strategy
   </span>
   
 
@@ -722,11 +927,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-strategy/" class="md-nav__link">
+      <a href="../testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Custom Flipping Strategy
+    Contract Testing
   </span>
   
 
@@ -810,15 +1015,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#using-abstractfeaturestore" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using AbstractFeatureStore
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#verifying-your-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       Verifying Your Implementation
@@ -854,68 +1050,27 @@
   
 
 
-<h1 id="implementing-a-feature-store">Implementing a Feature Store<a class="headerlink" href="#implementing-a-feature-store" title="Permanent link">&para;</a></h1>
-<p>To create a custom feature store, implement the <code>FeatureStore</code> interface. For convenience, it is highly recommended to extend <code>AbstractFeatureStore</code>, which handles most of the common logic and boilerplate.</p>
-<h2 id="using-abstractfeaturestore">Using AbstractFeatureStore<a class="headerlink" href="#using-abstractfeaturestore" title="Permanent link">&para;</a></h2>
-<p><code>AbstractFeatureStore</code> provides default implementations for group management, permission handling helper methods, and validation. You primarily need to implement the core CRUD operations.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomFeatureStore</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AbstractFeatureStore</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// Helper map to simulate a DB for this example</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableMapOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">Feature</span><span class="o">&gt;</span><span class="p">()</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">featureId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">Feature? </span><span class="p">{</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">db</span><span class="o">[</span><span class="n">featureId</span><span class="o">]</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getAll</span><span class="p">():</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">Feature</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="na">toMap</span><span class="p">()</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1">// Using the &#39;plusAssign&#39; operator for creation (store += feature)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">plusAssign</span><span class="p">(</span><span class="n">feature</span><span class="p">:</span><span class="w"> </span><span class="n">Feature</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">db</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">FeatureAlreadyExistsException</span><span class="p">(</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">        </span><span class="n">db</span><span class="o">[</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">feature</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="c1">// Using the &#39;minusAssign&#39; operator for deletion (store -= featureId)</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">minusAssign</span><span class="p">(</span><span class="n">featureId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">featureId</span><span class="w"> </span><span class="k">!in</span><span class="w"> </span><span class="n">db</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">FeatureNotFoundException</span><span class="p">(</span><span class="n">featureId</span><span class="p">)</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">featureId</span><span class="p">)</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">feature</span><span class="p">:</span><span class="w"> </span><span class="n">Feature</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="w"> </span><span class="k">!in</span><span class="w"> </span><span class="n">db</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">FeatureNotFoundException</span><span class="p">(</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="p">)</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">        </span><span class="n">db</span><span class="o">[</span><span class="n">feature</span><span class="p">.</span><span class="na">uid</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">feature</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">clear</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="na">clear</span><span class="p">()</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="c1">// ... implement other abstract methods ...</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="p">}</span>
+<h1 id="implementing-a-property-store">Implementing a Property Store<a class="headerlink" href="#implementing-a-property-store" title="Permanent link">&para;</a></h1>
+<p>To create a custom property store, implement the <code>PropertyStore</code> interface.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomPropertyStore</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PropertyStore</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">   </span><span class="c1">// Implement interface...</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="verifying-your-implementation">Verifying Your Implementation<a class="headerlink" href="#verifying-your-implementation" title="Permanent link">&para;</a></h2>
-<p>It is critical to ensure your custom store behaves correctly. FF4K provides a <a href="../../usage/testing/">Contract Test Suite</a> that you can use to automatically verify your implementation against the expected behavior.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomFeatureStoreTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FeatureStoreContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStore</span><span class="p">():</span><span class="w"> </span><span class="n">FeatureStore</span><span class="w"> </span><span class="p">{</span>
+<p>It is critical to ensure your custom store behaves correctly. FF4K provides a <a href="../testing/">Contract Test Suite</a> that you can use to automatically verify your implementation against the expected behavior.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomPropertyStoreTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PropertyStoreContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStore</span><span class="p">():</span><span class="w"> </span><span class="n">PropertyStore</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="c1">// Return a fresh instance of your store for each test</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyCustomFeatureStore</span><span class="p">()</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyCustomPropertyStore</span><span class="p">()</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
 </code></pre></div>
-<p>This will run a suite of tests covering CRUD operations, toggling features, group operations, permissions, and concurrency.</p>
+<p>This will run a suite of tests covering CRUD operations, concurrency, and error handling.</p>
 <h2 id="registering-your-store">Registering Your Store<a class="headerlink" href="#registering-your-store" title="Permanent link">&para;</a></h2>
 <p>Once implemented, pass your custom store to the <code>ff4k</code> configuration function.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ff4k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ff4k</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">featureStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyCustomFeatureStore</span><span class="p">(),</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">propertyStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyCustomPropertyStore</span><span class="p">()</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="c1">// ...</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="c1">// ...</span>

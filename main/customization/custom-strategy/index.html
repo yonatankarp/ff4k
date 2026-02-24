@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/extending/custom-property-store/">
+        <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/customization/custom-strategy/">
       
       
-        <link rel="prev" href="../custom-feature-store/">
+        <link rel="prev" href="../custom-property-store/">
       
       
-        <link rel="next" href="../custom-strategy/">
+        <link rel="next" href="../testing/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Custom Property Store - FF4K</title>
+        <title>Custom Flipping Strategy - FF4K</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#implementing-a-property-store" class="md-skip">
+        <a href="#implementing-a-flipping-strategy" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Custom Property Store
+              Custom Flipping Strategy
             
           </span>
         </div>
@@ -243,7 +243,43 @@
         <a href="../../usage/basics/" class="md-tabs__link">
           
   
-  Usage
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../usage/properties/" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../stores/" class="md-tabs__link">
+          
+  
+  Stores
 
         </a>
       </li>
@@ -263,7 +299,7 @@
         <a href="../" class="md-tabs__link">
           
   
-  Extending
+  Customization
 
         </a>
       </li>
@@ -396,7 +432,7 @@
             
   
   <span class="md-ellipsis">
-    Usage
+    Getting Started
   </span>
   
 
@@ -406,7 +442,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Usage
+            Getting Started
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -452,26 +488,52 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
-              
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -522,11 +584,142 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usage/testing/" class="md-nav__link">
+      <a href="../../usage/monitoring/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Testing
+    Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Stores
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Stores
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/sqlite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQLite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/jdbc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stores/r2dbc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R2DBC
   </span>
   
 
@@ -564,24 +757,24 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Extending
+    Customization
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Extending
+            Customization
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -631,6 +824,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-property-store/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Property Store
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -647,7 +861,7 @@
           
   
   <span class="md-ellipsis">
-    Custom Property Store
+    Custom Flipping Strategy
   </span>
   
 
@@ -658,7 +872,7 @@
         
   
   <span class="md-ellipsis">
-    Custom Property Store
+    Custom Flipping Strategy
   </span>
   
 
@@ -689,9 +903,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#registering-your-store" class="md-nav__link">
+  <a href="#registering-for-serialization" class="md-nav__link">
     <span class="md-ellipsis">
-      Registering Your Store
+      Registering for Serialization
     </span>
   </a>
   
@@ -713,11 +927,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-strategy/" class="md-nav__link">
+      <a href="../testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Custom Flipping Strategy
+    Contract Testing
   </span>
   
 
@@ -810,9 +1024,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#registering-your-store" class="md-nav__link">
+  <a href="#registering-for-serialization" class="md-nav__link">
     <span class="md-ellipsis">
-      Registering Your Store
+      Registering for Serialization
     </span>
   </a>
   
@@ -836,32 +1050,66 @@
   
 
 
-<h1 id="implementing-a-property-store">Implementing a Property Store<a class="headerlink" href="#implementing-a-property-store" title="Permanent link">&para;</a></h1>
-<p>To create a custom property store, implement the <code>PropertyStore</code> interface.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomPropertyStore</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PropertyStore</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">   </span><span class="c1">// Implement interface...</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+<h1 id="implementing-a-flipping-strategy">Implementing a Flipping Strategy<a class="headerlink" href="#implementing-a-flipping-strategy" title="Permanent link">&para;</a></h1>
+<p>To create a custom flipping strategy, implement the <code>FlippingStrategy</code> interface. For an overview
+of built-in strategies, see <a href="../../usage/strategies/">Flipping Strategies</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@Serializable</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;timeBasedStrategy&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TimeBasedStrategy</span><span class="p">(</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">startHour</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">endHour</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">featureId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">store</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureStore?,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">FlippingExecutionContext</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">currentHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">System</span><span class="p">.</span><span class="na">now</span><span class="p">()</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">            </span><span class="p">.</span><span class="na">toLocalDateTime</span><span class="p">(</span><span class="n">TimeZone</span><span class="p">.</span><span class="na">currentSystemDefault</span><span class="p">())</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">            </span><span class="p">.</span><span class="na">hour</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">currentHour</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">startHour</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">endHour</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="verifying-your-implementation">Verifying Your Implementation<a class="headerlink" href="#verifying-your-implementation" title="Permanent link">&para;</a></h2>
-<p>It is critical to ensure your custom store behaves correctly. FF4K provides a <a href="../../usage/testing/">Contract Test Suite</a> that you can use to automatically verify your implementation against the expected behavior.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">MyCustomPropertyStoreTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">PropertyStoreContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStore</span><span class="p">():</span><span class="w"> </span><span class="n">PropertyStore</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="c1">// Return a fresh instance of your store for each test</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MyCustomPropertyStore</span><span class="p">()</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+<p>It is critical to ensure your custom strategy behaves correctly. FF4K provides a <a href="../testing/">Contract Test Suite</a> that you can use to automatically verify your implementation against the expected behavior.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">TimeBasedStrategyTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategyContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// Create a strategy that should PASS given the current conditions (or context)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForPassingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="c1">// Assuming we mock the clock or configure the strategy to span the current time</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">(</span><span class="n">startHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">endHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">// Create a strategy that should FAIL</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForFailingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="c1">// 23 until 1 creates an empty range in Kotlin, so this will always fail</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">(</span><span class="n">startHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">23</span><span class="p">,</span><span class="w"> </span><span class="n">endHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="c1">// Provide context if your strategy relies on it (optional for time-based)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldPass</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">()</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldFail</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">()</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="c1">// Verify JSON serialization</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">expectedJsonForSampleParams</span><span class="p">():</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;&quot;{&quot;type&quot;:&quot;timeBasedStrategy&quot;,&quot;startHour&quot;:0,&quot;endHour&quot;:24}&quot;&quot;&quot;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">}</span>
 </code></pre></div>
-<p>This will run a suite of tests covering CRUD operations, concurrency, and error handling.</p>
-<h2 id="registering-your-store">Registering Your Store<a class="headerlink" href="#registering-your-store" title="Permanent link">&para;</a></h2>
-<p>Once implemented, pass your custom store to the <code>ff4k</code> configuration function.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ff4k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ff4k</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">propertyStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyCustomPropertyStore</span><span class="p">()</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="c1">// ...</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="c1">// ...</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span>
+<h2 id="registering-for-serialization">Registering for Serialization<a class="headerlink" href="#registering-for-serialization" title="Permanent link">&para;</a></h2>
+<p>If you need JSON serialization support for your custom strategy, register it in a custom
+serializers module and combine it with the built-in module. See <a href="../../usage/basics/#serialization">Serialization</a>
+for more details on <code>ff4kSerializersModule</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">customSerializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">FlippingStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">subclass</span><span class="p">(</span><span class="n">TimeBasedStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">.</span><span class="na">serializer</span><span class="p">())</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Json</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">serializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ff4kSerializersModule</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">customSerializersModule</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
 </code></pre></div>
 
 

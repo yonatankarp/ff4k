@@ -13,19 +13,23 @@
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/main/extending/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/main/customization/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/main/extending/custom-feature-store/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-feature-store/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/main/extending/custom-property-store/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-property-store/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.github.io/ff4k/main/extending/custom-strategy/</loc>
+         <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-strategy/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
+         <loc>https://yonatankarp.github.io/ff4k/main/customization/testing/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
@@ -62,10 +66,6 @@
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/strategies/</loc>
-         <lastmod>2026-02-24</lastmod>
-    </url>
-    <url>
-         <loc>https://yonatankarp.github.io/ff4k/main/usage/testing/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
 </urlset>

@@ -99,7 +99,7 @@ jobs:
 
       - name: Upload coverage data
         if: needs.changes.outputs.source == 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: kover-data-linux-${{ matrix.target }}
           path: '**/build/kover/bin-reports/'
@@ -143,7 +143,7 @@ jobs:
 
       - name: Upload coverage data
         if: needs.changes.outputs.source == 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: kover-data-ios-${{ matrix.target }}
           path: '**/build/kover/bin-reports/'
@@ -174,7 +174,7 @@ jobs:
 
       - name: Download all coverage artifacts
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: kover-data-*
           path: .

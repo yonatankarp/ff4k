@@ -18,7 +18,6 @@
         }
       }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/main.css" rel="Stylesheet">
@@ -43,7 +42,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-core/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ff4k-core/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -52,7 +51,7 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
-                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
                                 <input type="checkbox" class="checkbox--input" id=":ff4k-core/commonMain" data-filter=":ff4k-core/commonMain">
                                 <span class="checkbox--icon"></span>
@@ -90,28 +89,28 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-core::com.yonatankarp.ff4k.strategy/ReleaseDateStrategy///PointingToDeclaration//1945361646">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-core::com.yonatankarp.ff4k.strategy/ReleaseDateStrategy///PointingToDeclaration//1934176344">
   <div class="breadcrumbs"><a href="../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.strategy</a><span class="delimiter">/</span><span class="current">ReleaseDateStrategy</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Release</span><wbr><span>Date</span><wbr><span><span>Strategy</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/SerialName///PointingToDeclaration/"><span class="token annotation builtin">SerialName</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"releaseDate"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">ReleaseDateStrategy</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>releaseDate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token punctuation">, </span></span><span class="parameter ">clock<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-clock/index.html">Clock</a><span class="token operator"> = </span>Clock.System</span></span><span class="token punctuation">)</span> : <a href="../../com.yonatankarp.ff4k.core/-flipping-strategy/index.html">FlippingStrategy</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/strategy/ReleaseDateStrategy.kt#L30">source</a>)</span></span></div><p class="paragraph">A strategy that enables a feature after a specified release date.</p><p class="paragraph">The feature is disabled before the release date and enabled once the current time reaches or passes the release date.</p><p class="paragraph">This strategy is useful for scheduling feature launches at a specific point in time without requiring a deployment or manual toggle.</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-date-range-strategy/index.html"><span>Date</span><wbr><span>Range</span><wbr><span><span>Strategy</span></span></a></div></span></div><div><div class="title"><p class="paragraph">for enabling a feature within a specific time window</p></div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">ReleaseDateStrategy</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>releaseDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant<span class="token punctuation">, </span></span><span class="parameter ">clock<span class="token operator">: </span>ERROR CLASS: Symbol not found for Clock<span class="token operator"> = </span>Clock.System</span></span><span class="token punctuation">)</span> : <a href="../../com.yonatankarp.ff4k.core/-flipping-strategy/index.html">FlippingStrategy</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/strategy/ReleaseDateStrategy.kt#L30">source</a>)</span></span></div><p class="paragraph">A strategy that enables a feature after a specified release date.</p><p class="paragraph">The feature is disabled before the release date and enabled once the current time reaches or passes the release date.</p><p class="paragraph">This strategy is useful for scheduling feature launches at a specific point in time without requiring a deployment or manual toggle.</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-date-range-strategy/index.html"><span>Date</span><wbr><span>Range</span><wbr><span><span>Strategy</span></span></a></div></span></div><div><div class="title"><p class="paragraph">for enabling a feature within a specific time window</p></div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="-1620500018%2FConstructors%2F1945361646" anchor-label="ReleaseDateStrategy" id="-1620500018%2FConstructors%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="746808442%2FConstructors%2F1934176344" anchor-label="ReleaseDateStrategy" id="746808442%2FConstructors%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-release-date-strategy.html"><span>Release</span><wbr><span>Date</span><wbr><span><span>Strategy</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1620500018%2FConstructors%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="746808442%2FConstructors%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">releaseDate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token punctuation">, </span></span><span class="parameter ">clock<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-clock/index.html">Clock</a><span class="token operator"> = </span>Clock.System</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">releaseDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant<span class="token punctuation">, </span></span><span class="parameter ">clock<span class="token operator">: </span>ERROR CLASS: Symbol not found for Clock<span class="token operator"> = </span>Clock.System</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -120,17 +119,17 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="1661791811%2FProperties%2F1945361646" anchor-label="releaseDate" id="1661791811%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="1661791811%2FProperties%2F1934176344" anchor-label="releaseDate" id="1661791811%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="release-date.html"><span>release</span><wbr><span><span>Date</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1661791811%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1661791811%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="release-date.html">releaseDate</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a></div><div class="brief "><p class="paragraph">The instant after which the feature becomes enabled.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="release-date.html">releaseDate</a><span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant</div><div class="brief "><p class="paragraph">The instant after which the feature becomes enabled.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -139,12 +138,12 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-2099492479%2FFunctions%2F1945361646" anchor-label="and" id="-2099492479%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="-2099492479%2FFunctions%2F1934176344" anchor-label="and" id="-2099492479%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../and.html"><span><span>and</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2099492479%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2099492479%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -154,12 +153,12 @@
               </div>
             </div>
           </div>
-<a data-name="-696486561%2FFunctions%2F1945361646" anchor-label="equals" id="-696486561%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-696486561%2FFunctions%2F1934176344" anchor-label="equals" id="-696486561%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="equals.html"><span><span>equals</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-696486561%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-696486561%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -169,12 +168,12 @@
               </div>
             </div>
           </div>
-<a data-name="613076657%2FFunctions%2F1945361646" anchor-label="evaluate" id="613076657%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="613076657%2FFunctions%2F1934176344" anchor-label="evaluate" id="613076657%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="evaluate.html"><span><span>evaluate</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="613076657%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="613076657%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -184,12 +183,12 @@
               </div>
             </div>
           </div>
-<a data-name="85941415%2FFunctions%2F1945361646" anchor-label="hashCode" id="85941415%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="85941415%2FFunctions%2F1934176344" anchor-label="hashCode" id="85941415%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="hash-code.html"><span>hash</span><wbr><span><span>Code</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="85941415%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="85941415%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -199,12 +198,12 @@
               </div>
             </div>
           </div>
-<a data-name="1484857374%2FFunctions%2F1945361646" anchor-label="not" id="1484857374%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1484857374%2FFunctions%2F1934176344" anchor-label="not" id="1484857374%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../not.html"><span><span>not</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1484857374%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1484857374%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -214,12 +213,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1623372577%2FFunctions%2F1945361646" anchor-label="or" id="-1623372577%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1623372577%2FFunctions%2F1934176344" anchor-label="or" id="-1623372577%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../or.html"><span><span>or</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1623372577%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1623372577%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>

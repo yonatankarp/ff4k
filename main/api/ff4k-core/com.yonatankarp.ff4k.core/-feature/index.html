@@ -18,7 +18,6 @@
         }
       }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/main.css" rel="Stylesheet">
@@ -43,7 +42,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-core/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ff4k-core/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -52,7 +51,7 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
-                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
                                 <input type="checkbox" class="checkbox--input" id=":ff4k-core/commonMain" data-filter=":ff4k-core/commonMain">
                                 <span class="checkbox--icon"></span>
@@ -90,23 +89,23 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-core::com.yonatankarp.ff4k.core/Feature///PointingToDeclaration//1945361646">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-core::com.yonatankarp.ff4k.core/Feature///PointingToDeclaration//1934176344">
   <div class="breadcrumbs"><a href="../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.core</a><span class="delimiter">/</span><span class="current">Feature</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Feature</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Feature</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>uid<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>description<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>group<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptySet()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>flippingStrategy<span class="token operator">: </span><a href="../-flipping-strategy/index.html">FlippingStrategy</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>customProperties<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/core/Feature.kt#L50">source</a>)</span></span></div><p class="paragraph">Represents a feature flag (feature toggle) identified by a unique identifier.</p><p class="paragraph">Feature flags enable/disable functionality at runtime, supporting continuous delivery and controlled feature rollouts as introduced by Martin Fowler.</p><h2 class="">Core Capabilities</h2><ul><li><p class="paragraph"><strong>Runtime Control</strong>: Enable or disable features without code changes or redeployment</p></li><li><p class="paragraph"><strong>Security Management</strong>: Limit feature access to specific user roles/permissions</p></li><li><p class="paragraph"><strong>Grouping</strong>: Organize features into groups for bulk operations</p></li><li><p class="paragraph"><strong>Advanced Strategies</strong>: Use <a href="../-flipping-strategy/index.html">FlippingStrategy</a> for A/B testing, gradual rollouts, etc.</p></li><li><p class="paragraph"><strong>Custom Properties</strong>: Attach metadata and configuration to features</p></li></ul><h2 class="">Immutability</h2><p class="paragraph">This class is immutable by design. All state-changing operations (<a href="enable.html">enable</a>, <a href="disable.html">disable</a>, <a href="toggle.html">toggle</a>, <a href="add-property.html">addProperty</a>) return a new <a href="index.html">Feature</a> instance rather than modifying the current one.</p><p class="paragraph">Example usage:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val feature = Feature(<br>    uid = "new-checkout-flow",<br>    isEnabled = true,<br>    description = "New streamlined checkout process",<br>    group = "checkout",<br>    permissions = setOf("BETA_TESTERS", "ADMIN")<br>)<br><br>// State changes return new instances<br>val disabled = feature.disable()<br>val toggled = feature.toggle()<br><br>// Add custom properties<br>val withProperty = feature.addProperty(<br>    intProperty("maxRetries") {<br>    value = 3<br>  }<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-argument-exception/index.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">if <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature/--root--.html">uid</a> is blank or <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature/--root--.html">group</a> is blank (when non-null)</p></div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Feature</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>uid<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>isEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>description<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>group<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptySet()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>flippingStrategy<span class="token operator">: </span><a href="../-flipping-strategy/index.html">FlippingStrategy</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>customProperties<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/core/Feature.kt#L50">source</a>)</span></span></div><p class="paragraph">Represents a feature flag (feature toggle) identified by a unique identifier.</p><p class="paragraph">Feature flags enable/disable functionality at runtime, supporting continuous delivery and controlled feature rollouts as introduced by Martin Fowler.</p><h2 class="">Core Capabilities</h2><ul><li><p class="paragraph"><strong>Runtime Control</strong>: Enable or disable features without code changes or redeployment</p></li><li><p class="paragraph"><strong>Security Management</strong>: Limit feature access to specific user roles/permissions</p></li><li><p class="paragraph"><strong>Grouping</strong>: Organize features into groups for bulk operations</p></li><li><p class="paragraph"><strong>Advanced Strategies</strong>: Use <a href="../-flipping-strategy/index.html">FlippingStrategy</a> for A/B testing, gradual rollouts, etc.</p></li><li><p class="paragraph"><strong>Custom Properties</strong>: Attach metadata and configuration to features</p></li></ul><h2 class="">Immutability</h2><p class="paragraph">This class is immutable by design. All state-changing operations (<a href="enable.html">enable</a>, <a href="disable.html">disable</a>, <a href="toggle.html">toggle</a>, <a href="add-property.html">addProperty</a>) return a new <a href="index.html">Feature</a> instance rather than modifying the current one.</p><p class="paragraph">Example usage:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val feature = Feature(<br>    uid = "new-checkout-flow",<br>    isEnabled = true,<br>    description = "New streamlined checkout process",<br>    group = "checkout",<br>    permissions = setOf("BETA_TESTERS", "ADMIN")<br>)<br><br>// State changes return new instances<br>val disabled = feature.disable()<br>val toggled = feature.toggle()<br><br>// Add custom properties<br>val withProperty = feature.addProperty(<br>    intProperty("maxRetries") {<br>    value = 3<br>  }<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://developer.android.com/reference/kotlin/java/lang/IllegalArgumentException.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">if <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature/--root--.html">uid</a> is blank or <a href="../../../ff4k-core/com.yonatankarp.ff4k.core/-feature/--root--.html">group</a> is blank (when non-null)</p></div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="-1922909659%2FConstructors%2F1945361646" anchor-label="Feature" id="-1922909659%2FConstructors%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="-1922909659%2FConstructors%2F1934176344" anchor-label="Feature" id="-1922909659%2FConstructors%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-feature.html"><span><span>Feature</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1922909659%2FConstructors%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1922909659%2FConstructors%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -120,12 +119,12 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="1018750488%2FProperties%2F1945361646" anchor-label="customProperties" id="1018750488%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="1018750488%2FProperties%2F1934176344" anchor-label="customProperties" id="1018750488%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="custom-properties.html"><span>custom</span><wbr><span><span>Properties</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1018750488%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1018750488%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -135,12 +134,12 @@
               </div>
             </div>
           </div>
-<a data-name="-701590910%2FProperties%2F1945361646" anchor-label="description" id="-701590910%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-701590910%2FProperties%2F1934176344" anchor-label="description" id="-701590910%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="description.html"><span><span>description</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-701590910%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-701590910%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -150,12 +149,12 @@
               </div>
             </div>
           </div>
-<a data-name="1392024718%2FProperties%2F1945361646" anchor-label="displayStrategyClassName" id="1392024718%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1392024718%2FProperties%2F1934176344" anchor-label="displayStrategyClassName" id="1392024718%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="display-strategy-class-name.html"><span>display</span><wbr><span>Strategy</span><wbr><span>Class</span><wbr><span><span>Name</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1392024718%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1392024718%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -165,12 +164,12 @@
               </div>
             </div>
           </div>
-<a data-name="1055194474%2FProperties%2F1945361646" anchor-label="flippingStrategy" id="1055194474%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1055194474%2FProperties%2F1934176344" anchor-label="flippingStrategy" id="1055194474%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="flipping-strategy.html"><span>flipping</span><wbr><span><span>Strategy</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1055194474%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1055194474%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -180,12 +179,12 @@
               </div>
             </div>
           </div>
-<a data-name="2093592095%2FProperties%2F1945361646" anchor-label="group" id="2093592095%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="2093592095%2FProperties%2F1934176344" anchor-label="group" id="2093592095%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="group.html"><span><span>group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2093592095%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2093592095%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -195,12 +194,12 @@
               </div>
             </div>
           </div>
-<a data-name="704897299%2FProperties%2F1945361646" anchor-label="hasFlippingStrategy" id="704897299%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="704897299%2FProperties%2F1934176344" anchor-label="hasFlippingStrategy" id="704897299%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../has-flipping-strategy.html"><span>has</span><wbr><span>Flipping</span><wbr><span><span>Strategy</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="704897299%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="704897299%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -210,12 +209,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1892102369%2FProperties%2F1945361646" anchor-label="hasPermissions" id="-1892102369%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1892102369%2FProperties%2F1934176344" anchor-label="hasPermissions" id="-1892102369%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../has-permissions.html"><span>has</span><wbr><span><span>Permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1892102369%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1892102369%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -225,12 +224,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1917402149%2FProperties%2F1945361646" anchor-label="isDisabled" id="-1917402149%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1917402149%2FProperties%2F1934176344" anchor-label="isDisabled" id="-1917402149%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../is-disabled.html"><span>is</span><wbr><span><span>Disabled</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1917402149%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1917402149%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -240,12 +239,12 @@
               </div>
             </div>
           </div>
-<a data-name="141531239%2FProperties%2F1945361646" anchor-label="isEnabled" id="141531239%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="141531239%2FProperties%2F1934176344" anchor-label="isEnabled" id="141531239%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="is-enabled.html"><span>is</span><wbr><span><span>Enabled</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="141531239%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="141531239%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -255,12 +254,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1371321606%2FProperties%2F1945361646" anchor-label="permissions" id="-1371321606%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1371321606%2FProperties%2F1934176344" anchor-label="permissions" id="-1371321606%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="permissions.html"><span><span>permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1371321606%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1371321606%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -270,12 +269,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1013765926%2FProperties%2F1945361646" anchor-label="propertyNames" id="-1013765926%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1013765926%2FProperties%2F1934176344" anchor-label="propertyNames" id="-1013765926%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../property-names.html"><span>property</span><wbr><span><span>Names</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1013765926%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1013765926%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -285,12 +284,12 @@
               </div>
             </div>
           </div>
-<a data-name="1705601454%2FProperties%2F1945361646" anchor-label="uid" id="1705601454%2FProperties%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1705601454%2FProperties%2F1934176344" anchor-label="uid" id="1705601454%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="uid.html"><span><span>uid</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1705601454%2FProperties%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1705601454%2FProperties%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -304,12 +303,12 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-552884303%2FFunctions%2F1945361646" anchor-label="addGroup" id="-552884303%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="-552884303%2FFunctions%2F1934176344" anchor-label="addGroup" id="-552884303%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../add-group.html"><span>add</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-552884303%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-552884303%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -319,27 +318,27 @@
               </div>
             </div>
           </div>
-<a data-name="2091416482%2FFunctions%2F1945361646" anchor-label="addProperties" id="2091416482%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-2082306966%2FFunctions%2F1934176344" anchor-label="addProperties" id="-2082306966%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../add-properties.html"><span>add</span><wbr><span><span>Properties</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2091416482%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2082306966%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../add-properties.html"><span class="token function">addProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>properties<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../add-properties.html"><span class="token function">addProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">properties<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with multiple properties added.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../add-properties.html"><span class="token function">addProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">properties<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../add-properties.html"><span class="token function">addProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>properties<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with multiple properties added.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1543537330%2FFunctions%2F1945361646" anchor-label="addProperty" id="1543537330%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1543537330%2FFunctions%2F1934176344" anchor-label="addProperty" id="1543537330%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="add-property.html"><span>add</span><wbr><span><span>Property</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1543537330%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1543537330%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -349,12 +348,12 @@
               </div>
             </div>
           </div>
-<a data-name="949065100%2FFunctions%2F1945361646" anchor-label="clearPermissions" id="949065100%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="949065100%2FFunctions%2F1934176344" anchor-label="clearPermissions" id="949065100%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../clear-permissions.html"><span>clear</span><wbr><span><span>Permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="949065100%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="949065100%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -364,12 +363,12 @@
               </div>
             </div>
           </div>
-<a data-name="703656263%2FFunctions%2F1945361646" anchor-label="clearProperties" id="703656263%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="703656263%2FFunctions%2F1934176344" anchor-label="clearProperties" id="703656263%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../clear-properties.html"><span>clear</span><wbr><span><span>Properties</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703656263%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703656263%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -379,12 +378,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1180164714%2FFunctions%2F1945361646" anchor-label="disable" id="-1180164714%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1180164714%2FFunctions%2F1934176344" anchor-label="disable" id="-1180164714%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="disable.html"><span><span>disable</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1180164714%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1180164714%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -394,12 +393,12 @@
               </div>
             </div>
           </div>
-<a data-name="742007737%2FFunctions%2F1945361646" anchor-label="enable" id="742007737%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="742007737%2FFunctions%2F1934176344" anchor-label="enable" id="742007737%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="enable.html"><span><span>enable</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="742007737%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="742007737%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -409,12 +408,12 @@
               </div>
             </div>
           </div>
-<a data-name="661999905%2FFunctions%2F1945361646" anchor-label="getPropertiesOfType" id="661999905%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="661999905%2FFunctions%2F1934176344" anchor-label="getPropertiesOfType" id="661999905%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-properties-of-type.html"><span>get</span><wbr><span>Properties</span><wbr><span>Of</span><wbr><span><span>Type</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="661999905%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="661999905%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -424,12 +423,12 @@
               </div>
             </div>
           </div>
-<a data-name="107005393%2FFunctions%2F1945361646" anchor-label="getProperty" id="107005393%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="107005393%2FFunctions%2F1934176344" anchor-label="getProperty" id="107005393%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="get-property.html"><span>get</span><wbr><span><span>Property</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107005393%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107005393%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -439,12 +438,12 @@
               </div>
             </div>
           </div>
-<a data-name="-615877481%2FFunctions%2F1945361646" anchor-label="getPropertyOrThrow" id="-615877481%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-615877481%2FFunctions%2F1934176344" anchor-label="getPropertyOrThrow" id="-615877481%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-property-or-throw.html"><span>get</span><wbr><span>Property</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-615877481%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-615877481%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -454,12 +453,12 @@
               </div>
             </div>
           </div>
-<a data-name="1636820420%2FFunctions%2F1945361646" anchor-label="getPropertyValueOrDefault" id="1636820420%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1636820420%2FFunctions%2F1934176344" anchor-label="getPropertyValueOrDefault" id="1636820420%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-property-value-or-default.html"><span>get</span><wbr><span>Property</span><wbr><span>Value</span><wbr><span>Or</span><wbr><span><span>Default</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1636820420%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1636820420%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -469,27 +468,27 @@
               </div>
             </div>
           </div>
-<a data-name="787119180%2FFunctions%2F1945361646" anchor-label="grantPermissions" id="787119180%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="638363388%2FFunctions%2F1934176344" anchor-label="grantPermissions" id="638363388%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../grant-permissions.html"><span>grant</span><wbr><span><span>Permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787119180%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="638363388%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../grant-permissions.html"><span class="token function">grantPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../grant-permissions.html"><span class="token function">grantPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified permissions granted.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../grant-permissions.html"><span class="token function">grantPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../grant-permissions.html"><span class="token function">grantPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified permissions granted.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-117904192%2FFunctions%2F1945361646" anchor-label="hasAllPermissions" id="-117904192%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1298101222%2FFunctions%2F1934176344" anchor-label="hasAllPermissions" id="-1298101222%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../has-all-permissions.html"><span>has</span><wbr><span>All</span><wbr><span><span>Permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-117904192%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1298101222%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -499,12 +498,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1238377650%2FFunctions%2F1945361646" anchor-label="hasAnyPermission" id="-1238377650%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1224799064%2FFunctions%2F1934176344" anchor-label="hasAnyPermission" id="-1224799064%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../has-any-permission.html"><span>has</span><wbr><span>Any</span><wbr><span><span>Permission</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1238377650%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1224799064%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -514,12 +513,12 @@
               </div>
             </div>
           </div>
-<a data-name="1218977778%2FFunctions%2F1945361646" anchor-label="hasPropertyWithValue" id="1218977778%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1218977778%2FFunctions%2F1934176344" anchor-label="hasPropertyWithValue" id="1218977778%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../has-property-with-value.html"><span>has</span><wbr><span>Property</span><wbr><span>With</span><wbr><span><span>Value</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1218977778%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1218977778%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -529,12 +528,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1009573118%2FFunctions%2F1945361646" anchor-label="removeGroup" id="-1009573118%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-1009573118%2FFunctions%2F1934176344" anchor-label="removeGroup" id="-1009573118%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../remove-group.html"><span>remove</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1009573118%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1009573118%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -544,42 +543,42 @@
               </div>
             </div>
           </div>
-<a data-name="-1976595862%2FFunctions%2F1945361646" anchor-label="removeProperties" id="-1976595862%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="1999164252%2FFunctions%2F1934176344" anchor-label="removeProperties" id="1999164252%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../remove-properties.html"><span>remove</span><wbr><span><span>Properties</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1976595862%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1999164252%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../remove-properties.html"><span class="token function">removeProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../remove-properties.html"><span class="token function">removeProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified properties removed.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../remove-properties.html"><span class="token function">removeProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../remove-properties.html"><span class="token function">removeProperties</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified properties removed.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1683977890%2FFunctions%2F1945361646" anchor-label="revokePermissions" id="1683977890%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-358096170%2FFunctions%2F1934176344" anchor-label="revokePermissions" id="-358096170%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../revoke-permissions.html"><span>revoke</span><wbr><span><span>Permissions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1683977890%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-358096170%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../revoke-permissions.html"><span class="token function">revokePermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../revoke-permissions.html"><span class="token function">revokePermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified permissions revoked.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../revoke-permissions.html"><span class="token function">revokePermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Feature</a><span class="token punctuation">.</span><a href="../revoke-permissions.html"><span class="token function">revokePermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>permissions<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Feature</a></div><div class="brief "><p class="paragraph">Returns a new <a href="index.html">Feature</a> with the specified permissions revoked.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="310315784%2FFunctions%2F1945361646" anchor-label="toggle" id="310315784%2FFunctions%2F1945361646" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="310315784%2FFunctions%2F1934176344" anchor-label="toggle" id="310315784%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="toggle.html"><span><span>toggle</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="310315784%2FFunctions%2F1945361646"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="310315784%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>

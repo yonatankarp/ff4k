@@ -18,7 +18,6 @@
         }
       }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/main.css" rel="Stylesheet">
@@ -43,7 +42,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ff4k-store-sqlite/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ff4k-store-sqlite/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -52,7 +51,7 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
-                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
                                 <input type="checkbox" class="checkbox--input" id=":ff4k-store-sqlite/commonMain" data-filter=":ff4k-store-sqlite/commonMain">
                                 <span class="checkbox--icon"></span>
@@ -90,28 +89,28 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-store-sqlite::com.yonatankarp.ff4k.store/SqlitePropertyStore///PointingToDeclaration//7201095">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-store-sqlite::com.yonatankarp.ff4k.store/SqlitePropertyStore///PointingToDeclaration//91763359">
   <div class="breadcrumbs"><a href="../../index.html">ff4k-store-sqlite</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.store</a><span class="delimiter">/</span><span class="current">SqlitePropertyStore</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Sqlite</span><wbr><span>Property</span><wbr><span><span>Store</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-store-sqlite/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SqlitePropertyStore</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">driver<span class="token operator">: </span><span data-unresolved-link="app.cash.sqldelight.db/SqlDriver///PointingToDeclaration/">SqlDriver</span><span class="token punctuation">, </span></span><span class="parameter ">customSerializersModule<span class="token operator">: </span><span data-unresolved-link="kotlinx.serialization.modules/SerializersModule///PointingToDeclaration/">SerializersModule</span><span class="token operator"> = </span>SerializersModule {}</span></span><span class="token punctuation">)</span> : <span data-unresolved-link="/<ERROR CLASS> ERROR CLASS: Symbol not found for AbstractPropertyStore///PointingToDeclaration/">&lt;ERROR CLASS&gt; ERROR CLASS: Symbol not found for AbstractPropertyStore</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-store-sqlite/src/commonMain/kotlin/com/yonatankarp/ff4k/store/SqlitePropertyStore.kt#L59">source</a>)</span></span></div><p class="paragraph">SQLite-backed property store for persisting configuration properties.</p><p class="paragraph">Use this store when you need durable property storage with SQLite. Properties are serialized as JSON, enabling storage of any property type including custom implementations.</p><h3 class="">Optimistic Locking</h3><p class="paragraph">Operations that update existing properties (such as <code class="lang-kotlin">updateProperty</code>) use optimistic locking to prevent lost updates when multiple clients modify the same property concurrently. If a concurrent modification is detected, the operation retries automatically (up to 10 times) before failing.</p><p class="paragraph">Note: <code class="lang-kotlin">createOrUpdate</code> performs a plain upsert with last-write-wins semantics and does not use optimistic locking.</p><h3 class="">Setup</h3><p class="paragraph">You must create the database schema before using the store:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// JVM with in-memory database<br>val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)<br>SqliteDatabase.Schema.create(driver).await()<br>val store = SqlitePropertyStore(driver)<br><br>// Android<br>val driver = AndroidSqliteDriver(SqliteDatabase.Schema, context, "ff4k.db")<br>val store = SqlitePropertyStore(driver)<br><br>// iOS<br>val driver = NativeSqliteDriver(SqliteDatabase.Schema, "ff4k.db")<br>val store = SqlitePropertyStore(driver)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">Custom Property Types</h3><p class="paragraph">To store custom property implementations, provide a serializers module:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val customModule = SerializersModule {<br>    polymorphic(Property::class) {<br>        subclass(MyCustomProperty::class, MyCustomProperty.serializer())<br>    }<br>}<br>val store = SqlitePropertyStore(driver, customModule)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>driver</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The SQLDelight driver connected to your SQLite database.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>custom</span><wbr><span>Serializers</span><wbr><span><span>Module</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Serializers for custom property types you want to store.</p></div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-store-sqlite/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SqlitePropertyStore</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">driver<span class="token operator">: </span>ERROR CLASS: Symbol not found for SqlDriver<span class="token punctuation">, </span></span><span class="parameter ">customSerializersModule<span class="token operator">: </span>ERROR CLASS: Symbol not found for SerializersModule<span class="token operator"> = </span>SerializersModule {}</span></span><span class="token punctuation">)</span> : <span data-unresolved-link="/<ERROR CLASS> ERROR CLASS: Symbol not found for AbstractPropertyStore///PointingToDeclaration/">&lt;ERROR CLASS&gt; ERROR CLASS: Symbol not found for AbstractPropertyStore</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-store-sqlite/src/commonMain/kotlin/com/yonatankarp/ff4k/store/SqlitePropertyStore.kt#L59">source</a>)</span></span></div><p class="paragraph">SQLite-backed property store for persisting configuration properties.</p><p class="paragraph">Use this store when you need durable property storage with SQLite. Properties are serialized as JSON, enabling storage of any property type including custom implementations.</p><h3 class="">Optimistic Locking</h3><p class="paragraph">Operations that update existing properties (such as <code class="lang-kotlin">updateProperty</code>) use optimistic locking to prevent lost updates when multiple clients modify the same property concurrently. If a concurrent modification is detected, the operation retries automatically (up to 10 times) before failing.</p><p class="paragraph">Note: <code class="lang-kotlin">createOrUpdate</code> performs a plain upsert with last-write-wins semantics and does not use optimistic locking.</p><h3 class="">Setup</h3><p class="paragraph">You must create the database schema before using the store:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// JVM with in-memory database<br>val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)<br>SqliteDatabase.Schema.create(driver).await()<br>val store = SqlitePropertyStore(driver)<br><br>// Android<br>val driver = AndroidSqliteDriver(SqliteDatabase.Schema, context, "ff4k.db")<br>val store = SqlitePropertyStore(driver)<br><br>// iOS<br>val driver = NativeSqliteDriver(SqliteDatabase.Schema, "ff4k.db")<br>val store = SqlitePropertyStore(driver)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">Custom Property Types</h3><p class="paragraph">To store custom property implementations, provide a serializers module:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val customModule = SerializersModule {<br>    polymorphic(Property::class) {<br>        subclass(MyCustomProperty::class, MyCustomProperty.serializer())<br>    }<br>}<br>val store = SqlitePropertyStore(driver, customModule)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>driver</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The SQLDelight driver connected to your SQLite database.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>custom</span><wbr><span>Serializers</span><wbr><span><span>Module</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Serializers for custom property types you want to store.</p></div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="831458773%2FConstructors%2F7201095" anchor-label="SqlitePropertyStore" id="831458773%2FConstructors%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+        <div class="table"><a data-name="-1993777100%2FConstructors%2F91763359" anchor-label="SqlitePropertyStore" id="-1993777100%2FConstructors%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-sqlite-property-store.html"><span>Sqlite</span><wbr><span>Property</span><wbr><span><span>Store</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="831458773%2FConstructors%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1993777100%2FConstructors%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-store-sqlite/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">driver<span class="token operator">: </span><span data-unresolved-link="app.cash.sqldelight.db/SqlDriver///PointingToDeclaration/">SqlDriver</span><span class="token punctuation">, </span></span><span class="parameter ">customSerializersModule<span class="token operator">: </span><span data-unresolved-link="kotlinx.serialization.modules/SerializersModule///PointingToDeclaration/">SerializersModule</span><span class="token operator"> = </span>SerializersModule {}</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-store-sqlite/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">driver<span class="token operator">: </span>ERROR CLASS: Symbol not found for SqlDriver<span class="token punctuation">, </span></span><span class="parameter ">customSerializersModule<span class="token operator">: </span>ERROR CLASS: Symbol not found for SerializersModule<span class="token operator"> = </span>SerializersModule {}</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -120,12 +119,12 @@
       </div>
       <div data-togglable="TYPE">
         <h2 class="tableheader">Types</h2>
-        <div class="table"><a data-name="-321704727%2FClasslikes%2F7201095" anchor-label="Companion" id="-321704727%2FClasslikes%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+        <div class="table"><a data-name="-321704727%2FClasslikes%2F91763359" anchor-label="Companion" id="-321704727%2FClasslikes%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-321704727%2FClasslikes%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-321704727%2FClasslikes%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -139,12 +138,12 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="1371611253%2FFunctions%2F7201095" anchor-label="clear" id="1371611253%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+        <div class="table"><a data-name="1371611253%2FFunctions%2F91763359" anchor-label="clear" id="1371611253%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="clear.html"><span><span>clear</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371611253%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371611253%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -154,12 +153,12 @@
               </div>
             </div>
           </div>
-<a data-name="-90237013%2FFunctions%2F7201095" anchor-label="contains" id="-90237013%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-90237013%2FFunctions%2F91763359" anchor-label="contains" id="-90237013%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="contains.html"><span><span>contains</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90237013%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90237013%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -169,12 +168,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1917688725%2FFunctions%2F7201095" anchor-label="createOrUpdate" id="-1917688725%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-1917688725%2FFunctions%2F91763359" anchor-label="createOrUpdate" id="-1917688725%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="create-or-update.html"><span>create</span><wbr><span>Or</span><wbr><span><span>Update</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1917688725%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1917688725%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -184,12 +183,12 @@
               </div>
             </div>
           </div>
-<a data-name="-508095560%2FFunctions%2F7201095" anchor-label="get" id="-508095560%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-508095560%2FFunctions%2F91763359" anchor-label="get" id="-508095560%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="get.html"><span><span>get</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-508095560%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-508095560%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -199,12 +198,12 @@
               </div>
             </div>
           </div>
-<a data-name="2136887789%2FFunctions%2F7201095" anchor-label="getAll" id="2136887789%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="2136887789%2FFunctions%2F91763359" anchor-label="getAll" id="2136887789%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="get-all.html"><span>get</span><wbr><span><span>All</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136887789%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136887789%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -214,12 +213,12 @@
               </div>
             </div>
           </div>
-<a data-name="-105804464%2FFunctions%2F7201095" anchor-label="getOrDefault" id="-105804464%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-105804464%2FFunctions%2F91763359" anchor-label="getOrDefault" id="-105804464%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="get-or-default.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Default</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105804464%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105804464%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -229,12 +228,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1848713217%2FFunctions%2F7201095" anchor-label="isEmpty" id="-1848713217%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-1848713217%2FFunctions%2F91763359" anchor-label="isEmpty" id="-1848713217%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="is-empty.html"><span>is</span><wbr><span><span>Empty</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1848713217%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1848713217%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -244,12 +243,12 @@
               </div>
             </div>
           </div>
-<a data-name="962314845%2FFunctions%2F7201095" anchor-label="listPropertyIds" id="962314845%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="962314845%2FFunctions%2F91763359" anchor-label="listPropertyIds" id="962314845%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="list-property-ids.html"><span>list</span><wbr><span>Property</span><wbr><span><span>Ids</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962314845%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962314845%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -259,12 +258,12 @@
               </div>
             </div>
           </div>
-<a data-name="1034925089%2FFunctions%2F7201095" anchor-label="minusAssign" id="1034925089%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="1034925089%2FFunctions%2F91763359" anchor-label="minusAssign" id="1034925089%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="minus-assign.html"><span>minus</span><wbr><span><span>Assign</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1034925089%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1034925089%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -274,12 +273,12 @@
               </div>
             </div>
           </div>
-<a data-name="107832812%2FFunctions%2F7201095" anchor-label="plusAssign" id="107832812%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="107832812%2FFunctions%2F91763359" anchor-label="plusAssign" id="107832812%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="plus-assign.html"><span>plus</span><wbr><span><span>Assign</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107832812%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107832812%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -289,12 +288,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1696292791%2FFunctions%2F7201095" anchor-label="requirePropertyExist" id="-1696292791%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-1696292791%2FFunctions%2F91763359" anchor-label="requirePropertyExist" id="-1696292791%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="require-property-exist.html"><span>require</span><wbr><span>Property</span><wbr><span><span>Exist</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1696292791%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1696292791%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -304,12 +303,12 @@
               </div>
             </div>
           </div>
-<a data-name="664700736%2FFunctions%2F7201095" anchor-label="requirePropertyNotExist" id="664700736%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="664700736%2FFunctions%2F91763359" anchor-label="requirePropertyNotExist" id="664700736%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="require-property-not-exist.html"><span>require</span><wbr><span>Property</span><wbr><span>Not</span><wbr><span><span>Exist</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="664700736%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="664700736%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -319,12 +318,12 @@
               </div>
             </div>
           </div>
-<a data-name="-547010930%2FFunctions%2F7201095" anchor-label="updateProperty" id="-547010930%2FFunctions%2F7201095" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
+<a data-name="-547010930%2FFunctions%2F91763359" anchor-label="updateProperty" id="-547010930%2FFunctions%2F91763359" data-filterable-set=":ff4k-store-sqlite/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-store-sqlite/commonMain" data-filterable-set=":ff4k-store-sqlite/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="update-property.html"><span>update</span><wbr><span><span>Property</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-547010930%2FFunctions%2F7201095"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-547010930%2FFunctions%2F91763359"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>

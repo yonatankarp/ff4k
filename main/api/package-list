@@ -24,4 +24,3 @@ module:ff4k-store-jdbc
 com.yonatankarp.ff4k.store.jdbc
 module:ff4k-store-sqlite
 com.yonatankarp.ff4k.store
-com.yonatankarp.ff4k.store.sqldelight.sqlite

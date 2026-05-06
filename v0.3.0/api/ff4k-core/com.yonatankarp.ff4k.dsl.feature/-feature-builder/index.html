@@ -1,0 +1,400 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FeatureBuilder</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    ff4k
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.3.0
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ff4k-core/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ff4k-core/commonMain" data-filter=":ff4k-core/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ff4k
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="ff4k-core::com.yonatankarp.ff4k.dsl.feature/FeatureBuilder///PointingToDeclaration//1934176344">
+  <div class="breadcrumbs"><a href="../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.dsl.feature</a><span class="delimiter">/</span><span class="current">FeatureBuilder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Feature</span><wbr><span><span>Builder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FeatureBuilder</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/v0.3.0/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/dsl/feature/FeatureBuilder.kt#L40">source</a>)</span></span></div><p class="paragraph">DSL builder used to define a single feature in the FF4K configuration.</p><p class="paragraph">A feature represents a toggleable capability that can be enabled or disabled, grouped, protected by permissions, and controlled by a flipping strategy.</p><p class="paragraph">Instances of this builder are created internally by the FF4K DSL and are not intended to be instantiated directly.</p><p class="paragraph">Example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">feature("new-ui") {<br>    isEnabled = true<br>    description = "Enables the new UI experience"<br>    group = "ui"<br><br>    permissions("ADMIN", "BETA_USER")<br><br>    property&lt;String&gt;("theme") {<br>        value = "dark"<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1569804057%2FProperties%2F1934176344" anchor-label="description" id="1569804057%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="description.html"><span><span>description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1569804057%2FProperties%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="description.html">description</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Optional human-readable description of the feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-712800461%2FProperties%2F1934176344" anchor-label="flippingStrategy" id="-712800461%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flipping-strategy.html"><span>flipping</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-712800461%2FProperties%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="flipping-strategy.html">flippingStrategy</a><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-flipping-strategy/index.html">FlippingStrategy</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Optional strategy used to dynamically determine feature enablement.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2118162442%2FProperties%2F1934176344" anchor-label="group" id="-2118162442%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="group.html"><span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2118162442%2FProperties%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="group.html">group</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Optional logical group name for the feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-977891650%2FProperties%2F1934176344" anchor-label="isEnabled" id="-977891650%2FProperties%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-enabled.html"><span>is</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-977891650%2FProperties%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="is-enabled.html">isEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the feature is enabled by default.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1072633805%2FFunctions%2F1934176344" anchor-label="allowListStrategy" id="-1072633805%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/allow-list-strategy.html"><span>allow</span><wbr><span>List</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1072633805%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/allow-list-strategy.html"><span class="token function">allowListStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-list-builder/index.html">ListBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures an <a href="../../com.yonatankarp.ff4k.strategy/-allow-list-strategy/index.html">AllowListStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2067137855%2FFunctions%2F1934176344" anchor-label="clientFilterStrategy" id="2067137855%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/client-filter-strategy.html"><span>client</span><wbr><span>Filter</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2067137855%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/client-filter-strategy.html"><span class="token function">clientFilterStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-list-builder/index.html">ListBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-client-filter-strategy/index.html">ClientFilterStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-324975673%2FFunctions%2F1934176344" anchor-label="dailyHoursStrategy" id="-324975673%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/daily-hours-strategy.html"><span>daily</span><wbr><span>Hours</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-324975673%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/daily-hours-strategy.html"><span class="token function">dailyHoursStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startHour<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">endHour<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">timezone<span class="token operator">: </span>ERROR CLASS: Symbol not found for TimeZone<span class="token operator"> = </span>TimeZone.UTC</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-daily-hours-strategy/index.html">DailyHoursStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-723681456%2FFunctions%2F1934176344" anchor-label="dateRangeStrategy" id="-723681456%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/date-range-strategy.html"><span>date</span><wbr><span>Range</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-723681456%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/date-range-strategy.html"><span class="token function">dateRangeStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant<span class="token punctuation">, </span></span><span class="parameter ">endDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-date-range-strategy/index.html">DateRangeStrategy</a> for this feature using Instant values.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/date-range-strategy.html"><span class="token function">dateRangeStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startDate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">endDate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-date-range-strategy/index.html">DateRangeStrategy</a> for this feature using ISO-8601 date strings.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/date-range-strategy.html"><span class="token function">dateRangeStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for LocalDateTime<span class="token punctuation">, </span></span><span class="parameter ">endDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for LocalDateTime<span class="token punctuation">, </span></span><span class="parameter ">timezone<span class="token operator">: </span>ERROR CLASS: Symbol not found for TimeZone<span class="token operator"> = </span>TimeZone.UTC</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-date-range-strategy/index.html">DateRangeStrategy</a> for this feature using LocalDateTime values and timezone.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="363731256%2FFunctions%2F1934176344" anchor-label="denyListStrategy" id="363731256%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/deny-list-strategy.html"><span>deny</span><wbr><span>List</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="363731256%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/deny-list-strategy.html"><span class="token function">denyListStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-list-builder/index.html">ListBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-deny-list-strategy/index.html">DenyListStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="695866062%2FFunctions%2F1934176344" anchor-label="permission" id="695866062%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="permission.html"><span><span>permission</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="695866062%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="permission.html"><span class="token function">permission</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a single permission required to access this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-431876889%2FFunctions%2F1934176344" anchor-label="permissions" id="-431876889%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="permissions.html"><span><span>permissions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-431876889%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="permissions.html"><span class="token function">permissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../-permissions-builder/index.html">PermissionsBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds permissions using a dedicated permissions DSL block.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="permissions.html"><span class="token function">permissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>names<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds multiple permissions required to access this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1911873610%2FFunctions%2F1934176344" anchor-label="ponderationStrategy" id="-1911873610%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/ponderation-strategy.html"><span>ponderation</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1911873610%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/ponderation-strategy.html"><span class="token function">ponderationStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-ponderation-strategy/index.html">PonderationStrategy</a> for this feature with a decimal weight.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/ponderation-strategy.html"><span class="token function">ponderationStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-ponderation-strategy/index.html">PonderationStrategy</a> for this feature with an integer percentage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-506860494%2FFunctions%2F1934176344" anchor-label="property" id="-506860494%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property.html"><span><span>property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-506860494%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="property.html"><span class="token function">property</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">property<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.property/-property/index.html">Property</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Attaches a pre-built custom property to this feature.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="property.html">T</a><span class="token operator">&gt; </span><a href="property.html"><span class="token function">property</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.property/-property-builder/index.html">PropertyBuilder</a><span class="token operator">&lt;</span><a href="property.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Defines and attaches a custom property using a property DSL block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1787333070%2FFunctions%2F1934176344" anchor-label="regionStrategy" id="1787333070%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/region-strategy.html"><span>region</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1787333070%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/region-strategy.html"><span class="token function">regionStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-list-builder/index.html">ListBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-region-filter-strategy/index.html">RegionFilterStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-316445846%2FFunctions%2F1934176344" anchor-label="releaseDateStrategy" id="-316445846%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/release-date-strategy.html"><span>release</span><wbr><span>Date</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-316445846%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/release-date-strategy.html"><span class="token function">releaseDateStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">releaseDate<span class="token operator">: </span>ERROR CLASS: Symbol not found for Instant</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-release-date-strategy/index.html">ReleaseDateStrategy</a> for this feature using an Instant.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/release-date-strategy.html"><span class="token function">releaseDateStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">date<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-release-date-strategy/index.html">ReleaseDateStrategy</a> for this feature using an ISO-8601 date string.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/release-date-strategy.html"><span class="token function">releaseDateStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dateTime<span class="token operator">: </span>ERROR CLASS: Symbol not found for LocalDateTime<span class="token punctuation">, </span></span><span class="parameter ">timezone<span class="token operator">: </span>ERROR CLASS: Symbol not found for TimeZone<span class="token operator"> = </span>TimeZone.UTC</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-release-date-strategy/index.html">ReleaseDateStrategy</a> for this feature using a LocalDateTime and timezone.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1551734983%2FFunctions%2F1934176344" anchor-label="serverFilterStrategy" id="1551734983%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/server-filter-strategy.html"><span>server</span><wbr><span>Filter</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1551734983%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/server-filter-strategy.html"><span class="token function">serverFilterStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-list-builder/index.html">ListBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-server-filter-strategy/index.html">ServerFilterStrategy</a> for this feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1061004330%2FFunctions%2F1934176344" anchor-label="userPonderationStrategy" id="-1061004330%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/user-ponderation-strategy.html"><span>user</span><wbr><span>Ponderation</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1061004330%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/user-ponderation-strategy.html"><span class="token function">userPonderationStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-user-ponderation-strategy/index.html">UserPonderationStrategy</a> for this feature with a decimal weight.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/user-ponderation-strategy.html"><span class="token function">userPonderationStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-user-ponderation-strategy/index.html">UserPonderationStrategy</a> for this feature with an integer percentage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1456736374%2FFunctions%2F1934176344" anchor-label="weekdayStrategy" id="-1456736374%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.yonatankarp.ff4k.dsl.strategy/weekday-strategy.html"><span>weekday</span><wbr><span><span>Strategy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1456736374%2FFunctions%2F1934176344"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">FeatureBuilder</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k.dsl.strategy/weekday-strategy.html"><span class="token function">weekdayStrategy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timezone<span class="token operator">: </span>ERROR CLASS: Symbol not found for TimeZone<span class="token operator"> = </span>TimeZone.UTC<span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.dsl.strategy/-weekday-builder/index.html">WeekdayBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures a <a href="../../com.yonatankarp.ff4k.strategy/-weekday-strategy/index.html">WeekdayStrategy</a> for this feature using a DSL builder.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -51,7 +51,7 @@ jobs:
 
       - name: Setup Gradle
         if: needs.changes.outputs.source == 'true'
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
@@ -85,11 +85,11 @@ jobs:
 
       - name: Setup Android SDK
         if: matrix.target == 'android' && needs.changes.outputs.source == 'true'
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Setup Gradle
         if: needs.changes.outputs.source == 'true'
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
@@ -133,7 +133,7 @@ jobs:
 
       - name: Setup Gradle
         if: needs.changes.outputs.source == 'true'
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
@@ -168,7 +168,7 @@ jobs:
 
       - name: Setup Gradle
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
@@ -186,6 +186,6 @@ jobs:
 
       - name: SonarCloud Scan
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: SonarSource/sonarqube-scan-action@v7
+        uses: SonarSource/sonarqube-scan-action@v8
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

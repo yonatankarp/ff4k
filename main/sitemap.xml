@@ -2,70 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/api_reference/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/packages/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/customization/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-feature-store/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-property-store/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/customization/custom-strategy/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/customization/testing/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/stores/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/stores/jdbc/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/stores/r2dbc/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/stores/sqlite/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/basics/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/configuration/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/monitoring/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/properties/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
     <url>
          <loc>https://yonatankarp.github.io/ff4k/main/usage/strategies/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-05-06</lastmod>
     </url>
 </urlset>

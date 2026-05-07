@@ -4,6 +4,16 @@ JDBC-based `FeatureStore` for relational databases on the JVM.
 
 See [documentation](../docs/stores/jdbc.md) for supported databases and usage.
 
+## Integration Tests
+
+The supported JDBC dialects are verified with Testcontainers:
+
+```bash
+./gradlew :ff4k-store-jdbc:test --tests '*SupportedDialectFeatureStoreIntegrationTest'
+```
+
+These tests require a working Docker environment.
+
 ## Adding New Database Support
 
 The `SqlDialect` interface is sealed, so new databases must be added to the library.

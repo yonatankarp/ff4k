@@ -11,22 +11,27 @@ class PostgresFeatureStoreTest : FeatureStoreContractTest() {
 
     init {
         afterSpec {
-            postgres.close()
+            postgres?.stop()
+            postgres = null
         }
     }
 
     override suspend fun createStore(): FeatureStore =
         jdbcFeatureStore(
-            dataSource = postgres.toDataSource(),
+            dataSource = container().toDataSource(),
             ioDispatcher = Dispatchers.IO.limitedParallelism(1),
         ).also { it.clear() }
 
     companion object {
-        private val postgres: PostgreSQLContainer by lazy {
-            PostgreSQLContainer("postgres:14-alpine").apply {
-                start()
+        @Volatile
+        private var postgres: PostgreSQLContainer? = null
+
+        fun container(): PostgreSQLContainer =
+            postgres ?: synchronized(this) {
+                postgres ?: PostgreSQLContainer("postgres:14-alpine")
+                    .apply { start() }
+                    .also { postgres = it }
             }
-        }
     }
 }
 

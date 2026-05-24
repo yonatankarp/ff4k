@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.strategy
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
+import com.yonatankarp.ff4k.serialization.TimeZoneSerializer
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.SerialName
@@ -38,6 +39,7 @@ import kotlin.time.Clock
 data class DailyHoursStrategy(
     val startHour: Int,
     val endHour: Int,
+    @Serializable(with = TimeZoneSerializer::class)
     val timezone: TimeZone = TimeZone.UTC,
     @Transient private val clock: Clock = Clock.System,
 ) : FlippingStrategy {

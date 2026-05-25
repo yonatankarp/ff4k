@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.strategy
 import com.yonatankarp.ff4k.core.FeatureStore
 import com.yonatankarp.ff4k.core.FlippingExecutionContext
 import com.yonatankarp.ff4k.core.FlippingStrategy
+import com.yonatankarp.ff4k.serialization.TimeZoneSerializer
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -35,6 +36,7 @@ import kotlin.time.Clock
 @SerialName("weekday")
 data class WeekdayStrategy(
     val allowedDays: Set<DayOfWeek>,
+    @Serializable(with = TimeZoneSerializer::class)
     val timezone: TimeZone = TimeZone.UTC,
     @Transient private val clock: Clock = Clock.System,
 ) : FlippingStrategy {

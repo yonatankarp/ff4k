@@ -189,3 +189,13 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v8
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  dependabot-auto-merge:
+    needs: [ build-linux, build-ios, sonarcloud ]
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: yonatankarp/github-actions/.github/workflows/dependabot-auto-merge.yml@v2
+    secrets:
+      GITHUB_PAT: ${{ secrets.REVIEWER_GITHUB_TOKEN }}

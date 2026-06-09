@@ -11,20 +11,27 @@ class MysqlFeatureStoreTest : FeatureStoreContractTest() {
 
     init {
         afterSpec {
-            mysql.close()
+            mysql?.stop()
+            mysql = null
         }
     }
 
     override suspend fun createStore(): FeatureStore =
         jdbcFeatureStore(
-            dataSource = mysql.toDataSource(),
+            dataSource = container().toDataSource(),
             ioDispatcher = Dispatchers.IO.limitedParallelism(1),
         ).also { it.clear() }
 
     companion object {
-        private val mysql = MySQLContainer("mysql:8.4").apply {
-            start()
-        }
+        @Volatile
+        private var mysql: MySQLContainer? = null
+
+        fun container(): MySQLContainer =
+            mysql ?: synchronized(this) {
+                mysql ?: MySQLContainer("mysql:8.4")
+                    .apply { start() }
+                    .also { mysql = it }
+            }
     }
 }
 

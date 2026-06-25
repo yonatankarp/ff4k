@@ -20,7 +20,7 @@ jobs:
       source: ${{ steps.filter.outputs.source }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Detect changes
         uses: dorny/paths-filter@v4
@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
         if: needs.changes.outputs.source == 'true'
@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
         if: needs.changes.outputs.source == 'true'
@@ -122,7 +122,7 @@ jobs:
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
         if: needs.changes.outputs.source == 'true'
@@ -155,7 +155,7 @@ jobs:
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 

@@ -37,10 +37,10 @@ store += Feature(uid = "my-feature", isEnabled = true)
 
 ### Explicit Dialect
 
-For database proxies or when auto-detection fails, use `<DatabaseName>Dialect`:
+For database proxies or when auto-detection fails, use an explicit dialect:
 
 ```kotlin
-val store = jdbcFeatureStore(dataSource, PostgresDialect)
+val store = jdbcFeatureStore(dataSource, JdbcPostgresDialect)
 ```
 
 ### Custom Serializers

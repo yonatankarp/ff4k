@@ -6,34 +6,36 @@ See [documentation](../docs/stores/jdbc.md) for supported databases and usage.
 
 ## Adding New Database Support
 
-The `SqlDialect` interface is sealed, so new databases must be added to the library.
+### 1. Create a Base Statements Class
 
-### 1. Create a Dialect
-
-Add a new dialect in `ff4k-store-sql-common`:
+Add an abstract base class in `ff4k-store-sql-common` with the database-specific SQL:
 
 ```kotlin
-// ff4k-store-sql-common/src/main/kotlin/.../sql/MariaDbDialect.kt
-data object MariaDbDialect : SqlDialect {
+// ff4k-store-sql-common/src/main/kotlin/.../sql/BaseMariaDbStatements.kt
+abstract class BaseMariaDbStatements : SqlStatements {
     override val databaseName = "MariaDB"
     override val schemaSql: List<String> = listOf("...")
-    override val selectAllFeaturesSql = "..."
-    override val selectFeatureByUidSql = "..."
-    override val featureExistsSql = "..."
-    override val countFeaturesSql = "..."
-    override val insertFeatureSql = "..."
-    override val updateFeatureSql = "..."
-    override val upsertFeatureSql = "..."  // Database-specific syntax
-    override val deleteFeatureByUidSql = "..."
-    override val deleteAllFeaturesSql = "..."
+    override val selectAllFeaturesSql by lazy { "..." }
+    // ... other SQL properties using marker() for placeholders
+}
+```
+
+Use existing base classes (`BasePostgresStatements`, `BaseMysqlStatements`) as reference.
+
+### 2. Create a JDBC Dialect
+
+Add a dialect in `ff4k-store-jdbc` that extends the base class and implements `SqlDialect`:
+
+```kotlin
+// ff4k-store-jdbc/src/main/kotlin/.../jdbc/JdbcMariaDbDialect.kt
+data object JdbcMariaDbDialect : BaseMariaDbStatements(), SqlDialect {
+    override fun marker(_: Int): String = "?"
     override fun isUniqueConstraintViolation(e: java.sql.SQLException): Boolean =
         e.sqlState == "23000"
 }
 ```
 
-Use existing dialects (`PostgresDialect`, `MysqlDialect`) as reference.
-
-### 2. Register Detection
+### 3. Register Detection
 
 Add detection in `JdbcFeatureStores.kt`:
 
@@ -42,15 +44,15 @@ private fun detectDialect(dataSource: DataSource): SqlDialect =
     dataSource.connection.use { conn ->
         val productName = conn.metaData.databaseProductName.lowercase()
         when {
-            "postgresql" in productName -> PostgresDialect
-            "mysql" in productName -> MysqlDialect
-            "mariadb" in productName -> MariaDbDialect  // Add here
+            "postgresql" in productName -> JdbcPostgresDialect
+            "mysql" in productName -> JdbcMysqlDialect
+            "mariadb" in productName -> JdbcMariaDbDialect  // Add here
             else -> throw UnsupportedDatabaseException(conn.metaData.databaseProductName)
         }
     }
 ```
 
-### 3. Add Tests
+### 4. Add Tests
 
 Create a contract test with Testcontainers:
 

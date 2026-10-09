@@ -1,191 +1,85 @@
-# Usage Guide
+# Basics
 
-This guide covers the core concepts and usage patterns of FF4K.
+## Creating an instance
 
-## Initialization
-
-The entry point for FF4K is the `ff4k` DSL function. It allows you to configure features and properties and returns an `FF4k` instance.
+`FF4k` holds a `FeatureStore` and a `PropertyStore`. Both default to in-memory stores.
 
 ```kotlin
-suspend fun main() {
-    val ff4k = ff4k {
-        // Configuration block
-    }
-}
+val ff4k = FF4k()
+
+// or with explicit stores
+val ff4k = FF4k(
+    features = SqliteFeatureStore(driver),
+    properties = SqlitePropertyStore(driver),
+)
+
+// or from a configuration
+val ff4k = FF4k(FF4kConfiguration.fromJson(json))
 ```
 
-### Configuration Options
+## Features
 
-The `ff4k` function accepts several optional arguments to customize behavior:
+A `Feature` is a data class. Use named arguments and `copy` instead of builders:
 
 ```kotlin
-suspend fun main() {
-    val ff4k = ff4k(
-        autoCreate = true,                // Automatically create missing features (default: false)
-        featureStore = InMemoryFeatureStore(), // Custom feature store (default: InMemory)
-        propertyStore = InMemoryPropertyStore() // Custom property store (default: InMemory)
-    ) {
-        // ...
-    }
-}
+val feature = Feature(
+    id = "dark-mode",
+    enabled = true,
+    description = "Enable dark mode theme",
+    group = "ui",
+    permissions = setOf("ADMIN"),
+    strategy = PercentageStrategy(50),
+    properties = listOf(Property("contrast", 0.8)),
+)
+
+ff4k.features.put(feature)                       // insert or replace
+ff4k.features.get("dark-mode")                   // Feature? (null when missing)
+ff4k.features.getAll()                           // List<Feature>
+ff4k.features.update("dark-mode") { it.copy(description = "New") }
+ff4k.features.delete("dark-mode")
 ```
 
-- **`autoCreate`**: If set to `true`, querying a feature that doesn't exist will automatically create it in the store (disabled by default).
-- **`featureStore`**: The backend storage for feature flags.
-- **`propertyStore`**: The backend storage for properties.
+`update` is atomic: the transform runs against the latest stored value and the result is written back, so concurrent updates never lose changes.
 
-## Defining Features
-
-Features are boolean flags that can be toggled on or off. You can define them within the `features` block.
+## Checking a flag
 
 ```kotlin
-suspend fun main() {
-    val ff4k = ff4k {
-        features {
-            // Minimal definition
-            feature("simple-feature")
-
-            // Detailed definition
-            feature("advanced-feature") {
-                isEnabled = true
-                description = "Controls the new dashboard layout"
-                group = "ui-beta"
-                permissions("ADMIN", "BETA_TESTER")
-            }
-        }
-    }
-}
+if (ff4k.check("dark-mode")) { ... }
 ```
 
-### Feature Attributes
+`check` returns true when the feature exists, is enabled and its strategy, if any, accepts the context. Unknown features are reported as disabled.
 
-- **`uid`**: Unique identifier for the feature.
-- **`isEnabled`**: Initial state of the feature (default: `false`).
-- **`description`**: Human-readable description.
-- **`group`**: Group name for organizing features.
-- **`permissions`**: List of roles/permissions required to access the feature.
-
-## Defining Properties
-
-Properties are key-value pairs that can store configuration data. They are strongly typed.
+Strategies read values from an evaluation context, a plain `Map<String, Any>`:
 
 ```kotlin
-suspend fun main() {
-    val ff4k = ff4k {
-        properties {
-            // String property
-            property("api-url") {
-                value = "https://api.example.com"
-            }
-
-            // Integer property with constraints
-            property("max-retries") {
-                value = 3
-                description = "Max API retries"
-                fixedValues(1, 3, 5) // Value must be one of these
-                readOnly = true // Prevent runtime modification
-            }
-        }
-    }
-}
+ff4k.check("beta-checkout", mapOf("userId" to user.id, "region" to user.region))
 ```
 
-## Checking Features
+## Toggling and groups
 
-There are several ways to check the status of a feature.
-
-### Boolean Check
-
-The `check` method returns a boolean indicating if the feature is enabled.
+Extension functions on `FeatureStore` cover the common edits:
 
 ```kotlin
-if (ff4k.check("dark-mode")) {
-    enableDarkMode()
-}
+ff4k.features.enable("dark-mode")
+ff4k.features.disable("dark-mode")
+ff4k.features.group("ui")           // List<Feature>
+ff4k.features.enableGroup("ui")
+ff4k.features.disableGroup("ui")
 ```
 
-### Functional Style
-
-The `ifEnabled` and `ifEnabledOrElse` extension functions provide a more functional approach.
+Anything else is a `copy` inside `update`:
 
 ```kotlin
-// Execute only if enabled
-ff4k.ifEnabled("dark-mode") {
-    enableDarkMode()
-}
+ff4k.features.update("dark-mode") { it.copy(permissions = it.permissions + "BETA") }
+```
 
-// Execute one or the other
-ff4k.ifEnabledOrElse("dark-mode",
-    enabled = { 
-        println("Dark mode is ON") 
-    },
-    disabled = { 
-        println("Dark mode is OFF") 
-    }
+## Caching
+
+`check` reads the feature on every call. In-memory and SQLite stores make that cheap; a backend database does not. Wrap any store with `cached()` to serve reads from a snapshot refreshed every `ttl` (30 seconds by default). Writes made through the cached store go to the backend and invalidate the snapshot immediately; writes made elsewhere become visible after the ttl.
+
+```kotlin
+val ff4k = FF4k(
+    features = JdbcFeatureStore(dataSource, JdbcDialect.Postgres).cached(ttl = 10.seconds),
+    properties = JdbcPropertyStore(dataSource, JdbcDialect.Postgres).cached(),
 )
 ```
-
-## Managing Groups
-
-You can perform operations on entire groups of features.
-
-```kotlin
-// Enable all features in the 'ui-beta' group
-ff4k.enableGroup("ui-beta")
-
-// Disable all features in the 'ui-beta' group
-ff4k.disableGroup("ui-beta")
-```
-
-## Runtime Modification
-
-If your store supports it (like the default `InMemoryFeatureStore`), you can modify features at runtime.
-
-```kotlin
-// Enable a feature
-ff4k.enable("my-feature")
-
-// Disable a feature
-ff4k.disable("my-feature")
-```
-
-## Serialization
-
-FF4K provides pre-configured serialization support for all built-in types using `kotlinx.serialization`.
-
-### FF4kJson
-
-`FF4kJson` is a pre-configured `Json` instance ready to use for serializing and deserializing
-FF4K types (features, properties, strategies).
-
-```kotlin
-// Serialize a feature
-val json = FF4kJson.encodeToString(feature)
-
-// Deserialize a feature
-val feature = FF4kJson.decodeFromString<Feature>(json)
-```
-
-Configuration:
-- Includes `ff4kSerializersModule` for polymorphic serialization of all FF4K types
-- `ignoreUnknownKeys = true` for forward compatibility
-- `prettyPrint = true` for readable output
-
-### ff4kSerializersModule
-
-If you need to customize the `Json` configuration or combine with your own serializers,
-use `ff4kSerializersModule` directly:
-
-```kotlin
-val customJson = Json {
-    serializersModule = ff4kSerializersModule + myCustomSerializersModule
-    prettyPrint = false // Override defaults as needed
-    encodeDefaults = true
-}
-```
-
-The module includes serializers for:
-- All `Property` subtypes (PropertyInt, PropertyString, PropertyBoolean, etc.)
-- All `FlippingStrategy` subtypes (AndStrategy, OrStrategy, PonderationStrategy, etc.)
-
-For registering custom types, see [Customization](../customization/index.md).

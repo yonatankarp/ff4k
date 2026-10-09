@@ -9,18 +9,12 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.bundles.bignum)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.slf4j.api)
+            api(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.datetime)
         }
 
         commonTest.dependencies {
             implementation(project(":ff4k-contract-test"))
-            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }

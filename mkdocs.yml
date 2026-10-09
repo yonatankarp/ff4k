@@ -36,12 +36,10 @@ nav:
   - Features:
       - Properties: usage/properties.md
       - Strategies: usage/strategies.md
-      - Monitoring: usage/monitoring.md
   - Stores:
       - Overview: stores/index.md
-      - SQLite: stores/sqlite.md
       - JDBC: stores/jdbc.md
-      - R2DBC: stores/r2dbc.md
+      - SQLite: stores/sqlite.md
   - Customization:
       - Overview: customization/index.md
       - Custom Feature Store: customization/custom-feature-store.md

@@ -5,7 +5,7 @@
 [![CI](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://yonatankarp.github.io/ff4k/)
 [![License Apache2](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.3.10-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17-orange.svg?logo=openjdk)](https://openjdk.org/)
 [![GitHub release](https://img.shields.io/github/v/release/yonatankarp/ff4k)](https://github.com/yonatankarp/ff4k/releases)
 [![CodeRabbit Reviews](https://img.shields.io/coderabbit/prs/github/yonatankarp/ff4k?utm_source=oss&utm_medium=github&utm_campaign=yonatankarp%2Fff4k&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)](https://coderabbit.ai)
@@ -21,105 +21,67 @@
 
 </div>
 
-FF4K is a Kotlin Multiplatform (KMP) implementation of the popular [FF4J](https://ff4j.org/) (Feature Flipping for Java) library. It brings robust feature flagging capabilities to the Kotlin ecosystem, supporting multiplatform projects.
+FF4K is a Kotlin Multiplatform port of the ideas behind [FF4J](https://ff4j.org/) (Feature Flipping for Java): feature flags, flipping strategies and typed properties behind a small, coroutine-first API. The JVM target ships today; other Kotlin targets can be added from the same common code.
 
-## Features
+> **Alpha.** FF4K is pre-1.0. Public APIs, the JSON format and store schemas change between releases without a deprecation cycle.
 
-- **Kotlin Multiplatform**: Designed to work across different platforms supported by Kotlin.
-- **Type-safe Properties**: Strongly typed property definitions (String, Int, Boolean, etc.).
-- **Serialization Support**: Built-in support for `kotlinx.serialization`.
+## Installation
+
+```kotlin
+dependencies {
+    implementation(platform("com.yonatankarp:ff4k-bom:<version>"))
+    implementation("com.yonatankarp:ff4k-core")
+}
+```
 
 ## Usage
 
-### 1. Initialization & Configuration
-
-Use the `ff4k` DSL to configure the library. This allows you to define features and properties in a structured, type-safe way.
-
 ```kotlin
-import com.yonatankarp.ff4k.dsl.core.ff4k
+import com.yonatankarp.ff4k.*
+import com.yonatankarp.ff4k.strategy.*
 
-val ff4k = ff4k {
-    // Define features
-    features {
-        feature("dark-mode") {
-            isEnabled = true
-            description = "Enable dark mode theme"
-            group = "ui-experiments"
-        }
+val ff4k = FF4k()
 
-        feature("beta-dashboard") {
-            isEnabled = false
-            permissions("ADMIN", "BETA_USER")
-        }
-    }
-
-    // Define properties
-    properties {
-        property("max-retries") {
-            value = 3
-            description = "Maximum API retry attempts"
-            readOnly = true
-        }
-
-        property("api-url") {
-            value = "https://api.example.com"
-        }
-    }
-}
-```
-
-### 2. Custom Stores & Auto-Create
-
-You can configure storage backends and behavior via the `ff4k` function arguments.
-
-```kotlin
-val ff4k = ff4k(
-    autoCreate = true, // Auto-create missing features as disabled
-    featureStore = InMemoryFeatureStore(), // Default
-    propertyStore = InMemoryPropertyStore() // Default
-) {
-    // ... configuration block
-}
-```
-
-### 3. Checking Feature Flags
-
-Use the idiomatic `ifEnabled` and `ifEnabledOrElse` functions for cleaner conditional logic.
-
-```kotlin
-// Execute a block if the feature is enabled
-ff4k.ifEnabled("dark-mode") {
-    enableDarkMode()
-}
-
-// Execute one block if enabled, another if disabled
-ff4k.ifEnabledOrElse("dark-mode",
-    enabled = { enableDarkMode() },
-    disabled = { enableLightMode() }
+ff4k.features.put(Feature("dark-mode", enabled = true, group = "ui"))
+ff4k.features.put(
+    Feature(
+        id = "beta-checkout",
+        enabled = true,
+        strategy = ContextFilterStrategy("region", setOf("eu")) and UserPercentageStrategy(10),
+    ),
 )
+ff4k.properties.put(Property("max-retries", 3))
+
+if (ff4k.check("dark-mode")) enableDarkMode()
+ff4k.check("beta-checkout", mapOf("region" to "eu", "userId" to user.id))
+
+val retries: Int? = ff4k.property("max-retries")
+
+ff4k.features.disableGroup("ui")
 ```
 
-### 4. Retrieving Properties
-
-Access properties safely with type conversion.
+Features and properties can also be loaded from JSON:
 
 ```kotlin
-// Retrieve property object and access its value
-val retries: Int? = ff4k.property<Int>("max-retries")?.value
-val apiUrl: String? = ff4k.property<String>("api-url")?.value
+val ff4k = FF4k(FF4kConfiguration.fromJson(File("ff4k.json").readText()))
 ```
 
-### 5. Managing Groups
-
-Enable or disable entire groups of features.
-
-```kotlin
-// Enable all features in the 'ui-experiments' group
-ff4k.enableGroup("ui-experiments")
-
-// Disable all features in the 'ui-experiments' group
-ff4k.disableGroup("ui-experiments")
+```json
+{
+  "features": [
+    { "id": "dark-mode", "enabled": true, "group": "ui" },
+    { "id": "beta-checkout", "enabled": true,
+      "strategy": { "type": "contextFilter", "key": "region", "allowed": ["eu"] } }
+  ],
+  "properties": [
+    { "name": "max-retries", "type": "int", "value": 3 }
+  ]
+}
 ```
+
+Stores are pluggable: `ff4k-core` ships in-memory stores, `ff4k-store-jdbc` persists to PostgreSQL or MySQL on any `DataSource`, and `ff4k-store-sqlite` to SQLite through SQLDelight. Wrap a database store with `cached()` to keep flag checks off the database. Implement `FeatureStore` and `PropertyStore` for anything else and verify it with `ff4k-contract-test`.
+
+See the [documentation](https://yonatankarp.github.io/ff4k/) for strategies, configuration and custom stores.
 
 ## Contributing
 

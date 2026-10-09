@@ -1,74 +1,43 @@
-# SQLite Feature Store
+# SQLite Store
 
-The `ff4k-store-sqlite` module provides a SQLite-based `FeatureStore` and `PropertyStore`
-implementation using [SQLDelight](https://cashapp.github.io/sqldelight/).
-
-## Supported Platforms
-
-- JVM
-- Android
-- iOS / Native
+`ff4k-store-sqlite` provides `SqliteFeatureStore` and `SqlitePropertyStore` on top of [SQLDelight](https://cashapp.github.io/sqldelight/). Features and properties are stored as JSON documents keyed by id and name; feature updates use optimistic locking with retry.
 
 ## Installation
 
 ```kotlin
 dependencies {
     implementation("com.yonatankarp:ff4k-store-sqlite:<version>")
+    implementation("app.cash.sqldelight:sqlite-driver:<sqldelight-version>")
 }
 ```
 
 ## Usage
 
-### JVM
-
 ```kotlin
 val driver = JdbcSqliteDriver("jdbc:sqlite:ff4k.db")
 SqliteDatabase.Schema.create(driver).await()
 
-val featureStore = SqliteFeatureStore(driver)
-val propertyStore = SqlitePropertyStore(driver)
-```
-
-### Android
-
-```kotlin
-val driver = AndroidSqliteDriver(
-    schema = SqliteDatabase.Schema,
-    context = context,
-    name = "ff4k.db"
+val ff4k = FF4k(
+    features = SqliteFeatureStore(driver),
+    properties = SqlitePropertyStore(driver),
 )
-
-val featureStore = SqliteFeatureStore(driver)
-val propertyStore = SqlitePropertyStore(driver)
 ```
 
-### iOS / Native
+Both stores share one schema, so create it once per database.
+
+## Custom strategies and property types
+
+Pass a `Json` built on `ff4kSerializersModule` to persist your own strategies and property value types:
 
 ```kotlin
-val driver = NativeSqliteDriver(SqliteDatabase.Schema, "ff4k.db")
-
-val featureStore = SqliteFeatureStore(driver)
-val propertyStore = SqlitePropertyStore(driver)
-```
-
-### Custom Serializers
-
-For custom `FlippingStrategy` or `Property` implementations:
-
-```kotlin
-val customModule = SerializersModule {
-    polymorphic(FlippingStrategy::class) {
-        subclass(MyCustomStrategy::class)
+val json = Json {
+    serializersModule = ff4kSerializersModule + SerializersModule {
+        polymorphic(FlippingStrategy::class) { subclass(MyStrategy::class) }
+        polymorphic(Any::class) { subclass(MyValueType::class) }
     }
 }
-
-val featureStore = SqliteFeatureStore(driver, customModule)
-val propertyStore = SqlitePropertyStore(driver, customModule)
+val featureStore = SqliteFeatureStore(driver, json)
+val propertyStore = SqlitePropertyStore(driver, json)
 ```
 
-## Features
-
-- **Multiplatform** - JVM, Android, iOS, and Native from a single module
-- **Automatic schema creation** - Tables and indexes created via SQLDelight migrations
-- **Optimistic locking** - Safe concurrent updates with retry
-- **Property store** - Stores both feature flags and typed properties
+Both stores must receive the same `json`, otherwise one of them will not recognise the custom types.

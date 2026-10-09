@@ -62,63 +62,6 @@ jobs:
   build-linux:
     needs: [changes, code-quality]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: jvm
-            task: jvmTest
-          - target: android
-            task: testDebugUnitTest
-
-    steps:
-      - name: Checkout code
-        if: needs.changes.outputs.source == 'true'
-        uses: actions/checkout@v6
-
-      - name: Set up JDK 17
-        if: needs.changes.outputs.source == 'true'
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        if: matrix.target == 'android' && needs.changes.outputs.source == 'true'
-        uses: android-actions/setup-android@v4
-
-      - name: Setup Gradle
-        if: needs.changes.outputs.source == 'true'
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-
-      - name: Build and test ${{ matrix.target }}
-        if: needs.changes.outputs.source == 'true'
-        run: ./gradlew ${{ matrix.task }} --no-daemon
-
-      - name: Upload coverage data
-        if: needs.changes.outputs.source == 'true'
-        uses: actions/upload-artifact@v7
-        with:
-          name: kover-data-linux-${{ matrix.target }}
-          path: '**/build/kover/bin-reports/'
-          retention-days: 1
-
-  build-ios:
-    needs: [changes, code-quality]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: iosSimulatorArm64
-            os: macos-latest
-            task: iosSimulatorArm64Test
-          - target: iosX64
-            os: macos-15-intel
-            task: iosX64Test
-
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true'
@@ -137,20 +80,20 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      - name: Build and test ${{ matrix.target }}
+      - name: Build and test
         if: needs.changes.outputs.source == 'true'
-        run: ./gradlew ${{ matrix.task }} --no-daemon
+        run: ./gradlew jvmTest --no-daemon
 
       - name: Upload coverage data
         if: needs.changes.outputs.source == 'true'
         uses: actions/upload-artifact@v7
         with:
-          name: kover-data-ios-${{ matrix.target }}
+          name: kover-data-linux
           path: '**/build/kover/bin-reports/'
           retention-days: 1
 
   sonarcloud:
-    needs: [changes, build-linux, build-ios]
+    needs: [changes, build-linux]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

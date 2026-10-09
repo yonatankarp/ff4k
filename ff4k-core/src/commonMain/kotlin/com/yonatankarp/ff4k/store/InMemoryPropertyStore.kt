@@ -1,115 +1,25 @@
 package com.yonatankarp.ff4k.store
 
-import com.yonatankarp.ff4k.config.FF4kConfiguration
-import com.yonatankarp.ff4k.core.PropertyStore
-import com.yonatankarp.ff4k.exception.PropertyAlreadyExistsException
-import com.yonatankarp.ff4k.exception.PropertyNotFoundException
-import com.yonatankarp.ff4k.property.Property
-import com.yonatankarp.ff4k.utils.withReentrantLock
+import com.yonatankarp.ff4k.Property
+import com.yonatankarp.ff4k.PropertyStore
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
-/**
- * In-memory implementation of [PropertyStore].
- *
- * This store keeps feature properties in a mutable map backed by process memory.
- * It is intended for tests, local development, or lightweight runtime configurations
- * where persistence across application restarts is not required.
- *
- * ### Concurrency and thread safety
- * All operations on the underlying map are guarded by a [Mutex] and executed via
- * the [withReentrantLock] utility, which provides coroutine-friendly, reentrant
- * mutual exclusion. This ensures that:
- *
- * * concurrent readers and writers are serialized, preventing data races; and
- * * a coroutine that already holds the lock can safely call other methods on this
- *   store without deadlocking.
- *
- * Despite being thread-safe within a single process, this implementation does not
- * provide any cross-process or distributed consistency guarantees.
- */
 class InMemoryPropertyStore(
-    initialProperties: Map<String, Property<*>> = emptyMap(),
-) : AbstractPropertyStore() {
+    initial: List<Property<Any>> = emptyList(),
+) : PropertyStore {
+    private val properties = initial.associateBy { it.name }.toMutableMap()
+    private val mutex = Mutex()
 
-    constructor(config: FF4kConfiguration) : this(config.properties)
+    override suspend fun get(name: String): Property<Any>? = mutex.withLock { properties[name] }
 
-    private val properties: MutableMap<String, Property<*>> = initialProperties.toMutableMap()
-    private val mutex: Mutex = Mutex()
+    override suspend fun getAll(): List<Property<Any>> = mutex.withLock { properties.values.toList() }
 
-    override suspend fun isEmpty(): Boolean = mutex.withReentrantLock {
-        properties.isEmpty()
+    override suspend fun put(property: Property<Any>) {
+        mutex.withLock { properties[property.name] = property }
     }
 
-    override suspend fun contains(propertyId: String): Boolean = mutex.withReentrantLock {
-        propertyId in properties
-    }
-
-    override suspend fun <T> plusAssign(property: Property<T>) = mutex.withReentrantLock {
-        requirePropertyNotExist(property.name)
-        properties[property.name] = property
-    }
-
-    override suspend fun minusAssign(propertyId: String): Unit = mutex.withReentrantLock {
-        requirePropertyExist(propertyId)
-        properties.remove(propertyId)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    override suspend fun <T> get(propertyId: String): Property<T>? = mutex.withReentrantLock {
-        properties[propertyId] as? Property<T>
-    }
-
-    override suspend fun <T> updateProperty(property: Property<T>): Unit = mutex.withReentrantLock {
-        requirePropertyExist(property.name)
-        properties[property.name] = property
-    }
-
-    override suspend fun <T> updateProperty(
-        name: String,
-        transform: (Property<T>) -> Property<T>,
-    ): Unit = mutex.withReentrantLock {
-        val property = get<T>(name) ?: throw PropertyNotFoundException(name)
-        val transformed = transform(property)
-        require(transformed.name == name) {
-            "Cannot change property name during update. Expected: $name, got: ${transformed.name}"
-        }
-        properties[name] = transformed
-    }
-
-    override suspend fun <T> getOrDefault(
-        propertyId: String,
-        defaultValue: Property<T>,
-    ): Property<T> = mutex.withReentrantLock {
-        get(propertyId) ?: defaultValue
-    }
-
-    override suspend fun getAll(): Map<String, Property<*>> = mutex.withReentrantLock {
-        properties.toMap()
-    }
-
-    override suspend fun listPropertyIds(): Set<String> = mutex.withReentrantLock {
-        properties.keys.toSet()
-    }
-
-    override suspend fun clear() = mutex.withReentrantLock {
-        properties.clear()
-    }
-
-    override suspend fun requirePropertyExist(name: String) {
-        require(name.isNotBlank()) { "propertyId cannot be empty" }
-        if (name !in properties) {
-            throw PropertyNotFoundException(name)
-        }
-    }
-
-    override suspend fun requirePropertyNotExist(name: String) {
-        require(name.isNotBlank()) { "propertyId cannot be empty" }
-        if (name in properties) {
-            throw PropertyAlreadyExistsException(name)
-        }
-    }
-
-    override suspend fun <T> createOrUpdate(property: Property<T>): Unit = mutex.withReentrantLock {
-        properties[property.name] = property
+    override suspend fun delete(name: String) {
+        mutex.withLock { properties.remove(name) }
     }
 }

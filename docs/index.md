@@ -1,21 +1,20 @@
 # FF4K - Feature Flags for Kotlin
 
-FF4K is a Kotlin Multiplatform (KMP) implementation of the popular [FF4J](https://ff4j.org/) (Feature Flipping for Java) library. It brings robust feature flagging capabilities to the Kotlin ecosystem, supporting multiplatform projects.
+FF4K is a Kotlin Multiplatform port of the ideas behind [FF4J](https://ff4j.org/): feature flags, flipping strategies and typed properties behind a small, coroutine-first API.
 
 ## Key Features
 
-- **Kotlin Multiplatform**: Designed to work across different platforms supported by Kotlin (JVM, Android, Native, etc.).
-- **Type-safe Properties**: Strongly typed property definitions (String, Int, Boolean, etc.).
-- **Flipping Strategies**: Gradual rollouts, A/B testing, and user targeting with [built-in strategies](usage/strategies.md).
-- **Serialization Support**: Built-in support for `kotlinx.serialization`.
-- **Extensible**: Easily implement custom storage backends (Redis, SQL, etc.) and [custom strategies](customization/custom-strategy.md).
-- **DSL**: Intuitive domain-specific language for configuration.
+- **Small API**: one `FF4k` entry point, plain data classes, suspend functions.
+- **Flipping Strategies**: gradual rollouts, user targeting and time windows with [built-in strategies](usage/strategies.md), composable with `and`, `or` and `!`.
+- **Typed Properties**: `Property<T>` values for String, Int, Long, Double, Boolean, Instant, LocalDate and LocalDateTime.
+- **JSON configuration**: load features and properties from a file with `kotlinx.serialization`.
+- **Pluggable stores**: in-memory and [SQLite](stores/sqlite.md) out of the box, [custom stores](customization/index.md) verified by contract tests.
+
+> **Alpha.** FF4K is pre-1.0. Public APIs, the JSON format and store schemas change between releases without a deprecation cycle.
 
 ## Installation
 
-### Using Bill of Materials (BOM) - Recommended
-
-The BOM ensures that all FF4K modules are using compatible versions.
+Use the BOM so all FF4K modules share one version:
 
 ```kotlin
 repositories {
@@ -23,50 +22,28 @@ repositories {
 }
 
 dependencies {
-    // Import the BOM
     implementation(platform("com.yonatankarp:ff4k-bom:<version>"))
-
-    // Add dependencies without versions
     implementation("com.yonatankarp:ff4k-core")
 }
 ```
 
-### Manual Versioning
-
-Alternatively, you can specify the version for each module directly:
-
-```kotlin
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("com.yonatankarp:ff4k-core:<version>")
-}
-```
+Or pin each module: `implementation("com.yonatankarp:ff4k-core:<version>")`.
 
 ## Quick Start
 
 ```kotlin
 suspend fun main() {
-    val ff4k = ff4k {
-        features {
-            feature("dark-mode") {
-                isEnabled = true
-                description = "Enable dark mode theme"
-            }
-        }
-    }
+    val ff4k = FF4k()
+    ff4k.features.put(Feature("dark-mode", enabled = true))
 
-    // Check feature status
-    ff4k.ifEnabled("dark-mode") {
+    if (ff4k.check("dark-mode")) {
         // ...
     }
 }
 ```
 
-Check out the [Usage](usage/basics.md) guide for more details.
+Continue with the [Basics](usage/basics.md) guide.
 
 ## License
 
-This project is licensed under the Apache License 2.0.
+Apache License 2.0.

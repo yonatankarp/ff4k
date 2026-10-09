@@ -1,64 +1,48 @@
-# JDBC Feature Store
+# JDBC Store
 
-The `ff4k-store-jdbc` module provides a JDBC-based `FeatureStore` implementation for
-relational databases on the JVM.
+`ff4k-store-jdbc` provides `JdbcFeatureStore` and `JdbcPropertyStore` for backend databases on top of any `javax.sql.DataSource`. PostgreSQL and MySQL dialects are built in; implement `JdbcDialect` for another database. Features and properties are stored as JSON documents in `ff4k_features` and `ff4k_properties`; feature updates use optimistic locking with retry.
 
-## Supported Databases
-
-- PostgreSQL
-- MySQL
+Calls are suspend functions that run the blocking JDBC work on `Dispatchers.IO`.
 
 ## Installation
-
-Add the dependency and your database driver:
 
 ```kotlin
 dependencies {
     implementation("com.yonatankarp:ff4k-store-jdbc:<version>")
-
-    // Database driver (choose one)
-    runtimeOnly("org.postgresql:postgresql:<version>")
-    runtimeOnly("com.mysql:mysql-connector-j:<version>")
+    implementation("org.postgresql:postgresql:<driver-version>")   // or com.mysql:mysql-connector-j
 }
 ```
 
 ## Usage
 
-### Basic Usage
-
-Pass a `DataSource` to create a store. The database type is detected automatically:
-
 ```kotlin
-val dataSource = HikariDataSource(config)
-val store = jdbcFeatureStore(dataSource)
+val dataSource: DataSource = HikariDataSource(config)   // any pooled DataSource
+JdbcSchema.create(dataSource)                            // CREATE TABLE IF NOT EXISTS, once at startup
 
-store += Feature(uid = "my-feature", isEnabled = true)
+val ff4k = FF4k(
+    features = JdbcFeatureStore(dataSource, JdbcDialect.Postgres).cached(),
+    properties = JdbcPropertyStore(dataSource, JdbcDialect.Postgres).cached(),
+)
 ```
 
-### Explicit Dialect
+Wrap the stores with [`cached()`](../usage/basics.md#caching) so flag checks do not hit the database on every call.
 
-For database proxies or when auto-detection fails, use `<DatabaseName>Dialect`:
+| Dialect                | Minimum version | Notes                                   |
+|------------------------|-----------------|-----------------------------------------|
+| `JdbcDialect.Postgres` | 9.5             | `ON CONFLICT` upsert                    |
+| `JdbcDialect.Mysql`    | 8.0.19          | row alias syntax in `ON DUPLICATE KEY`  |
+
+## Other databases
+
+Only the upsert statement differs between databases:
 
 ```kotlin
-val store = jdbcFeatureStore(dataSource, PostgresDialect)
-```
-
-### Custom Serializers
-
-For custom `FlippingStrategy` or `Property` implementations:
-
-```kotlin
-val customModule = SerializersModule {
-    polymorphic(FlippingStrategy::class) {
-        subclass(MyCustomStrategy::class)
-    }
+object H2Dialect : JdbcDialect {
+    override fun upsert(table: String) =
+        "MERGE INTO $table (id, data, version) KEY (id) VALUES (?, ?, 1)"
 }
-
-val store = jdbcFeatureStore(dataSource, customModule)
 ```
 
-## Features
+## Custom strategies and property types
 
-- **Automatic schema creation** - Table created on first use
-- **Optimistic locking** - Safe concurrent updates with retry
-- **Connection pooling** - Bring your own `DataSource` (HikariCP recommended)
+Pass the same `Json` built on `ff4kSerializersModule` to both `JdbcFeatureStore` and `JdbcPropertyStore`, exactly as for the [SQLite store](sqlite.md#custom-strategies-and-property-types).

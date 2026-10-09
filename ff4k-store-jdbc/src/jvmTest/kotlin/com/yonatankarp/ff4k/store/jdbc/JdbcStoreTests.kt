@@ -1,0 +1,91 @@
+package com.yonatankarp.ff4k.store.jdbc
+
+import com.mysql.cj.jdbc.MysqlDataSource
+import com.yonatankarp.ff4k.FeatureStore
+import com.yonatankarp.ff4k.PropertyStore
+import com.yonatankarp.ff4k.test.contract.FeatureStoreContractTest
+import com.yonatankarp.ff4k.test.contract.PropertyStoreContractTest
+import io.kotest.core.annotation.EnabledCondition
+import io.kotest.core.annotation.EnabledIf
+import io.kotest.core.spec.Spec
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.postgresql.ds.PGSimpleDataSource
+import org.sqlite.SQLiteDataSource
+import org.testcontainers.DockerClientFactory
+import org.testcontainers.mysql.MySQLContainer
+import org.testcontainers.postgresql.PostgreSQLContainer
+import javax.sql.DataSource
+import kotlin.io.path.createTempFile
+import kotlin.reflect.KClass
+
+/** Fresh schema with empty tables. */
+private suspend fun DataSource.reset(): DataSource = apply {
+    JdbcSchema.create(this)
+    withContext(Dispatchers.IO) {
+        connection.use { c ->
+            c.createStatement().use { s ->
+                s.execute("DELETE FROM ${JdbcSchema.FEATURES_TABLE}")
+                s.execute("DELETE FROM ${JdbcSchema.PROPERTIES_TABLE}")
+            }
+        }
+    }
+}
+
+class DockerAvailable : EnabledCondition {
+    override fun evaluate(kclass: KClass<out Spec>): Boolean = DockerClientFactory.instance().isDockerAvailable
+}
+
+// ---- SQLite over JDBC: the Postgres upsert is valid SQLite, so this exercises the store without Docker.
+
+private fun sqlite(): DataSource = SQLiteDataSource().apply { url = "jdbc:sqlite:${createTempFile(suffix = ".db")}" }
+
+class SqliteJdbcFeatureStoreTest : FeatureStoreContractTest() {
+    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(sqlite().reset(), JdbcDialect.Postgres)
+}
+
+class SqliteJdbcPropertyStoreTest : PropertyStoreContractTest() {
+    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(sqlite().reset(), JdbcDialect.Postgres)
+}
+
+// ---- PostgreSQL
+
+private val postgres: DataSource by lazy {
+    val container = PostgreSQLContainer("postgres:17-alpine").apply { start() }
+    PGSimpleDataSource().apply {
+        setUrl(container.jdbcUrl)
+        user = container.username
+        password = container.password
+    }
+}
+
+@EnabledIf(DockerAvailable::class)
+class PostgresJdbcFeatureStoreTest : FeatureStoreContractTest() {
+    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(postgres.reset(), JdbcDialect.Postgres)
+}
+
+@EnabledIf(DockerAvailable::class)
+class PostgresJdbcPropertyStoreTest : PropertyStoreContractTest() {
+    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(postgres.reset(), JdbcDialect.Postgres)
+}
+
+// ---- MySQL
+
+private val mysql: DataSource by lazy {
+    val container = MySQLContainer("mysql:8.4").apply { start() }
+    MysqlDataSource().apply {
+        setUrl(container.jdbcUrl)
+        user = container.username
+        password = container.password
+    }
+}
+
+@EnabledIf(DockerAvailable::class)
+class MysqlJdbcFeatureStoreTest : FeatureStoreContractTest() {
+    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(mysql.reset(), JdbcDialect.Mysql)
+}
+
+@EnabledIf(DockerAvailable::class)
+class MysqlJdbcPropertyStoreTest : PropertyStoreContractTest() {
+    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(mysql.reset(), JdbcDialect.Mysql)
+}

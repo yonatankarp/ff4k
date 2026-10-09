@@ -577,27 +577,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -673,27 +652,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../stores/sqlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQLite
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../stores/jdbc/" class="md-nav__link">
         
   
@@ -715,11 +673,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../stores/r2dbc/" class="md-nav__link">
+      <a href="../stores/sqlite/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    R2DBC
+    SQLite
   </span>
   
 
@@ -904,17 +862,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Packages
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -924,34 +871,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Requirements
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -997,23 +916,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#database-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Requirements
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1031,76 +933,43 @@
 
 
 <h1 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h1>
-<p>FF4K is modularized into several packages to allow for flexible usage and extension.</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Package</th>
 <th style="text-align: left;">Description</th>
-<th style="text-align: left;">Platform Support</th>
+<th style="text-align: left;">Platforms</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;"><strong><code>ff4k-bom</code></strong></td>
-<td style="text-align: left;">The Bill of Materials (BOM) helps you manage versions of FF4K libraries. By importing the BOM, you ensure that all FF4K dependencies in your project use the same version.</td>
-<td style="text-align: left;"><img alt="Maven" src="https://img.shields.io/badge/-Maven%20BOM-C71A36?style=flat&amp;logo=apachemaven&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-contract-test</code></strong></td>
-<td style="text-align: left;">Contains contract tests (like <code>FeatureStoreContractTest</code>) to verify that custom implementations of FF4K interfaces (e.g., custom Feature Stores) adhere to the expected behavior.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+<td style="text-align: left;">Bill of Materials: import it to keep every FF4K module on the same version.</td>
+<td style="text-align: left;">Maven</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>ff4k-core</code></strong></td>
-<td style="text-align: left;">The core library containing the main API, configuration logic, default stores, and standard strategies. This is the primary dependency for using FF4K.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+<td style="text-align: left;">The API (<code>FF4k</code>, <code>Feature</code>, <code>Property</code>, <code>FlippingStrategy</code>), in-memory stores, built-in strategies and JSON configuration.</td>
+<td style="text-align: left;">JVM</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>ff4k-store-jdbc</code></strong></td>
-<td style="text-align: left;">A blocking JDBC feature store implementation. Ideal for traditional blocking JVM applications. See <a href="../stores/jdbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>ff4k-store-r2dbc</code></strong></td>
-<td style="text-align: left;">A non-blocking, reactive R2DBC feature store implementation. Ideal for reactive applications (e.g., Spring WebFlux). See <a href="../stores/r2dbc/">supported databases</a>.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /></td>
+<td style="text-align: left;"><code>FeatureStore</code> and <code>PropertyStore</code> for backend databases on any <code>DataSource</code>, with PostgreSQL and MySQL dialects.</td>
+<td style="text-align: left;">JVM</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong><code>ff4k-store-sqlite</code></strong></td>
-<td style="text-align: left;">A Multiplatform SQLite feature store implementation. Supports JVM, Android, and iOS/Native targets.</td>
-<td style="text-align: left;"><img alt="JVM" src="https://img.shields.io/badge/-JVM-7f52ff?style=flat&amp;logo=kotlin&amp;logoColor=white" /> <img alt="Android" src="https://img.shields.io/badge/-Android-3DDC84?style=flat&amp;logo=android&amp;logoColor=white" /> <img alt="iOS" src="https://img.shields.io/badge/-iOS-000000?style=flat&amp;logo=apple&amp;logoColor=white" /></td>
+<td style="text-align: left;"><code>FeatureStore</code> and <code>PropertyStore</code> backed by SQLite through SQLDelight.</td>
+<td style="text-align: left;">JVM</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>ff4k-contract-test</code></strong></td>
+<td style="text-align: left;">Kotest contract suites (<code>FeatureStoreContractTest</code>, <code>PropertyStoreContractTest</code>) to verify custom store implementations.</td>
+<td style="text-align: left;">JVM</td>
 </tr>
 </tbody>
 </table>
-<h2 id="database-requirements">Database Requirements<a class="headerlink" href="#database-requirements" title="Permanent link">&para;</a></h2>
-<p>When using SQL-based stores, the following minimum database versions are required:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Database</th>
-<th style="text-align: left;">Minimum Version</th>
-<th style="text-align: left;">Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">MySQL</td>
-<td style="text-align: left;">8.0.19+</td>
-<td style="text-align: left;">Required for row alias syntax in <code>INSERT ... AS</code> upserts</td>
-</tr>
-<tr>
-<td style="text-align: left;">PostgreSQL</td>
-<td style="text-align: left;">9.5+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-<tr>
-<td style="text-align: left;">SQLite</td>
-<td style="text-align: left;">3.24.0+</td>
-<td style="text-align: left;">Required for <code>ON CONFLICT</code> upsert syntax</td>
-</tr>
-</tbody>
-</table>
+<p>All modules are Kotlin Multiplatform with common code; the JVM target is the only one published today.</p>
 
 
 

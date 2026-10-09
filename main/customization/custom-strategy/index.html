@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#implementing-a-flipping-strategy" class="md-skip">
+        <a href="#custom-flipping-strategy" class="md-skip">
           Skip to content
         </a>
       
@@ -577,27 +577,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -673,27 +652,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../stores/sqlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQLite
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../stores/jdbc/" class="md-nav__link">
         
   
@@ -715,11 +673,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../stores/r2dbc/" class="md-nav__link">
+      <a href="../../stores/sqlite/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    R2DBC
+    SQLite
   </span>
   
 
@@ -857,17 +815,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Custom Flipping Strategy
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -877,43 +824,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-your-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verifying Your Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registering-for-serialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Registering for Serialization
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1008,32 +918,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-your-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verifying Your Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#registering-for-serialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Registering for Serialization
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1050,67 +934,29 @@
   
 
 
-<h1 id="implementing-a-flipping-strategy">Implementing a Flipping Strategy<a class="headerlink" href="#implementing-a-flipping-strategy" title="Permanent link">&para;</a></h1>
-<p>To create a custom flipping strategy, implement the <code>FlippingStrategy</code> interface. For an overview
-of built-in strategies, see <a href="../../usage/strategies/">Flipping Strategies</a>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@Serializable</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nd">@SerialName</span><span class="p">(</span><span class="s">&quot;timeBasedStrategy&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TimeBasedStrategy</span><span class="p">(</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">startHour</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">endHour</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">featureId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">store</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureStore?,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">FlippingExecutionContext</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">currentHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">System</span><span class="p">.</span><span class="na">now</span><span class="p">()</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">            </span><span class="p">.</span><span class="na">toLocalDateTime</span><span class="p">(</span><span class="n">TimeZone</span><span class="p">.</span><span class="na">currentSystemDefault</span><span class="p">())</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">            </span><span class="p">.</span><span class="na">hour</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">currentHour</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">startHour</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">endHour</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
+<h1 id="custom-flipping-strategy">Custom Flipping Strategy<a class="headerlink" href="#custom-flipping-strategy" title="Permanent link">&para;</a></h1>
+<p>A strategy is a <code>fun interface</code>, so a lambda is enough at runtime:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">goldOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">context</span><span class="o">[</span><span class="s">"tier"</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"gold"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Feature</span><span class="p">(</span><span class="s">"vip-lounge"</span><span class="p">,</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">goldOnly</span><span class="p">))</span>
 </code></pre></div>
-<h2 id="verifying-your-implementation">Verifying Your Implementation<a class="headerlink" href="#verifying-your-implementation" title="Permanent link">&para;</a></h2>
-<p>It is critical to ensure your custom strategy behaves correctly. FF4K provides a <a href="../testing/">Contract Test Suite</a> that you can use to automatically verify your implementation against the expected behavior.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">TimeBasedStrategyTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategyContractTest</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// Create a strategy that should PASS given the current conditions (or context)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForPassingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="c1">// Assuming we mock the clock or configure the strategy to span the current time</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">(</span><span class="n">startHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">endHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span><span class="p">)</span><span class="w"> </span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">// Create a strategy that should FAIL</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createStrategyForFailingCase</span><span class="p">():</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="c1">// 23 until 1 creates an empty range in Kotlin, so this will always fail</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">(</span><span class="n">startHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">23</span><span class="p">,</span><span class="w"> </span><span class="n">endHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="c1">// Provide context if your strategy relies on it (optional for time-based)</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldPass</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">()</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">contextThatShouldFail</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FlippingExecutionContext</span><span class="p">()</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="c1">// Verify JSON serialization</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">expectedJsonForSampleParams</span><span class="p">():</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;&quot;{&quot;type&quot;:&quot;timeBasedStrategy&quot;,&quot;startHour&quot;:0,&quot;endHour&quot;:24}&quot;&quot;&quot;</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">}</span>
+<p>To store the strategy in JSON or a persistent store, make it a <code>@Serializable</code> class with a <code>@SerialName</code> and register it in a <code>SerializersModule</code> that extends <code>ff4kSerializersModule</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nd">@Serializable</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nd">@SerialName</span><span class="p">(</span><span class="s">"tier"</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">TierStrategy</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">tiers</span><span class="p">:</span><span class="w"> </span><span class="n">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">FlippingStrategy</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">feature</span><span class="p">:</span><span class="w"> </span><span class="n">Feature</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">context</span><span class="o">[</span><span class="s">"tier"</span><span class="o">]?.</span><span class="na">toString</span><span class="p">()</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">tiers</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Json</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">serializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ff4kSerializersModule</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">FlippingStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">subclass</span><span class="p">(</span><span class="n">TierStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kd">val</span><span class="w"> </span><span class="nv">configuration</span><span class="p">:</span><span class="w"> </span><span class="n">FF4kConfiguration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">decodeFromString</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kd">val</span><span class="w"> </span><span class="nv">featureStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SqliteFeatureStore</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span><span class="w"> </span><span class="n">json</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="registering-for-serialization">Registering for Serialization<a class="headerlink" href="#registering-for-serialization" title="Permanent link">&para;</a></h2>
-<p>If you need JSON serialization support for your custom strategy, register it in a custom
-serializers module and combine it with the built-in module. See <a href="../../usage/basics/#serialization">Serialization</a>
-for more details on <code>ff4kSerializersModule</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">customSerializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">FlippingStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">subclass</span><span class="p">(</span><span class="n">TimeBasedStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="n">TimeBasedStrategy</span><span class="p">.</span><span class="na">serializer</span><span class="p">())</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Json</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">serializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ff4kSerializersModule</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">customSerializersModule</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
-</code></pre></div>
+<p>Custom strategies compose with the built-in ones: <code>TierStrategy(setOf("gold")) and PercentageStrategy(50)</code>.</p>
 
 
 

@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/stores/">
       
       
-        <link rel="prev" href="../usage/monitoring/">
+        <link rel="prev" href="../usage/strategies/">
       
       
-        <link rel="next" href="sqlite/">
+        <link rel="next" href="jdbc/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -577,27 +577,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -685,27 +664,6 @@
   
   
     <li class="md-nav__item">
-      <a href="sqlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQLite
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="jdbc/" class="md-nav__link">
         
   
@@ -727,11 +685,11 @@
   
   
     <li class="md-nav__item">
-      <a href="r2dbc/" class="md-nav__link">
+      <a href="sqlite/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    R2DBC
+    SQLite
   </span>
   
 
@@ -977,38 +935,33 @@
 
 
 <h1 id="feature-stores">Feature Stores<a class="headerlink" href="#feature-stores" title="Permanent link">&para;</a></h1>
-<p>FF4K supports multiple storage backends for feature flags.</p>
+<p><code>ff4k-core</code> ships <code>InMemoryFeatureStore</code> and <code>InMemoryPropertyStore</code>. Persistent stores live in their own modules so you only pull the driver you need:</p>
 <table>
 <thead>
 <tr>
 <th>Store</th>
 <th>Module</th>
+<th>Databases</th>
 <th>Platforms</th>
-<th>Supported Databases</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="jdbc/">JDBC</a></td>
 <td><code>ff4k-store-jdbc</code></td>
+<td>PostgreSQL, MySQL, any <code>JdbcDialect</code></td>
 <td>JVM</td>
-<td>PostgreSQL, MySQL</td>
-</tr>
-<tr>
-<td><a href="r2dbc/">R2DBC</a></td>
-<td><code>ff4k-store-r2dbc</code></td>
-<td>JVM</td>
-<td>Coming soon</td>
 </tr>
 <tr>
 <td><a href="sqlite/">SQLite</a></td>
 <td><code>ff4k-store-sqlite</code></td>
-<td>JVM, Android, iOS, Native</td>
-<td>SQLite</td>
+<td>SQLite (SQLDelight)</td>
+<td>JVM</td>
 </tr>
 </tbody>
 </table>
-<p>See <a href="../packages/#database-requirements">database requirements</a> for minimum versions.</p>
+<p>Every persistent store is verified by the same <a href="../customization/testing/">contract tests</a>. Wrap any store with <a href="../usage/basics/#caching"><code>cached()</code></a> to avoid a round trip per flag check.</p>
+<p>To write your own, see <a href="../customization/custom-feature-store/">Custom Feature Store</a>.</p>
 
 
 

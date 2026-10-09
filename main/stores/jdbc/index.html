@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/stores/jdbc/">
       
       
-        <link rel="prev" href="../sqlite/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../r2dbc/">
+        <link rel="next" href="../sqlite/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jdbc-feature-store" class="md-skip">
+        <a href="#jdbc-store" class="md-skip">
           Skip to content
         </a>
       
@@ -577,27 +577,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -672,27 +651,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../sqlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQLite
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -742,15 +700,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#supported-databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Supported Databases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       Installation
@@ -766,45 +715,21 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-databases" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Other databases
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-dialect" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explicit Dialect
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-serializers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Serializers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#custom-strategies-and-property-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Custom strategies and property types
     </span>
   </a>
   
@@ -826,11 +751,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../r2dbc/" class="md-nav__link">
+      <a href="../sqlite/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    R2DBC
+    SQLite
   </span>
   
 
@@ -1066,15 +991,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#supported-databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Supported Databases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       Installation
@@ -1090,45 +1006,21 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-databases" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Other databases
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-dialect" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explicit Dialect
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-serializers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Serializers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#custom-strategies-and-property-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Custom strategies and property types
     </span>
   </a>
   
@@ -1152,52 +1044,55 @@
   
 
 
-<h1 id="jdbc-feature-store">JDBC Feature Store<a class="headerlink" href="#jdbc-feature-store" title="Permanent link">&para;</a></h1>
-<p>The <code>ff4k-store-jdbc</code> module provides a JDBC-based <code>FeatureStore</code> implementation for
-relational databases on the JVM.</p>
-<h2 id="supported-databases">Supported Databases<a class="headerlink" href="#supported-databases" title="Permanent link">&para;</a></h2>
-<ul>
-<li>PostgreSQL</li>
-<li>MySQL</li>
-</ul>
+<h1 id="jdbc-store">JDBC Store<a class="headerlink" href="#jdbc-store" title="Permanent link">&para;</a></h1>
+<p><code>ff4k-store-jdbc</code> provides <code>JdbcFeatureStore</code> and <code>JdbcPropertyStore</code> for backend databases on top of any <code>javax.sql.DataSource</code>. PostgreSQL and MySQL dialects are built in; implement <code>JdbcDialect</code> for another database. Features and properties are stored as JSON documents in <code>ff4k_features</code> and <code>ff4k_properties</code>; feature updates use optimistic locking with retry.</p>
+<p>Calls are suspend functions that run the blocking JDBC work on <code>Dispatchers.IO</code>.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>Add the dependency and your database driver:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.yonatankarp:ff4k-store-jdbc:&lt;version&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// Database driver (choose one)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">runtimeOnly</span><span class="p">(</span><span class="s">&quot;org.postgresql:postgresql:&lt;version&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">runtimeOnly</span><span class="p">(</span><span class="s">&quot;com.mysql:mysql-connector-j:&lt;version&gt;&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">"com.yonatankarp:ff4k-store-jdbc:&lt;version&gt;"</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">"org.postgresql:postgresql:&lt;driver-version&gt;"</span><span class="p">)</span><span class="w">   </span><span class="c1">// or com.mysql:mysql-connector-j</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
-<p>Pass a <code>DataSource</code> to create a store. The database type is detected automatically:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">dataSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HikariDataSource</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">dataSource</span><span class="p">:</span><span class="w"> </span><span class="n">DataSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HikariDataSource</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="w">   </span><span class="c1">// any pooled DataSource</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">JdbcSchema</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">dataSource</span><span class="p">)</span><span class="w">                            </span><span class="c1">// CREATE TABLE IF NOT EXISTS, once at startup</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">store</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Feature</span><span class="p">(</span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my-feature&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">isEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ff4k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FF4k</span><span class="p">(</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcPropertyStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(),</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
 </code></pre></div>
-<h3 id="explicit-dialect">Explicit Dialect<a class="headerlink" href="#explicit-dialect" title="Permanent link">&para;</a></h3>
-<p>For database proxies or when auto-detection fails, use <code>&lt;DatabaseName&gt;Dialect</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">PostgresDialect</span><span class="p">)</span>
+<p>Wrap the stores with <a href="../../usage/basics/#caching"><code>cached()</code></a> so flag checks do not hit the database on every call.</p>
+<table>
+<thead>
+<tr>
+<th>Dialect</th>
+<th>Minimum version</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JdbcDialect.Postgres</code></td>
+<td>9.5</td>
+<td><code>ON CONFLICT</code> upsert</td>
+</tr>
+<tr>
+<td><code>JdbcDialect.Mysql</code></td>
+<td>8.0.19</td>
+<td>row alias syntax in <code>ON DUPLICATE KEY</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-databases">Other databases<a class="headerlink" href="#other-databases" title="Permanent link">&para;</a></h2>
+<p>Only the upsert statement differs between databases:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">object</span><span class="w"> </span><span class="nc">H2Dialect</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">upsert</span><span class="p">(</span><span class="n">table</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="s">"MERGE INTO </span><span class="si">$</span><span class="n">table</span><span class="s"> (id, data, version) KEY (id) VALUES (?, ?, 1)"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="custom-serializers">Custom Serializers<a class="headerlink" href="#custom-serializers" title="Permanent link">&para;</a></h3>
-<p>For custom <code>FlippingStrategy</code> or <code>Property</code> implementations:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">customModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">FlippingStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">subclass</span><span class="p">(</span><span class="n">MyCustomStrategy</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">customModule</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Automatic schema creation</strong> - Table created on first use</li>
-<li><strong>Optimistic locking</strong> - Safe concurrent updates with retry</li>
-<li><strong>Connection pooling</strong> - Bring your own <code>DataSource</code> (HikariCP recommended)</li>
-</ul>
+<h2 id="custom-strategies-and-property-types">Custom strategies and property types<a class="headerlink" href="#custom-strategies-and-property-types" title="Permanent link">&para;</a></h2>
+<p>Pass the same <code>Json</code> built on <code>ff4kSerializersModule</code> to both <code>JdbcFeatureStore</code> and <code>JdbcPropertyStore</code>, exactly as for the <a href="../sqlite/#custom-strategies-and-property-types">SQLite store</a>.</p>
 
 
 

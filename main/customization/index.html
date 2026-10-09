@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://yonatankarp.github.io/ff4k/main/customization/">
       
       
-        <link rel="prev" href="../stores/r2dbc/">
+        <link rel="prev" href="../stores/sqlite/">
       
       
         <link rel="next" href="custom-feature-store/">
@@ -577,27 +577,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../usage/monitoring/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Monitoring
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -673,27 +652,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../stores/sqlite/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQLite
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../stores/jdbc/" class="md-nav__link">
         
   
@@ -715,11 +673,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../stores/r2dbc/" class="md-nav__link">
+      <a href="../stores/sqlite/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    R2DBC
+    SQLite
   </span>
   
 
@@ -977,13 +935,12 @@
 
 
 <h1 id="extending-ff4k">Extending FF4K<a class="headerlink" href="#extending-ff4k" title="Permanent link">&para;</a></h1>
-<p>FF4K is designed to be extensible. You can implement custom storage backends for features and properties to persist your flags in databases, remote services (like Redis, Consul), or local files.</p>
-<p>You can also create custom flipping strategies to control feature availability based on your specific business logic.</p>
-<p>Explore the guides below to learn how to extend FF4K:</p>
+<p>Implement <code>FeatureStore</code> and <code>PropertyStore</code> to persist flags anywhere, and <code>FlippingStrategy</code> to encode your own activation rules.</p>
 <ul>
 <li><a href="custom-feature-store/">Custom Feature Store</a></li>
 <li><a href="custom-property-store/">Custom Property Store</a></li>
 <li><a href="custom-strategy/">Custom Flipping Strategy</a></li>
+<li><a href="testing/">Contract Testing</a></li>
 </ul>
 
 

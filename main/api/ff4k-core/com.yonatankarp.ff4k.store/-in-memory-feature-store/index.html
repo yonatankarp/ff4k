@@ -93,24 +93,24 @@
   <div class="breadcrumbs"><a href="../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k.store</a><span class="delimiter">/</span><span class="current">InMemoryFeatureStore</span></div>
   <div class="cover ">
     <h1 class="cover"><span>In</span><wbr><span>Memory</span><wbr><span>Feature</span><wbr><span><span>Store</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">InMemoryFeatureStore</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialFeatures<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span> : <a href="../-abstract-feature-store/index.html">AbstractFeatureStore</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/store/InMemoryFeatureStore.kt#L24">source</a>)</span></span></div><p class="paragraph">In-memory implementation of <a href="../-abstract-feature-store/index.html">AbstractFeatureStore</a> that stores features in memory.</p><p class="paragraph">This implementation provides thread-safe operations using a Mutex to protect concurrent access. All data is stored in memory and will be lost when the application stops.</p><p class="paragraph"><strong>Thread Safety</strong>: All operations are protected by a reentrant mutex mechanism to ensure thread safety. Internal suspend methods can be safely called from within locked blocks.</p><p class="paragraph"><strong>Use Cases</strong>:</p><ul><li><p class="paragraph">Testing and development</p></li><li><p class="paragraph">Simple applications where persistence is not required</p></li><li><p class="paragraph">Prototyping feature flag systems</p></li></ul><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>initial</span><wbr><span><span>Features</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Optional map of features to initialize the store with</p></div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">InMemoryFeatureStore</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initial<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span> : <a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/store/InMemoryFeatureStore.kt#L9">source</a>)</span></span></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="1091871828%2FConstructors%2F1934176344" anchor-label="InMemoryFeatureStore" id="1091871828%2FConstructors%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+        <div class="table"><a data-name="-1527319898%2FConstructors%2F1934176344" anchor-label="InMemoryFeatureStore" id="-1527319898%2FConstructors%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-in-memory-feature-store.html"><span>In</span><wbr><span>Memory</span><wbr><span>Feature</span><wbr><span><span>Store</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1091871828%2FConstructors%2F1934176344"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1527319898%2FConstructors%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialFeatures<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.config/-f-f4k-configuration/index.html">FF4kConfiguration</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initial<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -119,152 +119,92 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="672188635%2FFunctions%2F1934176344" anchor-label="addToGroup" id="672188635%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+        <div class="table"><a data-name="-1380123362%2FFunctions%2F1934176344" anchor-label="cached" id="-1380123362%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/add-to-group.html"><span>add</span><wbr><span>To</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="672188635%2FFunctions%2F1934176344"></span>
+                  <div><a href="../cached.html"><span><span>cached</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1380123362%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/add-to-group.html"><span class="token function">addToGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Add a feature to a group.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../cached.html"><span class="token function">cached</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ttl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator"> = </span>30.seconds<span class="token punctuation">, </span></span><span class="parameter ">timeSource<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-time-source/index.html">TimeSource</a><span class="token operator"> = </span>TimeSource.Monotonic</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a></div><div class="brief "><p class="paragraph">Serves reads from a snapshot of delegate refreshed every <a href="../cached.html">ttl</a>; writes go through and drop the snapshot.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="147531672%2FFunctions%2F1934176344" anchor-label="clear" id="147531672%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="713965914%2FFunctions%2F1934176344" anchor-label="delete" id="713965914%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="clear.html"><span><span>clear</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="147531672%2FFunctions%2F1934176344"></span>
+                  <div><a href="delete.html"><span><span>delete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="713965914%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clear all features from the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="delete.html"><span class="token function">delete</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes the feature; a no-op when it does not exist.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="167016654%2FFunctions%2F1934176344" anchor-label="contains" id="167016654%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+<a data-name="-33853520%2FFunctions%2F1934176344" anchor-label="disable" id="-33853520%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="contains.html"><span><span>contains</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="167016654%2FFunctions%2F1934176344"></span>
+                  <div><a href="../../com.yonatankarp.ff4k/disable.html"><span><span>disable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-33853520%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend operator override </span><span class="token keyword">fun </span><a href="contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check if a feature exists in the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k/disable.html"><span class="token function">disable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="153800987%2FFunctions%2F1934176344" anchor-label="containsGroup" id="153800987%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+<a data-name="-1056515851%2FFunctions%2F1934176344" anchor-label="disableGroup" id="-1056515851%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/contains-group.html"><span>contains</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="153800987%2FFunctions%2F1934176344"></span>
+                  <div><a href="../../com.yonatankarp.ff4k/disable-group.html"><span>disable</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1056515851%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/contains-group.html"><span class="token function">containsGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check if a group exists in the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k/disable-group.html"><span class="token function">disableGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="2124139286%2FFunctions%2F1934176344" anchor-label="count" id="2124139286%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+<a data-name="-1875274263%2FFunctions%2F1934176344" anchor-label="enable" id="-1875274263%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="count.html"><span><span>count</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2124139286%2FFunctions%2F1934176344"></span>
+                  <div><a href="../../com.yonatankarp.ff4k/enable.html"><span><span>enable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1875274263%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="count.html"><span class="token function">count</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Get the total number of features in the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k/enable.html"><span class="token function">enable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-550662426%2FFunctions%2F1934176344" anchor-label="createOrUpdate" id="-550662426%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+<a data-name="519351900%2FFunctions%2F1934176344" anchor-label="enableGroup" id="519351900%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="create-or-update.html"><span>create</span><wbr><span>Or</span><wbr><span><span>Update</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-550662426%2FFunctions%2F1934176344"></span>
+                  <div><a href="../../com.yonatankarp.ff4k/enable-group.html"><span>enable</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="519351900%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="create-or-update.html"><span class="token function">createOrUpdate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create or update a feature (upsert operation).</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="697241955%2FFunctions%2F1934176344" anchor-label="disable" id="697241955%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/disable.html"><span><span>disable</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="697241955%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/disable.html"><span class="token function">disable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Disable a feature.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-806173686%2FFunctions%2F1934176344" anchor-label="disableGroup" id="-806173686%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/disable-group.html"><span>disable</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-806173686%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/disable-group.html"><span class="token function">disableGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Disable all features associated with the specified group.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1574636822%2FFunctions%2F1934176344" anchor-label="enable" id="1574636822%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/enable.html"><span><span>enable</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1574636822%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/enable.html"><span class="token function">enable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enable a feature.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="341778487%2FFunctions%2F1934176344" anchor-label="enableGroup" id="341778487%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/enable-group.html"><span>enable</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="341778487%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/enable-group.html"><span class="token function">enableGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enable all features associated with the specified group.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k/enable-group.html"><span class="token function">enableGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -279,7 +219,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend operator override </span><span class="token keyword">fun </span><a href="get.html"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Read a feature from the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="get.html"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token operator">?</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -294,172 +234,52 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="get-all.html"><span class="token function">getAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Read all features from the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="get-all.html"><span class="token function">getAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-497842030%2FFunctions%2F1934176344" anchor-label="getAllGroups" id="-497842030%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
+<a data-name="791836089%2FFunctions%2F1934176344" anchor-label="group" id="791836089%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/get-all-groups.html"><span>get</span><wbr><span>All</span><wbr><span><span>Groups</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-497842030%2FFunctions%2F1934176344"></span>
+                  <div><a href="../../com.yonatankarp.ff4k/group.html"><span><span>group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="791836089%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/get-all-groups.html"><span class="token function">getAllGroups</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get all group names in the store.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../com.yonatankarp.ff4k/-feature-store/index.html">FeatureStore</a><span class="token punctuation">.</span><a href="../../com.yonatankarp.ff4k/group.html"><span class="token function">group</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1340197668%2FFunctions%2F1934176344" anchor-label="getGroup" id="-1340197668%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-893934136%2FFunctions%2F1934176344" anchor-label="put" id="-893934136%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/get-group.html"><span>get</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1340197668%2FFunctions%2F1934176344"></span>
+                  <div><a href="put.html"><span><span>put</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-893934136%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/get-group.html"><span class="token function">getGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Read all features in a group.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="put.html"><span class="token function">put</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Inserts or replaces the feature.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1530352800%2FFunctions%2F1934176344" anchor-label="getOrThrow" id="1530352800%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/get-or-throw.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1530352800%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/get-or-throw.html"><span class="token function">getOrThrow</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a></div><div class="brief "><p class="paragraph">Read a feature from the store or throw an exception if not found.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="78222689%2FFunctions%2F1934176344" anchor-label="grantRoleToFeature" id="78222689%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/grant-role-to-feature.html"><span>grant</span><wbr><span>Role</span><wbr><span>To</span><wbr><span><span>Feature</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="78222689%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/grant-role-to-feature.html"><span class="token function">grantRoleToFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">roleName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Grant a role/permission to a feature.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1368151454%2FFunctions%2F1934176344" anchor-label="isEmpty" id="-1368151454%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="is-empty.html"><span>is</span><wbr><span><span>Empty</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1368151454%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="is-empty.html"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check if the store contains no features.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1637704674%2FFunctions%2F1934176344" anchor-label="minusAssign" id="-1637704674%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="minus-assign.html"><span>minus</span><wbr><span><span>Assign</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1637704674%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend operator override </span><span class="token keyword">fun </span><a href="minus-assign.html"><span class="token function">minusAssign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Delete a feature from the store.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="816716071%2FFunctions%2F1934176344" anchor-label="plusAssign" id="816716071%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="plus-assign.html"><span>plus</span><wbr><span><span>Assign</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="816716071%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend operator override </span><span class="token keyword">fun </span><a href="plus-assign.html"><span class="token function">plusAssign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new feature in the store.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-101972879%2FFunctions%2F1934176344" anchor-label="removeFromGroup" id="-101972879%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/remove-from-group.html"><span>remove</span><wbr><span>From</span><wbr><span><span>Group</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-101972879%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/remove-from-group.html"><span class="token function">removeFromGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">groupName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Remove a feature from its group.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1262286160%2FFunctions%2F1934176344" anchor-label="revokeRoleFromFeature" id="1262286160%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/revoke-role-from-feature.html"><span>revoke</span><wbr><span>Role</span><wbr><span>From</span><wbr><span><span>Feature</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1262286160%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/revoke-role-from-feature.html"><span class="token function">revokeRoleFromFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">roleName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Revoke a role/permission from a feature.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1703494105%2FFunctions%2F1934176344" anchor-label="toggle" id="-1703494105%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-abstract-feature-store/toggle.html"><span><span>toggle</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703494105%2FFunctions%2F1934176344"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../-abstract-feature-store/toggle.html"><span class="token function">toggle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Toggle a feature's enabled state.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="514062492%2FFunctions%2F1934176344" anchor-label="update" id="514062492%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
+<a data-name="-899329189%2FFunctions%2F1934176344" anchor-label="update" id="-899329189%2FFunctions%2F1934176344" data-filterable-set=":ff4k-core/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":ff4k-core/commonMain" data-filterable-set=":ff4k-core/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="update.html"><span><span>update</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="514062492%2FFunctions%2F1934176344"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-899329189%2FFunctions%2F1934176344"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Update an existing feature in the store.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../../com.yonatankarp.ff4k.core/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Update a feature using a transformation function.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.yonatankarp.ff4k/-feature/index.html">Feature</a></div><div class="brief "><p class="paragraph">Atomically replaces the stored feature with the result of <a href="../../com.yonatankarp.ff4k/-feature-store/update.html">transform</a>.</p></div></div></div>
                 </div>
               </div>
             </div>

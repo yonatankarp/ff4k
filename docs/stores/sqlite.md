@@ -37,4 +37,7 @@ val json = Json {
     }
 }
 val featureStore = SqliteFeatureStore(driver, json)
+val propertyStore = SqlitePropertyStore(driver, json)
 ```
+
+Both stores must receive the same `json`, otherwise one of them will not recognise the custom types.

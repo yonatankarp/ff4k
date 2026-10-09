@@ -45,4 +45,4 @@ object H2Dialect : JdbcDialect {
 
 ## Custom strategies and property types
 
-Pass a `Json` built on `ff4kSerializersModule`, exactly as for the [SQLite store](sqlite.md#custom-strategies-and-property-types).
+Pass the same `Json` built on `ff4kSerializersModule` to both `JdbcFeatureStore` and `JdbcPropertyStore`, exactly as for the [SQLite store](sqlite.md#custom-strategies-and-property-types).

@@ -38,7 +38,7 @@ class FF4k(
     private fun Feature.isPermitted(context: Map<String, Any>): Boolean {
         if (permissions.isEmpty()) return true
         val roles = context[ROLES] as? Iterable<*> ?: return false
-        return roles.any { it.toString() in permissions }
+        return roles.any { it is String && it in permissions }
     }
 
     companion object {

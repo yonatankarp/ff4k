@@ -44,6 +44,12 @@ class FF4kTest :
             ff4k.check("admin-panel", mapOf(FF4k.ROLES to "ADMIN")) shouldBe false
         }
 
+        test("only string roles can match a permission") {
+            val ff4k = ff4k(Feature("f", enabled = true, permissions = setOf("null", "1")))
+            ff4k.check("f", mapOf(FF4k.ROLES to listOf(null))) shouldBe false
+            ff4k.check("f", mapOf(FF4k.ROLES to listOf(1))) shouldBe false
+        }
+
         test("a feature without permissions ignores roles") {
             ff4k(Feature("f", enabled = true)).check("f", mapOf(FF4k.ROLES to setOf("USER"))) shouldBe true
         }

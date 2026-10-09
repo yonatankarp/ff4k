@@ -5,7 +5,7 @@ import com.yonatankarp.ff4k.FeatureStore
 import com.yonatankarp.ff4k.PropertyStore
 import com.yonatankarp.ff4k.test.contract.FeatureStoreContractTest
 import com.yonatankarp.ff4k.test.contract.PropertyStoreContractTest
-import io.kotest.core.annotation.EnabledCondition
+import io.kotest.core.annotation.Condition
 import io.kotest.core.annotation.EnabledIf
 import io.kotest.core.spec.Spec
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +15,7 @@ import org.sqlite.SQLiteDataSource
 import org.testcontainers.DockerClientFactory
 import org.testcontainers.mysql.MySQLContainer
 import org.testcontainers.postgresql.PostgreSQLContainer
+import org.testcontainers.utility.DockerImageName
 import javax.sql.DataSource
 import kotlin.io.path.createTempFile
 import kotlin.reflect.KClass
@@ -32,7 +33,7 @@ private suspend fun DataSource.reset(): DataSource = apply {
     }
 }
 
-class DockerAvailable : EnabledCondition {
+class DockerAvailable : Condition {
     override fun evaluate(kclass: KClass<out Spec>): Boolean = DockerClientFactory.instance().isDockerAvailable
 }
 
@@ -48,44 +49,55 @@ class SqliteJdbcPropertyStoreTest : PropertyStoreContractTest() {
     override suspend fun createStore(): PropertyStore = JdbcPropertyStore(sqlite().reset(), JdbcDialect.Postgres)
 }
 
+// Official images come from the ECR Public mirror so tests do not depend on Docker Hub availability or rate limits.
+private fun mirrored(
+    image: String,
+    original: String,
+): DockerImageName = DockerImageName.parse("public.ecr.aws/docker/library/$image").asCompatibleSubstituteFor(original)
+
 // ---- PostgreSQL
 
-private val postgres: DataSource by lazy {
-    val container = PostgreSQLContainer("postgres:17-alpine").apply { start() }
-    PGSimpleDataSource().apply {
-        setUrl(container.jdbcUrl)
-        user = container.username
-        password = container.password
+// Result caches a failed start too, so one unavailable image fails every test at once instead of retrying per test.
+private val postgres: Result<DataSource> by lazy {
+    runCatching {
+        val container = PostgreSQLContainer(mirrored("postgres:17-alpine", "postgres")).apply { start() }
+        PGSimpleDataSource().apply {
+            setUrl(container.jdbcUrl)
+            user = container.username
+            password = container.password
+        }
     }
 }
 
 @EnabledIf(DockerAvailable::class)
 class PostgresJdbcFeatureStoreTest : FeatureStoreContractTest() {
-    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(postgres.reset(), JdbcDialect.Postgres)
+    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(postgres.getOrThrow().reset(), JdbcDialect.Postgres)
 }
 
 @EnabledIf(DockerAvailable::class)
 class PostgresJdbcPropertyStoreTest : PropertyStoreContractTest() {
-    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(postgres.reset(), JdbcDialect.Postgres)
+    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(postgres.getOrThrow().reset(), JdbcDialect.Postgres)
 }
 
 // ---- MySQL
 
-private val mysql: DataSource by lazy {
-    val container = MySQLContainer("mysql:8.4").apply { start() }
-    MysqlDataSource().apply {
-        setUrl(container.jdbcUrl)
-        user = container.username
-        password = container.password
+private val mysql: Result<DataSource> by lazy {
+    runCatching {
+        val container = MySQLContainer(mirrored("mysql:8.4", "mysql")).apply { start() }
+        MysqlDataSource().apply {
+            setUrl(container.jdbcUrl)
+            user = container.username
+            password = container.password
+        }
     }
 }
 
 @EnabledIf(DockerAvailable::class)
 class MysqlJdbcFeatureStoreTest : FeatureStoreContractTest() {
-    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(mysql.reset(), JdbcDialect.Mysql)
+    override suspend fun createStore(): FeatureStore = JdbcFeatureStore(mysql.getOrThrow().reset(), JdbcDialect.Mysql)
 }
 
 @EnabledIf(DockerAvailable::class)
 class MysqlJdbcPropertyStoreTest : PropertyStoreContractTest() {
-    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(mysql.reset(), JdbcDialect.Mysql)
+    override suspend fun createStore(): PropertyStore = JdbcPropertyStore(mysql.getOrThrow().reset(), JdbcDialect.Mysql)
 }

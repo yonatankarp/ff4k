@@ -1,39 +1,21 @@
-# Implementing a Property Store
+# Custom Property Store
 
-To create a custom property store, implement the `PropertyStore` interface.
+`PropertyStore` has four suspend functions:
 
 ```kotlin
-class MyCustomPropertyStore : PropertyStore {
-   // Implement interface...
+interface PropertyStore {
+    suspend fun get(name: String): Property<Any>?
+    suspend fun getAll(): List<Property<Any>>
+    suspend fun put(property: Property<Any>)   // insert or replace
+    suspend fun delete(name: String)           // no-op when missing
 }
 ```
 
-## Verifying Your Implementation
-
-It is critical to ensure your custom store behaves correctly. FF4K provides a [Contract Test Suite](testing.md) that you can use to automatically verify your implementation against the expected behavior.
+`Property` is not annotated `@Serializable` because its value is generic. Use `PropertySerializer` (one property) or `PropertyListSerializer` (a list) with any `Json` instance:
 
 ```kotlin
-class MyCustomPropertyStoreTest : PropertyStoreContractTest() {
-    override suspend fun createStore(): PropertyStore {
-        // Return a fresh instance of your store for each test
-        return MyCustomPropertyStore()
-    }
-}
+val text = ff4kJson.encodeToString(PropertySerializer, property)
+val property = ff4kJson.decodeFromString(PropertySerializer, text)
 ```
 
-This will run a suite of tests covering CRUD operations, concurrency, and error handling.
-
-## Registering Your Store
-
-Once implemented, pass your custom store to the `ff4k` configuration function.
-
-```kotlin
-suspend fun main() {
-    val ff4k = ff4k(
-        propertyStore = MyCustomPropertyStore()
-        // ...
-    ) {
-        // ...
-    }
-}
-```
+Verify your implementation with `PropertyStoreContractTest`, see [Contract Testing](testing.md).

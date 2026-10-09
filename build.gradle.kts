@@ -1,9 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.spotless)
     alias(libs.plugins.kover)
     alias(libs.plugins.dokka)
@@ -23,7 +20,6 @@ dependencies {
         .filter { it.name.startsWith("ff4k-") }
         .filter { "test" !in it.name }
         .filter { "ff4k-bom" !in it.name }
-        .filter { "ff4k-store-sql-common" !in it.name } // Excluded due to Kover/Kotlin 2.3 compatibility issue
         .forEach { kover(it) }
 
     // Documentation

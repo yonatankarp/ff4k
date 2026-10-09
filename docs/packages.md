@@ -1,22 +1,11 @@
 # Packages
 
-FF4K is modularized into several packages to allow for flexible usage and extension.
+| Package                  | Description                                                                                                                                      | Platforms |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
+| **`ff4k-bom`**           | Bill of Materials: import it to keep every FF4K module on the same version.                                                                      | Maven     |
+| **`ff4k-core`**          | The API (`FF4k`, `Feature`, `Property`, `FlippingStrategy`), in-memory stores, built-in strategies and JSON configuration.                        | JVM       |
+| **`ff4k-store-jdbc`**    | `FeatureStore` and `PropertyStore` for backend databases on any `DataSource`, with PostgreSQL and MySQL dialects.                                | JVM       |
+| **`ff4k-store-sqlite`**  | `FeatureStore` and `PropertyStore` backed by SQLite through SQLDelight.                                                                           | JVM       |
+| **`ff4k-contract-test`** | Kotest contract suites (`FeatureStoreContractTest`, `PropertyStoreContractTest`) to verify custom store implementations.                          | JVM       |
 
-| Package                  | Description                                                                                                                                                                       | Platform Support                                                                                                                                                                                                                                                                |
-|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`ff4k-bom`**           | The Bill of Materials (BOM) helps you manage versions of FF4K libraries. By importing the BOM, you ensure that all FF4K dependencies in your project use the same version.        | ![Maven](https://img.shields.io/badge/-Maven%20BOM-C71A36?style=flat&logo=apachemaven&logoColor=white)                                                                                                                                                                          |
-| **`ff4k-contract-test`** | Contains contract tests (like `FeatureStoreContractTest`) to verify that custom implementations of FF4K interfaces (e.g., custom Feature Stores) adhere to the expected behavior. | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/-Android-3DDC84?style=flat&logo=android&logoColor=white) ![iOS](https://img.shields.io/badge/-iOS-000000?style=flat&logo=apple&logoColor=white) |
-| **`ff4k-core`**          | The core library containing the main API, configuration logic, default stores, and standard strategies. This is the primary dependency for using FF4K.                            | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/-Android-3DDC84?style=flat&logo=android&logoColor=white) ![iOS](https://img.shields.io/badge/-iOS-000000?style=flat&logo=apple&logoColor=white) |
-| **`ff4k-store-jdbc`**    | A blocking JDBC feature store implementation. Ideal for traditional blocking JVM applications. See [supported databases](stores/jdbc.md).                                        | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white)                                                                                                                                                                                         |
-| **`ff4k-store-r2dbc`**   | A non-blocking, reactive R2DBC feature store implementation. Ideal for reactive applications (e.g., Spring WebFlux). See [supported databases](stores/r2dbc.md).                  | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white)                                                                                                                                                                                         |
-| **`ff4k-store-sqlite`**  | A Multiplatform SQLite feature store implementation. Supports JVM, Android, and iOS/Native targets.                                                                               | ![JVM](https://img.shields.io/badge/-JVM-7f52ff?style=flat&logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/-Android-3DDC84?style=flat&logo=android&logoColor=white) ![iOS](https://img.shields.io/badge/-iOS-000000?style=flat&logo=apple&logoColor=white) |
-
-## Database Requirements
-
-When using SQL-based stores, the following minimum database versions are required:
-
-| Database   | Minimum Version | Notes                                                    |
-|:-----------|:----------------|:---------------------------------------------------------|
-| MySQL      | 8.0.19+         | Required for row alias syntax in `INSERT ... AS` upserts |
-| PostgreSQL | 9.5+            | Required for `ON CONFLICT` upsert syntax                 |
-| SQLite     | 3.24.0+         | Required for `ON CONFLICT` upsert syntax                 |
+All modules are Kotlin Multiplatform with common code; the JVM target is the only one published today.

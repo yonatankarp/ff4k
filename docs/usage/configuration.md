@@ -1,113 +1,55 @@
 # Configuration
 
-FF4K supports loading feature flags and properties from configuration files, making it easy to manage your application's state without changing code.
+`FF4kConfiguration` is a serializable snapshot of features and properties. Load it from JSON and hand it to `FF4k`, which seeds in-memory stores from it.
 
-## The Configuration Object
+```kotlin
+val configuration = FF4kConfiguration.fromJson(File("ff4k.json").readText())
+val ff4k = FF4k(configuration)
+```
 
-The `FF4kConfiguration` class represents the complete state of your FF4K instance, including:
-- **Settings**: Global behavior like `autoCreate`.
-- **Features**: Initial feature flags.
-- **Properties**: Initial configuration properties.
-
-## Loading from JSON
-
-FF4K provides a `JsonFF4kConfigurationParser` to load configurations from JSON files or resources.
-
-### Example JSON
+## JSON format
 
 ```json
 {
-  "settings": {
-    "autoCreate": true
-  },
-  "features": {
-    "dark-mode": {
-      "uid": "dark-mode",
-      "isEnabled": true,
-      "description": "Enable dark mode UI"
+  "features": [
+    {
+      "id": "dark-mode",
+      "enabled": true,
+      "description": "Enable dark mode theme",
+      "group": "ui",
+      "permissions": ["ADMIN"],
+      "strategy": { "type": "userPercentage", "percentage": 10 },
+      "properties": [
+        { "name": "contrast", "type": "double", "value": 0.8 }
+      ]
     }
-  },
-  "properties": {
-    "api-timeout": {
-      "type": "int",
-      "name": "api-timeout",
-      "value": 5000
+  ],
+  "properties": [
+    { "name": "max-retries", "type": "int", "value": 3, "description": "Retries" }
+  ]
+}
+```
+
+Every field of a feature except `id` is optional. A strategy is identified by its `type` (see [Strategies](strategies.md)); a property by its `type` (see [Properties](properties.md)).
+
+## Exporting
+
+```kotlin
+val json = FF4kConfiguration(
+    features = ff4k.features.getAll(),
+    properties = ff4k.properties.getAll(),
+).toJson()
+```
+
+## Custom strategies in JSON
+
+`ff4kJson` is the `Json` instance used by `fromJson` and `toJson`. To parse your own strategies, build a `Json` whose `serializersModule` extends `ff4kSerializersModule` and call it directly:
+
+```kotlin
+val json = Json {
+    serializersModule = ff4kSerializersModule + SerializersModule {
+        polymorphic(FlippingStrategy::class) { subclass(MyStrategy::class) }
     }
-  }
 }
-```
-
-### Loading Resources
-
-You can load a configuration file bundled with your application using `parseConfigurationResource`.
-
-```kotlin
-val parser = JsonFF4kConfigurationParser()
-val config = parser.parseConfigurationResource("ff4k_config.json")
-```
-
-**Platform Specifics:**
-- **JVM/Android**: Loads from the classpath (e.g., `src/main/resources`).
-- **Native**: Searches in `$FF4K_RESOURCES_PATH/<path>`, then the current directory, then `resources/<path>`.
-
-### Loading Files
-
-You can load a configuration file from the filesystem using `parseConfigurationFile`.
-
-```kotlin
-val parser = JsonFF4kConfigurationParser()
-val config = parser.parseConfigurationFile("/etc/ff4k/config.json")
-```
-
-This method supports absolute paths and relative paths (resolved against the current working directory). Tilde (`~`) expansion is supported for user home directories.
-
-**Note:**
-- Tilde expansion only supports `~` and `~/...` (not `~username`).
-- An `IllegalArgumentException` is thrown if the home directory cannot be determined.
-- Paths containing directory traversal sequences (`..`) are rejected and will cause an `IllegalArgumentException`.
-
-## Initializing FF4K
-
-Once you have an `FF4kConfiguration` object, you can use it to initialize your stores.
-
-```kotlin
-val parser = JsonFF4kConfigurationParser()
-val config = parser.parseConfigurationResource("ff4k.json")
-
-val ff4k = ff4k(
-    featureStore = InMemoryFeatureStore(config),
-    propertyStore = InMemoryPropertyStore(config),
-    autoCreate = config.settings.autoCreate
-)
-```
-
-### Auditing Source
-
-You can optionally specify the `source` parameter when initializing `FF4k` to indicate the origin of API calls. This is useful for auditing or logging purposes in your application logic.
-
-```kotlin
-val ff4k = ff4k(
-    source = FF4k.Source.WebApi // or KotlinApi, EmbeddedServlet, Ssh
-) {
-    // ...
-}
-```
-
-This value is informational and does not affect feature evaluation logic.
-
-## Exporting Configuration
-
-You can also export the current configuration state to a JSON string, which is useful for debugging or persisting runtime changes.
-
-```kotlin
-suspend fun main() {
-    val config = FF4kConfiguration(
-        settings = FF4kSettings(autoCreate = ff4k.autoCreate),
-        features = ff4k.features(),
-        properties = ff4k.properties()
-    )
-
-    val json = parser.export(config)
-    File("snapshot.json").writeText(json)
-}
+val configuration: FF4kConfiguration = json.decodeFromString(text)
 ```

@@ -11,9 +11,10 @@
 .springBeans
 .sts4-cache
 
-# Claude
+# AI tooling
 .claude
-openspec
+.codex
+.agents
 AGENTS.md
 CLAUDE.md
 

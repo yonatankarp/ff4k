@@ -30,15 +30,16 @@ body:
       required: true
 
   - type: dropdown
-    id: platform
+    id: module
     attributes:
-      label: Platform
-      description: Which platform(s) are affected?
+      label: Module
+      description: Which module(s) are affected?
       multiple: true
       options:
-        - JVM
-        - Android
-        - iOS
+        - ff4k-core
+        - ff4k-store-jdbc
+        - ff4k-store-sqlite
+        - ff4k-contract-test
     validations:
       required: true
 
@@ -64,11 +65,11 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Any additional environment details (OS, JDK version, Android API level, iOS version, etc.)
+      description: Any additional environment details (OS, JDK version, database and version, etc.)
       placeholder: |
         - OS: macOS 14.0
         - JDK: 17
-        - Android API: 34
+        - Database: PostgreSQL 17
 
   - type: textarea
     id: stacktrace

@@ -1,114 +1,56 @@
 # Properties
 
-Properties in FF4K allow you to manage configuration values alongside your feature flags. Unlike feature flags which are boolean, properties can hold values of various types.
-
-## Built-in Property Types
-
-FF4K comes with support for common data types out of the box:
-
-### Primitives
-- `PropertyString`
-- `PropertyInt`
-- `PropertyLong`
-- `PropertyDouble`
-- `PropertyFloat`
-- `PropertyBoolean`
-- `PropertyByte`
-- `PropertyShort`
-
-### Big Numbers
-- `PropertyBigInteger`
-- `PropertyBigDecimal`
-
-### Date & Time
-- `PropertyLocalDate`
-- `PropertyLocalDateTime`
-- `PropertyInstant`
-
-### Miscellaneous
-- `PropertyLogLevel`
-
-## Usage
-
-### Defining Properties in DSL
-
-You can define properties within the `properties` block of the `ff4k` DSL.
+A `Property<T>` is a named, typed value with an optional description.
 
 ```kotlin
-suspend fun main() {
-    val ff4k = ff4k {
-        properties {
-            property("app-title") {
-                value = "My Awesome App"
-            }
+ff4k.properties.put(Property("max-retries", 3, description = "Retries"))
+ff4k.properties.put(Property("launch", Instant.parse("2026-06-01T00:00:00Z")))
 
-            property("max-connections") {
-                value = 10
-                description = "Maximum number of concurrent connections"
-            }
-        }
-    }
-}
+val retries: Int? = ff4k.property("max-retries")   // null when missing or not an Int
+val raw: Property<Any>? = ff4k.properties.get("max-retries")
+
+ff4k.properties.getAll()
+ff4k.properties.delete("max-retries")
 ```
 
-### Retrieving Properties
+## Supported value types
 
-To retrieve a property, use the `property` method. You should specify the expected type.
+Properties serialize to `{"name", "type", "value", "description"}`. The `type` field selects the Kotlin type:
 
-```kotlin
-// Get the property object
-val titleProp: Property<String>? = ff4k.property<String>("app-title")
-println("Title: ${titleProp?.value}")
+| `type`          | Kotlin type                   | JSON value |
+|-----------------|-------------------------------|------------|
+| `string`        | `String`                      | string     |
+| `int`           | `Int`                         | number     |
+| `long`          | `Long`                        | number     |
+| `double`        | `Double`                      | number     |
+| `boolean`       | `Boolean`                     | boolean    |
+| `instant`       | `kotlin.time.Instant`         | ISO-8601 string |
+| `localDate`     | `kotlinx.datetime.LocalDate`  | ISO-8601 string |
+| `localDateTime` | `kotlinx.datetime.LocalDateTime` | ISO-8601 string |
 
-// Get value directly (safe)
-val maxConns: Int? = ff4k.property<Int>("max-connections")?.value
-```
-
-## Creating Custom Properties
-
-If the built-in types don't meet your needs, you can create custom property types by implementing the `Property<T>` interface or extending `AbstractProperty<T>`.
-
-### 1. Implement the Interface
-
-You need to implement `Property<T>`. It's recommended to make your implementation a data class and include serialization support.
+In-memory stores accept any value type. For JSON configuration and persistent stores, any other value type must be a `@Serializable` class registered under `polymorphic(Any::class)`; its serial name becomes the `type`:
 
 ```kotlin
 @Serializable
-data class PropertyColor(
-    override val name: String,
-    override val value: String, // Storing hex code as string
-    override val description: String? = null,
-    override val fixedValues: Set<String> = emptySet(),
-    override val readOnly: Boolean = false
-) : Property<String>
+@SerialName("version")
+data class Version(val major: Int, val minor: Int)
+
+val json = Json {
+    serializersModule = ff4kSerializersModule + SerializersModule {
+        polymorphic(Any::class) { subclass(Version::class) }
+    }
+}
+val configuration: FF4kConfiguration = json.decodeFromString(text)   // {"name": "min", "type": "version", "value": {"major": 1, "minor": 2}}
+val featureStore = SqliteFeatureStore(driver, json)
 ```
 
-### 2. Using Custom Properties
+Scalar wrappers (value classes, enums) cannot be registered this way because `kotlinx.serialization` only allows class-shaped values in `polymorphic(Any::class)`.
 
-You can manually add custom properties to the store. Here is a complete example of how to register and use a custom property type:
+## Feature properties
+
+A feature can carry its own properties:
 
 ```kotlin
-suspend fun main() {
-    // 1. Initialize your property store
-    val myPropertyStore = InMemoryPropertyStore()
-
-    // 2. Initialize FF4K with your store
-    val ff4k = ff4k(propertyStore = myPropertyStore) {
-        // ... other configuration ...
-    }
-
-    // 3. Create your custom property
-    val brandColor = PropertyColor(
-        name = "brand-color",
-        value = "#FF5722",
-        description = "Primary brand color"
-    )
-
-    // 4. Add it to the store manually
-    myPropertyStore += brandColor
-
-    // 5. Retrieve and use it
-    val storedColor = ff4k.property<String>("brand-color")
-    println("Brand Color: ${storedColor?.value}") // Output: #FF5722
-}
+val feature = Feature("dark-mode", properties = listOf(Property("contrast", 0.8)))
+feature.property("contrast")?.value   // 0.8
 ```

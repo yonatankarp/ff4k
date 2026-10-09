@@ -48,16 +48,17 @@ body:
       description: Any alternative solutions or features you've considered?
 
   - type: dropdown
-    id: platform
+    id: module
     attributes:
-      label: Applicable Platform(s)
-      description: Which platform(s) would this feature apply to?
+      label: Applicable Module(s)
+      description: Which module(s) would this feature apply to?
       multiple: true
       options:
-        - All platforms
-        - JVM
-        - Android
-        - iOS
+        - ff4k-core
+        - ff4k-store-jdbc
+        - ff4k-store-sqlite
+        - ff4k-contract-test
+        - New module
 
   - type: checkboxes
     id: checklist

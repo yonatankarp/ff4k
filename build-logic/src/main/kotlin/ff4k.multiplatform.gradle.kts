@@ -3,53 +3,32 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.diffplug.spotless")
-    id("com.google.devtools.ksp")
     id("io.kotest")
 }
 
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
+// shortcut: jvm is the only target for now; add androidTarget()/iosX64() here when a consumer needs them
 kotlin {
     jvmToolchain(
         libs.findVersion("jvm-toolchain").get().requiredVersion.toInt()
     )
 
-    applyDefaultHierarchyTemplate()
+    jvm()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.findLibrary("kotlinx-coroutines-core").get())
-            }
+        commonMain.dependencies {
+            implementation(libs.findLibrary("kotlinx-coroutines-core").get())
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.findBundle("kotest").get())
-            }
+        commonTest.dependencies {
+            implementation(libs.findBundle("kotest").get())
+            implementation(libs.findLibrary("kotlinx-coroutines-test").get())
         }
-
-        val jvmSharedMain by creating {
-            dependsOn(commonMain)
-        }
-
-        val jvmSharedTest by creating {
-            dependsOn(commonTest)
+        jvmTest.dependencies {
+            implementation(libs.findLibrary("kotest-runner-junit5").get())
         }
     }
 }
-
-dependencies {
-    "jvmSharedMainCompileOnly"(kotlin("stdlib"))
-    "jvmSharedMainCompileOnly"(libs.findLibrary("kotlinx-coroutines-core").get())
-    "jvmSharedTestCompileOnly"(kotlin("stdlib"))
-    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-core").get())
-    "jvmSharedTestCompileOnly"(libs.findLibrary("kotlinx-coroutines-test").get())
-    "jvmSharedTestImplementation"(libs.findLibrary("kotest-runner-junit5").get())
-}
-
-apply(plugin = "ff4k.jvm")
-apply(plugin = "ff4k.android")
-apply(plugin = "ff4k.ios")
 
 tasks.withType<Test> {
     useJUnitPlatform()

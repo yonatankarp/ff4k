@@ -1,82 +1,47 @@
-# Implementing a Feature Store
+# Custom Feature Store
 
-To create a custom feature store, implement the `FeatureStore` interface. For convenience, it is highly recommended to extend `AbstractFeatureStore`, which handles most of the common logic and boilerplate.
-
-## Using AbstractFeatureStore
-
-`AbstractFeatureStore` provides default implementations for group management, permission handling helper methods, and validation. You primarily need to implement the core CRUD operations.
+`FeatureStore` has five suspend functions:
 
 ```kotlin
-class MyCustomFeatureStore : AbstractFeatureStore() {
-
-    // Helper map to simulate a DB for this example
-    private val db = mutableMapOf<String, Feature>()
-
-    override suspend fun get(featureId: String): Feature? {
-        return db[featureId]
-    }
-
-    override suspend fun getAll(): Map<String, Feature> {
-        return db.toMap()
-    }
-
-    // Using the 'plusAssign' operator for creation (store += feature)
-    override suspend fun plusAssign(feature: Feature) {
-        if (feature.uid in db) {
-            throw FeatureAlreadyExistsException(feature.uid)
-        }
-        db[feature.uid] = feature
-    }
-
-    // Using the 'minusAssign' operator for deletion (store -= featureId)
-    override suspend fun minusAssign(featureId: String) {
-         if (featureId !in db) {
-            throw FeatureNotFoundException(featureId)
-        }
-        db.remove(featureId)
-    }
-
-    override suspend fun update(feature: Feature) {
-         if (feature.uid !in db) {
-            throw FeatureNotFoundException(feature.uid)
-        }
-        db[feature.uid] = feature
-    }
-
-    override suspend fun clear() {
-        db.clear()
-    }
-    
-    // ... implement other abstract methods ...
+interface FeatureStore {
+    suspend fun get(id: String): Feature?
+    suspend fun getAll(): List<Feature>
+    suspend fun put(feature: Feature)                                  // insert or replace
+    suspend fun update(id: String, transform: (Feature) -> Feature): Feature
+    suspend fun delete(id: String)                                     // no-op when missing
 }
 ```
 
-## Verifying Your Implementation
+Rules every implementation must follow (the [contract tests](testing.md) check them):
 
-It is critical to ensure your custom store behaves correctly. FF4K provides a [Contract Test Suite](testing.md) that you can use to automatically verify your implementation against the expected behavior.
+- `get` returns null for unknown ids.
+- `update` is atomic against concurrent updates, throws `FeatureNotFoundException` for unknown ids, and rejects a transform that changes the id with `IllegalArgumentException`.
+- `enable`, `disable`, `group`, `enableGroup` and `disableGroup` are extension functions built on `update` and `getAll`; you do not implement them.
+
+Serialize a `Feature` with `ff4kJson` (or a `Json` whose module extends `ff4kSerializersModule`) when your backend stores text:
 
 ```kotlin
-class MyCustomFeatureStoreTest : FeatureStoreContractTest() {
-    override suspend fun createStore(): FeatureStore {
-        // Return a fresh instance of your store for each test
-        return MyCustomFeatureStore()
+class RedisFeatureStore(private val redis: RedisCommands) : FeatureStore {
+    override suspend fun get(id: String): Feature? =
+        redis.get("ff4k:feature:$id")?.let { ff4kJson.decodeFromString(it) }
+
+    override suspend fun getAll(): List<Feature> =
+        redis.keys("ff4k:feature:*").mapNotNull { redis.get(it) }.map { ff4kJson.decodeFromString(it) }
+
+    override suspend fun put(feature: Feature) {
+        redis.set("ff4k:feature:${feature.id}", ff4kJson.encodeToString(feature))
     }
-}
-```
 
-This will run a suite of tests covering CRUD operations, toggling features, group operations, permissions, and concurrency.
+    override suspend fun update(id: String, transform: (Feature) -> Feature): Feature {
+        // use WATCH/MULTI or a version field so concurrent updates do not lose writes
+        val updated = transform(get(id) ?: throw FeatureNotFoundException(id))
+        require(updated.id == id)
+        put(updated)
+        return updated
+    }
 
-## Registering Your Store
-
-Once implemented, pass your custom store to the `ff4k` configuration function.
-
-```kotlin
-suspend fun main() {
-    val ff4k = ff4k(
-        featureStore = MyCustomFeatureStore(),
-        // ...
-    ) {
-        // ...
+    override suspend fun delete(id: String) {
+        redis.del("ff4k:feature:$id")
     }
 }
 ```

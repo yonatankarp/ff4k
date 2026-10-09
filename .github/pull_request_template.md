@@ -19,9 +19,7 @@ Closes #
 <!-- How did you test these changes? -->
 
 - [ ] Unit tests added/updated
-- [ ] Tested on JVM
-- [ ] Tested on Android
-- [ ] Tested on iOS
+- [ ] Store changes pass the contract tests
 
 ## Checklist
 
@@ -29,4 +27,3 @@ Closes #
 - [ ] I have added tests that prove my fix/feature works
 - [ ] All tests pass (`./gradlew check`)
 - [ ] I have updated documentation if needed
-- [ ] I marked all checkboxes without reading

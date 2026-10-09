@@ -1,5 +1,5 @@
 # ff4k-store-sqlite
 
-SQLite-based `FeatureStore` and `PropertyStore` for multiplatform projects (JVM, Android, iOS, Native).
+SQLite-backed `FeatureStore` and `PropertyStore` built on SQLDelight.
 
-See [documentation](../docs/stores/sqlite.md) for supported platforms and usage.
+See the [documentation](../docs/stores/sqlite.md) for usage.

@@ -10,6 +10,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  # Ryuk is pulled from Docker Hub and only cleans up containers; runners are discarded after each job anyway.
+  TESTCONTAINERS_RYUK_DISABLED: "true"
+
 jobs:
   changes:
     runs-on: ubuntu-latest
@@ -96,9 +100,6 @@ jobs:
       - name: Build and test
         if: needs.changes.outputs.source == 'true'
         run: ./gradlew jvmTest --no-daemon
-        env:
-          # Ryuk is pulled from Docker Hub and only cleans up containers; the runner is discarded after the job anyway.
-          TESTCONTAINERS_RYUK_DISABLED: "true"
 
       - name: Upload coverage data
         if: needs.changes.outputs.source == 'true'

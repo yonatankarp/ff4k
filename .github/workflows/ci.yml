@@ -62,6 +62,7 @@ jobs:
   build-linux:
     needs: [changes, code-quality]
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         if: needs.changes.outputs.source == 'true'
@@ -79,6 +80,18 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Pull the Testcontainers images up front with retries, so a slow or rate-limited registry fails here instead of per test.
+      - name: Pull database images
+        if: needs.changes.outputs.source == 'true'
+        run: |
+          for image in postgres:17-alpine mysql:8.4; do
+            for attempt in 1 2 3; do
+              docker pull "$image" && break
+              [ "$attempt" = 3 ] && exit 1
+              sleep $((attempt * 15))
+            done
+          done
 
       - name: Build and test
         if: needs.changes.outputs.source == 'true'

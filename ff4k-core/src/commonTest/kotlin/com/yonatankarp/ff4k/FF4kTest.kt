@@ -30,6 +30,37 @@ class FF4kTest :
             ff4k.check("f") shouldBe false
         }
 
+        test("a feature with permissions is active only for callers holding one of them") {
+            val ff4k = ff4k(Feature("admin-panel", enabled = true, permissions = setOf("ADMIN", "OPS")))
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to setOf("OPS"))) shouldBe true
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to listOf("USER", "ADMIN"))) shouldBe true
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to setOf("USER"))) shouldBe false
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to emptySet<String>())) shouldBe false
+        }
+
+        test("a feature with permissions is inactive when no roles are given") {
+            val ff4k = ff4k(Feature("admin-panel", enabled = true, permissions = setOf("ADMIN")))
+            ff4k.check("admin-panel") shouldBe false
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to "ADMIN")) shouldBe false
+        }
+
+        test("a feature without permissions ignores roles") {
+            ff4k(Feature("f", enabled = true)).check("f", mapOf(FF4k.ROLES to setOf("USER"))) shouldBe true
+        }
+
+        test("matching roles do not activate a disabled feature") {
+            val ff4k = ff4k(Feature("admin-panel", enabled = false, permissions = setOf("ADMIN")))
+            ff4k.check("admin-panel", mapOf(FF4k.ROLES to setOf("ADMIN"))) shouldBe false
+        }
+
+        test("permissions are checked before the strategy") {
+            val strategy = ContextFilterStrategy("region", setOf("eu"))
+            val ff4k = ff4k(Feature("f", enabled = true, permissions = setOf("ADMIN"), strategy = strategy))
+            ff4k.check("f", mapOf("region" to "eu")) shouldBe false
+            ff4k.check("f", mapOf("region" to "eu", FF4k.ROLES to setOf("ADMIN"))) shouldBe true
+            ff4k.check("f", mapOf("region" to "us", FF4k.ROLES to setOf("ADMIN"))) shouldBe false
+        }
+
         test("property returns the typed value or null on type mismatch") {
             val ff4k = FF4k().apply { properties.put(Property("limit", 3)) }
             ff4k.property<Int>("limit") shouldBe 3

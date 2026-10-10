@@ -90,8 +90,7 @@ jobs:
         with:
           version: ${{ github.ref_name }}
           override: release-notes/{version}.md
-          scope-sections: |
-            deps=📦 In dependencies
+          dependencies: 📦 Dependencies
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3

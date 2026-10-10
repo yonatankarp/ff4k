@@ -1,0 +1,14 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:ff4k-contract-test
+com.yonatankarp.ff4k.test.contract
+module:ff4k-core
+com.yonatankarp.ff4k
+com.yonatankarp.ff4k.serialization
+com.yonatankarp.ff4k.store
+com.yonatankarp.ff4k.strategy
+module:ff4k-store-jdbc
+com.yonatankarp.ff4k.store.jdbc
+module:ff4k-store-sqlite
+com.yonatankarp.ff4k.store

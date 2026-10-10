@@ -34,7 +34,7 @@ class MongoFeatureStore(
             val row = documents.get(id) ?: throw FeatureNotFoundException(id)
             val updated = transform(json.decodeFromString(row.data))
             require(updated.id == id) { "Cannot change feature id during update: expected '$id', got '${updated.id}'" }
-            if (documents.updateIfVersion(id, json.encodeToString(updated), row.version)) return updated
+            if (documents.replaceIfUnchanged(id, row, json.encodeToString(updated))) return updated
         }
     }
 

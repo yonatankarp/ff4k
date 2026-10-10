@@ -26,10 +26,13 @@ internal class MongoDocuments(private val collection: MongoCollection<Document>)
         collection.updateOne(eq("_id", id), combine(set("data", data), inc("version", 1L)), UpdateOptions().upsert(true))
     }
 
-    /** Writes [data] only if the document still has [expectedVersion]; returns whether it did. */
-    suspend fun updateIfVersion(id: String, data: String, expectedVersion: Long): Boolean = collection.updateOne(
-        and(eq("_id", id), eq("version", expectedVersion)),
-        combine(set("data", data), set("version", expectedVersion + 1)),
+    /**
+     * Writes [data] only if the document is still exactly [expected], version and content; returns whether it
+     * did. The content check matters because a deleted and recreated document starts again at version 1.
+     */
+    suspend fun replaceIfUnchanged(id: String, expected: Row, data: String): Boolean = collection.updateOne(
+        and(eq("_id", id), eq("version", expected.version), eq("data", expected.data)),
+        combine(set("data", data), set("version", expected.version + 1)),
     ).matchedCount > 0
 
     suspend fun delete(id: String) {

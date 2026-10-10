@@ -2,9 +2,9 @@ package com.yonatankarp.ff4k.store.mongodb
 
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import com.yonatankarp.ff4k.Feature
-import com.yonatankarp.ff4k.FeatureNotFoundException
 import com.yonatankarp.ff4k.FeatureStore
 import com.yonatankarp.ff4k.serialization.ff4kJson
+import com.yonatankarp.ff4k.store.optimisticUpdate
 import kotlinx.serialization.json.Json
 import org.bson.Document
 
@@ -28,15 +28,13 @@ class MongoFeatureStore(
     override suspend fun update(
         id: String,
         transform: (Feature) -> Feature,
-    ): Feature {
-        // optimistic locking: retry until our write lands on the version we read
-        while (true) {
-            val row = documents.get(id) ?: throw FeatureNotFoundException(id)
-            val updated = transform(json.decodeFromString(row.data))
-            require(updated.id == id) { "Cannot change feature id during update: expected '$id', got '${updated.id}'" }
-            if (documents.replaceIfUnchanged(id, row, json.encodeToString(updated))) return updated
-        }
-    }
+    ): Feature = optimisticUpdate(
+        id,
+        transform,
+        read = { documents.get(id) },
+        decode = { json.decodeFromString(it.data) },
+        write = { row, updated -> documents.replaceIfUnchanged(id, row, json.encodeToString(updated)) },
+    )
 
     override suspend fun delete(id: String) = documents.delete(id)
 }

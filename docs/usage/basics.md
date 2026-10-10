@@ -47,13 +47,26 @@ ff4k.features.delete("dark-mode")
 if (ff4k.check("dark-mode")) { ... }
 ```
 
-`check` returns true when the feature exists, is enabled and its strategy, if any, accepts the context. Unknown features are reported as disabled.
+`check` returns true when the feature exists, is enabled, the caller holds one of its permissions (if it has any) and its strategy, if any, accepts the context. Unknown features are reported as disabled.
 
 Strategies read values from an evaluation context, a plain `Map<String, Any>`:
 
 ```kotlin
 ff4k.check("beta-checkout", mapOf("userId" to user.id, "region" to user.region))
 ```
+
+## Permissions
+
+A feature with `permissions` is active only for callers holding at least one of them. Pass the caller's roles as a collection under `FF4k.ROLES`:
+
+```kotlin
+ff4k.features.put(Feature("admin-panel", enabled = true, permissions = setOf("ADMIN", "OPS")))
+
+ff4k.check("admin-panel", mapOf(FF4k.ROLES to user.roles))   // true if user.roles contains ADMIN or OPS
+ff4k.check("admin-panel")                                     // false: no roles given
+```
+
+Features without permissions ignore roles. Permissions are checked before the strategy, so both must pass.
 
 ## Toggling and groups
 

@@ -5,9 +5,14 @@ on:
     tags:
       - 'v*'
 
+env:
+  # Ryuk is pulled from Docker Hub and only cleans up containers; runners are discarded after each job anyway.
+  TESTCONTAINERS_RYUK_DISABLED: "true"
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -29,6 +34,7 @@ jobs:
   publish:
     needs: [test]
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
     outputs:

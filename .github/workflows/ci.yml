@@ -97,16 +97,18 @@ jobs:
             done
           done
 
-      - name: Build and test
+      - name: Build, test and report coverage
         if: needs.changes.outputs.source == 'true'
-        run: ./gradlew jvmTest --no-daemon
+        run: ./gradlew jvmTest koverXmlReport --no-daemon
 
-      - name: Upload coverage data
+      # SonarCloud consumes this report, so the tests (and their containers) run only once.
+      - name: Upload coverage report
         if: needs.changes.outputs.source == 'true'
         uses: actions/upload-artifact@v7
         with:
-          name: kover-data-linux
-          path: '**/build/kover/bin-reports/'
+          name: kover-report
+          path: build/reports/kover/report.xml
+          if-no-files-found: error
           retention-days: 1
 
   sonarcloud:
@@ -119,30 +121,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
-        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: actions/setup-java@v6
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Gradle
-        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-
-      - name: Download all coverage artifacts
+      - name: Download coverage report
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
         uses: actions/download-artifact@v8
         with:
-          pattern: kover-data-*
-          path: .
-          merge-multiple: true
-
-      - name: Generate merged coverage report
-        if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'
-        run: ./gradlew koverXmlReport --no-daemon
+          name: kover-report
+          path: build/reports/kover
 
       - name: SonarCloud Scan
         if: needs.changes.outputs.source == 'true' && github.actor != 'dependabot[bot]'

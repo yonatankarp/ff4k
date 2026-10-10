@@ -79,7 +79,7 @@ val ff4k = FF4k(FF4kConfiguration.fromJson(File("ff4k.json").readText()))
 }
 ```
 
-Stores are pluggable: `ff4k-core` ships in-memory stores, `ff4k-store-jdbc` persists to PostgreSQL or MySQL on any `DataSource`, and `ff4k-store-sqlite` to SQLite through SQLDelight. Wrap a database store with `cached()` to keep flag checks off the database. Implement `FeatureStore` and `PropertyStore` for anything else and verify it with `ff4k-contract-test`.
+Stores are pluggable: `ff4k-core` ships in-memory stores, `ff4k-store-jdbc` persists to PostgreSQL or MySQL on any `DataSource`, `ff4k-store-mongodb` to MongoDB, and `ff4k-store-sqlite` to SQLite through SQLDelight. Wrap a database store with `cached()` to keep flag checks off the database. Implement `FeatureStore` and `PropertyStore` for anything else and verify it with `ff4k-contract-test`.
 
 See the [documentation](https://yonatankarp.github.io/ff4k/) for strategies, configuration and custom stores.
 

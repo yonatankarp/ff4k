@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.store.mongodb
 
+import com.mongodb.client.model.Collation
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.UpdateOptions
@@ -33,7 +34,13 @@ internal class MongoDocuments(private val collection: MongoCollection<Document>)
     suspend fun replaceIfUnchanged(id: String, expected: Row, data: String): Boolean = collection.updateOne(
         and(eq("_id", id), eq("version", expected.version), eq("data", expected.data)),
         combine(set("data", data), set("version", expected.version + 1)),
+        UpdateOptions().collation(BINARY),
     ).matchedCount > 0
+
+    private companion object {
+        // byte-wise comparison, so a collection's case-insensitive default collation cannot match a changed document
+        val BINARY: Collation = Collation.builder().locale("simple").build()
+    }
 
     suspend fun delete(id: String) {
         collection.deleteOne(eq("_id", id))

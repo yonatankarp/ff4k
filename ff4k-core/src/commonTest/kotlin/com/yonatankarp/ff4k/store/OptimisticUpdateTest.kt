@@ -5,6 +5,10 @@ import com.yonatankarp.ff4k.FeatureNotFoundException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.yield
 
 class OptimisticUpdateTest :
     FunSpec({
@@ -25,6 +29,15 @@ class OptimisticUpdateTest :
 
             result shouldBe Feature("f", enabled = true, description = "b")
             written shouldBe listOf(result)
+        }
+
+        test("a write that never lands can still be cancelled") {
+            coroutineScope {
+                val looping = async { optimisticUpdate("f", { it }, read = { Feature("f") }, decode = { it }, write = { _, _ -> false }) }
+                yield()
+                looping.cancel()
+                shouldThrow<CancellationException> { looping.await() }
+            }
         }
 
         test("throws FeatureNotFoundException when there is nothing to read") {

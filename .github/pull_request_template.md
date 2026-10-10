@@ -23,7 +23,7 @@ Closes #
 
 ## Release note
 
-<!-- One paragraph for the release notes, or "none". Without it the PR title is used. Only feat, change and fix PRs are listed. -->
+<!-- One paragraph for the release notes, or "none". Without it the PR title is used. Only feat, change, fix and chore(deps) PRs are listed. -->
 
 ## Checklist
 

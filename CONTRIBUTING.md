@@ -98,7 +98,7 @@ PR titles should follow the same format as commit messages:
 <type>(<scope>): <description>
 ```
 
-A CI check rejects any other title, because the release notes are built from it: `feat`, `change` and `fix` pull requests are listed under their heading, the rest are left out. The entry is the title, or the first paragraph under a `## Release note` heading in the description when there is one; write `none` there to leave a pull request out.
+A CI check rejects any other title, because the release notes are built from it: `feat`, `change` and `fix` pull requests are listed under their heading, `chore(deps)` dependency upgrades under Dependencies, and the rest are left out. The entry is the title, or the first paragraph under a `## Release note` heading in the description when there is one; write `none` there to leave a pull request out.
 
 #### PR Labels
 

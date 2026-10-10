@@ -17,7 +17,7 @@ ON CONFLICT(id) DO UPDATE SET data = excluded.data, version = version + 1;
 
 updateIfVersion:
 UPDATE features SET data = :data, version = :expectedVersion + 1
-WHERE id = :id AND version = :expectedVersion;
+WHERE id = :id AND version = :expectedVersion AND data = :expectedData;
 
 deleteById:
 DELETE FROM features WHERE id = ?;

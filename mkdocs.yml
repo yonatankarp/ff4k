@@ -46,7 +46,6 @@ nav:
       - Custom Property Store: customization/custom-property-store.md
       - Custom Flipping Strategy: customization/custom-strategy.md
       - Contract Testing: customization/testing.md
-  - Migrating from 0.3: migration.md
   - Packages: packages.md
   - API Reference: api_reference.md
 

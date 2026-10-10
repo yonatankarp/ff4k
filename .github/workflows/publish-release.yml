@@ -75,8 +75,22 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: read
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Built from the feat/fix/change PR titles since the previous tag, unless release-notes/<version>.md exists.
+      - name: Write release notes
+        id: notes
+        uses: yonatankarp/github-actions/.github/actions/release-notes@v2
+        with:
+          version: ${{ github.ref_name }}
+          override: release-notes/{version}.md
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
@@ -84,7 +98,7 @@ jobs:
           name: Release ${{ needs.publish.outputs.version }}
           draft: false
           prerelease: false
-          generate_release_notes: true
+          body_path: ${{ steps.notes.outputs.path }}
 
   deploy-docs:
     needs: publish

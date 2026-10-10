@@ -24,7 +24,7 @@ updates:
       include: "scope"
     open-pull-requests-limit: 10
     groups:
-      # Build/test dependencies - safe to update freely
+      # Build/test dependencies - safe to update freely, and left out of the release notes
       build-and-test:
         patterns:
           - "com.diffplug.spotless:*"
@@ -33,6 +33,9 @@ updates:
           - "com.vanniktech:*"
           - "io.kotest:*"
           - "org.testcontainers:*"
+          - "org.xerial:sqlite-jdbc"
+          - "org.postgresql:postgresql"
+          - "com.mysql:mysql-connector-j"
     ignore:
       # Kotlin - major updates require manual review
       - dependency-name: "org.jetbrains.kotlin:*"

@@ -76,7 +76,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 
 Add `!` after the type or scope for a breaking change, e.g. `feat!: remove the DSL`.
 
-Dependency upgrades use `chore(deps)`, which Dependabot does on its own, and are listed under **📦 Dependencies** in the release notes. GitHub Actions upgrades use `ci(deps)` and are left out.
+Dependency upgrades use `chore(deps)`, which Dependabot does on its own, and are listed under **📦 Dependencies** in the release notes, except build and test tooling (Dependabot's `build-and-test` group and the Gradle wrapper). GitHub Actions upgrades use `ci(deps)` and are left out.
 
 **Examples:**
 ```

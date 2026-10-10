@@ -14,13 +14,13 @@ updates:
         patterns:
           - "*"
 
-  # Gradle wrapper and dependencies
+  # Gradle wrapper and dependencies. `change(deps)` lists the bumps under their own heading in the release notes.
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "chore"
+      prefix: "change"
       include: "scope"
     open-pull-requests-limit: 10
     groups:

@@ -71,10 +71,12 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 | `docs`     | Documentation-only changes                              | No                    |
 | `refactor` | Code change that neither fixes a bug nor adds a feature | No                    |
 | `test`     | Adding or updating tests                                | No                    |
-| `chore`    | Maintenance tasks, dependency updates                   | No                    |
+| `chore`    | Maintenance tasks                                       | No                    |
 | `ci`       | CI/CD configuration changes                             | No                    |
 
 Add `!` after the type or scope for a breaking change, e.g. `feat!: remove the DSL`.
+
+Dependency upgrades use `change(deps)`, which Dependabot does on its own. They are listed under **📦 In dependencies** in the release notes rather than under Improvements.
 
 **Examples:**
 ```

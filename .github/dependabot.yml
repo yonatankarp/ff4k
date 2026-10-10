@@ -1,20 +1,20 @@
 version: 2
 
 updates:
-  # GitHub Actions - safe to update, doesn't affect library consumers
+  # GitHub Actions - safe to update, doesn't affect library consumers. `ci(deps)` keeps them out of the release notes.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "chore"
+      prefix: "ci"
       include: "scope"
     groups:
       github-actions:
         patterns:
           - "*"
 
-  # Gradle wrapper and dependencies
+  # Gradle wrapper and dependencies. `chore(deps)` lists them under Dependencies in the release notes.
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
@@ -24,7 +24,7 @@ updates:
       include: "scope"
     open-pull-requests-limit: 10
     groups:
-      # Build/test dependencies - safe to update freely
+      # Build/test dependencies - safe to update freely, and left out of the release notes
       build-and-test:
         patterns:
           - "com.diffplug.spotless:*"
@@ -33,6 +33,9 @@ updates:
           - "com.vanniktech:*"
           - "io.kotest:*"
           - "org.testcontainers:*"
+          - "org.xerial:sqlite-jdbc"
+          - "org.postgresql:postgresql"
+          - "com.mysql:mysql-connector-j"
     ignore:
       # Kotlin - major updates require manual review
       - dependency-name: "org.jetbrains.kotlin:*"

@@ -90,6 +90,11 @@ jobs:
         with:
           version: ${{ github.ref_name }}
           override: release-notes/{version}.md
+          dependencies: 📦 Dependencies
+          # Build and test tooling: Dependabot's build-and-test group and the Gradle wrapper.
+          dependencies-ignore: |
+            build-and-test
+            gradle-wrapper
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3

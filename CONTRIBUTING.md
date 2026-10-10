@@ -71,10 +71,12 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 | `docs`     | Documentation-only changes                              | No                    |
 | `refactor` | Code change that neither fixes a bug nor adds a feature | No                    |
 | `test`     | Adding or updating tests                                | No                    |
-| `chore`    | Maintenance tasks, dependency updates                   | No                    |
+| `chore`    | Maintenance tasks; `chore(deps)` for dependency upgrades | Only `chore(deps)`, under 📦 Dependencies |
 | `ci`       | CI/CD configuration changes                             | No                    |
 
 Add `!` after the type or scope for a breaking change, e.g. `feat!: remove the DSL`.
+
+Dependency upgrades use `chore(deps)`, which Dependabot does on its own, and are listed under **📦 Dependencies** in the release notes, except build and test tooling (Dependabot's `build-and-test` group and the Gradle wrapper). GitHub Actions upgrades use `ci(deps)` and are left out.
 
 **Examples:**
 ```
@@ -96,7 +98,7 @@ PR titles should follow the same format as commit messages:
 <type>(<scope>): <description>
 ```
 
-A CI check rejects any other title, because the release notes are built from it: `feat`, `change` and `fix` pull requests are listed under their heading, the rest are left out. The entry is the title, or the first paragraph under a `## Release note` heading in the description when there is one; write `none` there to leave a pull request out.
+A CI check rejects any other title, because the release notes are built from it: `feat`, `change` and `fix` pull requests are listed under their heading, `chore(deps)` dependency upgrades under Dependencies, and the rest are left out. The entry is the title, or the first paragraph under a `## Release note` heading in the description when there is one; write `none` there to leave a pull request out.
 
 #### PR Labels
 

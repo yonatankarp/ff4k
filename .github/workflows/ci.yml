@@ -89,7 +89,7 @@ jobs:
       - name: Pull database images
         if: needs.changes.outputs.source == 'true'
         run: |
-          for image in public.ecr.aws/docker/library/postgres:17-alpine public.ecr.aws/docker/library/mysql:8.4; do
+          for image in public.ecr.aws/docker/library/postgres:17-alpine public.ecr.aws/docker/library/mysql:8.4 public.ecr.aws/docker/library/mongo:7; do
             for attempt in 1 2 3; do
               timeout 120 docker pull "$image" && break
               [ "$attempt" = 3 ] && exit 1

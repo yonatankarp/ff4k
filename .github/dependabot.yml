@@ -49,6 +49,8 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "org.jetbrains.kotlinx:kotlinx-datetime"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "org.mongodb:*"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "app.cash.sqldelight:*"
         update-types: ["version-update:semver-major"]
       - dependency-name: "app.cash.sqldelight"

@@ -14,6 +14,7 @@ sqlite-jdbc = "3.53.4.0"
 mysql = "26.7.0"
 postgresql = "42.7.13"
 testcontainers = "2.0.5"
+mongodb = "5.13.0"
 
 [libraries]
 
@@ -43,6 +44,10 @@ postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" 
 testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
 testcontainers-mysql = { module = "org.testcontainers:testcontainers-mysql" }
 testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql" }
+testcontainers-mongodb = { module = "org.testcontainers:testcontainers-mongodb" }
+
+# MongoDB
+mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodb" }
 
 # SQLDelight
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }

@@ -1,0 +1,12 @@
+name: Pull request title
+
+# The release notes are built from the kind at the start of each PR title (feat, change, fix, ...).
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}
+
+jobs:
+  title:
+    uses: yonatankarp/github-actions/.github/workflows/pr-title.yml@v2

@@ -21,6 +21,10 @@ Closes #
 - [ ] Unit tests added/updated
 - [ ] Store changes pass the contract tests
 
+## Release note
+
+<!-- One paragraph for the release notes, or "none". Without it the PR title is used. Only feat, change and fix PRs are listed. -->
+
 ## Checklist
 
 - [ ] My code follows the project's code style (`./gradlew spotlessCheck` passes)

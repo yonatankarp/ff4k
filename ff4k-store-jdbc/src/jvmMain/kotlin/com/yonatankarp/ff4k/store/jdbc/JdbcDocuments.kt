@@ -57,13 +57,18 @@ internal class JdbcDocuments(
         }
     }
 
-    /** Writes [data] only if the row still has [expectedVersion]; returns whether it did. */
-    suspend fun updateIfVersion(id: String, data: String, expectedVersion: Long): Boolean = connection { c ->
-        c.prepareStatement("UPDATE $table SET data = ?, version = ? WHERE id = ? AND version = ?").use { s ->
+    /**
+     * Writes [data] only if the row still has [expectedVersion] and [expectedData]; returns whether it did.
+     * The data check catches a row deleted and recreated in between, which starts again at version 1.
+     */
+    suspend fun updateIfVersion(id: String, data: String, expectedVersion: Long, expectedData: String): Boolean = connection { c ->
+        val sql = "UPDATE $table SET data = ?, version = ? WHERE id = ? AND version = ? AND ${dialect.dataEquals()}"
+        c.prepareStatement(sql).use { s ->
             s.setString(1, data)
             s.setLong(2, expectedVersion + 1)
             s.setString(3, id)
             s.setLong(4, expectedVersion)
+            s.setString(5, expectedData)
             s.executeUpdate() > 0
         }
     }

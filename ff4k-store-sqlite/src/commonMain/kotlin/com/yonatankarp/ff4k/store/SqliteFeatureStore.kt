@@ -34,14 +34,14 @@ class SqliteFeatureStore(
         id: String,
         transform: (Feature) -> Feature,
     ): Feature {
-        // optimistic locking: retry until our write lands on the version we read
+        // optimistic locking: retry until our write lands on the version and data we read
         while (true) {
             val row = queries.selectById(id).awaitAsOneOrNull() ?: throw FeatureNotFoundException(id)
             val updated = transform(json.decodeFromString(row.data_))
             require(updated.id == id) { "Cannot change feature id during update: expected '$id', got '${updated.id}'" }
             var written = 0L
             queries.transaction {
-                queries.updateIfVersion(data = json.encodeToString(updated), expectedVersion = row.version, id = id)
+                queries.updateIfVersion(data = json.encodeToString(updated), expectedVersion = row.version, id = id, expectedData = row.data_)
                 written = queries.changes().awaitAsOne()
             }
             if (written > 0) return updated

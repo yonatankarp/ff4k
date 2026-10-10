@@ -1,6 +1,7 @@
 package com.yonatankarp.ff4k.store.jdbc
 
 import com.mysql.cj.jdbc.MysqlDataSource
+import com.yonatankarp.ff4k.Feature
 import com.yonatankarp.ff4k.FeatureStore
 import com.yonatankarp.ff4k.PropertyStore
 import com.yonatankarp.ff4k.test.contract.FeatureStoreContractTest
@@ -8,7 +9,9 @@ import com.yonatankarp.ff4k.test.contract.PropertyStoreContractTest
 import io.kotest.core.annotation.Condition
 import io.kotest.core.annotation.EnabledIf
 import io.kotest.core.spec.Spec
+import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.postgresql.ds.PGSimpleDataSource
 import org.sqlite.SQLiteDataSource
@@ -93,7 +96,25 @@ private val mysql: Result<DataSource> by lazy {
 }
 
 @EnabledIf(DockerAvailable::class)
-class MysqlJdbcFeatureStoreTest : FeatureStoreContractTest() {
+class MysqlJdbcFeatureStoreTest :
+    FeatureStoreContractTest(body = {
+        test("update does not overwrite a feature recreated with only a case change") {
+            val store = JdbcFeatureStore(mysql.getOrThrow().reset(), JdbcDialect.Mysql)
+            store.put(Feature("f", description = "original"))
+            var first = true
+            val updated = store.update("f") { feature ->
+                if (first) {
+                    first = false
+                    runBlocking {
+                        store.delete("f")
+                        store.put(Feature("f", description = "ORIGINAL"))
+                    }
+                }
+                feature.copy(enabled = true)
+            }
+            updated shouldBe Feature("f", enabled = true, description = "ORIGINAL")
+        }
+    }) {
     override suspend fun createStore(): FeatureStore = JdbcFeatureStore(mysql.getOrThrow().reset(), JdbcDialect.Mysql)
 }
 

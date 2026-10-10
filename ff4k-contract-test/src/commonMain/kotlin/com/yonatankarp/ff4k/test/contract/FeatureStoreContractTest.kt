@@ -19,10 +19,18 @@ import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-/** Behaviour every [FeatureStore] implementation must satisfy. Subclass and implement [createStore]. */
+/**
+ * Behaviour every [FeatureStore] implementation must satisfy. Subclass and implement [createStore].
+ * Pass [locksDuringUpdate] for stores that hold a lock while the update transform runs, so the test that calls the
+ * store from inside the transform is left out instead of deadlocking.
+ */
 @Ignored
-abstract class FeatureStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
+abstract class FeatureStoreContractTest(
+    locksDuringUpdate: Boolean = false,
+    body: FunSpec.() -> Unit = {},
+) : FunSpec(body) {
     abstract suspend fun createStore(): FeatureStore
 
     init {
@@ -76,6 +84,27 @@ abstract class FeatureStoreContractTest(body: FunSpec.() -> Unit = {}) : FunSpec
             val store = createStore()
             store.put(Feature("f"))
             shouldThrow<IllegalArgumentException> { store.update("f") { it.copy(id = "other") } }
+        }
+
+        if (!locksDuringUpdate) {
+            test("update does not overwrite a feature recreated while it ran") {
+                val store = createStore()
+                store.put(Feature("f", description = "original"))
+                var first = true
+                val updated = store.update("f") { feature ->
+                    if (first) {
+                        first = false
+                        runBlocking {
+                            store.delete("f")
+                            store.put(Feature("f", description = "recreated"))
+                        }
+                    }
+                    feature.copy(enabled = true)
+                }
+                val expected = Feature("f", enabled = true, description = "recreated")
+                updated shouldBe expected
+                store.get("f") shouldBe expected
+            }
         }
 
         test("delete removes the feature and is a no-op when missing") {

@@ -63,17 +63,18 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 
 **Types:**
 
-| Type       | Description                                             |
-|------------|---------------------------------------------------------|
-| `feat`     | A new feature                                           |
-| `fix`      | A bug fix                                               |
-| `docs`     | Documentation-only changes                              |
-| `style`    | Code style changes (formatting, etc.)                   |
-| `refactor` | Code change that neither fixes a bug nor adds a feature |
-| `perf`     | Performance improvement                                 |
-| `test`     | Adding or updating tests                                |
-| `chore`    | Maintenance tasks, dependency updates                   |
-| `ci`       | CI/CD configuration changes                             |
+| Type       | Description                                             | In release notes      |
+|------------|---------------------------------------------------------|-----------------------|
+| `feat`     | A new feature                                           | ✨ New features       |
+| `change`   | An improvement to existing behaviour                    | 🔧 Improvements       |
+| `fix`      | A bug fix                                               | 🐞 Bug fixes          |
+| `docs`     | Documentation-only changes                              | No                    |
+| `refactor` | Code change that neither fixes a bug nor adds a feature | No                    |
+| `test`     | Adding or updating tests                                | No                    |
+| `chore`    | Maintenance tasks, dependency updates                   | No                    |
+| `ci`       | CI/CD configuration changes                             | No                    |
+
+Add `!` after the type or scope for a breaking change, e.g. `feat!: remove the DSL`.
 
 **Examples:**
 ```
@@ -95,7 +96,7 @@ PR titles should follow the same format as commit messages:
 <type>(<scope>): <description>
 ```
 
-This ensures clear release notes when your PR is merged.
+A CI check rejects any other title, because the release notes are built from it: `feat`, `change` and `fix` pull requests are listed under their heading, the rest are left out. The entry is the title, or the first paragraph under a `## Release note` heading in the description when there is one; write `none` there to leave a pull request out.
 
 #### PR Labels
 

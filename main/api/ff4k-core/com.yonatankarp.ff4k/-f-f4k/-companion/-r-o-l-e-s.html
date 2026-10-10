@@ -2,8 +2,8 @@
 <html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>check</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <title>ROLES</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
     <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
       if (storage == null) {
@@ -18,22 +18,22 @@
         }
       }
     </script>
-<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
-<link href="../../../styles/style.css" rel="Stylesheet">
-<link href="../../../styles/main.css" rel="Stylesheet">
-<link href="../../../styles/prism.css" rel="Stylesheet">
-<link href="../../../styles/logo-styles.css" rel="Stylesheet">
-<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
-<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
-<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
-<script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script>
-<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
 <body>
 <div class="root">
     <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
-<a class="library-name--link" href="../../../index.html" tabindex="1">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
                     ff4k
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
@@ -89,12 +89,12 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="member" id="content" pageids="ff4k-core::com.yonatankarp.ff4k/FF4k/check/#kotlin.String#kotlin.collections.Map[kotlin.String,kotlin.Any]/PointingToDeclaration//1934176344">
-  <div class="breadcrumbs"><a href="../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../index.html">com.yonatankarp.ff4k</a><span class="delimiter">/</span><a href="index.html">FF4k</a><span class="delimiter">/</span><span class="current">check</span></div>
+<div class="main-content" data-page-type="member" id="content" pageids="ff4k-core::com.yonatankarp.ff4k/FF4k.Companion/ROLES/#/PointingToDeclaration//1934176344">
+  <div class="breadcrumbs"><a href="../../../index.html">ff4k-core</a><span class="delimiter">/</span><a href="../../index.html">com.yonatankarp.ff4k</a><span class="delimiter">/</span><a href="../index.html">FF4k</a><span class="delimiter">/</span><a href="index.html">Companion</a><span class="delimiter">/</span><span class="current">ROLES</span></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>check</span></span></h1>
+    <h1 class="cover"><span><span>ROLES</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="check.html"><span class="token function">check</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">context<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyMap()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/FF4k.kt#L25">source</a>)</span></span></div><p class="paragraph">Returns true when the feature exists, is enabled, the caller holds one of its permissions (if any) and its strategy (if any) accepts the <a href="check.html">context</a>. Unknown features are reported as disabled.</p><p class="paragraph">The caller's roles are read from <code class="lang-kotlin">context[</code>ROLES<code class="lang-kotlin">]</code> as a collection of strings. A feature with permissions is inactive when no roles are given.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ff4k-core/commonMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-r-o-l-e-s.html">ROLES</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/yonatankarp/ff4k/tree/main/ff4k-core/src/commonMain/kotlin/com/yonatankarp/ff4k/FF4k.kt#L46">source</a>)</span></span></div><p class="paragraph">Context key holding the caller's roles, matched against <a href="../../-feature/permissions.html">Feature.permissions</a>.</p></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">

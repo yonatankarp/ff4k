@@ -312,6 +312,23 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../migration.md" class="md-tabs__link">
+        
+  
+    
+  
+  Migrating from 0.3
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../packages/" class="md-tabs__link">
         
   
@@ -522,6 +539,15 @@
   <a href="#checking-a-flag" class="md-nav__link">
     <span class="md-ellipsis">
       Checking a flag
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Permissions
     </span>
   </a>
   
@@ -940,6 +966,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../migration.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating from 0.3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../packages/" class="md-nav__link">
         
   
@@ -1027,6 +1073,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#toggling-and-groups" class="md-nav__link">
     <span class="md-ellipsis">
       Toggling and groups
@@ -1098,27 +1153,35 @@
 <h2 id="checking-a-flag">Checking a flag<a class="headerlink" href="#checking-a-flag" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ff4k</span><span class="p">.</span><span class="na">check</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p><code>check</code> returns true when the feature exists, is enabled and its strategy, if any, accepts the context. Unknown features are reported as disabled.</p>
+<p><code>check</code> returns true when the feature exists, is enabled, the caller holds one of its permissions (if it has any) and its strategy, if any, accepts the context. Unknown features are reported as disabled.</p>
 <p>Strategies read values from an evaluation context, a plain <code>Map&lt;String, Any&gt;</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">check</span><span class="p">(</span><span class="s">"beta-checkout"</span><span class="p">,</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">"userId"</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">,</span><span class="w"> </span><span class="s">"region"</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">region</span><span class="p">))</span>
 </code></pre></div>
+<h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
+<p>A feature with <code>permissions</code> is active only for callers holding at least one of them. Pass the caller's roles as a collection under <code>FF4k.ROLES</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Feature</span><span class="p">(</span><span class="s">"admin-panel"</span><span class="p">,</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setOf</span><span class="p">(</span><span class="s">"ADMIN"</span><span class="p">,</span><span class="w"> </span><span class="s">"OPS"</span><span class="p">)))</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">check</span><span class="p">(</span><span class="s">"admin-panel"</span><span class="p">,</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="n">FF4k</span><span class="p">.</span><span class="na">ROLES</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">roles</span><span class="p">))</span><span class="w">   </span><span class="c1">// true if user.roles contains ADMIN or OPS</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">check</span><span class="p">(</span><span class="s">"admin-panel"</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// false: no roles given</span>
+</code></pre></div>
+<p>Features without permissions ignore roles. Permissions are checked before the strategy, so both must pass.</p>
 <h2 id="toggling-and-groups">Toggling and groups<a class="headerlink" href="#toggling-and-groups" title="Permanent link">&para;</a></h2>
 <p>Extension functions on <code>FeatureStore</code> cover the common edits:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">enable</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">disable</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">group</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span><span class="w">           </span><span class="c1">// List&lt;Feature&gt;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">enableGroup</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">disableGroup</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">enable</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">disable</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">group</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span><span class="w">           </span><span class="c1">// List&lt;Feature&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">enableGroup</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">disableGroup</span><span class="p">(</span><span class="s">"ui"</span><span class="p">)</span>
 </code></pre></div>
 <p>Anything else is a <code>copy</code> inside <code>update</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">permissions</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"BETA"</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">ff4k</span><span class="p">.</span><span class="na">features</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">"dark-mode"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">permissions</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"BETA"</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
 <p><code>check</code> reads the feature on every call. In-memory and SQLite stores make that cheap; a backend database does not. Wrap any store with <code>cached()</code> to serve reads from a snapshot refreshed every <code>ttl</code> (30 seconds by default). Writes made through the cached store go to the backend and invalidate the snapshot immediately; writes made elsewhere become visible after the ttl.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ff4k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FF4k</span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(</span><span class="n">ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10.</span><span class="n">seconds</span><span class="p">),</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcPropertyStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(),</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ff4k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FF4k</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcFeatureStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(</span><span class="n">ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10.</span><span class="n">seconds</span><span class="p">),</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdbcPropertyStore</span><span class="p">(</span><span class="n">dataSource</span><span class="p">,</span><span class="w"> </span><span class="n">JdbcDialect</span><span class="p">.</span><span class="na">Postgres</span><span class="p">).</span><span class="na">cached</span><span class="p">(),</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span>
 </code></pre></div>
 
 

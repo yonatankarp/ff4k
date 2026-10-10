@@ -14,8 +14,8 @@ import org.bson.Document
  */
 class MongoFeatureStore(
     database: MongoDatabase,
-    private val json: Json = ff4kJson,
     collection: String = "ff4k_features",
+    private val json: Json = ff4kJson,
 ) : FeatureStore {
     private val documents = MongoDocuments(database.getCollection<Document>(collection))
 

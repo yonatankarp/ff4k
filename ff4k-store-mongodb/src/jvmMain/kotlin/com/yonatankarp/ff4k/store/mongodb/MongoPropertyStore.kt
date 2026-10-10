@@ -11,8 +11,8 @@ import org.bson.Document
 /** Stores each property as a JSON document in the [collection] of [database]. */
 class MongoPropertyStore(
     database: MongoDatabase,
-    private val json: Json = ff4kJson,
     collection: String = "ff4k_properties",
+    private val json: Json = ff4kJson,
 ) : PropertyStore {
     private val documents = MongoDocuments(database.getCollection<Document>(collection))
 

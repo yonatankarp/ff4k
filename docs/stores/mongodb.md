@@ -42,6 +42,6 @@ val json = Json {
         polymorphic(FlippingStrategy::class) { subclass(MyStrategy::class) }
     }
 }
-val featureStore = MongoFeatureStore(database, json)
-val propertyStore = MongoPropertyStore(database, json)
+val featureStore = MongoFeatureStore(database, json = json)
+val propertyStore = MongoPropertyStore(database, json = json)
 ```

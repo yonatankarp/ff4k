@@ -40,12 +40,12 @@ class PercentageStrategyTest :
         }
 
         test("user percentage buckets stay stable across releases") {
-            rolloutBucket("dark-mode", "alice") shouldBe 55
-            rolloutBucket("dark-mode", "bob") shouldBe 39
-            rolloutBucket("beta-checkout", "alice") shouldBe 0
-            rolloutBucket("beta-checkout", "bob") shouldBe 46
-            rolloutBucket("f", "550e8400-e29b-41d4-a716-446655440000") shouldBe 40
-            rolloutBucket("f", "42") shouldBe 38
+            rolloutBucket("dark-mode", "alice") shouldBe 60
+            rolloutBucket("dark-mode", "bob") shouldBe 72
+            rolloutBucket("beta-checkout", "alice") shouldBe 16
+            rolloutBucket("beta-checkout", "bob") shouldBe 95
+            rolloutBucket("f", "550e8400-e29b-41d4-a716-446655440000") shouldBe 92
+            rolloutBucket("f", "42") shouldBe 15
         }
 
         test("each feature picks its users independently") {
@@ -61,6 +61,9 @@ class PercentageStrategyTest :
             first.size shouldBeInRange 9_500..10_500
             first.intersect(rollout("new-search-", 10)).size shouldBeInRange 800..1_200
             rollout("small", 1).intersect(rollout("big", 50)).size shouldBeInRange 400..600
+
+            // these ids share a hashCode()
+            rollout("feature-Aa", 10).intersect(rollout("feature-BB", 10)).size shouldBeInRange 800..1_200
         }
 
         test("raising the percentage keeps the users already active") {

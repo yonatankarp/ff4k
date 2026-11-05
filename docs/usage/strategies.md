@@ -24,6 +24,9 @@ The context is whatever the caller passes to `ff4k.check(id, context)`. Strategi
 
 A missing context key evaluates to false.
 
+!!! warning "Upgrading `userPercentage` rollouts"
+    Bucketing changed after 0.4.0: every user moves to a new bucket, so existing rollouts select different users after the upgrade. During a rolling deploy, old and new nodes can give the same user different answers. Renaming a feature also reshuffles its users, because its id is part of the bucket.
+
 ```kotlin
 Feature("eu-only", enabled = true, strategy = ContextFilterStrategy("region", setOf("eu")))
 Feature("rollout", enabled = true, strategy = UserPercentageStrategy(25))

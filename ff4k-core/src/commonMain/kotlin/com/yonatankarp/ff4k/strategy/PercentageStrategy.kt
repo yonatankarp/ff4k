@@ -46,7 +46,10 @@ data class UserPercentageStrategy(
 internal fun rolloutBucket(
     featureId: String,
     user: String,
-): Int = mix(user.hashCode() xor mix(featureId.hashCode())).mod(100)
+): Int = mix(user.hashCode() xor mix(fnv1a(featureId))).mod(100)
+
+// FNV-1a because ids like "feature-Aa" and "feature-BB" share a hashCode(), which would give them identical rollouts.
+private fun fnv1a(text: String): Int = text.fold(0x811c9dc5.toInt()) { hash, char -> (hash xor char.code) * 0x01000193 }
 
 // MurmurHash3 finalizer. Hashing "feature:user" with hashCode() alone only shifts every bucket by a constant,
 // which leaves rollouts of different features correlated.

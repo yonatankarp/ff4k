@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k
 interface FeatureStore {
     suspend fun get(id: String): Feature?
 
+    /** Returns every feature, leaving out stored documents that cannot be decoded. */
     suspend fun getAll(): List<Feature>
 
     /** Inserts or replaces the feature. */

@@ -16,7 +16,7 @@ The context is whatever the caller passes to `ff4k.check(id, context)`. Strategi
 |----------|-------------|-------------|
 | `ContextFilterStrategy(key, allowed)` | `contextFilter` | `context[key]` is one of `allowed` |
 | `PercentageStrategy(percentage)` | `percentage` | a random `percentage` of evaluations |
-| `UserPercentageStrategy(percentage, key = "userId")` | `userPercentage` | a stable `percentage` of users, bucketed by `context[key]` |
+| `UserPercentageStrategy(percentage, key = "userId")` | `userPercentage` | a stable `percentage` of users, bucketed by `context[key]` and the feature id, so each feature picks its users independently |
 | `ReleaseDateStrategy(releaseDate)` | `releaseDate` | now ≥ `releaseDate` |
 | `DateRangeStrategy(start, end)` | `dateRange` | `start` ≤ now < `end` |
 | `DailyHoursStrategy(startHour, endHour, timezone)` | `dailyHours` | the local hour is in `startHour until endHour` |

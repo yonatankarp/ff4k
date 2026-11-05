@@ -20,7 +20,10 @@ data class PercentageStrategy(val percentage: Int) : FlippingStrategy {
     ): Boolean = Random.nextInt(100) < percentage
 }
 
-/** Active for a stable [percentage] of users, bucketed by the context value under [key]. */
+/**
+ * Active for a stable [percentage] of users, bucketed by the context value under [key] and the feature id.
+ * Each feature picks its users independently, and raising [percentage] keeps the users already active.
+ */
 @Serializable
 @SerialName("userPercentage")
 data class UserPercentageStrategy(
@@ -36,6 +39,20 @@ data class UserPercentageStrategy(
         context: Map<String, Any>,
     ): Boolean {
         val user = context[key]?.toString() ?: return false
-        return (user.hashCode() and 0x7FFFFFFF) % 100 < percentage
+        return rolloutBucket(feature.id, user) < percentage
     }
+}
+
+internal fun rolloutBucket(
+    featureId: String,
+    user: String,
+): Int = mix(user.hashCode() xor mix(featureId.hashCode())).mod(100)
+
+// MurmurHash3 finalizer. Hashing "feature:user" with hashCode() alone only shifts every bucket by a constant,
+// which leaves rollouts of different features correlated.
+private fun mix(value: Int): Int {
+    var hash = value
+    hash = (hash xor (hash ushr 16)) * 0x85ebca6b.toInt()
+    hash = (hash xor (hash ushr 13)) * 0xc2b2ae35.toInt()
+    return hash xor (hash ushr 16)
 }

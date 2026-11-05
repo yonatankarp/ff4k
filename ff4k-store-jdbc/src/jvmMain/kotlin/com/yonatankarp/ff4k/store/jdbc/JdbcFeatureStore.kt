@@ -3,6 +3,7 @@ package com.yonatankarp.ff4k.store.jdbc
 import com.yonatankarp.ff4k.Feature
 import com.yonatankarp.ff4k.FeatureNotFoundException
 import com.yonatankarp.ff4k.FeatureStore
+import com.yonatankarp.ff4k.serialization.decodeOrNull
 import com.yonatankarp.ff4k.serialization.ff4kJson
 import kotlinx.serialization.json.Json
 import javax.sql.DataSource
@@ -21,7 +22,7 @@ class JdbcFeatureStore(
 
     override suspend fun get(id: String): Feature? = documents.get(id)?.let { json.decodeFromString(it.data) }
 
-    override suspend fun getAll(): List<Feature> = documents.getAll().map { json.decodeFromString(it) }
+    override suspend fun getAll(): List<Feature> = documents.getAll().mapNotNull { decodeOrNull { json.decodeFromString(it) } }
 
     override suspend fun put(feature: Feature) = documents.upsert(feature.id, json.encodeToString(feature))
 

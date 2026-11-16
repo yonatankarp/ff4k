@@ -53,6 +53,18 @@ runs:
         mkdir -p docs/api
         cp -r build/dokka/html/* docs/api/
 
+    # Dokka pages carry no canonical link, so search engines pick between the copies under latest/, main/ and each version.
+    - name: Add canonical links to KDoc
+      shell: bash
+      working-directory: docs
+      env:
+        VERSION: ${{ inputs.version }}
+      run: |
+        SITE_URL=$(sed -n 's/^site_url: *//p' ../mkdocs.yml)
+        test -n "$SITE_URL"
+        export BASE="${SITE_URL%/}/$VERSION/"
+        find api -name '*.html' -exec perl -pi -e 's#<head>#<head>\n<link rel="canonical" href="$ENV{BASE}$ARGV">#' {} +
+
     - name: Deploy docs with mike
       shell: bash
       run: mike deploy --push --update-aliases ${{ inputs.version }} ${{ inputs.aliases }}

@@ -3,7 +3,7 @@
 <div align="center">
 
 [![CI](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yonatankarp/ff4k/actions/workflows/ci.yml)
-[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://yonatankarp.github.io/ff4k/)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://yonatankarp.com/ff4k/)
 [![License Apache2](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.4.20-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17-orange.svg?logo=openjdk)](https://openjdk.org/)
@@ -81,7 +81,7 @@ val ff4k = FF4k(FF4kConfiguration.fromJson(File("ff4k.json").readText()))
 
 Stores are pluggable: `ff4k-core` ships in-memory stores, `ff4k-store-jdbc` persists to PostgreSQL or MySQL on any `DataSource`, and `ff4k-store-sqlite` to SQLite through SQLDelight. Wrap a database store with `cached()` to keep flag checks off the database. Implement `FeatureStore` and `PropertyStore` for anything else and verify it with `ff4k-contract-test`.
 
-See the [documentation](https://yonatankarp.github.io/ff4k/) for strategies, configuration and custom stores.
+See the [documentation](https://yonatankarp.com/ff4k/) for strategies, configuration and custom stores.
 
 ## Contributing
 

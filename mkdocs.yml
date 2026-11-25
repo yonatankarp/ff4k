@@ -39,6 +39,7 @@ nav:
   - Stores:
       - Overview: stores/index.md
       - JDBC: stores/jdbc.md
+      - Redis: stores/redis.md
       - SQLite: stores/sqlite.md
   - Customization:
       - Overview: customization/index.md

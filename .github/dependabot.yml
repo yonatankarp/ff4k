@@ -53,3 +53,5 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "app.cash.sqldelight"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "io.lettuce:*"
+        update-types: ["version-update:semver-major"]

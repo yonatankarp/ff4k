@@ -14,6 +14,7 @@ sqlite-jdbc = "3.53.4.0"
 mysql = "26.7.0"
 postgresql = "42.7.13"
 testcontainers = "2.0.5"
+lettuce = "7.8.0.RELEASE"
 
 [libraries]
 
@@ -41,8 +42,12 @@ sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 mysql = { module = "com.mysql:mysql-connector-j", version.ref = "mysql" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+testcontainers = { module = "org.testcontainers:testcontainers" }
 testcontainers-mysql = { module = "org.testcontainers:testcontainers-mysql" }
 testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql" }
+
+# Redis
+lettuce-core = { module = "io.lettuce:lettuce-core", version.ref = "lettuce" }
 
 # SQLDelight
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }

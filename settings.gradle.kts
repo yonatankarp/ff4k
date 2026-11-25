@@ -19,5 +19,6 @@ include(
     ":ff4k-contract-test",
     ":ff4k-core",
     ":ff4k-store-jdbc",
+    ":ff4k-store-redis",
     ":ff4k-store-sqlite",
 )

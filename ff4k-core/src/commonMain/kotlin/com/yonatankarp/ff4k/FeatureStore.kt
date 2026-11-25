@@ -10,6 +10,7 @@ interface FeatureStore {
 
     /**
      * Atomically replaces the stored feature with the result of [transform].
+     * [transform] may run more than once and must not call this store: some stores hold a lock while it runs.
      * @throws FeatureNotFoundException when no feature with [id] exists.
      */
     suspend fun update(

@@ -13,7 +13,7 @@ import io.kotest.matchers.shouldBe
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.TestTimeSource
 
-class CachedFeatureStoreContractTest : FeatureStoreContractTest() {
+class CachedFeatureStoreContractTest : FeatureStoreContractTest(locksDuringUpdate = true) {
     override suspend fun createStore(): FeatureStore = InMemoryFeatureStore().cached()
 }
 

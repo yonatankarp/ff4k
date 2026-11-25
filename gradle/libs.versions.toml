@@ -1,6 +1,6 @@
 [versions]
 coroutines = "1.11.0"
-dokka = "2.2.0"
+dokka = "2.3.0"
 jvm-toolchain = "17"
 kmp-datetime = "0.8.0"
 kotlin = "2.4.20"

@@ -1,5 +1,6 @@
 package com.yonatankarp.ff4k.strategy
 
+import com.yonatankarp.ff4k.Feature
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.ints.shouldBeInRange
@@ -36,6 +37,39 @@ class PercentageStrategyTest :
             hits shouldBeInRange 400..600
             UserPercentageStrategy(100).evaluate(feature, mapOf("userId" to "x")) shouldBe true
             UserPercentageStrategy(0).evaluate(feature, mapOf("userId" to "x")) shouldBe false
+        }
+
+        test("user percentage buckets stay stable across releases") {
+            rolloutBucket("dark-mode", "alice") shouldBe 60
+            rolloutBucket("dark-mode", "bob") shouldBe 72
+            rolloutBucket("beta-checkout", "alice") shouldBe 16
+            rolloutBucket("beta-checkout", "bob") shouldBe 95
+            rolloutBucket("f", "550e8400-e29b-41d4-a716-446655440000") shouldBe 92
+            rolloutBucket("f", "42") shouldBe 15
+        }
+
+        test("each feature picks its users independently") {
+            val users = (1..100_000).map { "user-$it" }
+
+            suspend fun rollout(
+                id: String,
+                percentage: Int,
+            ) = users.filter { UserPercentageStrategy(percentage).evaluate(Feature(id, enabled = true), mapOf("userId" to it)) }.toSet()
+
+            // same-length ids are the case a plain "feature:user" hashCode gets wrong
+            val first = rollout("checkout-v2", 10)
+            first.size shouldBeInRange 9_500..10_500
+            first.intersect(rollout("new-search-", 10)).size shouldBeInRange 800..1_200
+            rollout("small", 1).intersect(rollout("big", 50)).size shouldBeInRange 400..600
+
+            // these ids share a hashCode()
+            rollout("feature-Aa", 10).intersect(rollout("feature-BB", 10)).size shouldBeInRange 800..1_200
+        }
+
+        test("raising the percentage keeps the users already active") {
+            val users = (1..1_000).map { mapOf("userId" to "user-$it") }
+            val at10 = users.filter { UserPercentageStrategy(10).evaluate(feature, it) }
+            at10.filterNot { UserPercentageStrategy(20).evaluate(feature, it) } shouldBe emptyList()
         }
 
         test("user percentage reads a custom context key") {

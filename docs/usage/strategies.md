@@ -16,13 +16,16 @@ The context is whatever the caller passes to `ff4k.check(id, context)`. Strategi
 |----------|-------------|-------------|
 | `ContextFilterStrategy(key, allowed)` | `contextFilter` | `context[key]` is one of `allowed` |
 | `PercentageStrategy(percentage)` | `percentage` | a random `percentage` of evaluations |
-| `UserPercentageStrategy(percentage, key = "userId")` | `userPercentage` | a stable `percentage` of users, bucketed by `context[key]` |
+| `UserPercentageStrategy(percentage, key = "userId")` | `userPercentage` | a stable `percentage` of users, bucketed by `context[key]` and the feature id, so each feature picks its users independently |
 | `ReleaseDateStrategy(releaseDate)` | `releaseDate` | now ≥ `releaseDate` |
 | `DateRangeStrategy(start, end)` | `dateRange` | `start` ≤ now < `end` |
 | `DailyHoursStrategy(startHour, endHour, timezone)` | `dailyHours` | the local hour is in `startHour until endHour` |
 | `WeekdayStrategy(days, timezone)` | `weekday` | the local day of week is in `days` |
 
 A missing context key evaluates to false.
+
+!!! warning "Upgrading `userPercentage` rollouts"
+    Bucketing changed after 0.4.0: every user moves to a new bucket, so existing rollouts select different users after the upgrade. During a rolling deploy, old and new nodes can give the same user different answers. Renaming a feature also reshuffles its users, because its id is part of the bucket.
 
 ```kotlin
 Feature("eu-only", enabled = true, strategy = ContextFilterStrategy("region", setOf("eu")))

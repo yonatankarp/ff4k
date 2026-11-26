@@ -6,6 +6,7 @@ import app.cash.sqldelight.db.SqlDriver
 import com.yonatankarp.ff4k.Property
 import com.yonatankarp.ff4k.PropertyStore
 import com.yonatankarp.ff4k.serialization.PropertySerializer
+import com.yonatankarp.ff4k.serialization.decodeOrNull
 import com.yonatankarp.ff4k.serialization.ff4kJson
 import com.yonatankarp.ff4k.store.sqldelight.sqlite.SqliteDatabase
 import kotlinx.serialization.json.Json
@@ -19,7 +20,7 @@ class SqlitePropertyStore(
 
     override suspend fun get(name: String): Property<Any>? = queries.selectByName(name).awaitAsOneOrNull()?.let { json.decodeFromString(PropertySerializer, it.data_) }
 
-    override suspend fun getAll(): List<Property<Any>> = queries.selectAll().awaitAsList().map { json.decodeFromString(PropertySerializer, it.data_) }
+    override suspend fun getAll(): List<Property<Any>> = queries.selectAll().awaitAsList().mapNotNull { decodeOrNull { json.decodeFromString(PropertySerializer, it.data_) } }
 
     override suspend fun put(property: Property<Any>) {
         queries.upsert(property.name, json.encodeToString(PropertySerializer, property))

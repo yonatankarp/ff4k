@@ -18,6 +18,8 @@ Rules every implementation must follow (the [contract tests](testing.md) check t
 - `update` is atomic against concurrent updates, throws `FeatureNotFoundException` for unknown ids, and rejects a transform that changes the id with `IllegalArgumentException`.
 - `enable`, `disable`, `group`, `enableGroup` and `disableGroup` are extension functions built on `update` and `getAll`; you do not implement them.
 
+`getAll` should also leave out documents it cannot decode, by wrapping the decoding in `decodeOrNull`. The contract tests cannot check this. Otherwise one bad document makes every refresh of a `cached()` store fail, and that node keeps serving its last snapshot.
+
 Serialize a `Feature` with `ff4kJson` (or a `Json` whose module extends `ff4kSerializersModule`) when your backend stores text:
 
 ```kotlin
@@ -26,7 +28,7 @@ class RedisFeatureStore(private val redis: RedisCommands) : FeatureStore {
         redis.get("ff4k:feature:$id")?.let { ff4kJson.decodeFromString(it) }
 
     override suspend fun getAll(): List<Feature> =
-        redis.keys("ff4k:feature:*").mapNotNull { redis.get(it) }.map { ff4kJson.decodeFromString(it) }
+        redis.keys("ff4k:feature:*").mapNotNull { redis.get(it) }.mapNotNull { decodeOrNull { ff4kJson.decodeFromString(it) } }
 
     override suspend fun put(feature: Feature) {
         redis.set("ff4k:feature:${feature.id}", ff4kJson.encodeToString(feature))

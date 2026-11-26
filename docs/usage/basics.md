@@ -88,7 +88,9 @@ ff4k.features.update("dark-mode") { it.copy(permissions = it.permissions + "BETA
 
 ## Caching
 
-`check` reads the feature on every call. In-memory and SQLite stores make that cheap; a backend database does not. Wrap any store with `cached()` to serve reads from a snapshot refreshed every `ttl` (30 seconds by default). Writes made through the cached store go to the backend and invalidate the snapshot immediately; writes made elsewhere become visible after the ttl.
+`check` reads the feature on every call. In-memory and SQLite stores make that cheap; a backend database does not. Wrap any store with `cached()` to serve reads from a snapshot refreshed every `ttl` (30 seconds by default). Writes made through the cached store go to the backend and expire the snapshot immediately; writes made elsewhere become visible after the ttl.
+
+When a refresh fails, reads keep serving the last snapshot and the refresh is retried after the ttl. If the store has never loaded successfully, reads throw the failure until that retry. Neither case is reported yet, so watch your database health separately.
 
 ```kotlin
 val ff4k = FF4k(

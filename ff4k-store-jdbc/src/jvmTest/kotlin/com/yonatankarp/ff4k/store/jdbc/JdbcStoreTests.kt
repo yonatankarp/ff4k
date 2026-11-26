@@ -1,13 +1,19 @@
 package com.yonatankarp.ff4k.store.jdbc
 
 import com.mysql.cj.jdbc.MysqlDataSource
+import com.yonatankarp.ff4k.FF4k
+import com.yonatankarp.ff4k.Feature
 import com.yonatankarp.ff4k.FeatureStore
+import com.yonatankarp.ff4k.Property
 import com.yonatankarp.ff4k.PropertyStore
+import com.yonatankarp.ff4k.store.cached
 import com.yonatankarp.ff4k.test.contract.FeatureStoreContractTest
 import com.yonatankarp.ff4k.test.contract.PropertyStoreContractTest
 import io.kotest.core.annotation.Condition
 import io.kotest.core.annotation.EnabledIf
 import io.kotest.core.spec.Spec
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.postgresql.ds.PGSimpleDataSource
@@ -48,6 +54,39 @@ class SqliteJdbcFeatureStoreTest : FeatureStoreContractTest() {
 class SqliteJdbcPropertyStoreTest : PropertyStoreContractTest() {
     override suspend fun createStore(): PropertyStore = JdbcPropertyStore(sqlite().reset(), JdbcDialect.Postgres)
 }
+
+class JdbcUnreadableRowTest :
+    FunSpec({
+        suspend fun dataSource() = sqlite().reset().also {
+            withContext(Dispatchers.IO) {
+                it.connection.use { c ->
+                    c.createStatement().use { s ->
+                        s.execute("""INSERT INTO ${JdbcSchema.FEATURES_TABLE} (id, data) VALUES ('unknown-type', '{"id":"unknown-type","enabled":true,"strategy":{"type":"geoFence"}}')""")
+                        s.execute("""INSERT INTO ${JdbcSchema.FEATURES_TABLE} (id, data) VALUES ('bad-zone', '{"id":"bad-zone","strategy":{"type":"weekday","days":[],"timezone":"Mars/Base"}}')""")
+                        s.execute("""INSERT INTO ${JdbcSchema.PROPERTIES_TABLE} (id, data) VALUES ('unknown-type', '{"name":"unknown-type","type":"uuid","value":"x"}')""")
+                    }
+                }
+            }
+        }
+
+        test("an undecodable feature does not hide the others") {
+            val store = JdbcFeatureStore(dataSource(), JdbcDialect.Postgres)
+            store.put(Feature("healthy", enabled = true))
+
+            store.getAll().map { it.id } shouldBe listOf("healthy")
+            FF4k(store).check("healthy") shouldBe true
+            FF4k(store.cached()).check("healthy") shouldBe true
+            FF4k(store.cached()).check("unknown-type") shouldBe false
+        }
+
+        test("an undecodable property does not hide the others") {
+            val store = JdbcPropertyStore(dataSource(), JdbcDialect.Postgres)
+            store.put(Property("healthy", 1))
+
+            store.getAll().map { it.name } shouldBe listOf("healthy")
+            FF4k(properties = store.cached()).property<Int>("healthy") shouldBe 1
+        }
+    })
 
 // Official images come from the ECR Public mirror so tests do not depend on Docker Hub availability or rate limits.
 private fun mirrored(

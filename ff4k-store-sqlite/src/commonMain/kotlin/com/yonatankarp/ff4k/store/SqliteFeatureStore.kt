@@ -7,6 +7,7 @@ import app.cash.sqldelight.db.SqlDriver
 import com.yonatankarp.ff4k.Feature
 import com.yonatankarp.ff4k.FeatureNotFoundException
 import com.yonatankarp.ff4k.FeatureStore
+import com.yonatankarp.ff4k.serialization.decodeOrNull
 import com.yonatankarp.ff4k.serialization.ff4kJson
 import com.yonatankarp.ff4k.store.sqldelight.sqlite.SqliteDatabase
 import kotlinx.serialization.json.Json
@@ -24,7 +25,7 @@ class SqliteFeatureStore(
 
     override suspend fun get(id: String): Feature? = queries.selectById(id).awaitAsOneOrNull()?.let { json.decodeFromString(it.data_) }
 
-    override suspend fun getAll(): List<Feature> = queries.selectAll().awaitAsList().map { json.decodeFromString(it.data_) }
+    override suspend fun getAll(): List<Feature> = queries.selectAll().awaitAsList().mapNotNull { decodeOrNull { json.decodeFromString(it.data_) } }
 
     override suspend fun put(feature: Feature) {
         queries.upsert(feature.id, json.encodeToString(feature))

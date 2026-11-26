@@ -35,6 +35,18 @@ val ff4kSerializersModule = SerializersModule {
     }
 }
 
+/**
+ * Returns the result of [decode], or null when the stored document cannot be decoded, for example because a newer
+ * node wrote a strategy type this one does not know. `getAll` implementations use it so one such row does not hide
+ * all the others.
+ */
+inline fun <T> decodeOrNull(decode: () -> T): T? = try {
+    decode()
+} catch (_: IllegalArgumentException) {
+    // shortcut: skipped rows are not reported anywhere, surface them once the audit hook (#25) exists
+    null
+}
+
 val ff4kJson = Json {
     serializersModule = ff4kSerializersModule
     ignoreUnknownKeys = true

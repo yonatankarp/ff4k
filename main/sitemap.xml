@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/api_reference/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/api_reference/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/packages/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/packages/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/customization/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/customization/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/customization/custom-feature-store/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/customization/custom-feature-store/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/customization/custom-property-store/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/customization/custom-property-store/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/customization/custom-strategy/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/customization/custom-strategy/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/customization/testing/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/customization/testing/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/stores/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/stores/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/stores/jdbc/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/stores/jdbc/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/stores/sqlite/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/stores/sqlite/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/usage/basics/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/usage/basics/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/usage/configuration/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/usage/configuration/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/usage/properties/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/usage/properties/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
-         <loc>https://yonatankarp.com/ff4k/main/usage/strategies/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <loc>https://yonatankarp.com/ff4k/latest/usage/strategies/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
 </urlset>

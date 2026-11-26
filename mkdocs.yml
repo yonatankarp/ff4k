@@ -63,6 +63,9 @@ markdown_extensions:
 
 plugins:
   - search
+  # Every copy (latest/, main/, each version) names latest/ as canonical: the versions are kept out of search by the site's robots.txt.
+  - mike:
+      canonical_version: latest
 
 extra:
   version:
